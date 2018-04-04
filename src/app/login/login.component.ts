@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from './user'
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,8 +16,14 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     this.authService.login().subscribe(() => {
-      this.router.navigate(['layout']);
-    })
+      console.log("Login Success");
+    });
+  }
+
+  logout(): void {
+    this.authService.something().subscribe(() => {
+      console.log("Login Success");
+    });
   }
 
   ngOnInit() {

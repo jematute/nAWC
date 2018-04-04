@@ -6,10 +6,11 @@ import { AppComponent } from './app.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { APP_BASE_HREF } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from './login/auth.service';
+import { AuthInterceptor } from './login/auth.interceptor';
 
 
 @NgModule({
@@ -22,6 +23,10 @@ import { AuthService } from './login/auth.service';
     AppRoutingModule, HttpClientModule, FormsModule
   ],
   bootstrap: [AppComponent],
-  providers: [ { provide: APP_BASE_HREF, useValue: '/' }, HttpClient, AuthService ]
+  providers: [ { provide: APP_BASE_HREF, useValue: '/' }, HttpClient, AuthService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  } ]
 })
 export class AppModule { }
