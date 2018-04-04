@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
@@ -11,6 +12,10 @@ export class AuthService {
 
   // store the URL so we can redirect after logging in
   redirectUrl: string;
+
+  constructor(private http: HttpClient) {
+
+  }
 
   login(): Observable<boolean> {
     return Observable.of(true).delay(1000).do(val => this.isLoggedIn = true);
