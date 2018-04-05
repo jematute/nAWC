@@ -8,8 +8,10 @@ import { AuthService } from '../../login/auth.service';
 })
 export class HeaderComponent implements OnInit {
   constructor(private auth: AuthService) { }
-  logout(): void {
-    this.auth.logout();
+  getColumns(): void {
+    this.auth.something().subscribe(columns => {
+      console.log(columns); 
+    });
   } 
   ngOnInit() {
   }

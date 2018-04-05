@@ -7,23 +7,24 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { APP_BASE_HREF } from '@angular/common';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { LoginComponent } from './login/login.component';
-import { FormsModule } from '@angular/forms';
 import { AuthService } from './login/auth.service';
 import { AuthInterceptor } from './login/auth.interceptor';
+import { LoginModule } from './login/login.module';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent, LoginComponent
+    AppComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
     NbThemeModule.forRoot({ name: 'default' }),
-    AppRoutingModule, HttpClientModule, FormsModule
+    AppRoutingModule, HttpClientModule, LoginModule
   ],
   bootstrap: [AppComponent],
-  providers: [ { provide: APP_BASE_HREF, useValue: '/' }, HttpClient, AuthService, {
+  providers: [ { provide: APP_BASE_HREF, useValue: '/' }, HttpClient, {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true

@@ -33,7 +33,7 @@ export class AuthService {
 
   login(): Observable<Object> {
     let credentials = "username=juan.matute&password=kemdog&client_secret=zd2345rtl&client_id=WebApi&grant_type=password";
-    return this.http.post('http://localhost:8686/synergis.webapi/login', credentials, httpOptions).map(data => {
+    return this.http.post('http://192.168.1.14:8686/synergis.webapi/login', credentials, httpOptions).map(data => {
       this.accessToken = data["access_token"];
       this.refreshToken = data["refresh_token"];
       this.isLoggedIn = true;
@@ -48,14 +48,14 @@ export class AuthService {
   }
 
   something(): Observable<Object> {
-    return this.http.get('http://localhost:8686/synergis.webapi/api/column/allavailable');
+    return this.http.get('http://192.168.1.14:8686/synergis.webapi/api/column/allavailable');
   }
 
   public getNewToken(): Observable<string> {
     console.log("Refreshing Token: " + this.refreshToken);
     let refreshToken = atob(this.refreshToken);
     let credentials = `grant_type=refresh_token&refresh_token=${refreshToken}&client_id=WebApi&client_secret=zd2345rtl`;
-    return this.http.post('http://localhost:8686/synergis.webapi/login', credentials, httpOptions).map(data => {
+    return this.http.post('http://192.168.1.14:8686/synergis.webapi/login', credentials, httpOptions).map(data => {
         console.log("token refreshed successfully: " + this.refreshToken);
         this.accessToken = data["access_token"];
         this.refreshToken = data["refresh_token"];

@@ -8,7 +8,8 @@ import {
     HttpResponse,
     HttpSentEvent,
     HttpHeaderResponse,
-    HttpProgressEvent
+    HttpProgressEvent,
+    HttpUserEvent
 } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from './auth.service';
@@ -18,6 +19,8 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/finally';
 import 'rxjs/add/operator/take';
+import 'rxjs/add/observable/throw';
+
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
@@ -41,8 +44,9 @@ export class AuthInterceptor implements HttpInterceptor {
                 if (error instanceof HttpErrorResponse) {
                     switch ((<HttpErrorResponse>error).status) {
                         case 401:
-                            return this.handle401Error(req, next);
+                            return this.handle401Error(req, next);                
                     }
+                    return Observable.throw(error);
                 } else {
                     return Observable.throw(error);
                 }

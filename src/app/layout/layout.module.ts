@@ -5,6 +5,8 @@ import { LayoutComponent } from './layout.component';
 import { ResultsComponent } from '../results/results.component';
 import { HeaderComponent } from './header/header.component';
 import { AuthGuard } from './auth.guard';
+import { NbSidebarModule, NbLayoutModule, NbSidebarService, NbContextMenuModule, NbPopoverModule, NbMenuModule } from '@nebular/theme';
+import { NbPopoverComponent } from '@nebular/theme/components/popover/popover.component';
 
 const LAYOUT_COMPONENTS = [
     LayoutComponent, ResultsComponent, HeaderComponent
@@ -12,13 +14,18 @@ const LAYOUT_COMPONENTS = [
 
 @NgModule({
   imports: [
-    LayoutRoutingModule
+    LayoutRoutingModule,
+    NbLayoutModule,
+    NbSidebarModule,
+    NbContextMenuModule,
+    NbPopoverModule,
+    NbMenuModule
   ],
   declarations: [
     ...LAYOUT_COMPONENTS,
   ],
   exports: [ ], 
-  providers: [ AuthGuard ]
+  providers: [ AuthGuard, NbSidebarService ]
 })
 export class LayoutModule {
 }
