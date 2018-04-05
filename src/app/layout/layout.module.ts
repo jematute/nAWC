@@ -14,7 +14,7 @@ const LAYOUT_COMPONENTS = [
 
 @NgModule({
   imports: [
-    LayoutRoutingModule,
+    LayoutRoutingModule
   ],
   declarations: [
     ...LAYOUT_COMPONENTS,

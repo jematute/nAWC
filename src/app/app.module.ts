@@ -10,6 +10,7 @@ import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common
 import { AuthService } from './login/auth.service';
 import { AuthInterceptor } from './login/auth.interceptor';
 import { LoginModule } from './login/login.module';
+import { ErrorModule } from './error/error.module';
 
 
 @NgModule({
@@ -19,9 +20,9 @@ import { LoginModule } from './login/login.module';
   imports: [
     BrowserModule,
     NbThemeModule.forRoot({ name: 'default' }),
-    AppRoutingModule, HttpClientModule, LoginModule
+    AppRoutingModule, HttpClientModule, LoginModule, ErrorModule
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [ AppComponent ],
   providers: [ { provide: APP_BASE_HREF, useValue: '/' }, HttpClient, {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,

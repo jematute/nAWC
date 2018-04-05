@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ErrorService } from '../error/error.service';
 
 
 @Component({
@@ -7,5 +8,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./layout.component.css']
 })
 export class LayoutComponent {
-  
+  constructor (private errorService: ErrorService) {
+
+  }
+
+  openError() {
+    this.errorService.toggle();
+  }
+
+
 }

@@ -1,5 +1,6 @@
 export class User {
-    public Id?: string;
-    public Name: string;
-    public Password: string;
+    public id?: string;
+    public userName?: string;
+    public password?: string;
+    public loginName?: string;
 }

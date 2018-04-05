@@ -27,6 +27,7 @@ export class AuthInterceptor implements HttpInterceptor {
     private auth: AuthService;
     isRefreshingToken: boolean = false;
     tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+    errorSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
     constructor(private inj: Injector) {
         this.auth = this.inj.get(AuthService);
@@ -88,8 +89,12 @@ export class AuthInterceptor implements HttpInterceptor {
         }
     }
 
+    handleOtherErrors(req: HttpRequest<any>, next: HttpHandler) {
+        
+    }
+
     logoutUser() {
-        // Route to the login page (implementation up to you)
+        // Route to the login page
 
         return Observable.throw("Hello");
     }

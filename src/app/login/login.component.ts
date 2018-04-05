@@ -12,10 +12,10 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router, private authService: AuthService) { }
 
-  user: User = { Name: "", Password: ""};
+  private user: User = { loginName: "", password: ""};
 
   login(): void {
-    this.authService.login().subscribe(() => {
+    this.authService.login(this.user).subscribe(() => {
       this.router.navigate(['layout']);
     });
   }
