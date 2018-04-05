@@ -5,27 +5,22 @@ import { LayoutComponent } from './layout.component';
 import { ResultsComponent } from '../results/results.component';
 import { HeaderComponent } from './header/header.component';
 import { AuthGuard } from './auth.guard';
-import { NbSidebarModule, NbLayoutModule, NbSidebarService, NbContextMenuModule, NbPopoverModule, NbMenuModule } from '@nebular/theme';
 import { NbPopoverComponent } from '@nebular/theme/components/popover/popover.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 const LAYOUT_COMPONENTS = [
-    LayoutComponent, ResultsComponent, HeaderComponent
+    LayoutComponent, ResultsComponent, HeaderComponent, SidebarComponent
 ];
 
 @NgModule({
   imports: [
     LayoutRoutingModule,
-    NbLayoutModule,
-    NbSidebarModule,
-    NbContextMenuModule,
-    NbPopoverModule,
-    NbMenuModule
   ],
   declarations: [
     ...LAYOUT_COMPONENTS,
   ],
   exports: [ ], 
-  providers: [ AuthGuard, NbSidebarService ]
+  providers: [ AuthGuard ]
 })
 export class LayoutModule {
 }

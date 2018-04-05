@@ -10,13 +10,11 @@ import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common
 import { AuthService } from './login/auth.service';
 import { AuthInterceptor } from './login/auth.interceptor';
 import { LoginModule } from './login/login.module';
-import { SidebarComponent } from './sidebar/sidebar.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    SidebarComponent
   ],
   imports: [
     BrowserModule,
