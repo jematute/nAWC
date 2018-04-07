@@ -8,21 +8,22 @@ import { ErrorService } from './error.service';
 })
 export class ErrorComponent implements OnInit {
 
-  private isShown: boolean;
+  public isShown: boolean;
+  public title: string;
+  public content: string;
 
   constructor(private errorService: ErrorService) { }
 
-  ngOnInit() {
-    console.log("init error");
-    this.errorService.title = "What's up!"
-    
-    this.errorService.change.subscribe(isShown => {
-      this.isShown = isShown;
+  ngOnInit() { 
+    this.errorService.change.subscribe(obj => {
+      this.isShown = obj.shown;
+      this.title = obj.title;
+      this.content = obj.content;
     });
   }
 
   toggle() {
-    this.errorService.toggle();
+    this.errorService.toggle("", "");
   }
 
   onKeydown(event) {

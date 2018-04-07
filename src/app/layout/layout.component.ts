@@ -13,7 +13,7 @@ export class LayoutComponent {
   }
 
   openError() {
-    this.errorService.toggle();
+    this.errorService.toggle("Error","There was an error");
   }
 
 

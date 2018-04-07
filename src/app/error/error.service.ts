@@ -3,13 +3,12 @@ import { Injectable, EventEmitter, Output } from '@angular/core';
 @Injectable()
 export class ErrorService {
   isShown = false;
-  public title = "";
 
-  @Output() change: EventEmitter<boolean> = new EventEmitter();
+  @Output() change: EventEmitter<any> = new EventEmitter();
 
-  toggle() {
+  toggle(title: string, content: string) {
     this.isShown = !this.isShown;
-    this.change.emit(this.isShown);
+    this.change.emit({ shown: this.isShown, title: title, content: content });
   }
 
   constructor() { }

@@ -21,7 +21,7 @@ const webApiUrl: string = "http://wkst0835:8686/synergis.webapi";
 export class AuthService {
   tokenSubject: any;
   isRefreshingToken: any;
-  isLoggedIn = true;
+  isLoggedIn = false;
 
   // store the URL so we can redirect after logging in
   redirectUrl: string;
