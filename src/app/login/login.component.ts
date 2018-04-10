@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from './user'
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
+import { LocalizationService } from '../localization.service';
 
 @Component({
   selector: 'app-login',
@@ -10,17 +11,11 @@ import { AuthService } from './auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(private locale: LocalizationService,private router: Router, private authService: AuthService) { }
 
-  private user: User = { loginName: "", password: ""};
-
-  public languages = [
-    {value: 'EN', viewValue: 'English'},
-    {value: 'FR', viewValue: 'French'},
-    {value: 'GE', viewValue: 'German'}
-  ];
-
-  selectedValue = this.languages[0].value;
+  private user: User = { loginName: "test1", password: ""};
+  selectedValue: string;
+  public languages = [];
 
   login(): void {
     this.authService.login(this.user).subscribe(() => {
@@ -35,6 +30,13 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    //get languages to populate dropdown
+    this.locale.languages.subscribe(
+      langs => { 
+        this.languages = langs; 
+        if (this.languages.length > 0) 
+          this.selectedValue = this.languages[0].value }
+    );
   }
 
 }

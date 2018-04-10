@@ -10,6 +10,8 @@ import { AuthService } from './login/auth.service';
 import { AuthInterceptor } from './login/auth.interceptor';
 import { LoginModule } from './login/login.module';
 import { ErrorModule } from './error/error.module';
+import { LocalizationService } from './localization.service';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -17,11 +19,11 @@ import { ErrorModule } from './error/error.module';
     AppComponent,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule, BrowserAnimationsModule,
     AppRoutingModule, HttpClientModule, LoginModule, ErrorModule
   ],
   bootstrap: [ AppComponent ],
-  providers: [ { provide: APP_BASE_HREF, useValue: '/' }, HttpClient, {
+  providers: [ { provide: APP_BASE_HREF, useValue: '/' }, HttpClient, LocalizationService, {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true

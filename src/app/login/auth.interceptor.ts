@@ -20,6 +20,7 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/finally';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/observable/throw';
+import { ErrorService } from '../error/error.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -29,7 +30,7 @@ export class AuthInterceptor implements HttpInterceptor {
     tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
     errorSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
-    constructor(private inj: Injector) {
+    constructor(private inj: Injector, private errorService: ErrorService) {
         this.auth = this.inj.get(AuthService);
     }
 

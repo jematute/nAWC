@@ -7,14 +7,15 @@ import { HeaderComponent } from './header/header.component';
 import { AuthGuard } from './auth.guard';
 import { NbPopoverComponent } from '@nebular/theme/components/popover/popover.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { MaterialModule } from '../material/material.module';
 
 const LAYOUT_COMPONENTS = [
-    LayoutComponent, ResultsComponent, HeaderComponent, SidebarComponent
+    LayoutComponent, ResultsComponent, HeaderComponent, SidebarComponent,
 ];
 
 @NgModule({
   imports: [
-    LayoutRoutingModule
+    LayoutRoutingModule, MaterialModule
   ],
   declarations: [
     ...LAYOUT_COMPONENTS,

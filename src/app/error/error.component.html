@@ -1,12 +1,11 @@
-<div [hidden]="!isShown" (click)="toggle()" class="wrapper">
-  <div class="popup">
-    <div class="title"><span>{{title}}</span></div>
-    <div class="content">{{content}}</div>
-    <div class="footer">
-      <div class="button">Dismiss</div>
-      <div>
-
-      </div>
-    </div>
-  </div>
+<h1 mat-dialog-title color="accent">Hi {{data.name}}</h1>
+<div mat-dialog-content>
+  <p>What's your favorite animal?</p>
+  <mat-form-field>
+    <input matInput>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button  (click)="onNoClick()">No Thanks</button>
+  <button mat-button color="accent" [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
 </div>
