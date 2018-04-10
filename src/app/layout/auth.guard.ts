@@ -5,25 +5,22 @@ import {
   RouterStateSnapshot
 }                           from '@angular/router';
 import { AuthService } from '../login/auth.service';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     let url: string = state.url;
 
-    return this.checkLogin(url);
-  }
-
-  checkLogin(url: string): boolean {
-    if (this.authService.isLoggedIn) { return true; }
-
-    // Store the attempted URL for redirecting
-    this.authService.redirectUrl = url;
-
-    // Navigate to the login page with extras
-    this.router.navigate(['/login']);
-    return false;
+    return this.authService.checkLogin().map(e => {
+      if (e) {
+          return true;
+      }
+      }).catch(() => {
+          this.router.navigate(['/login']);
+          return Observable.of(false);
+      });
   }
 }

@@ -1,24 +1,28 @@
 import { NgModule } from '@angular/core';
-
+import { CommonModule } from '@angular/common'; 
 import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
 import { ResultsComponent } from '../results/results.component';
 import { HeaderComponent } from './header/header.component';
 import { AuthGuard } from './auth.guard';
 import { NbPopoverComponent } from '@nebular/theme/components/popover/popover.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
 import { MaterialModule } from '../material/material.module';
+import { FormsModule } from '@angular/forms';
+import { ResultsModule } from '../results/results.module';
+import { SearchModule } from '../search/search.module';
+import { SidebarModule } from './sidebar/sidebar.module';
+import { HeaderModule } from './header/header.module';
 
 const LAYOUT_COMPONENTS = [
-    LayoutComponent, ResultsComponent, HeaderComponent, SidebarComponent,
+    LayoutComponent
 ];
 
 @NgModule({
   imports: [
-    LayoutRoutingModule, MaterialModule
+    CommonModule, FormsModule, LayoutRoutingModule, MaterialModule, ResultsModule, SidebarModule, HeaderModule
   ],
   declarations: [
-    ...LAYOUT_COMPONENTS,
+    ...LAYOUT_COMPONENTS
   ],
   exports: [ ], 
   providers: [ AuthGuard ]

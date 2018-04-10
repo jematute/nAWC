@@ -21,7 +21,6 @@ const webApiUrl: string = "http://wkst0835:8686/synergis.webapi";
 export class AuthService {
   tokenSubject: any;
   isRefreshingToken: any;
-  isLoggedIn = false;
 
   // store the URL so we can redirect after logging in
   redirectUrl: string;
@@ -30,7 +29,7 @@ export class AuthService {
   cachedRequests: Array<HttpRequest<any>> = [];
 
   constructor(private http: HttpClient) {
-
+    this.refreshToken = localStorage.getItem("refresh_token");
   }
 
   login(user: User): Observable<Object> {
@@ -38,7 +37,7 @@ export class AuthService {
     return this.http.post(`${webApiUrl}/login`, credentials, httpOptions).map(data => {
       this.accessToken = data["access_token"];
       this.refreshToken = data["refresh_token"];
-      this.isLoggedIn = true;
+      localStorage.setItem("refresh_token", this.refreshToken);
       return data;
     });
     
@@ -53,6 +52,10 @@ export class AuthService {
     return this.http.get(`${webApiUrl}/api/column/allavailable`);
   }
 
+  checkLogin(): Observable<Object> {
+    return this.http.get(`${webApiUrl}/api/account/isloggedin`);
+  }
+
   public getNewToken(): Observable<string> {
     console.log("Refreshing Token: " + this.refreshToken);
     let refreshToken = atob(this.refreshToken);
@@ -61,6 +64,7 @@ export class AuthService {
         console.log("token refreshed successfully: " + this.refreshToken);
         this.accessToken = data["access_token"];
         this.refreshToken = data["refresh_token"];
+        localStorage.setItem("refresh_token", this.refreshToken);
         return data["access_token"];
     });
   }

@@ -9,7 +9,7 @@ import { MaterialModule } from '../material/material.module';
 @NgModule({
     declarations: [ LoginComponent ],
     imports: [ CommonModule, FormsModule, ErrorModule, MaterialModule ],
-    exports: [ LoginComponent ],
+    exports: [ ],
     providers: [ AuthService ],
 })
 export class LoginModule {}

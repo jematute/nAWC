@@ -7,7 +7,7 @@ import { ErrorComponent } from '../error/error.component';
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.css']
+  styleUrls: ['./layout.component.less']
 })
 export class LayoutComponent {
   constructor (private errorService: ErrorService, public dialog: MatDialog) {
