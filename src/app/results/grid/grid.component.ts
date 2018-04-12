@@ -25,7 +25,7 @@ export class GridComponent implements OnInit {
           { 
             headerName: col.displayName, 
             field: col.schemaID, 
-            width: 100
+            width: col.width*5
           })
         );
         this.gridOptions.api.setColumnDefs(this.columnDefs);
@@ -51,7 +51,7 @@ export class GridComponent implements OnInit {
 
   onReady(event) {
     this.api = this.gridOptions.api;
-    this.api.sizeColumnsToFit();
+    //this.api.sizeColumnsToFit();
   }
 
   ngOnInit() {
