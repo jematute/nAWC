@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { GridOptions, GridApi, ColumnApi } from 'ag-grid';
+import { GridService } from './grid.service';
+import { GetDataParams, SortDirection, ResultType, AdeptDataTable } from '../../classes/getDataParams';
+import { ColumnsService } from '../../columns/columns.service';
 
 @Component({
   selector: 'app-grid',
@@ -11,28 +14,44 @@ export class GridComponent implements OnInit {
   private gridOptions: GridOptions;
   private api: GridApi;
   private columnApi: ColumnApi;
-  columnDefs;
+  columnDefs = [];
   rowData;
-  constructor() {
-    this.gridOptions = <GridOptions>{};
-    
-    this.columnDefs = [
-      {headerName: "Make", field: "make", width: 300},
-      {headerName: "Model", field: "model", width: 300},
-      {headerName: "Price", field: "price", width: 300}
-  ];
+  constructor(private gridService: GridService, private columnService: ColumnsService) {
+    this.gridOptions = < GridOptions > {};
 
-    this.rowData = [
-        {make: "Toyota", model: "Celica", price: 35000},
-        {make: "Ford", model: "Mondeo", price: 32000},
-        {make: "Porsche", model: "Boxter", price: 72000}
-    ]
+    this.columnDefs = [];
+    this.columnService.getGridColumns().subscribe(cols => {
+      cols.forEach(col => this.columnDefs.push(
+          { 
+            headerName: col.displayName, 
+            field: col.schemaID, 
+            width: 100
+          })
+        );
+        this.gridOptions.api.setColumnDefs(this.columnDefs);
+    });
 
+    this.gridService.change.subscribe(res => {
+      let params = <GetDataParams>{};
+      let AdeptDataTable = <AdeptDataTable>{};
+      params.AdeptDataTable = AdeptDataTable;
+      params.AdeptDataTable.Skip = 0;
+      params.AdeptDataTable.Take = 1000;
+      params.AdeptDataTable.RecordCount = 0;
+      params.ResultType = ResultType.Normal;
+      params.Sort = "SCHEMA_S_LOGNNAME";
+      params.SortDirection = SortDirection.Ascending;
+      this.gridService.getData(params).subscribe(data => {
+        let dataTable = data as AdeptDataTable;
+        console.log(dataTable);
+        this.gridOptions.api.setRowData(dataTable.TableRecords);
+      })
+    });
   }
 
   onReady(event) {
-    console.log("Grid Ready!!!!");
-    this.gridOptions.api.sizeColumnsToFit();
+    this.api = this.gridOptions.api;
+    this.api.sizeColumnsToFit();
   }
 
   ngOnInit() {

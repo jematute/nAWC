@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ResultsComponent } from './results.component';
 import { GridComponent } from './grid/grid.component';
 import { AgGridModule } from 'ag-grid-angular';
+import { GridService } from './grid/grid.service';
 
 
 @NgModule({
@@ -12,6 +13,6 @@ import { AgGridModule } from 'ag-grid-angular';
   ],
   exports: [],
   declarations: [ ResultsComponent, GridComponent ],
-  providers: [ ]
+  providers: [ GridService ]
 })
 export class ResultsModule { }

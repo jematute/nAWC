@@ -1,6 +1,6 @@
-import { IGetDataParams } from "../../classes/getDataParams";
+import { GetDataParams } from "../../classes/getDataParams";
+import { Observable } from "rxjs/Observable";
 
 export interface IGridInterface {
-    getData(params: IGetDataParams);
-    getCount(params: IGetDataParams);
+    getData(params: GetDataParams): Observable<any>;
 }

@@ -1,3 +1,34 @@
-mat-form-field {
+input {
     width: 100%;
+    padding: .75rem 1.125rem;
+    border: 2px solid #95a0dd;
+    border-radius: .5rem;
+    &:focus {
+        outline: none;
+        border: 2px solid #3f51b5;
+    }
+}
+
+.search-box {
+    position: relative;
+    
+    .material-icons {
+        color: rgb(200,200,200);
+        cursor: pointer;
+    }
+
+    #search-icon {
+        position: absolute;
+        right: 4px;
+        top: 10px;
+        font-size: 30px;
+    }
+
+    #filter-icon {
+        position: absolute;
+        right: 40px;
+        top: 10px;
+        font-size: 30px;
+    }
+
 }

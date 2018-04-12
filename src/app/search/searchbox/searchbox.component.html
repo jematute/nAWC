@@ -1,4 +1,7 @@
-<mat-form-field>
-    <input matInput placeholder="Search">
-    <span matSuffix><i class="material-icons">search</i></span>
-</mat-form-field>
+<div class="search-box">
+  <form (submit)="doSearch()">
+      <input autocomplete="off" name="search" type="text" placeholder="Search by {{selectedField.displayName}}" [(ngModel)]="searchValue">
+  </form> 
+  <i id="search-icon" class="material-icons" (click)="doSearch()">search</i>
+  <i id="filter-icon" class="material-icons">filter_list</i>
+</div>

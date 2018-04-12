@@ -1,13 +1,19 @@
 import { Column } from "./column";
 
-export interface IGetDataParams {
-    skip: number;
-    take: number;
-    sortField: string;
-    sortDirection: SortDirection;
-    resultType?: ResultType;
-    columns: Array<Column>;
-    countOperation: boolean;
+export interface GetDataParams {
+    AdeptDataTable: AdeptDataTable
+    Sort: string;
+    SortDirection: SortDirection;
+    ResultType?: ResultType;
+    Columns: Array<Column>;
+    CountOperation: boolean;
+}
+
+export interface AdeptDataTable {
+    Skip: number;
+    Take: number;
+    RecordCount: number;
+    TableRecords: Array<any>;
 }
 
 export enum SortDirection {

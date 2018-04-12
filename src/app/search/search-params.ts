@@ -1,23 +1,21 @@
-import { IGetDataParams, SortDirection, ResultType } from "../classes/getDataParams";
+import { GetDataParams, SortDirection, ResultType, AdeptDataTable } from "../classes/getDataParams";
 import { Column } from "../classes/column";
 
-export class SearchParams implements IGetDataParams {
-
-    skip: number;
-    take: number;
-    sortField: string;
-    sortDirection: SortDirection;
-    resultType?: ResultType;
-    columns: Array<Column>
-    searchCriteria: Array<SearchTerms>;
-    countOperation: boolean;
+export class SearchParams implements GetDataParams {
+    AdeptDataTable: AdeptDataTable;
+    Sort: string;
+    SortDirection: SortDirection;
+    ResultType?: ResultType;
+    Columns: Array<Column>
+    searchCriteria: Array<SearchTerm>;
+    CountOperation: boolean;
 
     constructor() {
         
     }
 }
 
-export class SearchTerms {
+export class SearchTerm {
     public schemaID: string;             
     public valueStr: string;
     public startDate: string;            

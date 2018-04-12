@@ -36,7 +36,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
     addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
 
-        return req.clone({ setHeaders: { Authorization: 'Bearer ' + this.auth.getToken() } })
+        return req.clone({ setHeaders: { Authorization: 'Bearer ' + this.auth.getToken(), 'Content-Type': 'application/json' } })
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
