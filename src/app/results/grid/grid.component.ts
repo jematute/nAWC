@@ -18,7 +18,7 @@ export class GridComponent implements OnInit {
   rowData;
   constructor(private gridService: GridService, private columnService: ColumnsService) {
     this.gridOptions = < GridOptions > {};
-
+    this.gridOptions.rowData = [];
     this.columnDefs = [];
     this.columnService.getGridColumns().subscribe(cols => {
       cols.forEach(col => this.columnDefs.push(

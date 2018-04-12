@@ -4,6 +4,8 @@ import { GetDataParams, AdeptDataTable } from '../../classes/getDataParams';
 import { Column } from '../../classes/column';
 import { Observable } from 'rxjs/Observable';
 import { ArrayObservable } from 'rxjs/observable/ArrayObservable';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/finally';
 
 @Injectable()
 export class GridService {
@@ -13,6 +15,8 @@ export class GridService {
   public columns: Array<Column>;
   public dataService: IGridInterface;
   @Output() change: EventEmitter<any> = new EventEmitter();
+  public loading: EventEmitter<boolean> = new EventEmitter();
+
   constructor() {
 
   }
@@ -27,11 +31,14 @@ export class GridService {
   }
 
   makeRequest(params: GetDataParams): Observable<AdeptDataTable> {
+    this.loading.emit(true);
     const obs = this.dataService.getData(params);
     obs.map(data => {
       this.data = data;
     });
-    return obs;
+    return obs.finally(() => {
+      this.loading.emit(false);
+    });;
   }
 
   reloadGrid() {
