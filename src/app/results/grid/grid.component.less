@@ -1,8 +1,43 @@
 .grid-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    box-shadow: 4px 4px 10px rgb(200,200,200);
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  box-shadow: 4px 4px 10px rgb(200, 200, 200);
+  display: flex;
+  flex-direction: column;
+  .footer {
+    flex: 0 0 auto;
+    margin: 0;
+    padding: 5px 5px 5px 5px;
+    display: flex;
+    justify-content: right;
+    align-items: right;
+    justify-items: right;
+    .grid-label {}
+    .grid-controls {
+      display: flex;
+      input {
+        margin: 0;
+        padding: 2px;
+        width: 30px;
+        text-align: right;
+        border: none;
+        &:focus {
+            outline: none;
+            border: 1px solid rgb(0,123,245);
+        }
+      }
+      .material-icons {
+        color: rgb(120, 120, 120);
+        cursor: pointer;
+      }
+      .icon-group {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
 }

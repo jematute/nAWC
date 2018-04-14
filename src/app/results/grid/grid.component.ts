@@ -14,9 +14,16 @@ export class GridComponent implements OnInit {
   private gridOptions: GridOptions;
   private api: GridApi;
   private columnApi: ColumnApi;
+  private numberOfPages: number;
+  private pageSize: number;
+  private pageIndex: number;
+
   columnDefs = [];
   rowData;
   constructor(private gridService: GridService, private columnService: ColumnsService) {
+    this.pageSize = 100;
+    this.numberOfPages = 0;
+
     this.gridOptions = < GridOptions > {};
     this.gridOptions.rowData = [];
     this.columnDefs = [];
@@ -32,26 +39,39 @@ export class GridComponent implements OnInit {
     });
 
     this.gridService.change.subscribe(res => {
-      let params = <GetDataParams>{};
-      let AdeptDataTable = <AdeptDataTable>{};
-      params.AdeptDataTable = AdeptDataTable;
-      params.AdeptDataTable.Skip = 0;
-      params.AdeptDataTable.Take = 1000;
-      params.AdeptDataTable.RecordCount = 0;
-      params.ResultType = ResultType.Normal;
-      params.Sort = "SCHEMA_S_LOGNNAME";
-      params.SortDirection = SortDirection.Ascending;
-      this.gridService.getData(params).subscribe(data => {
-        let dataTable = data as AdeptDataTable;
-        console.log(dataTable);
-        this.gridOptions.api.setRowData(dataTable.TableRecords);
-      })
+      this.getPage(0);
     });
+  }
+
+  getPage(pageIndex: number, itemsPerPage?: number) {
+    let params = <GetDataParams>{};
+    let AdeptDataTable = <AdeptDataTable>{};
+    params.AdeptDataTable = AdeptDataTable;
+    params.AdeptDataTable.Skip = pageIndex * this.pageSize;
+    params.AdeptDataTable.Take = this.pageSize;
+    params.AdeptDataTable.RecordCount = 0;
+    params.ResultType = ResultType.Normal;
+    params.Sort = "SCHEMA_S_LOGNNAME";
+    params.SortDirection = SortDirection.Ascending;
+    this.gridService.getData(params).subscribe(data => {
+      let dataTable = data as AdeptDataTable;
+      console.log(dataTable);
+      this.gridOptions.api.setRowData(dataTable.TableRecords);
+    })
+    this.gridService.getCount(params).subscribe(data => {
+      let dataTable = data as AdeptDataTable;
+      this.numberOfPages = Math.ceil(dataTable.RecordCount/this.pageSize);
+    })
+
   }
 
   onReady(event) {
     this.api = this.gridOptions.api;
     //this.api.sizeColumnsToFit();
+  }
+
+  onPageEvent(event) {
+    console.log(event);
   }
 
   ngOnInit() {
