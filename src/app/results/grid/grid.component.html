@@ -4,7 +4,7 @@
   </ag-grid-angular>
   <div class="footer">
     <div class="grid-controls">
-      <mat-paginator [length]="numberOfPages" [pageSize]="pageSize" [pageIndex]="pageIndex" [pageSizeOptions]="[100, 200, 500, 1000]" (page)="onPageEvent($event)" >
+      <mat-paginator [length]="length" [pageSize]="pageSize" [pageIndex]="pageIndex" [pageSizeOptions]="[100, 200, 500, 1000]" (page)="onPageEvent($event)" >
       </mat-paginator>
 
     </div>
