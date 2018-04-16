@@ -1,7 +1,5 @@
 <div class="search-box">
-  <form (submit)="doSearch()">
-      <input autocomplete="off" name="search" type="text" placeholder="Search by {{selectedField.displayName}}" [(ngModel)]="searchValue">
-  </form> 
+      <input autocomplete="off" name="search" type="text" (keyDown.enter)="doSearch()" placeholder="Search by {{selectedField.displayName}}" [(ngModel)]="searchValue">
   <i id="search-icon" class="material-icons" (click)="doSearch()">search</i>
   <i id="filter-icon" class="material-icons">filter_list</i>
 </div>

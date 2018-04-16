@@ -6,12 +6,13 @@ import { AgGridModule } from 'ag-grid-angular';
 import { GridService } from './grid/grid.service';
 import { LoadingPanelComponent } from './grid/loading-panel/loading-panel.component';
 import { MaterialModule } from '../material/material.module';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
   imports: [
     CommonModule,
-    MaterialModule,
+    MaterialModule, RouterModule,
     AgGridModule.withComponents([ ]), 
   ],
   exports: [],

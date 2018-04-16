@@ -25,7 +25,7 @@ export class GridComponent implements OnInit {
   constructor(private gridService: GridService, private columnService: ColumnsService) {
     this.pageSize = 100;
     this.length = 0;
-
+    
     this.gridOptions = < GridOptions > {};
     this.gridOptions.rowData = [];
     this.columnDefs = [];
@@ -41,6 +41,8 @@ export class GridComponent implements OnInit {
   }
 
   getPage(pageIndex: number) {
+    this.api.setRowData([]);
+    this.gridOptions.api.hideOverlay();
     let params = <GetDataParams>{};
     let AdeptDataTable = <AdeptDataTable>{};
     params.AdeptDataTable = AdeptDataTable;
@@ -77,6 +79,7 @@ export class GridComponent implements OnInit {
   onReady(event) {
     this.api = this.gridOptions.api;
     //this.api.sizeColumnsToFit();
+    this.gridOptions.api.setRowData(this.gridService.data.TableRecords);
   }
 
   onPageEvent(event) {
@@ -87,7 +90,7 @@ export class GridComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.paginator);
+    console.log(this.gridService.data);    
   }
 
 }

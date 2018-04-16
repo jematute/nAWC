@@ -22,7 +22,9 @@ export class GridService {
   }
 
   getData(params: GetDataParams): Observable<object> {
-    return this.makeRequest(params);
+    return this.makeRequest(params).finally(() => {
+      this.loading.emit(false);
+    });
   }
 
   getCount(params: GetDataParams) {
@@ -33,12 +35,10 @@ export class GridService {
   makeRequest(params: GetDataParams): Observable<AdeptDataTable> {
     this.loading.emit(true);
     const obs = this.dataService.getData(params);
-    obs.map(data => {
+    obs.subscribe(data => {
       this.data = data;
     });
-    return obs.finally(() => {
-      this.loading.emit(false);
-    });;
+    return obs;
   }
 
   reloadGrid() {
