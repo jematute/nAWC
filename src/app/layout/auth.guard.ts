@@ -5,7 +5,8 @@ import {
   RouterStateSnapshot
 }                           from '@angular/router';
 import { AuthService } from '../login/auth.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
+import { mergeMap, map, catchError } from 'rxjs/operators';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -14,13 +15,13 @@ export class AuthGuard implements CanActivate {
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     let url: string = state.url;
 
-    return this.authService.checkLogin().map(e => {
+    return this.authService.checkLogin().pipe(map(e => {
       if (e) {
           return true;
       }
-      }).catch(() => {
-          this.router.navigate(['/login']);
-          return Observable.of(false);
-      });
+      }), catchError(err => { 
+        this.router.navigate(['/login']);
+        return of(true) 
+      }));
   }
 }

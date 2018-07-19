@@ -9,7 +9,7 @@ export interface GetDataParams {
     CountOperation: boolean;
 }
 
-export interface AdeptDataTable {
+export class AdeptDataTable {
     Skip: number;
     Take: number;
     RecordCount: number;

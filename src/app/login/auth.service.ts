@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpRequest, HttpHandler } from '@angular/common/http';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/delay';
-import 'rxjs/add/operator/map';
-import { catchError, mergeMap, switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { catchError, mergeMap, switchMap, map } from 'rxjs/operators';
 import { User } from './user';
 
 const httpOptions = {
@@ -34,12 +30,12 @@ export class AuthService {
 
   login(user: User): Observable<Object> {
     let credentials = `username=${user.loginName}&password=${user.password}&client_secret=zd2345rtl&client_id=WebApi&grant_type=password`;
-    return this.http.post(`${webApiUrl}/login`, credentials, httpOptions).map(data => {
+    return this.http.post(`${webApiUrl}/login`, credentials, httpOptions).pipe(map(data => {
       this.accessToken = data["access_token"];
       this.refreshToken = data["refresh_token"];
       localStorage.setItem("refresh_token", this.refreshToken);
       return data;
-    });
+    }));
     
     //return Observable.of(true).delay(1000).do(val => this.isLoggedIn = true);
   }
@@ -56,17 +52,15 @@ export class AuthService {
     return this.http.get(`${webApiUrl}/api/account/isloggedin`);
   }
 
-  public getNewToken(): Observable<string> {
-    console.log("Refreshing Token: " + this.refreshToken);
+  public getNewToken(): Observable<any> {
     let refreshToken = atob(this.refreshToken);
     let credentials = `grant_type=refresh_token&refresh_token=${refreshToken}&client_id=WebApi&client_secret=zd2345rtl`;
-    return this.http.post(`${webApiUrl}/login`, credentials, httpOptions).map(data => {
-        console.log("token refreshed successfully: " + this.refreshToken);
+    return this.http.post(`${webApiUrl}/login`, credentials, httpOptions).pipe(map(data => {
         this.accessToken = data["access_token"];
         this.refreshToken = data["refresh_token"];
         localStorage.setItem("refresh_token", this.refreshToken);
         return data["access_token"];
-    });
+    }));
   }
 
 }

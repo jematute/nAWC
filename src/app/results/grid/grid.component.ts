@@ -4,13 +4,14 @@ import { GridService } from './grid.service';
 import { GetDataParams, SortDirection, ResultType, AdeptDataTable } from '../../classes/getDataParams';
 import { ColumnsService } from '../../columns/columns.service';
 import { MatPaginator } from '@angular/material';
+import { SubscriptionLike as ISubscription, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-grid',
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.less']
 })
-export class GridComponent implements OnInit {
+export class GridComponent implements OnInit, OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   private gridOptions: GridOptions;
@@ -19,7 +20,8 @@ export class GridComponent implements OnInit {
   private length: number;
   private pageSize: number;
   private pageIndex: number;
-
+  private subscription: Subscription = new Subscription();
+  
   columnDefs = [];
   rowData;
   constructor(private gridService: GridService, private columnService: ColumnsService) {
@@ -32,17 +34,22 @@ export class GridComponent implements OnInit {
     this.gridOptions.rowSelection = 'multiple';
     this.getColumns();
 
-    this.gridService.change.subscribe(res => {
-      this.length = 0;
-      this.pageIndex = 0;
+    const subscription = this.gridService.change.subscribe(res => {
+      this.length = gridService.length;
+      this.pageIndex = gridService.pageIndex;
+      this.pageSize = gridService.pageSize;
       this.paginator.firstPage();
       this.getPage(0);
     });
+    this.subscription.add(subscription);
   }
 
   getPage(pageIndex: number) {
-    this.api.setRowData([]);
-    this.gridOptions.api.hideOverlay();
+    if (this.api) {
+      this.api.setRowData([]);
+      this.api.hideOverlay();
+    } 
+    
     let params = <GetDataParams>{};
     let AdeptDataTable = <AdeptDataTable>{};
     params.AdeptDataTable = AdeptDataTable;
@@ -52,19 +59,20 @@ export class GridComponent implements OnInit {
     params.ResultType = ResultType.Normal;
     params.Sort = "SCHEMA_S_LOGNNAME";
     params.SortDirection = SortDirection.Ascending;
-    this.gridService.getData(params).subscribe(data => {
+    const subscription = this.gridService.getData(params).subscribe(data => {
       let dataTable = data as AdeptDataTable;
-      console.log(dataTable);
-      this.gridOptions.api.setRowData(dataTable.TableRecords);
+      this.api.setRowData(dataTable.TableRecords);
     })
     this.gridService.getCount(params).subscribe(data => {
       let dataTable = data as AdeptDataTable;
       this.length = dataTable.RecordCount
-    })
+    });
+    this.subscription.add(subscription);
   }
 
   getColumns() {
-    this.columnService.getGridColumns().subscribe(cols => {
+
+    const subscription = this.columnService.getGridColumns().subscribe(cols => {
       cols.forEach(col => this.columnDefs.push(
           { 
             headerName: col.displayName, 
@@ -74,6 +82,7 @@ export class GridComponent implements OnInit {
         );
         this.gridOptions.api.setColumnDefs(this.columnDefs);
     });
+    this.subscription.add(subscription);
   }
 
   onReady(event) {
@@ -83,14 +92,16 @@ export class GridComponent implements OnInit {
   }
 
   onPageEvent(event) {
-    console.log("event", event);
-    console.log("current page size", this.pageSize);
     this.pageSize = event.pageSize;
     this.getPage(event.pageIndex);
   }
 
   ngOnInit() {
-    console.log(this.gridService.data);    
+    //console.log(this.gridService.data);    
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

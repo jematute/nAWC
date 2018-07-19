@@ -5,7 +5,7 @@ import { ColumnsService } from '../../columns/columns.service';
 import { FieldDefinition } from '../../columns/fieldDefinition';
 import { FormControl } from '@angular/forms';
 import { GridService } from '../../results/grid/grid.service';
-import 'rxjs/add/operator/take';
+
 @Component({
   selector: 'app-searchbox',
   templateUrl: './searchbox.component.html',
@@ -23,7 +23,6 @@ export class SearchboxComponent implements OnInit {
     this.columns.getColumns().subscribe(res => {
       this.userColumns = res.filter(column => column.displayName !== '');
       this.selectedField = res.filter(column => column.schemaID === "SCHEMA_S_LONGNAME")[0];
-      console.log("this is where is at");
     }); 
   }
 
@@ -32,7 +31,6 @@ export class SearchboxComponent implements OnInit {
   }
 
   onChange() {
-    console.log("on change");
   }
 
   doSearch() {

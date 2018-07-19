@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { IGridInterface } from '../results/grid/grid-interface';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { SearchParams, SearchTerm } from './search-params';
 import { Global } from '../classes/global';
 import { GetDataParams } from '../classes/getDataParams';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/finally';
+import { map, finalize, share, tap } from 'rxjs/operators';
+
+
+
 
 @Injectable()
 export class SearchService implements IGridInterface {
@@ -25,14 +25,16 @@ export class SearchService implements IGridInterface {
   }
 
   getData(params: GetDataParams): Observable<any> {
+    let count = params.CountOperation ? params.CountOperation : false;
+    console.log("get data called countoperation:", count)
     let searchParams = params as SearchParams;
     searchParams.searchCriteria = this.searchCriteria;
-    console.log("Search criteria:", this.searchCriteria);
-    const req = this.http.post(`${Global.API_URL}/api/document/byfields`, JSON.stringify(params));
     let results: GetDataParams;
-    return req.map(d => results = d as GetDataParams ).map(s => s.AdeptDataTable).finally(() => {
-      //do something after it's done.
-    });
+    const req = this.http.post(`${Global.API_URL}/api/document/byfields`, JSON.stringify(params)).pipe(share())
+    
+    return req
+    .pipe(map(d => results = d as GetDataParams ), map(s => s.AdeptDataTable));
+    
   }
 
 }

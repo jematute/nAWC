@@ -1,0 +1,302 @@
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
+
+  <title>Document Download</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card bg-light">
+          <div class="card-header">Login</div>
+          <div class="card-body">
+            <div class="input-group mb-4">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Server</span>
+
+              </div>
+              <input id="txt-webapiurl" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Username</span>
+
+              </div>
+              <input id='txt-user' type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Password</span>
+              </div>
+              <input id="txt-password" class="form-control" type="password" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary" id="btn-login">Login</button>
+        </div>
+      </div>
+    </div>
+    <div class="row search-box" style="margin-top: 30px; position: relative;">
+      <div style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; background: rgba(0,0,0, .1); z-index: 10;" class="overlay">
+        <h1>Loading</h1>
+      </div>
+      <div class="col sm-6">
+        <div class="card bg-light">
+          <div class="card-header">Document</div>
+          <div class="card-body">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Filename</span>
+              </div>
+              <input id="txt-filename" class="form-control" type="text" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+            </div>
+            <button type="button" class="btn btn-primary" id="btn-getdoc">Get Document</button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+  <script>
+    $(document).ready(function () {
+      //servername
+      $('#txt-webapiurl').val("http://localhost:8686");
+      $('#txt-user').val('adm');
+      //this is the clientid and secret, required to perform a login
+      var clientId = "WebApi";
+      var clientSecret = "zd2345rtl";
+
+      var clientId = "Adept";
+      var clientSecret = "Adept";
+
+
+      $('.overlay').hide();
+
+      var url = $('#txt-webapiurl').val();
+      $('.search-box').hide();
+
+      //handles login button click
+      $('#btn-login').click(function () {
+        url = $('#txt-webapiurl').val();
+        var username = $('#txt-user').val();
+        var password = $('#txt-password').val();
+        toggleLoginElements(true);
+        login(username, password, false).done(function () {
+          $('.search-box').show();
+          $('#txt-filename').prop('disabled', false);
+        }).fail(function () {
+          toggleLoginElements(false);
+
+        });
+
+      });
+
+      //handles get document button click
+      $('#btn-getdoc').click(function () {
+        getDocument();
+      });
+
+
+      //This function handles login and token refresh.
+      function login(username, password, refresh) {
+        var dfd = jQuery.Deferred();
+
+        //if its a refresh token call we get the token from local storage
+        if (refresh) {
+          var refreshToken = localStorage.getItem('refresh_token');
+          username = localStorage.getItem('user');
+        }
+
+        //just in case the password is blank
+        if (!password) {
+          password = "";
+        }
+
+        //this is the object required for login
+        var loginData = "username=" + username + "&password=" + password + "&client_secret=" + clientSecret +
+          "&client_id=" + clientId + "&grant_type=password";
+
+        //this is the object required to refresh the token
+        var refreshData = "grant_type=refresh_token&client_secret=" + clientSecret + "&client_id=" + clientId +
+          "&refresh_token=" + refreshToken;
+
+        //use the appropriate object
+        var data = refresh ? refreshData : loginData;
+
+        //make the call to the server
+        $.ajax({
+          type: "POST",
+          url: url + "/Synergis.WebApi/login",
+          data: data,
+          headers: {
+            "Content-Type": "application/x-www-form-encoded"
+          },
+          success: success,
+          error: error,
+        });
+
+        function success(data) {
+          //we get the tokens back after a successful login./refresh, we put them in local storage.
+          localStorage.setItem('access_token', data.access_token);
+          localStorage.setItem('refresh_token', atob(data.refresh_token));
+          localStorage.setItem('user', data.userName);
+          dfd.resolve();
+        }
+
+        function error(cfg, error) {
+          //in case of error
+          alert(cfg.responseJSON.error_description);
+          dfd.reject();
+        }
+        return dfd.promise();
+      }
+
+      function toggleLoginElements(disable) {
+        //disables all login elements 
+        $('input').each(function (index) {
+          $(this).prop('disabled', disable);
+        });
+        $('#btn-login').each(function () {
+          $(this).prop('disabled', disable);
+        })
+      }
+
+      //this is a generic call to make requests to the server, handling token refresh if necessary
+      function makeRequest(endpoint, type, data) {
+        var dfd = jQuery.Deferred();
+        //get the access token from local storage
+        var token = localStorage.getItem('access_token');
+
+        //makes ajax call, notice we set the Authorization header with the token from local storage which was retrieved during login
+        $.ajax({
+          type: type,
+          url: url + "/synergis.webapi/API/" + endpoint,
+          data: JSON.stringify(data),
+          headers: {
+            "Authorization": 'Bearer ' + token,
+            "Content-Type": "application/json"
+          },
+          success: function (data) {
+            dfd.resolve(data);
+          },
+          error: function (cfg) {
+            var request = this;
+            if (cfg.status === 401) {
+              //if the call is unauthhorize, we proceed to refresh the token
+              login("", "", true).done(function () {
+                //set the header with the new token and retry the request
+                request.headers.Authorization = "Bearer " + localStorage.getItem('access_token');
+                $.ajax(request).done(function (data) {
+                  dfd.resolve(data);
+                });
+              });
+            }
+          },
+        });
+        return dfd.promise();
+      }
+
+      //gets the document 
+      function getDocument() {
+        $('.overlay').show();
+
+        //build the search object
+        var criteria = [{
+          schemaId: "SCHEMA_S_LONGNAME",
+          valueStr: "=" + $("#txt-filename").val(),
+          searchOp: 1,
+        }];
+        var data = {
+          SearchCriteria: criteria,
+          Sort: {
+            SortField: "SCHEMA_S_LONGNAME",
+            SortOrder: 0
+          },
+          ResultType: 1,
+          CountOperation: false,
+          AdeptDataTable: {
+            TableDefinition: null,
+            TableRecords: null,
+            RecordCount: 0,
+            Skip: 0,
+            Take: 100,
+          }
+        }
+
+        //make search call
+        makeRequest('document/byfields', 'POST', data).done(function (data) {
+          //if there is a at least 1 matching record we proceed to download
+          if (data.AdeptDataTable.TableRecords.length > 0) {
+            //build download object
+            var record = data.AdeptDataTable.TableRecords[0];
+            var fileid = record["SCHEMA_S_FILEID"];
+            var minrev = record["SCHEMA_S_MINREV"];
+            var majrev = record["SCHEMA_S_MAJREV"];
+            var fileName = record["SCHEMA_S_LONGNAME"];
+            var data = {
+              ZipFiles: false,
+              IncludeChildren: false,
+              ZipPassword: "",
+              FileList: [{
+                FileId: fileid,
+                MajRec: majrev,
+                MinRev: minrev,
+                TableNumber: 1,
+                FileName: fileName
+              }]
+            }
+
+            //call the server to get download url
+            makeRequest('selectioncommand/download', 'PUT', data).done(function (data) {
+              //on success we construct the url using the server name + the url returned.
+              var downloadUrl = url + data[0].FileUrl;
+
+              //create an invisible <a> element then we append it to the body then we click and remove it. This will make the browser download the file.
+              // var a = document.createElement('A');
+              // a.href = downloadUrl;
+              // a.download = downloadUrl.substr(downloadUrl.lastIndexOf('/') + 1);
+              // document.body.appendChild(a);
+              // a.click();
+              // document.body.removeChild(a);
+              $('.overlay').hide();
+                console.log(downloadUrl);
+            });
+
+          } else {
+            $('.overlay').hide();
+            alert("No record found");
+          }
+        }).fail(function () {
+          $('.overlay').hide();
+        });
+      }
+    });
+
+  </script>
+
+
+</body>
+
+</html>
+
