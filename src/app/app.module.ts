@@ -10,7 +10,7 @@ import { AuthService } from './login/auth.service';
 import { AuthInterceptor } from './login/auth.interceptor';
 import { LoginModule } from './login/login.module';
 import { ErrorModule } from './error/error.module';
-import { LocalizationService } from './localization.service';
+import { LocalizationService } from './localization/localization.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 

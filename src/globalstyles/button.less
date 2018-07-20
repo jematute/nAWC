@@ -1,0 +1,225 @@
+@font-size-base: 14px;
+@padding-small-horizontal: 10px;
+@font-size-small: ceil((@font-size-base * 0.85)); // ~12px
+@padding-small-vertical: 5px;
+@bs-height-xs: (floor(@font-size-small * 1.0) + @padding-small-vertical );
+
+.button {
+    padding: 8px;
+    min-width: 88px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+    border: none;
+    margin-left: 2px;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.button-sm {
+    padding: 8px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+    border: none;
+    margin-left: 2px;
+    border-radius: 4px;
+    min-width: 56px;
+    font-weight: 500;
+}
+
+.button-xs {
+    height: 22px;
+    min-width: 22px;
+    padding: 1px;
+    margin: 0px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+    border: none;
+
+    > :first-child {
+        line-height: @bs-height-xs;
+        width: @bs-height-xs;
+        font-size: 1.2em;
+    }
+}
+
+.button-xxs {
+    height: 18px;
+    min-width: 18px;
+    padding: 1px;
+    margin: 0px;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.26);
+    border: none;
+
+    > :first-child {
+        line-height: @bs-height-xs;
+        width: @bs-height-xs;
+        font-size: 1.2em;
+    }
+}
+
+// Blue (OK button)
+.primary-button {
+    color: rgba(255,255,255, .9);
+    background-color: @site-main;
+    box-shadow: 0 2px 3px 0 rgba(80,80,80,.26);
+}
+
+.primary-button:hover {
+    color: rgb(255,255,255);
+    background-color:  lighten(@site-main, 5%);
+}
+
+.primary-button:disabled {
+    color: rgba(255,255,255, .68);
+    opacity: .7;
+    background-color: @site-main;
+    cursor: not-allowed;
+}
+
+// Blue (Info button)
+.info-button {
+    color: rgba(255,255,255, .9);
+    background-color: #1E90FF;
+    box-shadow: 0 2px 3px 0 rgba(80,80,80,.26);
+}
+
+.info-button:hover {
+    color: rgb(255,255,255);
+    background-color:  lighten(#1E90FF, 5%);
+}
+
+.info-button:disabled {
+    color: rgba(255,255,255, .68);
+    opacity: .7;
+    background-color: #1E90FF;
+    cursor: not-allowed;
+}
+
+.danger-button {
+    color: rgba(255,255,255, .9);
+    background-color: rgb(241,103,104);
+    box-shadow: 0 2px 3px 0 rgba(80,80,80,.26);
+}
+
+.danger-button:hover {
+    color: rgb(255,255,255);
+    background-color:  rgb(234,75,75);
+}
+
+.danger-button:disabled {
+    color: rgba(255,255,255, .68);
+    opacity: .7;
+    background-color: rgba(241,103,104, .68);
+    cursor: not-allowed;
+}
+
+
+// Cancel or other common buttons
+.default-button {
+    color: rgb(0,0,0);
+    background-color: rgb(205,205,205);
+    box-shadow: 0 1px 1px 0 rgba(80,80,80,.26);
+}
+
+.default-button:hover {
+    color: rgb(0,0,0);
+    background-color: rgb(190,190,190);
+}
+
+.default-button:disabled {
+    color: rgba(0,0,0, .68);
+    background-color: rgba(205,205,205, .7);
+    cursor: not-allowed;
+}
+
+// Green (Upload)
+.secondary-button-action {
+    color: rgba(255,255,255, .9);
+    background-color: rgba(43, 182, 115, .9);
+}
+
+.secondary-button-action:hover {
+    color: rgb(255,255,255);
+    background-color: rgb(43, 182, 115);
+}
+
+.secondary-button-action:disabled {
+    color: rgba(255,255,255, .68);
+    background-color: rgba(201, 228, 215, 1);
+    cursor: not-allowed;
+}
+
+// Yellow (Cancel)
+.secondary-button-cancel {
+    color: rgba(255,255,255, .9);
+    background-color: rgba(251, 176, 64, .9);
+}
+
+.secondary-button-cancel:hover {
+    color: rgb(255,255,255);
+    background-color: rgb(251, 176, 64);
+}
+
+.secondary-button-cancel:disabled {
+    color: rgba(255,255,255, .68);
+    background-color: rgba(242, 227, 205, 1);
+    cursor: not-allowed;
+}
+
+// Red (Clear)
+.secondary-button-clear {
+    color: rgba(255,255,255, .9);
+    background-color: rgba(241, 103, 104, .9);
+}
+
+.secondary-button-clear:hover {
+    color: rgb(255,255,255);
+    background-color: rgb(241, 103, 104);
+}
+
+.secondary-button-clear:disabled {
+    color: rgba(255,255,255, .68);
+    background-color: rgba(240, 213, 213, 1);
+    cursor: not-allowed;
+}
+
+/*.ink styles - the elements which will create the ripple effect. The size and position of these elements will be set by the JS code. Initially these elements will be scaled down to 0% and later animated to large fading circles on user click.*/
+.ink {
+    display: block;
+    position: absolute;
+    background: hsl(200, 40%, 80%);
+    border-radius: 100%;
+    transform: scale(0);
+}
+/*animation effect*/
+.ink.animate {
+    animation: ripple 0.65s linear;
+}
+
+@keyframes ripple {
+    /*scale the element to 250% to safely cover the entire link and fade it out*/
+    100% {
+        opacity: 0;
+        transform: scale(2.5);
+    }
+}
+
+.uib-datepicker-popup {
+    .btn-success {
+        background-color: rgb(205,205,205);
+        color: rgb(0,0,0);
+        border: none;
+        box-shadow: 0 1px 1px 0 rgba(80,80,80,.26);
+        &:active {
+            background-color: rgb(180,180,180);
+            color: rgb(0,0,0);
+        }
+    }
+    .btn-info {
+        background-color: @site-main;
+        box-shadow: 0 2px 3px 0 rgba(80,80,80,.26);
+    }
+    .btn-danger {
+        background-color:  rgb(234,75,75);
+        box-shadow: 0 2px 3px 0 rgba(80,80,80,.26);
+        
+    }
+}

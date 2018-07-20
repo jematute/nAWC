@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { User } from './user'
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
-import { LocalizationService } from '../localization.service';
+import { LocalizationService } from '../localization/localization.service';
+import { filter } from 'rxjs/operators';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule }   from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -14,11 +17,16 @@ export class LoginComponent implements OnInit {
   constructor(private locale: LocalizationService,private router: Router, private authService: AuthService) { }
 
   private user: User = { loginName: "test1", password: ""};
-  selectedValue: string;
+  selectedLanguage: any = { viewValue: "English" };
+  inProcess: boolean;
+  enableAutoLogin: boolean;
+  
   public languages = [];
 
   login(): void {
+    this.inProcess = true;
     this.authService.login(this.user).subscribe(() => {
+      
       this.router.navigate(['layout']);
     });
   }
@@ -29,14 +37,25 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  languageChanged(): void {
+    this.selectedLanguage.active = true;
+    this.locale.currentLanguage.next(this.selectedLanguage);
+  }
+
   ngOnInit() {
     //get languages to populate dropdown
     this.locale.languages.subscribe(
       langs => { 
-        this.languages = langs; 
-        if (this.languages.length > 0) 
-          this.selectedValue = this.languages[0].value }
+        this.languages = langs;
+      }
     );
+
+    this.locale.currentLanguage.pipe(filter(l => l && l.active)).subscribe(l => {
+      if (l && l.active)
+        this.selectedLanguage = l;
+    });
+
   }
+
 
 }

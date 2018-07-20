@@ -23,7 +23,8 @@ export class AuthService {
   accessToken: string;
   refreshToken: string;
   cachedRequests: Array<HttpRequest<any>> = [];
-
+  autoLogin: boolean;
+  
   constructor(private http: HttpClient) {
     this.refreshToken = localStorage.getItem("refresh_token");
   }

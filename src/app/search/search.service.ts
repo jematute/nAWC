@@ -26,11 +26,11 @@ export class SearchService implements IGridInterface {
 
   getData(params: GetDataParams): Observable<any> {
     let count = params.CountOperation ? params.CountOperation : false;
-    console.log("get data called countoperation:", count)
+    //console.log("get data called countoperation:", count)
     let searchParams = params as SearchParams;
     searchParams.searchCriteria = this.searchCriteria;
     let results: GetDataParams;
-    const req = this.http.post(`${Global.API_URL}/api/document/byfields`, JSON.stringify(params)).pipe(share())
+    const req = this.http.post(`${Global.API_URL}/api/document/byfields`, JSON.stringify(params)).pipe(share());
     
     return req
     .pipe(map(d => results = d as GetDataParams ), map(s => s.AdeptDataTable));

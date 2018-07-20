@@ -32,12 +32,12 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
-        console.log("adding token to:", req.url);
+        //console.log("adding token to:", req.url);
         return req.clone({ setHeaders: { Authorization: 'Bearer ' + this.auth.getToken(), 'Content-Type': 'application/json' } })
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
-        console.log("intercepted request:", req.url);
+        //console.log("intercepted request:", req.url);
         return next.handle(this.addToken(req, this.auth.getToken()))
             .pipe(catchError(err => {
                 switch ((<HttpErrorResponse>err).status) {

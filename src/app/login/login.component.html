@@ -1,42 +1,8 @@
-<!-- <div class='login'>
-  <form class="example-form">
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Favorite food" value="Sushi">
-    </mat-form-field>
 
-    <mat-form-field class="example-full-width">
-      <textarea matInput placeholder="Leave a comment"></textarea>
-    </mat-form-field>
-  </form>
-
-  <form class="form-signin">
-    <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-    <h1 class="h3 mb-3 font-weight-normal">Please log in</h1>
-    <label for="inputEmail" class="sr-only" >Username</label>
-    <input id="inputEmail" name="name" class="form-control" [(ngModel)]="user.loginName" placeholder="Username" required autofocus>
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" [(ngModel)]="user.password" placeholder="Password" required>
-    <div class="checkbox mb-3">
-      <label>
-        <input type="checkbox" value="remember-me"> Auto-Login
-      </label>
-    </div>
-    <mat-form-field>
-        <mat-select placeholder="Favorite game" [(ngModel)]="selectedValue" name="game">
-          <mat-option *ngFor="let game of games" [value]="game.value">
-            {{game.viewValue}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    <button (click)="login()" class="app-button" mat-raised-button color="primary" type="submit">Login</button>
-    <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
-  </form>
-</div> -->
-
-<div class="login-page">
+<!-- <div class="login-page">
   <div class="login-box">
     <div class="title">
-      <h3>Angular 5 nWAC</h3>
+      <h3>{{locale?.resourceStrings?.ADEPT}}</h3>
     </div>
     <form (ngSubmit)="login()" >
         <div class="controls">
@@ -50,7 +16,7 @@
               </div>
               <div>
                 <mat-form-field class="field">
-                  <mat-select placeholder="Language" [(ngModel)]="selectedValue" name="language">
+                  <mat-select placeholder="Language" [(ngModel)]="selectedLanguage" name="language">
                     <mat-option *ngFor="let lang of languages" [value]="lang.value">
                       {{lang.viewValue}}
                     </mat-option>
@@ -69,4 +35,108 @@
     
 
   </div>
+</div> -->
+
+
+<div class="login">
+  <div class="loginbox">
+      <div class="image-holder">
+
+      </div>
+      <div class="control-area">
+          <div class="login-header">
+              <span class="title-1">{{locale?.resourceStrings?.ADEPT}} </span><span class="title-2">2018</span>
+              <span *ngIf="locale?.resourceStrings?.ADEPT != 'Adept'"><br />{{locale?.resourceStrings?.POWERED_BY_ADEPT}}</span>
+          </div>
+          <form (ngSubmit)="login()">
+              <fieldset [disabled]="inProcess">
+                  <div class="form-group has-feedback">
+                      <input [ngModelOptions]="{standalone: true}" autofocus xto-clear id="login-name" name="username" [(ngModel)]="user.loginName" type="text" class="form-control" placeholder="{{locale?.resourceStrings?.LOGIN_PLACEHOLDER}}">
+                      <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                  </div>
+                  <div class="form-group has-feedback">
+                      <input [ngModelOptions]="{standalone: true}" xto-clear id="login-password" [(ngModel)]="user.password" type="password" class="form-control" placeholder="{{locale?.resourceStrings?.PASSWORD_PLACEHOLDER}}">
+                      <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                  </div>
+                  <h4>{{selectedLanguage.viewValue}}</h4>
+                  <div class="form-group has-feedback">
+                      <span>{{locale?.resourceStrings?.LANGUAGE}}</span>
+                      <select name="langselect" id="CBAvailableLanguages"
+                              class="form-control"
+                              [(ngModel)]="selectedLanguage"
+                              (change)="languageChanged()">
+                          <option *ngFor="let lang of languages" [ngValue]="lang">{{lang.viewValue}}</option>
+                      </select>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-xs-8">
+                          <div class="checkbox" ng-show="authService.autoLogin">
+                              <label style="padding-left: 0">
+                                  <input ng-model="vm.localStorage.userInfo.autoLogin" type="checkbox" value="">
+                                  <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                                  <span>{{locale?.resourceStrings?.ENABLE_AUTO_LOGIN}}</span>
+
+                              </label>
+                          </div>
+
+                      </div><!-- /.col -->
+                      <div class="col-xs-4">
+                          <button id="signin-button" [disabled]="inProcess" class="button primary-button pull-right">{{locale?.resourceStrings?.OK}}</button>
+                      </div><!-- /.col -->
+                  </div>
+              </fieldset>
+          </form>
+          <div class="login-footer">
+              <p><i class="fa fa-copyright" style="margin-right:4px;" ng-click="vm.showLocalStorage()"></i><span>{{locale?.resourceStrings?.COPYRIGHT}}</span> <span> {{locale?.resourceStrings?.VERSION}}: {{locale?.resourceStrings?.ENABLE_AUTO_LOGIN}}</span></p>
+          </div>
+      </div>
+  </div>
+  <!-- <msg-box></msg-box>
+  <div class="col-sm-6 col-md-6 info-message">
+      <div class="alert alert-danger" ng-hide="!vm.msgbox.visible">
+          <button type="button" class="close" ng-click="vm.msgbox.visible=false;">
+              ×
+          </button>
+          <span class="glyphicon glyphicon-info-sign"></span>
+          <strong>{{vm.msgbox.title}}</strong>
+          <hr class="message-inner-separator">
+          <p>
+              {{vm.msgbox.message}}
+          </p>
+      </div>
+  </div> -->
+
+
+
+  <!-- <div class="col-sm-6 col-md-6 info-message">
+      <div ng-repeat="err in errorHandler.errors track by $index">
+          <div class="alert alert-danger">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="errorHandler.errors.splice($index, 1)">
+                  ×
+              </button>
+              <span class="glyphicon glyphicon-info-sign"></span>
+              <strong ng-if="err.message.indexOf(vm.usernameOrPwdIsIncorrect) != -1">{{vm.incorrectLogin}}</strong>
+              <strong ng-if="err.message.indexOf(vm.usernameOrPwdIsIncorrect) == -1">{{vm.error}}</strong>
+              <hr class="message-inner-separator">
+              <p>
+                  {{err.url}} {{err.status}} {{err.message}}
+              </p>
+          </div>
+      </div>
+  </div> -->
+  
 </div>
+<!-- <div class="clientauth-info" ng-show="vm.clientAuthProcess">
+  <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+  <span> Waiting for client authentication...</span>
+</div>
+
+<div class="clientauth-info clientauth-error" ng-show="vm.clientAuthProcessError">
+  <div>
+      <span>Could not reach the client for Authentication</span>
+  </div>
+  <div>
+      <span>Ensure Java is installed and that the application is allowed to launch when prompted</span>
+  </div>   
+</div> -->
