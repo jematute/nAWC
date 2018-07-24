@@ -62,7 +62,22 @@
           form {
               flex: 1 1 auto;
               -webkit-flex: 1 1 auto;
+
+              .bottom {
+                display: flex;
+                flex-direction: row;
+                .login-button {
+                  flex: 1 1 auto;
+                  text-align: right;
+                }
+                .login-checkbox {
+                  flex: 1 1 auto;
+                  margin-left: 20px;
+                }
+            }
           }
+
+          
 
           .login-footer {
               font-size: 12px;

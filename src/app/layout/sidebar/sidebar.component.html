@@ -1,4 +1,164 @@
-<div class="sidebar">
+<div ng-show="sidebarService.leftSidebarOpened" sb-resize class="sidebar-resizable">
+        <div class="sidebar-content" ng-class="{ 'content-opened': vm.sidebarOpened }">
+            <div ng-if="loadingIndicator" class="loading-indicator">
+                Loading....
+            </div>
+            <div class="search-container">
+                <button ng-disabled="vm.searchInputModel == ''" ng-click="vm.searchButtonClicked()" class="search-button"><i class="fa fa-search"></i></button>
+                <button id="filterbutton" class="filter-button" ng-click="vm.toggleDropDown()"><i class="fa fa-filter"></i></button>
+                <button ng-hide="vm.searchInputModel == ''" ng-click="vm.searchInputModel = ''" class="clear-button"><i class="fa fa-times"></i></button>
+                <input id="simplecriteria" autocomplete="off" focus-search ng-keydown="vm.inputKeyDown($event)" type="text" ng-model="vm.searchInputModel" ng-change="vm.qsInputChanged()" name="q" class="form-control searchbox" placeholder="{{vm.searchBoxDisplay}}" />
+                <div class="input-warning" ng-show="vm.showCharWarning">{{vm.loginService.resourceStrings["CHARACTER_NOT_ALLOWED"]}}</div>
+                <div click-close show-element="vm.showDropDown" class="search-dropdown" ng-show="vm.showDropDown">
+                    <div class="input-wrapper">
+                        <button ng-show="vm.fieldFilter.length > 0" ng-click="vm.fieldFilter = ''; vm.filterChanged()"><i class="fa fa-times"></i></button>
+                        <input id="searchfield" class="form-control" placeholder="{{vm.searchFieldLabel}}" ng-model="vm.fieldFilter" ng-change="vm.filterChanged()" />
+                    </div>
+    
+                    <div class="search-dropdown-content" keyboard-selection items="vm.currentFields" show-dropdown="vm.showDropDown" on-selection-changed="vm.onFieldSelectionChanged" selection-made="vm.onFieldSelectionMade">
+                        <div>
+                            <div class="special-searches">
+                                <div id="fts-search" class="select-item" ng-class="{ 'active': vm.ftsSearchSelected }" ng-show="vm.sidebarservice.ftsEnabled" ng-click="vm.fieldSelected('FTS')">
+                                    <a>{{vm.loginService.resourceStrings["FULL_TEXT_SEARCH"]}}{{dropdownList[0].active}}</a>
+                                </div>
+                            </div>
+                            <div ng-if="item.displayName != ''" ng-class="{ 'active': item.active }" class="search-field select-item" ng-repeat="item in vm.currentFields track by item.index" ng-click="vm.fieldSelected(item)">
+                                <a>
+                                    {{item.displayName}} {{dropdownList[item.index+1].active}}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="menu" ng-if="vm.sidebarservice.activeMenuItem == null">
+                <div class="menu-wrapper">
+                    <md-button ng-disabled="!vm.clientService.connected && item.creator" id="sb-button-{{item.name.toLowerCase().replace(' ', '')}}" ng-click="item.action(item)" ng-repeat="item in vm.sidebarservice.menuItems" ng-hide="item.hide">
+                        <img src="{{item.icon}}" />
+                        {{item.name}}
+                    </md-button>
+                </div>
+            </div>
+    
+            <!-- Menu Contents -->
+            <div class="menu-contents" ng-if="vm.sidebarservice.activeMenuItem != null">
+                <div class="title">
+                    <!-- Sub Menu -->
+                    <button id="sb-button-back" ng-click="vm.backToMenu()" class="back-button"><i class="glyphicon glyphicon-arrow-left"></i></button>
+                    <div class="title-text">{{vm.sidebarservice.activeMenuItem.name.toUpperCase()}}</div>
+                    <md-menu class="edit-menu">
+                        <i ng-click="vm.openMenu($mdOpenMenu, $event)" class="fa fa-bars" aria-hidden="true"></i>
+                        <md-menu-content class="nav-menu-content">
+                            <md-menu-item ng-repeat="item in vm.sidebarservice.menuItems" ng-if="!item.hide">
+                                <md-button ng-disabled="!vm.clientService.connected && item.creator" id="sb-popup-{{item.name.toLowerCase().replace(' ', '')}}" ng-click="item.action(item)" aria-label="Do something" >
+                                    <img src="{{item.icon}}" />
+                                    {{item.name}}
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                    <!-- End Sub Menu -->
+                </div>
+                <style>
+                    .btn1 {
+                        padding: 0 0px 0 0px;
+                        margin: 0px 0px 0px 0px;
+                        height: 16px;
+                    }
+    
+                    .add-menu {
+                        padding: 0 0px 0 0px;
+                        margin: 0px 0px 0px 0px;
+                        height: 24px;
+                    }
+                </style>
+                <div class="menu-settings add-menu pull-right" ng-if="vm.sidebarservice.activeMenuItem.optionMenu">
+                    <i ng-click="menu.action()" ng-repeat="menu in vm.sidebarservice.activeMenuItem.optionMenu" class="fa fa-plus-circle btn1 add-menu pull-right"
+                       style="color:#2BB673" aria-hidden="true">
+                        <md-tooltip md-delay="500" md-direction="bottom" class="custom-tooltip">
+                            {{menu.name}}
+                        </md-tooltip>
+                    </i>
+                </div>
+                <div ng-show="!vm.sidebarservice.activeMenuItem.tree" id="zhgTur" class="items">
+                    <div class="items-wrapper">
+                        <div ng-repeat="child in vm.sidebarservice.activeMenuItem.children track by $index" class="item">
+                            <md-button ng-if="!child.editEnabled" id="sb-itemmenu-button-{{child.name.replace(' ', '').toLowerCase()}}" ng-click="child.action(child)" aria-label="{{child.name}}">
+    
+                                <div class="image-container">
+                                    <img src="{{child.icon}}" alt="" />
+                                </div>
+                                <span>{{child.name}}</span>
+    
+                            </md-button>
+                            <div class="ep-popup" ng-if="child.editEnabled">
+                                <div class="image-container">
+                                    <img src="{{child.icon}}" alt="" />
+                                </div>
+                                <input id="sb-input-{{$index}}" autocapitalize="none" autocorrect="off" autocomplete="off" spellcheck="false" ng-keypress="vm.editInputKeyPress($event, child)" ng-blur="vm.inputBlur(child)" type="text" ng-model="child.name" input-focus editable="child.editEnabled" />
+                            </div>
+                            <div ng-if="child.comment" class="sb-itemmenu-info">
+                                <i class="fa fa-info"></i>
+                                <md-tooltip md-delay="500" md-direction="bottom" class="custom-tooltip">
+                                    {{child.comment}}
+                                </md-tooltip>
+                            </div>
+                            <md-menu class="edit-menu">
+                                <md-button ng-disabled="!child.editable" id="sb-item-menu-{{child.name.replace(' ', '').toLowerCase()}}" ng-click="vm.openMenu($mdOpenMenu, $event, child)" class="md-icon-button" aria-label="Open some menu">
+                                    <i ng-class="{ editDisabled: !child.editable }" class="glyphicon glyphicon-edit"></i>
+                                </md-button>
+                                <md-menu-content>
+                                    <md-menu-item ng-repeat="menuItem in child.itemMenu">
+                                        <md-button id="sb-item-menu-button-{{menuItem.name.toLowerCase().replace(' ', '') + '-' + vm.sidebarservice.activeMenuItem.children.indexOf(child)}}" ng-disabled="menuItem.disabled" ng-click="menuItem.action(child)" aria-label="Do something">
+                                            <i ng-class="menuItem.icon"></i>
+                                            {{menuItem.name}}
+                                        </md-button>
+                                    </md-menu-item>
+                                </md-menu-content>
+                            </md-menu>
+                        </div>
+                    </div>
+    
+    
+                </div>
+                <div class="library-picker" ng-show="vm.sidebarservice.activeMenuItem.tree">
+                    <div class="picker-filter">
+                        <input id="lbfilter"
+                               class="form-control"
+                               placeholder="{{vm.loginService.resourceStrings['FILTERBY']}}"
+                               ng-show="vm.fileGuideService.showFilter && vm.fileGuideService.mode != 3"
+                               ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }"
+                               ng-model="vm.fileGuideService.currentQuery"
+                               ng-change="vm.textChanged(vm.fileGuideService.currentQuery)" />
+                        <button id="libfilter-x" ng-show="vm.fileGuideService.currentQuery != ''" ng-click="vm.textChanged('')"><i class="fa fa-times"></i></button>
+                    </div>
+    
+                    <div class="tree-content">
+                        <div class="tree-content-wrapper">
+                            <div ng-show="vm.fileGuideService.processing" class="tree-overlay">
+                                <i class="fa fa-spinner fa-2x fa-spin"></i>
+                            </div>
+                            <library-name-switch ng-if="vm.fileGuideService.mode == 1"></library-name-switch>
+                            <div style="margin-left: -25px;">
+                                <fg-tree processing="vm.fileGuideService.processing" ng-if="vm.fileGuideService.mode == 3 && !vm.fileGuideService.processing" class="library-picker" collection='vm.fileGuideService.tree' on-expanded="vm.fileGuideService.nodeExpanded" on-clicked='vm.fileGuideService.nodeClicked' showmore-label="vm.loginService.resourceStrings['SHOW_MORE']"></fg-tree>
+                                <collection show-folder="vm.fileGuideService.showFolder" mode="vm.fileGuideService.mode" ng-if="vm.fileGuideService.mode != 3 && !vm.fileGuideService.processing" class="library-picker" collection='vm.fileGuideService.tree' on-clicked='vm.fileGuideService.nodeClicked'></collection>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
+    
+        </div>
+        <!-- Doc Dashboard button -->
+        <div ng-hide="vm.ddService.opened || layoutVm.state.current.name != 'layout.results.grid'" class="dd-tab" ng-click="vm.openDD()">
+            <span ng-show="vm.sidebarservice.leftSideBarCollapse"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAbCAYAAAB836/YAAAABmJLR0QAAAAAAAD5Q7t/AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AYWFREf5J4DvwAAA11JREFUSMetlk9Mm2Ucxz/P07dv+7altFQYslUZ2S7bYkkEIbHD1hEWR8x22cGTh8VkidnBowmLydw8eZqHGXYymAgxcXoQLpAlomMyImxxeJjKtrI6nC8ZrbxvW/q+j4eCm0yxVH+398/v83zf35Pv93lFKpU+JYQ4L4QoAoLqSrmu6wOuFAqFQ1evThUA+voOI9Lpl1UikZhPJpOlYrEoq6EZhrE2ODj4nKZpa7lcbs40zVdv3vx+GUCTUhZ7e3ud/v4j7WyjhoaG6OnpyeTzua5Llz7/qLPzhZPXrk3f0wBs2xZsr0qO4+itra36sWNHXb/ff2h0dGwYOKgBiO3i1mt4+JOGmZkZlc1mBZBMpdJjsjYUno6OjkxjY1M5l1tZjUajdiwWywPdWi00pZTn9OmB+OP3Llz48M7IyEigJoXib2ZUKpWkEEJUo3DRLuNIwKcRABq3evkfgQ8ssme+wmNaBKfv4ewIQVsUrX0Hv77VjSEFdVUDx35i/sQXtEmJf9mCuZPwwTQM3YCJBbg4S/a7NzADXlo3926eoTN6i/tHPmZfcx3+w20QMcAjoE6HlhC8sgeUoiX4DmXT5pctgVcyZAcuEz3VBSjYFYagBteXYO4+7AzD7giEdBjoY0/nRYRdxnoCKCrb9vt7XxPeG8P3bhriYXh/CjJ56GqBzp0weQfOTcLrCTjRDkWH5vPfkgPcDXtogPAI1PXfEJkc3ocFeHsCVteg3gemDVJA2QXdAyEf3FiCz34AKVHfZNCLkJfiMYUSpR5YSGsN3VXw5Y9waxmkhMYgeCW8GId8EXweGF+Anx+CALG0SnBhhcBfgAghUHigokas+9u04Gwagj546Vk4vh/ypfVGUWl2FTjqUY5qAI6LONCE/doByBcJAsK0KV6+jTa1iH4wDot5uL2CGw9jde9C93uQAtj7FIX9EbwT6hFQlV2lmg3qz6QqVt1Y7dN5cmcn8b85hlq2kU1ByufSlBLN6FD5IqB+3d/mnwo3WXPjKnB8H/rzT2NN3sWK+NGSz2DEjApg29bbeN4WpW53hBCV2f5rmGhVhkvVEVxrwG4NVOp/BhqG8Z+Ruq4rAM11Xd/4+LinUCjMVXsubzoQCAQCzuzsbAPQIGr8c3hi45RSXqVU/x/EZjAkQRJPWwAAAABJRU5ErkJggg==" /></span>
+            <span ng-hide="vm.sidebarservice.leftSideBarCollapse">{{layoutVm.loginService.resourceStrings["DOCUMENT_DASHBOARD"]}}</span>
+        </div>
+    </div>
+
+
+<!-- <div class="sidebar">
     <app-searchbox></app-searchbox>
     <mat-list>
         <mat-list-item>
@@ -29,4 +189,4 @@
       
     
     
-</div>
+</div> -->

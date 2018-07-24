@@ -17,10 +17,11 @@ export class LoginComponent implements OnInit {
   constructor(private locale: LocalizationService,private router: Router, private authService: AuthService) { }
 
   private user: User = { loginName: "test1", password: ""};
-  selectedLanguage: any = { viewValue: "English" };
+  selectedLanguage: any;
   inProcess: boolean;
-  enableAutoLogin: boolean;
-  
+  autoLogin: boolean;
+  appVersion: string;
+
   public languages = [];
 
   login(): void {
@@ -45,17 +46,21 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     //get languages to populate dropdown
     this.locale.languages.subscribe(
-      langs => { 
+      langs => {
+        for (let lang of langs) {
+          if (lang.active) {
+            this.selectedLanguage = lang;
+          }
+        }
         this.languages = langs;
       }
     );
 
-    this.locale.currentLanguage.pipe(filter(l => l && l.active)).subscribe(l => {
-      if (l && l.active)
-        this.selectedLanguage = l;
+    this.authService.getAppVersion().subscribe(version => {
+      
+      this.appVersion = version.AppVersion;
     });
 
   }
-
 
 }

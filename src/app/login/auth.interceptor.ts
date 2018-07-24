@@ -37,12 +37,15 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
-        //console.log("intercepted request:", req.url);
         return next.handle(this.addToken(req, this.auth.getToken()))
             .pipe(catchError(err => {
                 switch ((<HttpErrorResponse>err).status) {
+                    case 400:
+                        return this.handle401Error(req, next);
                     case 401:
                         return this.handle401Error(req, next);
+                    default: 
+                        return observableThrowError(err);
                 }
             }));
     }
@@ -77,13 +80,21 @@ export class AuthInterceptor implements HttpInterceptor {
         }       
     }
 
+    handle400Error(error) {
+        if (error && error.status === 400 && error.error && error.error.error === 'invalid_grant') {
+            // If we get a 400 and the error message is 'invalid_grant', the token is no longer valid so logout.
+            return this.logoutUser();
+        }
+
+        return observableThrowError(error);
+    }
+
     handleOtherErrors(req: HttpRequest<any>, next: HttpHandler) {
         
     }
 
     logoutUser() {
         // Route to the login page
-
         return observableThrowError("Hello");
     }
 }

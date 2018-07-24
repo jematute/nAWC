@@ -53,6 +53,10 @@ export class AuthService {
     return this.http.get(`${webApiUrl}/api/account/isloggedin`);
   }
 
+  getAppVersion(): Observable<any> {
+    return this.http.get(`${webApiUrl}/api/configuration/appversion`);
+  }
+
   public getNewToken(): Observable<any> {
     let refreshToken = atob(this.refreshToken);
     let credentials = `grant_type=refresh_token&refresh_token=${refreshToken}&client_id=WebApi&client_secret=zd2345rtl`;

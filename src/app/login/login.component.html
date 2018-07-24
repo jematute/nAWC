@@ -37,8 +37,7 @@
   </div>
 </div> -->
 
-
-<div class="login">
+<div class="login" ng->
   <div class="loginbox">
       <div class="image-holder">
 
@@ -58,37 +57,36 @@
                       <input [ngModelOptions]="{standalone: true}" xto-clear id="login-password" [(ngModel)]="user.password" type="password" class="form-control" placeholder="{{locale?.resourceStrings?.PASSWORD_PLACEHOLDER}}">
                       <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                   </div>
-                  <h4>{{selectedLanguage.viewValue}}</h4>
                   <div class="form-group has-feedback">
                       <span>{{locale?.resourceStrings?.LANGUAGE}}</span>
                       <select name="langselect" id="CBAvailableLanguages"
                               class="form-control"
                               [(ngModel)]="selectedLanguage"
                               (change)="languageChanged()">
-                          <option *ngFor="let lang of languages" [ngValue]="lang">{{lang.viewValue}}</option>
+                          <option *ngFor="let lang of languages" [ngValue]="lang">{{lang?.viewValue}}</option>
                       </select>
                   </div>
 
-                  <div class="row">
-                      <div class="col-xs-8">
+                  <div class="bottom">
+                      <div class="login-checkbox">
                           <div class="checkbox" ng-show="authService.autoLogin">
                               <label style="padding-left: 0">
                                   <input ng-model="vm.localStorage.userInfo.autoLogin" type="checkbox" value="">
-                                  <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                                  <!-- <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span> -->
                                   <span>{{locale?.resourceStrings?.ENABLE_AUTO_LOGIN}}</span>
 
                               </label>
                           </div>
 
                       </div><!-- /.col -->
-                      <div class="col-xs-4">
+                      <div class="login-button">
                           <button id="signin-button" [disabled]="inProcess" class="button primary-button pull-right">{{locale?.resourceStrings?.OK}}</button>
                       </div><!-- /.col -->
                   </div>
               </fieldset>
           </form>
           <div class="login-footer">
-              <p><i class="fa fa-copyright" style="margin-right:4px;" ng-click="vm.showLocalStorage()"></i><span>{{locale?.resourceStrings?.COPYRIGHT}}</span> <span> {{locale?.resourceStrings?.VERSION}}: {{locale?.resourceStrings?.ENABLE_AUTO_LOGIN}}</span></p>
+              <p><i class="fa fa-copyright" style="margin-right:4px;" ng-click="vm.showLocalStorage()"></i><span>{{locale?.resourceStrings?.COPYRIGHT}}</span> <span> {{locale?.resourceStrings?.VERSION}}: {{appVersion}}</span></p>
           </div>
       </div>
   </div>
