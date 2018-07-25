@@ -11,10 +11,14 @@ export class SidebarComponent implements OnInit {
 
   shouldRun: boolean;
   events = [];
+  showSidebar: boolean = true;
 
-  constructor(sidebarService: SidebarService) { }
+  constructor(private sidebarService: SidebarService) { }
 
   ngOnInit() {
+    this.sidebarService.onToggleLeftSidebar.subscribe(result => {
+      this.showSidebar = result;
+    });
   }
 
 }

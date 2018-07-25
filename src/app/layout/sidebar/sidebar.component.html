@@ -1,5 +1,5 @@
 
-<div class="sidebar">
+<div class="sidebar" [hidden]="!showSidebar">
     <app-searchbox></app-searchbox>
     <mat-list>
         <mat-list-item>
@@ -25,9 +25,4 @@
             <button mat-button>FileGuide</button>
         </mat-list-item>
       </mat-list>
-    
-    
-      
-    
-    
 </div>

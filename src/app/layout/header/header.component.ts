@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../login/auth.service';
+import { LocalizationService } from '../../localization/localization.service';
+import { Router } from '@angular/router';
+import { SidebarService } from '../sidebar/sidebar.service';
 
 @Component({
   selector: 'app-header',
@@ -7,21 +10,12 @@ import { AuthService } from '../../login/auth.service';
   styleUrls: ['./header.component.less']
 })
 export class HeaderComponent implements OnInit {
-  constructor(private auth: AuthService) { }
-  getColumns(): void {
-    this.auth.something().subscribe(columns => {
-      console.log("Got columns 1"); 
-    });
-    this.auth.something().subscribe(columns => {
-      console.log("Got columns 2"); 
-    });
-    this.auth.something().subscribe(columns => {
-      console.log("Got columns 3"); 
-    });
-    this.auth.something().subscribe(columns => {
-      console.log("Got columns 4"); 
-    });
-  } 
+  constructor(private auth: AuthService, private locale: LocalizationService, private router: Router, private sidebar: SidebarService) { }
+
+  toggleSidebar() {
+    this.sidebar.toggleSidebar();
+  }
+
   ngOnInit() {
   }
 

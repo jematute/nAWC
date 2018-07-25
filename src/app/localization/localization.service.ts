@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable ,  BehaviorSubject } from 'rxjs';
 import {  map, takeLast, filter } from 'rxjs/operators';
+import { Global } from '../classes/global';
 
 @Injectable()
 export class LocalizationService {
@@ -26,7 +27,7 @@ export class LocalizationService {
     resourceStrings: Map<string, string>;
 
     public getLanguages(): void {
-        this.http.get('http://wkst0835:8686/synergis.webapi/api/localization/availablelanguages').subscribe(
+        this.http.get(`${Global.API_URL}/api/localization/availablelanguages`).subscribe(
             response => {
                 for (const key in response) {
                     if (response.hasOwnProperty(key)) {
@@ -45,7 +46,7 @@ export class LocalizationService {
     }
 
     public getStrings(id: string): Observable<Object> {
-        return this.http.get('http://wkst0835:8686/synergis.webapi/api/Localization/ResourceStrings/' + id).pipe(map(resp => {
+        return this.http.get(`${Global.API_URL}/api/Localization/ResourceStrings/` + id).pipe(map(resp => {
             return this.resourceStrings = resp as Map<string, string>;
         }));
     }

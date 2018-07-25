@@ -1,42 +1,4 @@
-
-<!-- <div class="login-page">
-  <div class="login-box">
-    <div class="title">
-      <h3>{{locale?.resourceStrings?.ADEPT}}</h3>
-    </div>
-    <form (ngSubmit)="login()" >
-        <div class="controls">
-            <mat-form-field class="field">
-                <input required name="username" [(ngModel)]="user.loginName" matInput placeholder="Username">
-              </mat-form-field>
-              <div>
-                <mat-form-field class="field">
-                  <input matInput name="password" [(ngModel)]="user.password" placeholder="Password" type="password">
-                </mat-form-field>
-              </div>
-              <div>
-                <mat-form-field class="field">
-                  <mat-select placeholder="Language" [(ngModel)]="selectedLanguage" name="language">
-                    <mat-option *ngFor="let lang of languages" [value]="lang.value">
-                      {{lang.viewValue}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-              <div class="autologin">
-                <mat-checkbox>Enable Auto Login</mat-checkbox>
-              </div>
-        
-      </div>
-      <div class="footer">
-        <button mat-raised-button color="primary" class="btn-login">Login</button>
-      </div>
-    </form>
-    
-
-  </div>
-</div> -->
-
+<app-header></app-header>
 <div class="login" ng->
   <div class="loginbox">
       <div class="image-holder">
@@ -44,7 +6,7 @@
       </div>
       <div class="control-area">
           <div class="login-header">
-              <span class="title-1">{{locale?.resourceStrings?.ADEPT}} </span><span class="title-2">2018</span>
+              <span class="title-1">{{locale?.resourceStrings?.ADEPT}} </span><span class="title-2">2019</span>
               <span *ngIf="locale?.resourceStrings?.ADEPT != 'Adept'"><br />{{locale?.resourceStrings?.POWERED_BY_ADEPT}}</span>
           </div>
           <form (ngSubmit)="login()">

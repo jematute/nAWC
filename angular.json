@@ -18,14 +18,16 @@
             "polyfills": "src/polyfills.ts",
             "assets": [
               "src/assets",
-              "src/favicon.ico"
+              "src/favicon.ico",
+              "src/images"
             ],
             "styles": [
               "src/styles.less",
               "src/custom-theme.scss",
               "node_modules/bootstrap/dist/css/bootstrap.css",
               "node_modules/ag-grid/dist/styles/ag-grid.css",
-              "node_modules/ag-grid/dist/styles/ag-theme-balham.css"
+              "node_modules/ag-grid/dist/styles/ag-theme-balham.css",
+              "node_modules/font-awesome/css/font-awesome.css"
             ],
             "scripts": []
           },

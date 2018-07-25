@@ -1,1 +1,110 @@
-<mat-toolbar color="primary"></mat-toolbar> 
+<div class="header main-header">
+  <a href="javascript:void(0)" class="logo" ng-click="vm.state.go('layout.home')">
+    <span class="logo-mini">
+      <img src="../../../images/adept-navbar-logo.png" />
+    </span>
+
+    <span class="logo-lg">
+      <img src="../../../images/adept-navbar-logo.png" />
+      <span [hidden]="router?.url != '/login'">
+        <b>{{locale?.resourceStrings?.SYNERGIS}} </b>
+        <span>{{locale?.resourceStrings?.ADEPT}}</span>
+
+      </span>
+
+      <span [hidden]="auth?.user?.Reviewer || auth?.user?.Creator || router?.url == '/login'">
+        <b>{{locale?.resourceStrings?.ADEPT}} </b>Explorer
+      </span>
+      <span [hidden]="!auth?.user?.Reviewer || router?.url == '/login'">
+        <b>{{locale?.resourceStrings?.ADEPT}} </b>Reviewer
+      </span>
+      <span [hidden]="!auth?.user?.Creator || router?.url == '/login'">
+        <b>{{locale?.resourceStrings?.ADEPT}} </b>Creator
+      </span>
+
+    </span>
+  </a>
+
+  <!-- Header Navbar: style can be found in header.less -->
+  <nav class="navbar navbar-static-top" role="navigation">
+    <!-- Sidebar toggle button-->
+    <a id="sidetoggle" ng-show="vm.state.current.name != 'login'" href="javascript:void(0)" class="sidebar-toggle" role="button"
+      (click)="toggleSidebar()" aria-hidden="false">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </a>
+    
+    <!--
+    <span ng-show="vm.sessionTimeoutService.enableSessionTimeOutDebugging" style="background-color:white;">TimeoutMsg: {{vm.sessionTimeoutService.tickMessage}}</span>
+    <span ng-show="vm.sessionTimeoutService.enableSessionTimeOutDebugging" style="background-color:white;">LastAction: {{vm.sessionTimeoutService.lastAction}}</span>
+    -->
+
+    <div [hidden]="router?.url == '/login'" class="navbar-custom-menu">
+      <ul class="nav navbar-nav">
+        <app-help-menu></app-help-menu>
+
+        <!--
+
+        <li class="dropdown messages-menu">
+          <a style="min-width: 42.08px; min-height: 50px" ng-show="vm.clientService.needsUpdate" href="javascript:void(0)" ng-click="vm.updateACS()"
+            class="dropdown-toggle" data-toggle="dropdown">
+            <i class="fa fa-download" style="color: red" ng-show="vm.iconFlash" aria-hidden="true"></i>
+          </a>
+        </li>
+
+        <li class="dropdown messages-menu">
+          <a href="javascript:void(0)" ng-click="vm.inboxClicked()" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="fa fa-envelope-o"></i>
+          </a>
+
+        </li>
+
+        <li class="user-section">
+          <div id="user-dropdown" class="user-menu" ng-click="vm.toggleUserMenu()">
+            <img src="images/header-user-profile-small.png" class="user-image" alt="User Image">
+            <span class="hidden-xs">{{vm.localStorage.userInfo.userName}}</span>
+          </div>
+          <div click-close show-element="vm.showUserMenu" ng-show="vm.showUserMenu" class="user-dropdown">
+            <div class="usd-header">
+              <img src="images/header-user-profile.png" class="img-circle" alt="User Image">
+              <p>
+                {{vm.localStorage.userInfo.userName}}
+              </p>
+            </div>
+            <div class="usd-infosource">
+              <div class="is-label">
+                <span>{{vm.loginService.resourceStrings["INFORMATION_SOURCE"]}}</span>
+              </div>
+
+              <toggle-switch style="width:150px" disabled="true" ng-model="vm.infoSourceValue" on-label="{{vm.loginService.resourceStrings['WIP']}}"
+                off-label="{{vm.loginService.resourceStrings['LIBRARY']}}" ng-change="vm.wipLibraryButtonClicked()">
+
+              </toggle-switch>
+
+            </div>
+            <div class="usd-footer">
+              <div class="pull-left">
+                <button class="button default-button" ng-disabled="true">{{vm.loginService.resourceStrings["PROFILE"]}}</button>
+              </div>
+              <div class="pull-right">
+                <button id="signout-button" ng-click="vm.logOut()" class="button primary-button">{{vm.loginService.resourceStrings["LOGOUT"]}}</button>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <a href="javascript:void(0)" ng-click="vm.rightSideBarToggle()">
+            <i class="fa fa-gears"></i>
+          </a>
+        </li>
+         -->
+      </ul>
+    </div>
+ 
+  </nav>
+
+
+
+</div>
