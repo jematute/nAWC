@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { ErrorService } from '../error/error.service';
 import { MatDialog } from '@angular/material';
-import { ErrorComponent } from '../error/error.component';
 
 
 @Component({
@@ -10,20 +8,11 @@ import { ErrorComponent } from '../error/error.component';
   styleUrls: ['./layout.component.less']
 })
 export class LayoutComponent {
-  constructor (private errorService: ErrorService, public dialog: MatDialog) {
+  constructor (public dialog: MatDialog) {
 
   }
 
   openError() {
-    let dialogRef = this.dialog.open(ErrorComponent, {
-      width: '250px',
-      data: { name: "hi", animal: "Zebra" }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      console.log('The dialog was closed');
-    });
   }
 
 

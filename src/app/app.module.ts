@@ -9,23 +9,24 @@ import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common
 import { AuthService } from './login/auth.service';
 import { AuthInterceptor } from './login/auth.interceptor';
 import { LoginModule } from './login/login.module';
-import { ErrorModule } from './error/error.module';
 import { LocalizationService } from './localization/localization.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { GlobalsService } from './globals.service';
+
 
 @NgModule({
   declarations: [
     AppComponent,
   ],
+  entryComponents: [ ],
   imports: [
     BrowserModule, BrowserAnimationsModule,
-    AppRoutingModule, HttpClientModule, LoginModule, ErrorModule
+    AppRoutingModule, HttpClientModule, LoginModule,
   ],
   exports: [ ],
   bootstrap: [ AppComponent ],
   providers: [ { provide: APP_BASE_HREF, useValue: '/' }, HttpClient, LocalizationService, {
-    provide: HTTP_INTERCEPTORS,
+    provide: HTTP_INTERCEPTORS, 
     useClass: AuthInterceptor,
     multi: true
   }, GlobalsService ]

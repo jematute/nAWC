@@ -32,7 +32,8 @@ import {
   MatTabsModule,
   MatToolbarModule,
   MatTooltipModule,
-  MatOptionModule
+  MatOptionModule,
+  MatBottomSheetModule
 } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 @NgModule({
@@ -70,6 +71,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
       MatTabsModule,
       MatToolbarModule,
       MatTooltipModule,
+      MatBottomSheetModule
     ]
   ],
   exports: [
@@ -105,6 +107,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
+    MatBottomSheetModule
   ]
 })
 export class MaterialModule { }

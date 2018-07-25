@@ -3,9 +3,8 @@ import { User } from './user'
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { LocalizationService } from '../localization/localization.service';
-import { filter } from 'rxjs/operators';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule }   from '@angular/forms';
+import { ErrorDialogService } from '../error-dialog/error-dialog.service';
+
 
 @Component({
   selector: 'app-login',
@@ -14,7 +13,7 @@ import { FormsModule }   from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private locale: LocalizationService,private router: Router, private authService: AuthService) { }
+  constructor(private locale: LocalizationService,private router: Router, private authService: AuthService, private errorDialog: ErrorDialogService) { }
 
   private user: User = { loginName: "test1", password: ""};
   selectedLanguage: any;
@@ -26,8 +25,19 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     this.inProcess = true;
-    this.authService.login(this.user).subscribe(() => {
+    this.authService.login(this.user, false).subscribe(() => {
       this.router.navigate(['layout']);
+    }, error => {
+      this.inProcess = false;
+      if (error.error) {
+        if (error.error.error === "user_loggedin") {
+          alert("already logged in");
+          return;
+        }
+      }
+      console.log(error);     
+      this.errorDialog.showError("Incorrect Login", error);
+      return;
     });
   }
 

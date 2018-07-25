@@ -34,8 +34,8 @@ export class AuthService {
       this.user = JSON.parse(user) as userModel;
   }
 
-  login(user: User): Observable<Object> {
-    let credentials = `username=${user.loginName}&password=${user.password}&client_secret=zd2345rtl&client_id=WebApi&grant_type=password`;
+  login(user: User, forceLogin: boolean): Observable<Object> {
+    let credentials = `username=${user.loginName}&password=${user.password}&client_secret=zd2345rtl&client_id=Adept&grant_type=password&forceLogin=${forceLogin}`;
     return this.http.post(`${Global.API_URL}/login`, credentials, httpOptions).pipe(switchMap(data => {
       this.accessToken = data["access_token"];
       this.refreshToken = data["refresh_token"];

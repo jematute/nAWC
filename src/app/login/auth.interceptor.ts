@@ -17,7 +17,6 @@ import {
     HttpUserEvent
 } from '@angular/common/http';
 import { AuthService } from './auth.service';
-import { ErrorService } from '../error/error.service';
 import { Router } from '../../../node_modules/@angular/router';
 
 @Injectable()
@@ -28,7 +27,7 @@ export class AuthInterceptor implements HttpInterceptor {
     tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
     errorSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
-    constructor(private inj: Injector, private errorService: ErrorService, private router: Router) {
+    constructor(private inj: Injector, private router: Router) {
         this.auth = this.inj.get(AuthService);
     }
 
@@ -65,11 +64,11 @@ export class AuthInterceptor implements HttpInterceptor {
                     return next.handle(this.addToken(req,newToken));
                 }
                 // If we don't get a new token, we are in trouble so logout.
-                return this.logoutUser();
+                return this.logoutUser("no token");
             }), catchError(error => {
                 
                 // If there is an exception calling 'refreshToken', bad news so logout.
-                return this.logoutUser();
+                return this.logoutUser(error);
             }), finalize(() => {
                 this.isRefreshingToken = false;
             }));
@@ -84,7 +83,7 @@ export class AuthInterceptor implements HttpInterceptor {
     handle400Error(error) {
         if (error && error.status === 400 && error.error && error.error.error === 'invalid_grant') {
             // If we get a 400 and the error message is 'invalid_grant', the token is no longer valid so logout.
-            return this.logoutUser();
+            return this.logoutUser(error);
         }
 
         return observableThrowError(error);
@@ -94,10 +93,17 @@ export class AuthInterceptor implements HttpInterceptor {
         
     }
 
-    logoutUser() {
+    logoutUser(err) {
         // Route to the login page
         this.router.navigate(['login']);
         localStorage.setItem("userModel", "");
-        return observableThrowError("Hello");
+        if (err)
+            if (err.error) {
+                if (err.error.error_description) {
+                    err = err.error.error_description;
+                }
+            }
+                
+        return observableThrowError(err);
     }
 }
