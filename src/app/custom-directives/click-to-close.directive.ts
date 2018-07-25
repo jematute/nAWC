@@ -19,7 +19,6 @@ export class ClickToCloseDirective {
 
   const clickedInside = this._elementRef.nativeElement.contains(targetElement);
   if (!clickedInside) {
-      console.log("emitter");
       this.clickToClose.emit(event);
   }
 

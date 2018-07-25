@@ -6,6 +6,7 @@ import { catchError, mergeMap, switchMap, map, tap } from 'rxjs/operators';
 import { User } from './user';
 import { userModel } from '../classes/userModel';
 import { Global } from '../classes/global';
+import { Router } from '../../../node_modules/@angular/router';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -26,9 +27,11 @@ export class AuthService {
   autoLogin: boolean;
   user: userModel;
 
-  constructor(private http: HttpClient ) {
+  constructor(private http: HttpClient, private router: Router) {
     this.refreshToken = localStorage.getItem("refresh_token");
-    this.user = JSON.parse(localStorage.getItem("userModel")) as userModel;
+    let user = localStorage.getItem("userModel");
+    if (user)
+      this.user = JSON.parse(user) as userModel;
   }
 
   login(user: User): Observable<Object> {
@@ -43,11 +46,19 @@ export class AuthService {
     //return Observable.of(true).delay(1000).do(val => this.isLoggedIn = true);
   }
 
+  logOut(): Observable<any> {
+    return this.http.get(`${Global.API_URL}/api/account/logout`).pipe(switchMap(result => {
+      //clear the user and localstorage
+      this.user = null;
+      localStorage.setItem("userModel", "");
+      return this.router.navigate(["/login"]);
+    }));
+  }
+
   getUserInfo(): Observable<userModel> {
     return this.http.get(`${Global.API_URL}/api/account/userinfo`).pipe(map(data => {
       this.user = data as userModel;
       localStorage.setItem("userModel", JSON.stringify(this.user));
-      console.log(this.user);
       return data as userModel;
     }));
   }

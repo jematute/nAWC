@@ -18,6 +18,7 @@ import {
 } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { ErrorService } from '../error/error.service';
+import { Router } from '../../../node_modules/@angular/router';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -27,7 +28,7 @@ export class AuthInterceptor implements HttpInterceptor {
     tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
     errorSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
-    constructor(private inj: Injector, private errorService: ErrorService) {
+    constructor(private inj: Injector, private errorService: ErrorService, private router: Router) {
         this.auth = this.inj.get(AuthService);
     }
 
@@ -41,7 +42,7 @@ export class AuthInterceptor implements HttpInterceptor {
             .pipe(catchError(err => {
                 switch ((<HttpErrorResponse>err).status) {
                     case 400:
-                        return this.handle401Error(req, next);
+                        return this.handle400Error(err);
                     case 401:
                         return this.handle401Error(req, next);
                     default: 
@@ -95,6 +96,8 @@ export class AuthInterceptor implements HttpInterceptor {
 
     logoutUser() {
         // Route to the login page
+        this.router.navigate(['login']);
+        localStorage.setItem("userModel", "");
         return observableThrowError("Hello");
     }
 }

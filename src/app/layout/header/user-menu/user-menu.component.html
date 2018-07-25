@@ -1,0 +1,33 @@
+<div class="user-menu">
+  <div id="user-dropdown" (clickToClose)="closeUserMenu()" class="user-button" (click)="toggleUserMenu()">
+    <img src="images/header-user-profile-small.png" class="user-image" alt="User Image">
+    <span class="hidden-xs">{{auth?.user?.UserName}}</span>
+  </div>
+  <div click-close show-element="showUserMenu" *ngIf="showUserMenu" class="user-dropdown">
+      <div class="usd-header">
+        <img src="images/header-user-profile.png" class="img-circle" alt="User Image">
+        <p>
+            {{auth?.user?.UserName}}
+        </p>
+      </div>
+      <div class="usd-infosource">
+        <div class="is-label">
+          <span>{{locale?.resourceStrings?.INFORMATION_SOURCE</span>
+        </div>
+  
+        <!-- <toggle-switch style="width:150px" disabled="true" ng-model="vm.infoSourceValue" on-label="locale?.resourceStrings?.WIP"
+          off-label="locale?.resourceStrings?.LIBRARY" ng-change="vm.wipLibraryButtonClicked()">
+  
+        </toggle-switch> -->
+  
+      </div>
+      <div class="usd-footer">
+        <div class="pull-left">
+          <button class="button default-button" ng-disabled="true">{{locale?.resourceStrings?.PROFILE}}</button>
+        </div>
+        <div class="pull-right">
+          <button id="signout-button" (click)="logOut()" class="button primary-button">{{locale?.resourceStrings?.LOGOUT}}</button>
+        </div>
+      </div>
+    </div>
+</div>

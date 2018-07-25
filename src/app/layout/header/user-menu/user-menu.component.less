@@ -1,0 +1,101 @@
+
+@import '../../../../globalstyles/common.less';
+
+.user-menu {
+        
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    color: white;
+    position: relative;
+    .noselect;
+    cursor: pointer;
+    
+    
+    &:hover {
+        background: darken(@site-main, 5%);
+    }
+    .user-button {
+        height: 100%;
+        width: 100%;
+        flex: 1 1 auto;
+        display: flex;
+        padding: 0 16px;
+        align-items: center;
+        justify-content: center;
+
+        img {
+            margin: 0 10px;
+        }
+
+        span {
+            margin: 0 10px 0 0;
+        }
+
+    }
+
+    .user-dropdown {
+        position: absolute;
+        right: 0;
+        top: 50px;
+        background: #fafaff;
+        z-index: 55;
+        width: 300px;
+        margin: 1px;
+        display: flex;
+        display: -webkit-flex;
+        -webkit-flex-flow: column;
+        flex-flow: column;
+        border: 1px solid rgb(210,210,210);
+
+        .usd-header {
+            background-color: @site-main;
+            text-align: center;
+            color: rgb(240,240,240);
+            font-size: 18px;
+            padding: 20px 0 20px 0;
+        }
+
+        .usd-infosource {
+            margin: 10px;
+            text-align: center;
+
+            .is-label {
+                padding: 5px;
+            }
+
+            .span {
+                display: block;
+            }
+
+            .ats-switch span {
+                padding: 6px;
+                line-height: 11px;
+            }
+
+            .ats-switch .switch-left {
+                background-color: @site-main;
+            }
+
+            .ats-switch .switch-right {
+                background-color: @site-main;
+                color: white;
+            }
+        }
+
+        .usd-footer {
+            margin: 10px;
+        }
+    }
+
+    .user-dropdown.ng-hide-remove {
+        animation: fadeIn .3s ease;
+    }
+
+    .user-dropdown.ng-hide-add {
+        animation: fadeOut .3s ease;
+    }
+
+
+}
