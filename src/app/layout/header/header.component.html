@@ -1,5 +1,35 @@
 <div class="header main-header">
-  <a href="javascript:void(0)" class="logo" ng-click="vm.state.go('layout.home')">
+  <div class="logo-section">
+      <span class="logo-mini">
+        <img src="../../../images/adept-navbar-logo.png" />
+      </span>
+
+      <div class="title">
+          <span [hidden]="router?.url != '/login'">
+            <b>{{locale?.resourceStrings?.SYNERGIS}} </b>
+            <span>{{locale?.resourceStrings?.ADEPT}}</span>
+          </span>
+    
+          <span [hidden]="auth?.user?.Reviewer || auth?.user?.Creator || router?.url == '/login'">
+            <b>{{locale?.resourceStrings?.ADEPT}} </b>Explorer
+          </span>
+          <span [hidden]="!auth?.user?.Reviewer || router?.url == '/login'">
+            <b>{{locale?.resourceStrings?.ADEPT}} </b>Reviewer
+          </span>
+          <span [hidden]="!auth?.user?.Creator || router?.url == '/login'">
+            <b>{{locale?.resourceStrings?.ADEPT}} </b>Creator
+          </span>
+      </div>
+      
+
+  </div>
+  <div class="middle-section">
+
+  </div>
+  <div class="right-section">
+
+  </div>
+  <!-- <a href="javascript:void(0)" class="logo" ng-click="vm.state.go('layout.home')">
     <span class="logo-mini">
       <img src="../../../images/adept-navbar-logo.png" />
     </span>
@@ -23,7 +53,7 @@
       </span>
 
     </span>
-  </a>
+  </a> -->
 
   <!-- Header Navbar: style can be found in header.less -->
   <nav class="navbar navbar-static-top" role="navigation">
@@ -45,14 +75,11 @@
       <ul class="nav navbar-nav">
         <app-help-menu></app-help-menu>
 
+        <app-update-icon></app-update-icon>
+
         <!--
 
-        <li class="dropdown messages-menu">
-          <a style="min-width: 42.08px; min-height: 50px" ng-show="vm.clientService.needsUpdate" href="javascript:void(0)" ng-click="vm.updateACS()"
-            class="dropdown-toggle" data-toggle="dropdown">
-            <i class="fa fa-download" style="color: red" ng-show="vm.iconFlash" aria-hidden="true"></i>
-          </a>
-        </li>
+        
 
         <li class="dropdown messages-menu">
           <a href="javascript:void(0)" ng-click="vm.inboxClicked()" class="dropdown-toggle" data-toggle="dropdown">

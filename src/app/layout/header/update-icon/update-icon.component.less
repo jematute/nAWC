@@ -1,0 +1,54 @@
+@import '../../../../globalstyles/common.less';
+
+li {
+    padding: 15px 10px 10px 30px;
+    cursor: pointer;
+    &:hover {
+        background-color: fade(@site-main, 20%);
+    }
+    .icon {
+        display: inline-block;
+        width: 80px;
+    }
+
+    i {
+        font-size: 18px;
+        min-width: 30px;
+    }
+
+    .help-dropdown {
+        z-index: 200;
+        position: absolute;
+        box-shadow: 1px 1px 2px rgb(150,150,150);
+        margin-top: 15px;
+        right: 0;
+        width: 130px;
+        color: rgb(70,70,70);
+        background: white;
+        border: 1px solid rgb(200,200,200);
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            li {
+                padding: 10px 10px 10px 30px;
+                cursor: pointer;
+                &:hover {
+                    background-color: fade(@site-main, 20%);
+                }
+                .icon {
+                    display: inline-block;
+                    width: 80px;
+                }
+
+                i {
+                    font-size: 18px;
+                    min-width: 30px;
+                }
+
+            }
+        }
+    }
+
+}
