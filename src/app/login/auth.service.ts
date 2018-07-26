@@ -67,10 +67,6 @@ export class AuthService {
     return this.accessToken;
   }
 
-  something(): Observable<Object> {
-    return this.http.get(`${Global.API_URL}/api/column/allavailable`);
-  }
-
   checkLogin(): Observable<Object> {
     return this.http.get(`${Global.API_URL}/api/account/isloggedin`);
   }

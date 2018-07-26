@@ -1,5 +1,38 @@
-<div class="search-box">
+<!-- <div class="search-box">
       <input autocomplete="off" name="search" type="text" (keyDown.enter)="doSearch()" placeholder="Search by {{selectedField.displayName}}" [(ngModel)]="searchValue">
   <i id="search-icon" class="material-icons" (click)="doSearch()">search</i>
   <i id="filter-icon" class="material-icons">filter_list</i>
+</div> -->
+
+<div (clickToClose)="closeDropdown()" class="search-container">
+    <button [disabled]="searchInputModel == ''" (click)="doSearch()" class="search-button"><i class="fa fa-search"></i></button>
+    <button id="filterbutton" class="filter-button" (click)="toggleDropdown()"><i class="fa fa-filter"></i></button>
+    <button [hidden]="searchValue == ''" (click)="searchValue = ''" class="clear-button"><i class="fa fa-times"></i></button>
+    <input id="simplecriteria" autocomplete="off" focus-search (keydown)="inputKeyDown($event)" type="text" [(ngModel)]="searchValue" (ngModelChange)="qsInputChanged($event)" name="q" class="form-control searchbox" placeholder="{{selectedField?.displayName}}" />
+    <div class="input-warning" [hidden]="!showCharWarning">{{locale?.resourceStrings?.CHARACTER_NOT_ALLOWED}}</div>
+
+    <div  click-close show-element="vm.showDropDown" class="search-dropdown" *ngIf="showDropdown">
+        <div class="input-wrapper">
+            <button [hidden]="fieldFilter?.length == 0" (click)="fieldFilter = ''; filterChanged()"><i class="fa fa-times"></i></button>
+            <input id="searchfield" class="form-control" placeholder="{{searchFieldLabel}}" [(ngModel)]="fieldFilter" (ngModelChange)="filterChanged()" />
+        </div>  
+        
+        <div class="search-dropdown-content"  keyboard-selection items="vm.currentFields" show-dropdown="vm.showDropDown" on-selection-changed="vm.onFieldSelectionChanged" selection-made="vm.onFieldSelectionMade">
+            <div>
+                <!-- 
+                <div class="special-searches">
+                    <div id="fts-search" class="select-item" ng-class="{ 'active': vm.ftsSearchSelected }" ng-show="vm.sidebarservice.ftsEnabled" ng-click="vm.fieldSelected('FTS')">
+                        <a>{{locale?.resourceStrings?.FULL_TEXT_SEARCH}}{{dropdownList[0]?.active}}</a>
+                    </div>
+                </div>
+            -->
+                <div class="search-field select-item" *ngFor="let item of currentFields" (click)="fieldSelected(item)">
+                    <a>
+                        {{item?.displayName}}
+                    </a>
+                </div>
+            </div>
+            
+        </div> 
+    </div>
 </div>

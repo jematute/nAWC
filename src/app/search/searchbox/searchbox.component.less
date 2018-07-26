@@ -1,34 +1,188 @@
-input {
-    width: 100%;
-    padding: .75rem 1.125rem;
-    border: 2px solid #95a0dd;
-    border-radius: .5rem;
-    &:focus {
-        outline: none;
-        border: 2px solid #3f51b5;
-    }
-}
+@import '../../../globalstyles/common.less';
 
-.search-box {
+.search-container {
     position: relative;
-    
-    .material-icons {
-        color: rgb(200,200,200);
-        cursor: pointer;
-    }
+    flex: 0 0 auto;
+    -webkit-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
 
-    #search-icon {
+    > .search-dropdown {
         position: absolute;
-        right: 4px;
-        top: 10px;
-        font-size: 30px;
+        background-color: #f9f9f9;
+        width: 100%;
+        z-index: 9999;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        padding: 5px 5px 10px 5px;
+
+        .input-wrapper {
+            position: relative;
+
+            button {
+                position: absolute;
+                right: 0;
+                background-color: transparent;
+                border: none;
+                top: 7px;
+
+                &:focus {
+                    outline: none;
+                }
+            }
+        }
+
+        > .search-dropdown-content {
+            margin-top: 5px;
+            max-height: 300px;
+            overflow: auto;
+
+            .active {
+                background-color: rgb(230,230,230);
+
+                &:hover {
+                    background-color: rgb(210,210,210);
+                }
+            }
+
+            a {
+                color: black;
+                padding: 6px 16px;
+                text-decoration: none;
+                display: block;
+                cursor: pointer;
+            }
+
+            a:hover {
+                background-color: rgb(230,230,230);
+            }
+        }
     }
 
-    #filter-icon {
+    > button:active {
+        background-color: rgba(222, 236, 249, .5);
+    }
+
+    > .searchbox {
+        height: 42px;
+        background-color: @hover-color;
+        border: none;
+        padding-right: 60px;
+        color: rgb(0,0,0);
+    }
+
+    > .search-button {
+        background-color: rgba(255,255,255,0);
+        border: none;
         position: absolute;
-        right: 40px;
-        top: 10px;
-        font-size: 30px;
+        right: 0;
+        height: 40px;
+        padding-left: 1px;
+
+        > .fa {
+            font-size: 12px;
+            color: rgb(128, 128, 128);
+        }
     }
 
+    .input-warning {
+        position: absolute;
+        top: 2px;
+        border-radius: 4px;
+        left: 100%;
+        white-space: nowrap;
+        z-index: 200;
+        font-size: 12px;
+        background-color: red;
+        opacity: .8;
+        color: white;
+        padding: 10px;
+    }
+
+    .input-warning.ng-hide-remove {
+        animation: .3s slideInDown ease;
+    }
+
+    > .search-button:focus, .filter-button:focus, .clear-button:focus {
+        outline: none;
+    }
+
+    > .filter-button {
+        background-color: rgba(255,255,255,0);
+        border: none;
+        position: absolute;
+        right: 30px;
+        height: 40px;
+        padding: 1px;
+
+        > .fa {
+            font-size: 11px;
+            color: rgb(128, 128, 128);
+        }
+    }
+
+    > .clear-button {
+        background-color: rgba(255,255,255,0);
+        border: none;
+        position: absolute;
+        right: 42px;
+        height: 40px;
+
+        > .fa {
+            font-size: 14px;
+            color: rgb(128, 128, 128);
+        }
+    }
+
+    input::-webkit-input-placeholder {
+        font-family: 'Work Sans', Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        color: rgb(185, 185, 185);
+    }
+
+    input::-moz-placeholder {
+        font-size: 12px;
+        font-family: 'Work Sans', Arial, Helvetica, sans-serif;
+        color: rgb(185, 185, 185);
+    }
+
+    input:-ms-input-placeholder {
+        font-size: 12px;
+        font-family: 'Work Sans', Arial, Helvetica, sans-serif;
+        color: rgb(185, 185, 185);
+    }
 }
+
+
+// input {
+//     width: 100%;
+//     padding: .75rem 1.125rem;
+//     border: 2px solid #95a0dd;
+//     border-radius: .5rem;
+//     &:focus {
+//         outline: none;
+//         border: 2px solid #3f51b5;
+//     }
+// }
+
+// .search-box {
+//     position: relative;
+    
+//     .material-icons {
+//         color: rgb(200,200,200);
+//         cursor: pointer;
+//     }
+
+//     #search-icon {
+//         position: absolute;
+//         right: 4px;
+//         top: 10px;
+//         font-size: 30px;
+//     }
+
+//     #filter-icon {
+//         position: absolute;
+//         right: 40px;
+//         top: 10px;
+//         font-size: 30px;
+//     }
+
+// }
