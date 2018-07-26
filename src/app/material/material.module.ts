@@ -33,7 +33,8 @@ import {
   MatToolbarModule,
   MatTooltipModule,
   MatOptionModule,
-  MatBottomSheetModule
+  MatBottomSheetModule,
+  MAT_DIALOG_DATA
 } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 @NgModule({
@@ -108,6 +109,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     MatToolbarModule,
     MatTooltipModule,
     MatBottomSheetModule
-  ]
-})
+  ], providers: [ { provide: MAT_DIALOG_DATA, useValue: {} }, ]
+}, )
 export class MaterialModule { }

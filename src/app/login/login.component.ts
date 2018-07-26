@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { LocalizationService } from '../localization/localization.service';
 import { ErrorDialogService } from '../error-dialog/error-dialog.service';
+import { MatDialog } from '../../../node_modules/@angular/material';
+import { LoginPromptComponent } from './login-prompt/login-prompt.component';
 
 
 @Component({
@@ -13,7 +15,14 @@ import { ErrorDialogService } from '../error-dialog/error-dialog.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private locale: LocalizationService,private router: Router, private authService: AuthService, private errorDialog: ErrorDialogService) { }
+  constructor(
+    private locale: LocalizationService, 
+    private router: Router, 
+    private authService: AuthService, 
+    private errorDialog: ErrorDialogService,
+    private loginPrompt: MatDialog
+  ) 
+  { }
 
   private user: User = { loginName: "test1", password: ""};
   selectedLanguage: any;
@@ -23,15 +32,19 @@ export class LoginComponent implements OnInit {
 
   public languages = [];
 
-  login(): void {
+  login(force: boolean = false): void {
     this.inProcess = true;
-    this.authService.login(this.user, false).subscribe(() => {
+    this.authService.login(this.user, force).subscribe(() => {
       this.router.navigate(['layout']);
     }, error => {
       this.inProcess = false;
       if (error.error) {
         if (error.error.error === "user_loggedin") {
-          alert("already logged in");
+          const dialogRef = this.loginPrompt.open(LoginPromptComponent);
+          dialogRef.afterClosed().subscribe(result => {
+            if (result)
+              this.login(true);
+          });
           return;
         }
       }
@@ -60,7 +73,6 @@ export class LoginComponent implements OnInit {
     );
 
     this.authService.getAppVersion().subscribe(version => {
-      
       this.appVersion = version.AppVersion;
     });
 

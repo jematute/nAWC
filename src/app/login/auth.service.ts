@@ -81,7 +81,7 @@ export class AuthService {
 
   public getNewToken(): Observable<any> {
     let refreshToken = atob(this.refreshToken);
-    let credentials = `grant_type=refresh_token&refresh_token=${refreshToken}&client_id=WebApi&client_secret=zd2345rtl`;
+    let credentials = `grant_type=refresh_token&refresh_token=${refreshToken}&client_id=Adept&client_secret=zd2345rtl`;
     return this.http.post(`${Global.API_URL}/login`, credentials, httpOptions).pipe(map(data => {
         this.accessToken = data["access_token"];
         this.refreshToken = data["refresh_token"];

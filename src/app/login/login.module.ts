@@ -7,11 +7,13 @@ import { MaterialModule } from '../material/material.module';
 import { HeaderModule } from '../layout/header/header.module';
 import { SidebarModule } from '../layout/sidebar/sidebar.module';
 import { ErrorDialogModule } from '../error-dialog/error-dialog.module';
+import { LoginPromptComponent } from './login-prompt/login-prompt.component';
 
 @NgModule({
-    declarations: [ LoginComponent ],
+    declarations: [ LoginComponent, LoginPromptComponent ],
     imports: [ CommonModule, FormsModule, MaterialModule, HeaderModule, SidebarModule, ErrorDialogModule ],
     exports: [ ],
     providers: [ AuthService ],
+    entryComponents: [ LoginPromptComponent ]
 })
 export class LoginModule {}
