@@ -24,6 +24,6 @@ export class SearchTerm {
     public isDecimal: boolean;
     public isNot: boolean;
     public isAnd: boolean;
-    public ftsSearchId: boolean;
+    public ftsSearchId: string;
     public safCardId: string;
 } 

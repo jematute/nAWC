@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from '../search.service';
-import { SearchParams } from '../search-params';
 import { ColumnsService } from '../../columns/columns.service';
 import { FieldDefinition } from '../../columns/fieldDefinition';
 import { FormControl } from '@angular/forms';
 import { GridService } from '../../results/grid/grid.service';
 import { LocalizationService } from '../../localization/localization.service';
+import { FTSSearchService } from '../ftssearch.service';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-searchbox',
@@ -23,12 +24,17 @@ export class SearchboxComponent implements OnInit {
   showDropdown: boolean = false;
   showCharWarning: boolean = false;
   searchFieldLabel: string;
-  searchBoxDisplay: string = "something";
+  searchInput: FormControl = new FormControl();
 
-
-  constructor(private search: SearchService, private columns: ColumnsService, private grid: GridService, private locale: LocalizationService) {
+  constructor(private search: SearchService, private columns: ColumnsService, private grid: GridService, private locale: LocalizationService, private ftsSearch: FTSSearchService) {
     this.selectedField = new FieldDefinition();
     this.columns.getColumns().subscribe(res => {
+      //fts search
+      let fts = new FieldDefinition();
+      fts.displayName = locale.resourceStrings["FULL_TEXT_SEARCH"];
+      fts.schemaID = "FTS";
+      res.unshift(fts);
+      
       this.userColumns = res.filter(column => column.displayName !== '');
       this.currentFields = this.userColumns;
       this.selectedField = res.filter(column => column.schemaID === "SCHEMA_S_LONGNAME")[0];
@@ -48,7 +54,7 @@ export class SearchboxComponent implements OnInit {
               this.doFTSSearch();
           }
           else {
-              this.doSearch();
+              this.doSearch(false);
           }
       }
 
@@ -56,11 +62,13 @@ export class SearchboxComponent implements OnInit {
   }
 
   filterChanged() {
-    this.currentFields = this.userColumns.filter(item => item.displayName.toLowerCase().startsWith(this.fieldFilter.toLowerCase()));
+    this.currentFields = this.userColumns.filter(item => 
+      item.displayName.toLowerCase().startsWith(this.fieldFilter.toLowerCase()
+    ));
   }
 
   qsInputChanged() {
-    console.log(this.searchValue);
+    //console.log(this.searchValue);
   }
 
   fieldSelected(item: FieldDefinition) {
@@ -73,25 +81,31 @@ export class SearchboxComponent implements OnInit {
     this.fieldFilter = "";
   }
 
-
   ngOnInit() {
-    
+    this.searchInput.valueChanges.pipe(debounceTime(500)).subscribe(value => {
+      if (this.selectedField.schemaID != "FTS")
+        this.doSearch(true);
+    });
   }
 
   onChange() {
   }
 
-  doSearch() {
+  doSearch(doNotClear) {
     if (this.searchValue) {
       this.search.setSearchCriteria(this.selectedField.schemaID, this.searchValue);
       this.grid.dataService = this.search;
       this.grid.reloadGrid();
-      this.searchValue = "";
+      if (!doNotClear)
+        this.searchValue = "";
     }
   }
 
   doFTSSearch() {
-    alert("NO FTS");
+    this.ftsSearch.setSearchCriteria(this.searchValue);
+    this.grid.dataService = this.ftsSearch;
+    this.grid.reloadGrid();
+    this.searchValue = "";
   }
 
 

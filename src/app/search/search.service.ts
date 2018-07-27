@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { SearchParams, SearchTerm } from './search-params';
 import { Global } from '../classes/global';
-import { GetDataParams } from '../classes/getDataParams';
+import { GetDataParams, AdeptDataTable } from '../classes/getDataParams';
 import { map, finalize, share, tap } from 'rxjs/operators';
 
 
@@ -35,6 +35,11 @@ export class SearchService implements IGridInterface {
     return req
     .pipe(map(d => results = d as GetDataParams ), map(s => s.AdeptDataTable));
     
+  }
+
+  getCount(params: GetDataParams): Observable<number> {
+    params.CountOperation = true;
+    return this.getData(params).pipe(map(s => s as AdeptDataTable), map(t => t.RecordCount));
   }
 
 }

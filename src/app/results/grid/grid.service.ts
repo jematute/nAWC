@@ -3,7 +3,7 @@ import { IGridInterface } from './grid-interface';
 import { GetDataParams, AdeptDataTable } from '../../classes/getDataParams';
 import { Column } from '../../classes/column';
 import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { finalize, tap } from 'rxjs/operators';
 
 import { Router } from '@angular/router';
 
@@ -24,25 +24,18 @@ export class GridService {
   }
 
   getData(params: GetDataParams): Observable<object> {
-    return this.makeRequest(params).pipe(finalize(() => {
+    this.loading.emit(true);
+    return this.dataService.getData(params)
+    .pipe(tap(data => this.data = data), finalize(() => {
       this.loading.emit(false);
     }));
   }
 
   getCount(params: GetDataParams) {
-    params.CountOperation = true;
-    return this.makeRequest(params);
-  }
-
-  makeRequest(params: GetDataParams): Observable<AdeptDataTable> {
-    this.loading.emit(true);
-    const obs = this.dataService.getData(params);
-    obs.subscribe(data => {
-      this.data = data;
-      if (params.CountOperation)
-        this.length = data.RecordCount;
-    });
-    return obs;
+    return this.dataService.getCount(params)
+    .pipe(tap(count => {
+      this.length = count;
+    }));
   }
 
   reloadGrid() {

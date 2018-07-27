@@ -18,6 +18,7 @@ import {
 } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { Router } from '../../../node_modules/@angular/router';
+import { ErrorDialogService } from '../error-dialog/error-dialog.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -27,7 +28,7 @@ export class AuthInterceptor implements HttpInterceptor {
     tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
     errorSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
-    constructor(private inj: Injector, private router: Router) {
+    constructor(private inj: Injector, private router: Router, private errorDialog: ErrorDialogService) {
         this.auth = this.inj.get(AuthService);
     }
 
@@ -39,18 +40,20 @@ export class AuthInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
         return next.handle(this.addToken(req, this.auth.getToken()))
             .pipe(catchError(err => {
+                console.log("error thrown status:", (<HttpErrorResponse>err).status)
                 switch ((<HttpErrorResponse>err).status) {
                     case 400:
                         return this.handle400Error(err);
                     case 401:
                         return this.handle401Error(req, next);
                     default: 
-                        return observableThrowError(err);
+                        return this.handleOtherErrors(err);
                 }
             }));
     }
 
     handle401Error(req: HttpRequest<any>, next: HttpHandler) {
+        console.log("Handling 401");
         if (!this.isRefreshingToken) {
             this.isRefreshingToken = true;
 
@@ -66,10 +69,12 @@ export class AuthInterceptor implements HttpInterceptor {
                 // If we don't get a new token, we are in trouble so logout.
                 return this.logoutUser("no token");
             }), catchError(error => {
-                
                 // If there is an exception calling 'refreshToken', bad news so logout.
-                return this.logoutUser(error);
+                if (error.status == 400)
+                    return this.logoutUser(error);
+                return this.handleOtherErrors(error);
             }), finalize(() => {
+                console.log("no longer refreshing token");
                 this.isRefreshingToken = false;
             }));
         }
@@ -81,6 +86,7 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     handle400Error(error) {
+        console.log("handling 400");
         if (error && error.status === 400 && error.error && error.error.error === 'invalid_grant') {
             // If we get a 400 and the error message is 'invalid_grant', the token is no longer valid so logout.
             return this.logoutUser(error);
@@ -89,11 +95,15 @@ export class AuthInterceptor implements HttpInterceptor {
         return observableThrowError(error);
     }
 
-    handleOtherErrors(req: HttpRequest<any>, next: HttpHandler) {
-        
+    handleOtherErrors(resp) {
+        console.log("handling other errors");
+        console.log(resp);
+        this.errorDialog.showError("Server Error", resp.error.Message);
+        return observableThrowError(resp);
     }
 
     logoutUser(err) {
+        console.log("log out user");
         // Route to the login page
         this.router.navigate(['login']);
         localStorage.setItem("userModel", "");

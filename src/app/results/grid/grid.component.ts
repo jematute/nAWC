@@ -39,6 +39,7 @@ export class GridComponent implements OnInit, OnInit {
       this.pageIndex = gridService.pageIndex;
       this.pageSize = gridService.pageSize;
       this.paginator.firstPage();
+      this.paginator.pageSizeOptions = [20,50,75,100,150,200,250,500,1000,2000,5000,10000];
       this.getPage(0);
     });
     this.subscription.add(subscription);
@@ -64,8 +65,7 @@ export class GridComponent implements OnInit, OnInit {
       this.api.setRowData(dataTable.TableRecords);
     })
     this.gridService.getCount(params).subscribe(data => {
-      let dataTable = data as AdeptDataTable;
-      this.length = dataTable.RecordCount
+      this.length = data;
     });
     this.subscription.add(subscription);
   }

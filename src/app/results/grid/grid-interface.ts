@@ -3,4 +3,5 @@ import { Observable } from "rxjs";
 
 export interface IGridInterface {
     getData(params: GetDataParams): Observable<any>;
+    getCount(params: GetDataParams): Observable<number>;
 }
