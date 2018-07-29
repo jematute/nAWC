@@ -12,6 +12,7 @@ import { LoginModule } from './login/login.module';
 import { LocalizationService } from './localization/localization.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { GlobalsService } from './globals.service';
+import { ClientServicesModule } from './client-services/client-services.module';
 
 
 @NgModule({
@@ -21,7 +22,7 @@ import { GlobalsService } from './globals.service';
   entryComponents: [ ],
   imports: [
     BrowserModule, BrowserAnimationsModule,
-    AppRoutingModule, HttpClientModule, LoginModule,
+    AppRoutingModule, HttpClientModule, LoginModule, ClientServicesModule
   ],
   exports: [ ],
   bootstrap: [ AppComponent ],

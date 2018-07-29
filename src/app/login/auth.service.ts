@@ -7,6 +7,7 @@ import { User } from './user';
 import { userModel } from '../classes/userModel';
 import { Global } from '../classes/global';
 import { Router } from '../../../node_modules/@angular/router';
+import { LocalizationService } from '../localization/localization.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -27,7 +28,7 @@ export class AuthService {
   autoLogin: boolean;
   user: userModel;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private locale: LocalizationService) {
     this.refreshToken = localStorage.getItem("refresh_token");
     let user = localStorage.getItem("userModel");
     if (user)

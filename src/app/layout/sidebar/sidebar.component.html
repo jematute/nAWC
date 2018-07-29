@@ -1,29 +1,19 @@
 
 <div class="sidebar" [hidden]="!showSidebar">
     <app-searchbox></app-searchbox>
-    
-    <!-- <mat-list>
-        <mat-list-item>
-            <button mat-button>
-                <i class="material-icons">home</i>
-                Home
+    <div class="content">
+        <div class="menu" *ngIf="activeMenu.length === 0">
+            <button id="home" mat-button *ngFor="let button of buttons" (click)="menuSelected(button)">
+                <img [src]="button?.icon" alt="">
+                <span>{{locale?.resourceStrings[button?.label]}}</span>
             </button>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item>
-            <button mat-button>Favorites</button>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item>
-            <button mat-button>Saved Searches</button>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item>
-            <button mat-button>Library Browser</button>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item>
-            <button mat-button>FileGuide</button>
-        </mat-list-item>
-      </mat-list> -->
+        </div>
+        <div *ngIf="activeMenu.length !== 0" class="menu-content">
+            <div class="title">
+                <button (click)="backToMenu()"><i class="fa fa-arrow-left"></i></button>
+                <span>{{locale?.resourceStrings[activeMenu]}}</span>
+            </div>
+            <workarea *ngIf="activeMenu === 'WORK_AREAS'"></workarea>
+        </div>
+    </div>
 </div>

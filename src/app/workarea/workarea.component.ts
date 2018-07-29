@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
+import { EventEmitter } from 'events';
+import { ClientServicesService } from '../client-services/client-services.service';
 
 @Component({
   selector: 'workarea',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WorkareaComponent implements OnInit {
 
-  constructor() { }
+  constructor(private clientServices: ClientServicesService) { }
 
   ngOnInit() {
   }
 
+  loginACS() {
+    this.clientServices.loginToACS().subscribe();
+  }
 }

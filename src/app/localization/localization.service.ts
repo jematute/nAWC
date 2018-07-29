@@ -10,6 +10,8 @@ export class LocalizationService {
     private _languages: BehaviorSubject<any> = new BehaviorSubject<any>([]);
     private _resourceStrings: BehaviorSubject<any> = new BehaviorSubject<any>([]);
     private _currentLanguage: BehaviorSubject<any> = new BehaviorSubject<any>([]);
+    private _lang: string;
+
     get languages(): BehaviorSubject<any> {
         return this._languages;
     }
@@ -18,8 +20,13 @@ export class LocalizationService {
         return this._currentLanguage;
     }
 
+    get language(): string {
+        return this._lang;
+    }
+
     constructor(private http: HttpClient) {
         this.currentLanguage.pipe(filter(lang => lang && lang.active)).subscribe(lang => {
+            this._lang = lang.value;
             this.getStrings(lang.value).subscribe();
         });
     }

@@ -6,10 +6,11 @@ import { ColumnsModule } from '../../columns/columns.module';
 import { MaterialModule } from '../../material/material.module';
 import { SidebarService } from './sidebar.service';
 import { CustomDirectivesModule } from '../../custom-directives/custom-directives.module';
+import { WorkareaModule } from '../../workarea/workarea.module';
 
 @NgModule({
   imports: [
-    CommonModule, SearchModule, ColumnsModule, MaterialModule, CustomDirectivesModule
+    CommonModule, SearchModule, ColumnsModule, MaterialModule, CustomDirectivesModule, WorkareaModule
   ],
   declarations: [ SidebarComponent ],
   exports: [ SidebarComponent ],
