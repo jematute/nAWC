@@ -39,10 +39,11 @@ export class AuthInterceptor implements HttpInterceptor {
         //console.log("adding token to:", req.url);
         return req.clone({ setHeaders: { Authorization: 'Bearer ' + this.auth.getToken(), 'Content-Type': 'application/json' } })
     }
-
     addACSToken(req: HttpRequest<any>): HttpRequest<any> {
         //console.log("adding token to:", req.url);
-        return req.clone({ setHeaders: { Authorization: 'Bearer ' + this.acs.accessToken, 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' } })
+
+            return req.clone({ setHeaders: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
