@@ -1,3 +1,45 @@
-<h2>WorkAreas</h2>
-<button (click)="loginACS()">Login ACS</button>
-<button (click)="testtimeout()">timeout</button>
+<div class="workareas">
+  <div (hidden)="!loading" class="loading-panel">
+    <mat-spinner></mat-spinner>
+  </div>
+  <div id="zhgTur" class="items">
+    <div class="items-wrapper">
+      <div *ngFor="let item of workAreas" class="item">
+        <button mat-button *ngIf="!item.editEnabled" id="sb-itemmenu-button-{{item.name.replace(' ', '').toLowerCase()}}" (click)="workAreaSelected">
+
+          <div class="image-container">
+            <img src="{{item?.icon}}" alt="" />
+          </div>
+          <span>{{item.name}}</span>
+
+        </button>
+
+        <!-- <div class="ep-popup" ng-if="child.editEnabled">
+                            <div class="image-container">
+                                <img src="{{child.icon}}" alt="" />
+                            </div>
+                            <input id="sb-input-{{$index}}" autocapitalize="none" autocorrect="off" autocomplete="off" spellcheck="false" ng-keypress="vm.editInputKeyPress($event, child)" ng-blur="vm.inputBlur(child)" type="text" ng-model="child.name" input-focus editable="child.editEnabled" />
+                        </div>
+                        <div ng-if="child.comment" class="sb-itemmenu-info">
+                            <i class="fa fa-info"></i>
+                            <md-tooltip md-delay="500" md-direction="bottom" class="custom-tooltip">
+                                {{child.comment}}
+                            </md-tooltip>
+                        </div>
+                        <md-menu class="edit-menu">
+                            <md-button ng-disabled="!child.editable" id="sb-item-menu-{{child.name.replace(' ', '').toLowerCase()}}" ng-click="vm.openMenu($mdOpenMenu, $event, child)" class="md-icon-button" aria-label="Open some menu">
+                                <i ng-class="{ editDisabled: !child.editable }" class="glyphicon glyphicon-edit"></i>
+                            </md-button>
+                            <md-menu-content>
+                                <md-menu-item ng-repeat="menuItem in child.itemMenu">
+                                    <md-button id="sb-item-menu-button-{{menuItem.name.toLowerCase().replace(' ', '') + '-' + vm.sidebarservice.activeMenuItem.children.indexOf(child)}}" ng-disabled="menuItem.disabled" ng-click="menuItem.action(child)" aria-label="Do something">
+                                        <i ng-class="menuItem.icon"></i>
+                                        {{menuItem.name}}
+                                    </md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu> -->
+      </div>
+    </div>
+  </div>
+</div>

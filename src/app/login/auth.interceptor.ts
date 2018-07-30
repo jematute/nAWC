@@ -20,6 +20,7 @@ import { AuthService } from './auth.service';
 import { Router } from '../../../node_modules/@angular/router';
 import { ErrorDialogService } from '../error-dialog/error-dialog.service';
 import { ClientServicesService } from '../client-services/client-services.service';
+import { Global } from '../classes/global';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -63,20 +64,17 @@ export class AuthInterceptor implements HttpInterceptor {
                             return this.handleOtherErrors(err);
                     }
                 }));
-        else if (req.url.indexOf(':4040') || req.url.indexOf(':4343')) {
-            let to = 30000;
-            if (req.url.indexOf("api/status") != -1)
-                to = 3000;
-            return next.handle(this.addACSToken(req)).pipe(timeout(to),catchError(err => {
+        else if (req.url.indexOf(Global.ACS_URL) != -1) {
+            return next.handle(this.addACSToken(req)).pipe(catchError(err => {
                 if (err.name.indexOf("Timeout") != -1)
                     return observableThrowError(err);
                 switch ((<HttpErrorResponse>err).status) {
                     case 400:
                         return this.handleACS400Error(req, next, err);
                     case 401:
-                        return observableThrowError(err);
+                        return this.handleACS401Error(req, next);
                     case 0:
-                        return observableThrowError(err);
+                        return this.handleACSNotRunning(req, next, err);
                     default:
                         return this.handleOtherErrors(err);
                 }
@@ -126,17 +124,15 @@ export class AuthInterceptor implements HttpInterceptor {
             // comes back from the refreshToken call.
             this.tokenSubject.next(null);
 
-            return this.auth.getNewToken().pipe(switchMap((newToken: string) => {
+            return this.acs.loginToACS().pipe(switchMap((newToken: string) => {
                 if (newToken) {
                     this.tokenSubject.next(newToken);
-                    return next.handle(this.addToken(req, newToken));
+                    return next.handle(this.addACSToken(req));
                 }
                 // If we don't get a new token, we are in trouble so logout.
                 return this.logoutUser("no token");
             }), catchError(error => {
                 // If there is an exception calling 'refreshToken', bad news so logout.
-                if (error.status == 400)
-                    return this.logoutUser(error);
                 return this.handleOtherErrors(error);
             }), finalize(() => {
                 console.log("no longer refreshing token");
@@ -145,7 +141,7 @@ export class AuthInterceptor implements HttpInterceptor {
         }
         else {
             return this.tokenSubject.pipe(filter(token => token != null), take(1), switchMap(token => {
-                return next.handle(this.addToken(req, token));
+                return next.handle(this.addACSToken(req));
             }));
         }
     }
@@ -155,9 +151,7 @@ export class AuthInterceptor implements HttpInterceptor {
             // If we get a 400 and the error message is 'invalid_grant', the token is no longer valid so logout.
             return this.auth.getNewToken().pipe(switchMap((newToken: string) => {
                 console.log("body", req.body);
-                let params = this.queryStringToJSON(req.body);
-                params.webapitoken = newToken;
-                return next.handle(req.clone({ params: params}));
+                return this.acs.loginToACS();
             }));
         }
 
@@ -175,10 +169,28 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     handleOtherErrors(resp) {
-        console.log("handling other errors");
-        console.log(resp);
-        this.errorDialog.showError("Server Error", resp.error.Message);
+        //console.log("handling other errors");
+        //console.log(resp);
+        let error = "";
+        if (resp.error.Message)
+            error = resp.error.Message;
+        if (resp.error.ExceptionMessage)
+            error = resp.error.ExceptionMessage
+        this.errorDialog.showError("Server Error", error);
         return observableThrowError(resp);
+    }
+
+    handleACSNotRunning(req: HttpRequest<any>, next: HttpHandler, error) {
+        return this.acs.launchACS().pipe(switchMap(resp => {
+            return this.auth.getNewToken().pipe(switchMap(resp => {
+                return this.acs.loginToACS().pipe(switchMap(resp => {
+                    return next.handle(this.addACSToken(req));
+                }));
+            }));           
+        }), catchError(err => {
+            console.log(err);
+            return observableThrowError(err);
+        }))
     }
 
     logoutUser(err) {
@@ -194,27 +206,5 @@ export class AuthInterceptor implements HttpInterceptor {
             }
 
         return observableThrowError(err);
-    }
-
-    queryStringToJSON(query: string) {
-        let props = query.split('&');
-        let result = {};
-        props.forEach(prop => {
-            let pairs = prop.split("=");
-            result[prop[0]] = decodeURIComponent(prop[1] || '')
-        })
-
-        return JSON.parse(JSON.stringify(result));
-    }
-
-    jsonToUrlEncoded(obj) {
-        var str = [];
-        for (var key in obj) {
-            if (obj.hasOwnProperty(key)) {
-                str.push(encodeURIComponent(key) + "=" + encodeURIComponent(obj[key]))
-                console.log(key + " -> " + obj[key]);
-            }
-        }
-        return str.join("&");
     }
 }

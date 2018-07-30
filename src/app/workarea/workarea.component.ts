@@ -1,6 +1,8 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { EventEmitter } from 'events';
 import { ClientServicesService } from '../client-services/client-services.service';
+import { WorkareaService } from './workarea.service';
+import { WorkAreaModel } from './classes/WorkAreadModel';
 
 @Component({
   selector: 'workarea',
@@ -9,16 +11,14 @@ import { ClientServicesService } from '../client-services/client-services.servic
 })
 export class WorkareaComponent implements OnInit {
 
-  constructor(private clientServices: ClientServicesService) { }
-
+  constructor(private workAreasService: WorkareaService) { }
+  workAreas: Array<WorkAreaModel>;
+  loading: boolean = true;
   ngOnInit() {
+    this.workAreasService.getWorkAreas(true).subscribe(workAreas => {
+      this.loading = false;
+      this.workAreas = workAreas;
+    });
   }
 
-  loginACS() {
-    this.clientServices.loginToACS().subscribe();
-  }
-
-  testtimeout() {
-    this.clientServices.timeout();
-  }
 }
