@@ -17,4 +17,8 @@ export class WorkareaComponent implements OnInit {
   loginACS() {
     this.clientServices.loginToACS().subscribe();
   }
+
+  testtimeout() {
+    this.clientServices.timeout();
+  }
 }

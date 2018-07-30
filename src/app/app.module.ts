@@ -13,7 +13,7 @@ import { LocalizationService } from './localization/localization.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { GlobalsService } from './globals.service';
 import { ClientServicesModule } from './client-services/client-services.module';
-
+import { BowserModule, BowserService } from 'ngx-bowser';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,7 @@ import { ClientServicesModule } from './client-services/client-services.module';
   entryComponents: [ ],
   imports: [
     BrowserModule, BrowserAnimationsModule,
-    AppRoutingModule, HttpClientModule, LoginModule, ClientServicesModule
+    AppRoutingModule, HttpClientModule, LoginModule, ClientServicesModule, BowserModule
   ],
   exports: [ ],
   bootstrap: [ AppComponent ],
@@ -30,6 +30,6 @@ import { ClientServicesModule } from './client-services/client-services.module';
     provide: HTTP_INTERCEPTORS, 
     useClass: AuthInterceptor,
     multi: true
-  }, GlobalsService ]
+  }, GlobalsService, BowserService ]
 })
 export class AppModule { }
