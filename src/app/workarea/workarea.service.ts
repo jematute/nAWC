@@ -85,7 +85,7 @@ export class WorkareaService {
             return from(items).pipe(
               concatMap(item => { 
                 //execute each item in order
-                console.log(`Lets attempt to extract ${item.Name}`)
+                console.log(`Lets attempt to extract ${item.Name}`);
                 return this.extractAndUpdateItem(`${workArea.path}${item.Name}`, false); 
               }))
             // //using the array of items, create an observable and mergemap to flatten the observable into a stream of responses
