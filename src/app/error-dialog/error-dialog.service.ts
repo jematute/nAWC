@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatBottomSheet } from '../../../node_modules/@angular/material';
+import { MatBottomSheet } from '@angular/material';
 import { ErrorDialogComponent } from './error-dialog.component';
 
 @Injectable({

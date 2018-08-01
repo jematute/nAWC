@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ErrorDialogComponent } from './error-dialog.component';
-import { MAT_BOTTOM_SHEET_DATA } from '../../../node_modules/@angular/material';
+import { MAT_BOTTOM_SHEET_DATA } from '@angular/material';
 import { ErrorDialogService } from './error-dialog.service';
 import { MaterialModule } from '../material/material.module';
 

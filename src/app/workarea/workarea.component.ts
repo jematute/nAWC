@@ -21,4 +21,8 @@ export class WorkareaComponent implements OnInit {
     });
   }
 
+  workAreaSelected(workArea: WorkAreaModel) {
+    this.workAreasService.getWorkAreaItems(workArea).subscribe();
+  }
+
 }

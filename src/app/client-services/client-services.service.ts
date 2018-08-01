@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError as observableThrowError, interval, of } from '../../../node_modules/rxjs';
+import { Observable, throwError as observableThrowError, interval, of } from 'rxjs';
 import { Global } from '../classes/global';
 import { AuthService } from '../login/auth.service';
 import { LocalizationService } from '../localization/localization.service';
-import { HttpClient } from '../../../node_modules/@angular/common/http';
-import { tap, catchError, switchMap, delay, timeout, map, retry } from '../../../node_modules/rxjs/operators';
-import { ThrowStmt } from '../../../node_modules/@angular/compiler';
-import { BowserService } from '../../../node_modules/ngx-bowser';
+import { HttpClient } from '@angular/common/http';
+import { tap, catchError, switchMap, delay, timeout, map, retry } from 'rxjs/operators';
+import { ThrowStmt } from '@angular/compiler';
+import { BowserService } from 'ngx-bowser';
 import { ajax } from 'rxjs/ajax';
+import { WorkAreaModel, WorkAreaItemsList } from '../workarea/classes/WorkAreadModel';
 
 @Injectable({
   providedIn: 'root'
@@ -55,6 +56,5 @@ export class ClientServicesService {
   private checkStatus(): Observable<any> {
       return ajax(`${Global.ACS_URL}/api/status`).pipe(retry(15));
   }
-
 
 }

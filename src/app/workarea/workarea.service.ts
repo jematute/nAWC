@@ -1,30 +1,35 @@
 import { Injectable } from '@angular/core';
-import { WorkAreaModel } from './classes/WorkAreadModel';
-import { Observable, of } from '../../../node_modules/rxjs';
-import { HttpClient } from '../../../node_modules/@angular/common/http';
+import { WorkAreaModel, WorkAreaItemsList, WorkAreaExtractionItems, IncomingWillExtract, WorkAreaDBRecordModel } from './classes/WorkAreadModel';
+import { Observable, of, throwError, forkJoin, from } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { Global } from '../classes/global';
-import { map, switchMap } from '../../../node_modules/rxjs/operators';
+import { map, switchMap, tap, mergeMap, catchError, delay, concatMap } from 'rxjs/operators';
+import { LocalizationService } from '../localization/localization.service';
+import { ErrorDialogService } from '../error-dialog/error-dialog.service';
+import { PlugInDefinition } from '../classes/PlugInDefinition';
+import { ExtractionDataModel } from '../classes/ExtractionDataModel';
+import { ProgressDialogService } from '../progress-dialog/progress-dialog.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WorkareaService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private locale: LocalizationService, private errorDialog: ErrorDialogService, private progressDialog: ProgressDialogService) { }
   workAreas: Array<WorkAreaModel> = [];
-
+  pluginDefinitions: Array<PlugInDefinition> = [];
   getWorkAreas(hitServer: boolean): Observable<Array<WorkAreaModel>> {
     if (!hitServer && this.workAreas.length > 0) {
       return of(this.workAreas);
     }
-    return this.http.get(`${Global.API_URL}/api/WorkArea/List`).pipe(map(resp => resp as Array<WorkAreaModel>), switchMap(workareas => {
-      return this.http.put(`${Global.ACS_URL}/api/values/ValidateWorkAreas`, workareas).pipe(map(resp => resp as Array<WorkAreaModel>), map(workareas => {
-        
+    return this.getWorkAreaList().pipe(switchMap(workAreas => {
+      return this.validateWorkAreas(workAreas).pipe(map(workareas => {
+
         //iterate the workareas and process
         workareas.forEach(workArea => {
           //set the icon
           this.setIcon(workArea);
-          
+
           //calculate the name
           workArea.origName = workArea.name;
           workArea.displayName = workArea.label;
@@ -45,6 +50,153 @@ export class WorkareaService {
         return workareas;
       }));
     }));
+  }
+
+  private getWorkAreaList(): Observable<Array<WorkAreaModel>> {
+    return this.http.get(`${Global.API_URL}/api/WorkArea/List`).pipe(map(resp => resp as Array<WorkAreaModel>));
+  }
+
+  private validateWorkAreas(workAreas: Array<WorkAreaModel>): Observable<Array<WorkAreaModel>> {
+    return this.http.put(`${Global.ACS_URL}/api/values/ValidateWorkAreas`, workAreas).pipe(map(resp => resp as Array<WorkAreaModel>));
+  }
+
+
+  getWorkAreaItems(workArea: WorkAreaModel): Observable<any> {
+
+    //get workarea items from acs
+    return this.getLocalWorkAreaItems(workArea).pipe(switchMap(workAreaItemList => {
+      workArea = this.updateValidation(workArea, workAreaItemList);
+
+      if (!workAreaItemList.pathExists) {
+        var msg = this.locale.resourceStrings["WORK_AREA_ACCESS"];
+        var title = this.locale.resourceStrings["ERROR"];
+        this.errorDialog.showError(title, msg);
+        throwError("ACCESS_DENIED");
+      }
+      return this.getExtractionItems(workAreaItemList).pipe(switchMap(extractionItems => {
+        //get the plugin definitions
+        return this.getPluginDefinitions().pipe(switchMap(plugins => {
+          //create extraction object to send to webapi
+          let incomingWillExtract = new IncomingWillExtract();
+          incomingWillExtract.PluginDefinitions = plugins;
+          incomingWillExtract.Items = extractionItems.items;
+          //check which items will extract
+          return this.willExtract(incomingWillExtract).pipe(switchMap(items => {
+            return from(items).pipe(
+              concatMap(item => { 
+                //execute each item in order
+                console.log(`Lets attempt to extract ${item.Name}`)
+                return this.extractAndUpdateItem(`${workArea.path}${item.Name}`, false); 
+              }))
+            // //using the array of items, create an observable and mergemap to flatten the observable into a stream of responses
+            // return of(items).pipe(mergeMap(items => 
+            //   //invoke the progress dialog and set the values accordingly
+            //   //we'll use forkJoin to have each observable wait for the previous want to complete
+            //   forkJoin(...items.map(item => {
+            //     //update the progress dialog to display the filename
+            //     console.log(`${item.Name} begins to extract`);
+            //     //attempt to extract and update each item individually
+            //     return this.extractAndUpdateItem(`${workArea.path}${item.Name}`, item.extractText).pipe(map(res => {
+            //       //each item should report its progress
+            //       console.log(console.log(item.Name, "finished extracting"));
+            //       return res;
+            //     }));
+            //   }))
+            // ));
+          }));
+        }))
+      }));
+    }))
+  }
+
+  testRequest(item): Observable<any> {
+    return of("hello").pipe(delay(1000), switchMap(res => {
+      console.log(res + item);
+      return of("hi").pipe(map(res => {
+        console.log(res + item);
+      }));
+
+    }));
+  }
+
+  getLocalWorkAreaItems(workArea: WorkAreaModel): Observable<WorkAreaItemsList> {
+    return this.http.get(`${Global.ACS_URL}/api/workarea/items?id=${encodeURIComponent(workArea.workAreaId)}&path=${encodeURIComponent(workArea.path)}`)
+      .pipe(map(resp => resp as WorkAreaItemsList));
+  }
+
+  getPluginDefinitions(): Observable<Array<PlugInDefinition>> {
+    return this.http.get(`${Global.API_URL}/api/Plugins/GetDefinitions/0`)
+      .pipe(map(resp => resp as Array<PlugInDefinition>), map(plugins => {
+        return plugins.filter(plugin => plugin.loadOnStartUp === true);
+      }), tap(plugins => { this.pluginDefinitions = plugins }));
+  }
+
+  updateValidation(workArea: WorkAreaModel, workAreaItemList: WorkAreaItemsList): WorkAreaModel {
+    // Update Validation.
+    let ValidationState_Valid = 1;
+    let ValidationState_Invalid = 2;
+
+    if (workArea != null) {
+      if (workAreaItemList.pathExists) {
+        // If this was invalid, fix it.
+        if (workArea.validationState != ValidationState_Valid) {
+          workArea.validationState = ValidationState_Valid;
+          this.setIcon(workArea);
+        }
+      }
+      else {
+        // If this was valid, make it invalid.
+        if (workArea.validationState == ValidationState_Valid) {
+          workArea.validationState = ValidationState_Invalid;
+          this.setIcon(workArea);
+        }
+      }
+    }
+    return workArea;
+  }
+
+  getExtractionItems(workAreaItems: WorkAreaItemsList): Observable<WorkAreaExtractionItems> {
+    return this.http.put(`${Global.API_URL}/api/workarea/select/${workAreaItems.WorkAreaId}`, workAreaItems).pipe(map(resp => resp as WorkAreaExtractionItems), map(extractionItems => {
+      if (extractionItems != null) {
+        var invalidItemsArray = extractionItems.invalidItems;
+        if (invalidItemsArray != null && invalidItemsArray.length > 0) {
+          //var gateKeeperController = $injector.get('gateKeeperController');
+          alert("Need a dialog: Invalid Items");
+        }
+      }
+      return extractionItems;
+    }));
+  }
+
+  willExtract(willExtractData: IncomingWillExtract): Observable<Array<WorkAreaDBRecordModel>> {
+    return this.http.put(`${Global.ACS_URL}/api/document/willExtract`, willExtractData).pipe(map(resp => resp as Array<WorkAreaDBRecordModel>));
+  }
+
+  extractAndUpdateItem(filePNE: string, extractText: boolean) {
+
+    return this.extractItem(filePNE, extractText).pipe(switchMap(extractData => {
+      console.log(filePNE, "extracted");
+      return this.updateExtractedData(extractData).pipe(map(res => {
+        console.log(filePNE, "updated");
+        return res;
+      }), catchError(err => {
+        console.log(filePNE, "update failed");
+        return throwError(err);
+      }));
+    }), catchError(err => {
+      console.log(filePNE, "extract failed");
+      return of(err);
+    }));
+  }
+
+  extractItem(filePNE: string, extractText: boolean): Observable<ExtractionDataModel> {
+    return this.getPluginDefinitions().pipe(switchMap(plugins => {
+      return this.http.put(`${Global.ACS_URL}/api/document/extract?path=${encodeURIComponent(filePNE)}&extractText=${extractText}/`, plugins).pipe(map(resp => resp as ExtractionDataModel));
+    }));
+  }
+
+  updateExtractedData(extractedData: ExtractionDataModel): Observable<any> {
+    return this.http.post(`${Global.API_URL}/api/Document/UpdateExtractionData`, extractedData);
   }
 
   setIcon(workAreaModel: WorkAreaModel) {

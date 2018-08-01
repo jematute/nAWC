@@ -6,7 +6,7 @@ import { catchError, mergeMap, switchMap, map, tap } from 'rxjs/operators';
 import { User } from './user';
 import { userModel } from '../classes/userModel';
 import { Global } from '../classes/global';
-import { Router } from '../../../node_modules/@angular/router';
+import { Router } from '@angular/router';
 import { LocalizationService } from '../localization/localization.service';
 
 const httpOptions = {

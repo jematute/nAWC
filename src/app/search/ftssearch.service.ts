@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { IGridInterface } from '../results/grid/grid-interface';
 import { GetDataParams, AdeptDataTable } from '../classes/getDataParams';
-import { Observable, BehaviorSubject, throwError as observableThrowError } from '../../../node_modules/rxjs';
+import { Observable, BehaviorSubject, throwError as observableThrowError } from 'rxjs';
 import { SearchParams, SearchTerm } from './search-params';
-import { map, share, tap, catchError, take, filter } from '../../../node_modules/rxjs/operators';
-import { HttpClient } from '../../../node_modules/@angular/common/http';
+import { map, share, tap, catchError, take, filter } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 import { Global } from '../classes/global';
 
 @Injectable({

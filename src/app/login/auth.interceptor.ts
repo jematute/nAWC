@@ -17,7 +17,7 @@ import {
     HttpUserEvent
 } from '@angular/common/http';
 import { AuthService } from './auth.service';
-import { Router } from '../../../node_modules/@angular/router';
+import { Router } from '@angular/router';
 import { ErrorDialogService } from '../error-dialog/error-dialog.service';
 import { ClientServicesService } from '../client-services/client-services.service';
 import { Global } from '../classes/global';

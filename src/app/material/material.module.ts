@@ -34,7 +34,7 @@ import {
   MatTooltipModule,
   MatOptionModule,
   MatBottomSheetModule,
-  MAT_DIALOG_DATA
+  MAT_DIALOG_DATA,
 } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 @NgModule({

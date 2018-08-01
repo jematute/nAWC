@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { LocalizationService } from '../localization/localization.service';
 import { ErrorDialogService } from '../error-dialog/error-dialog.service';
-import { MatDialog } from '../../../node_modules/@angular/material';
+import { MatDialog } from '@angular/material';
 import { LoginPromptComponent } from './login-prompt/login-prompt.component';
 
 

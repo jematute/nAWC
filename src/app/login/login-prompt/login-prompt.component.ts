@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '../../../../node_modules/@angular/material';
+import { MatDialogRef } from '@angular/material';
 import { LocalizationService } from '../../localization/localization.service';
 @Component({
   selector: 'app-login-prompt',

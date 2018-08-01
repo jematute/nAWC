@@ -1,11 +1,11 @@
 <div class="workareas">
-  <div (hidden)="!loading" class="loading-panel">
+  <div *ngIf="loading" class="loading-panel">
     <mat-spinner></mat-spinner>
   </div>
   <div id="zhgTur" class="items">
     <div class="items-wrapper">
       <div *ngFor="let item of workAreas" class="item">
-        <button mat-button *ngIf="!item.editEnabled" id="sb-itemmenu-button-{{item.name.replace(' ', '').toLowerCase()}}" (click)="workAreaSelected">
+        <button mat-button *ngIf="!item.editEnabled" id="sb-itemmenu-button-{{item.name.replace(' ', '').toLowerCase()}}" (click)="workAreaSelected(item)">
 
           <div class="image-container">
             <img src="{{item?.icon}}" alt="" />

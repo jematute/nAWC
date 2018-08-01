@@ -9,7 +9,7 @@ import { SavedSearchesButton } from './buttons/SavedSearchesButton';
 import { LibraryBrowserButton } from './buttons/LibraryBrowserButton';
 import { FileGuideButton } from './buttons/FileGuideButton';
 import { WorkAreasButton } from './buttons/WorkAreasButton';
-import { Router } from '../../../../node_modules/@angular/router';
+import { Router } from '@angular/router';
 
 
 @Component({
