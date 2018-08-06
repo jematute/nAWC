@@ -1,6 +1,7 @@
 <div mat-dialog-title>
-  {{dialogService?.title}}
+  {{title}}
 </div>
 <div mat-dialog-content>
-  <mat-progress-bar mode="determinate" value="{{dialogService?.progress}}"></mat-progress-bar>
+  <span>{{caption}}</span>
+  <mat-progress-bar mode="determinate" value="{{progress}}"></mat-progress-bar>
 </div>

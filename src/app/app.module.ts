@@ -14,6 +14,24 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { GlobalsService } from './globals.service';
 import { ClientServicesModule } from './client-services/client-services.module';
 import { BowserModule, BowserService } from 'ngx-bowser';
+import { SignalRModule, ConnectionTransports } from 'ng2-signalr';
+// import { SignalRConfiguration, ConnectionTransport } from 'ng2-signalr';
+// import { Global } from './classes/global';
+
+// // >= v2.0.0
+// export function createConfig(): SignalRConfiguration {
+//   const c = new SignalRConfiguration();
+//   c.hubName = 'userConnectionHub';
+//   c.qs = { user: 'donald' };
+//   c.url = Global.API_URL;
+//   c.logging = true;
+  
+//   // >= v5.0.0
+//   c.executeEventsInZone = true; // optional, default is true
+//   c.executeErrorsInZone = false; // optional, default is false
+//   c.executeStatusChangeInZone = true; // optional, default is true
+//   return c;
+// }
 
 @NgModule({
   declarations: [
@@ -27,9 +45,10 @@ import { BowserModule, BowserService } from 'ngx-bowser';
   exports: [ ],
   bootstrap: [ AppComponent ],
   providers: [ { provide: APP_BASE_HREF, useValue: '/' }, HttpClient, LocalizationService, {
-    provide: HTTP_INTERCEPTORS, 
+    provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true
   }, GlobalsService, BowserService ]
 })
 export class AppModule { }
+

@@ -63,10 +63,11 @@ export class GridComponent implements OnInit, OnInit {
     const subscription = this.gridService.getData(params).subscribe(data => {
       let dataTable = data as AdeptDataTable;
       this.api.setRowData(dataTable.TableRecords);
+      this.gridService.getCount(params).subscribe(data => {
+        this.length = data;
+      });
     })
-    this.gridService.getCount(params).subscribe(data => {
-      this.length = data;
-    });
+    
     this.subscription.add(subscription);
   }
 

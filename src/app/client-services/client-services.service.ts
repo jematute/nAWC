@@ -8,7 +8,7 @@ import { tap, catchError, switchMap, delay, timeout, map, retry } from 'rxjs/ope
 import { ThrowStmt } from '@angular/compiler';
 import { BowserService } from 'ngx-bowser';
 import { ajax } from 'rxjs/ajax';
-import { WorkAreaModel, WorkAreaItemsList } from '../workarea/classes/WorkAreadModel';
+import { WorkAreaModel, WorkAreaItemsList } from '../workarea/classes/WorkAreaModel';
 
 @Injectable({
   providedIn: 'root'

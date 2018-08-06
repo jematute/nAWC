@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ProgressDialogComponent } from './progress-dialog.component';
 import { MaterialModule } from '../material/material.module';
 import { ProgressDialogService } from './progress-dialog.service';
-import { MAT_DIALOG_DATA } from '../../../node_modules/@angular/material';
+import { MAT_DIALOG_DATA } from '@angular/material';
 
 
 @NgModule({

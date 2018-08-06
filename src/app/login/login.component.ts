@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   ) 
   { }
 
-  private user: User = { loginName: "test1", password: ""};
+  private user: User = { loginName: "creator6", password: ""};
   selectedLanguage: any;
   inProcess: boolean;
   autoLogin: boolean;

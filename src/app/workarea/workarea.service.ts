@@ -1,23 +1,30 @@
 import { Injectable } from '@angular/core';
-import { WorkAreaModel, WorkAreaItemsList, WorkAreaExtractionItems, IncomingWillExtract, WorkAreaDBRecordModel } from './classes/WorkAreadModel';
+import { WorkAreaModel, WorkAreaItemsList, WorkAreaExtractionItems, IncomingWillExtract, WorkAreaDBRecordModel } from './classes/WorkAreaModel';
 import { Observable, of, throwError, forkJoin, from } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Global } from '../classes/global';
-import { map, switchMap, tap, mergeMap, catchError, delay, concatMap } from 'rxjs/operators';
+import { map, switchMap, tap, mergeMap, catchError, delay, concatMap, takeLast } from 'rxjs/operators';
 import { LocalizationService } from '../localization/localization.service';
 import { ErrorDialogService } from '../error-dialog/error-dialog.service';
 import { PlugInDefinition } from '../classes/PlugInDefinition';
 import { ExtractionDataModel } from '../classes/ExtractionDataModel';
 import { ProgressDialogService } from '../progress-dialog/progress-dialog.service';
+import { IGridInterface } from '../results/grid/grid-interface';
+import { GetDataParams, AdeptDataTable } from '../classes/getDataParams';
+import { WorkAreaDataParams, WorkAreaDataRequestModel } from './classes/WorkAreaDataParams';
+import { SearchParams } from '../search/search-params';
 
 @Injectable({
   providedIn: 'root'
 })
-export class WorkareaService {
+export class WorkareaService implements IGridInterface {
 
   constructor(private http: HttpClient, private locale: LocalizationService, private errorDialog: ErrorDialogService, private progressDialog: ProgressDialogService) { }
   workAreas: Array<WorkAreaModel> = [];
+  currentWorkArea: WorkAreaModel;
   pluginDefinitions: Array<PlugInDefinition> = [];
+  data: AdeptDataTable;
+
   getWorkAreas(hitServer: boolean): Observable<Array<WorkAreaModel>> {
     if (!hitServer && this.workAreas.length > 0) {
       return of(this.workAreas);
@@ -60,8 +67,31 @@ export class WorkareaService {
     return this.http.put(`${Global.ACS_URL}/api/values/ValidateWorkAreas`, workAreas).pipe(map(resp => resp as Array<WorkAreaModel>));
   }
 
+  setCurrentWorkArea(workArea: WorkAreaModel) {
+    this.currentWorkArea = workArea;
+  }
 
-  getWorkAreaItems(workArea: WorkAreaModel): Observable<any> {
+  getData(params: WorkAreaDataParams): Observable<AdeptDataTable> {
+    let dataRequest: WorkAreaDataRequestModel = new WorkAreaDataRequestModel();
+    dataRequest.WorkAreaId = this.currentWorkArea.workAreaId;
+    dataRequest.Skip = params.AdeptDataTable.Skip;
+    dataRequest.Take = params.AdeptDataTable.Take;
+
+    //process the workarea items
+    return this.getWorkAreaItems(this.currentWorkArea).pipe(switchMap(resp => {
+      return this.http.post(`${Global.API_URL}/api/workarea/data/`, dataRequest).pipe(map(res => {
+        let result = res as SearchParams;
+        this.data = result.AdeptDataTable;
+        return result.AdeptDataTable;
+      }));
+    }));
+  }
+
+  getCount(parms: GetDataParams): Observable<number> {
+    return of(this.data.RecordCount);
+  }
+
+  getWorkAreaItems(workArea: WorkAreaModel): Observable<WorkAreaItemsList> {
 
     //get workarea items from acs
     return this.getLocalWorkAreaItems(workArea).pipe(switchMap(workAreaItemList => {
@@ -71,7 +101,7 @@ export class WorkareaService {
         var msg = this.locale.resourceStrings["WORK_AREA_ACCESS"];
         var title = this.locale.resourceStrings["ERROR"];
         this.errorDialog.showError(title, msg);
-        throwError("ACCESS_DENIED");
+        return throwError("ACCESS_DENIED");
       }
       return this.getExtractionItems(workAreaItemList).pipe(switchMap(extractionItems => {
         //get the plugin definitions
@@ -82,27 +112,15 @@ export class WorkareaService {
           incomingWillExtract.Items = extractionItems.items;
           //check which items will extract
           return this.willExtract(incomingWillExtract).pipe(switchMap(items => {
-            return from(items).pipe(
-              concatMap(item => { 
-                //execute each item in order
-                console.log(`Lets attempt to extract ${item.Name}`);
-                return this.extractAndUpdateItem(`${workArea.path}${item.Name}`, false); 
-              }))
-            // //using the array of items, create an observable and mergemap to flatten the observable into a stream of responses
-            // return of(items).pipe(mergeMap(items => 
-            //   //invoke the progress dialog and set the values accordingly
-            //   //we'll use forkJoin to have each observable wait for the previous want to complete
-            //   forkJoin(...items.map(item => {
-            //     //update the progress dialog to display the filename
-            //     console.log(`${item.Name} begins to extract`);
-            //     //attempt to extract and update each item individually
-            //     return this.extractAndUpdateItem(`${workArea.path}${item.Name}`, item.extractText).pipe(map(res => {
-            //       //each item should report its progress
-            //       console.log(console.log(item.Name, "finished extracting"));
-            //       return res;
-            //     }));
-            //   }))
-            // ));
+            //extract the items flagged for extraction
+            if (items.length > 0)
+              return this.extractAndUpdateItems(items, workArea.path).pipe(map(resp => {
+                //at the end, return all the workarea items
+                return (workAreaItemList);
+              }));
+
+            return of(WorkAreaItemsList);
+
           }));
         }))
       }));
@@ -112,10 +130,10 @@ export class WorkareaService {
   testRequest(item): Observable<any> {
     return of("hello").pipe(delay(1000), switchMap(res => {
       console.log(res + item);
-      return of("hi").pipe(map(res => {
-        console.log(res + item);
-      }));
-
+      return throwError(res);
+      // return of("hi").pipe(map(res => {
+      //   console.log(res + item);
+      // }));
     }));
   }
 
@@ -168,30 +186,70 @@ export class WorkareaService {
     }));
   }
 
+
+
   willExtract(willExtractData: IncomingWillExtract): Observable<Array<WorkAreaDBRecordModel>> {
     return this.http.put(`${Global.ACS_URL}/api/document/willExtract`, willExtractData).pipe(map(resp => resp as Array<WorkAreaDBRecordModel>));
   }
 
-  extractAndUpdateItem(filePNE: string, extractText: boolean) {
+  //extracts and updates multiple items (shows progress)
+  extractAndUpdateItems(items: WorkAreaDBRecordModel[], path: string): Observable<any> {
+    //we display progress
+    this.progressDialog.open("Extracting", items[0].Name);
+    let progressValue = 100 / items.length;
+    //use concat map to merge all observables but execute each one at a time in order
+    return from(items).pipe(concatMap(item => {
+      this.progressDialog.updateCaption(item.Name);
+      return this.extractAndUpdateItem(item, path, false).pipe(map(resp => {
+        //we update the progress dialog
+        this.progressDialog.increaseProgress(progressValue + (progressValue * items.findIndex(ele => ele == item)));
+      }), catchError(error => {
+        this.progressDialog.increaseProgress(progressValue + (progressValue * items.findIndex(ele => ele == item)));
+        if (confirm(error.error)) {
+          return of("ok");
+        }
+        else {
+          this.progressDialog.close();
+          return throwError(error);
+        }
+      }));
+    }), takeLast(1)).pipe(map(resp => {
+      this.progressDialog.close();
+      return of("done");
+    }), catchError(error => {
+      return of("done");
+    }));
+  }
 
+  //extracts and updates a single item
+  extractAndUpdateItem(item: WorkAreaDBRecordModel, path: string, extractText: boolean) {
+    let filePNE = path + item.Name;
     return this.extractItem(filePNE, extractText).pipe(switchMap(extractData => {
+
+      //attach file info to extraction data.
+      let data = extractData as ExtractionDataModel;
+      data.AdeptTableNumber = 1;
+      data.AdeptFileId = item.FileId;
+      data.AdeptMajorRevision = item.MajorRevision;
+      data.AdeptMinorRevision = item.MinorRevision;
+
       console.log(filePNE, "extracted");
       return this.updateExtractedData(extractData).pipe(map(res => {
         console.log(filePNE, "updated");
         return res;
       }), catchError(err => {
         console.log(filePNE, "update failed");
-        return throwError(err);
+        return throwError({ error: "ERROR_UPDATING_EXTRACTED_DATA", item: item });
       }));
     }), catchError(err => {
       console.log(filePNE, "extract failed");
-      return of(err);
+      return throwError({ error: "ERROR_EXTRACTING_DATA", item: item });
     }));
   }
 
   extractItem(filePNE: string, extractText: boolean): Observable<ExtractionDataModel> {
     return this.getPluginDefinitions().pipe(switchMap(plugins => {
-      return this.http.put(`${Global.ACS_URL}/api/document/extract?path=${encodeURIComponent(filePNE)}&extractText=${extractText}/`, plugins).pipe(map(resp => resp as ExtractionDataModel));
+      return this.http.put(`${Global.ACS_URL}/api/document/extract?path=${encodeURIComponent(filePNE)}&extractText=${extractText}`, plugins).pipe(map(resp => resp as ExtractionDataModel));
     }));
   }
 

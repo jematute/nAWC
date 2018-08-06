@@ -2,7 +2,8 @@ import { Component, OnInit, Output } from '@angular/core';
 import { EventEmitter } from 'events';
 import { ClientServicesService } from '../client-services/client-services.service';
 import { WorkareaService } from './workarea.service';
-import { WorkAreaModel } from './classes/WorkAreadModel';
+import { WorkAreaModel } from './classes/WorkAreaModel';
+import { GridService } from '../results/grid/grid.service';
 
 @Component({
   selector: 'workarea',
@@ -11,7 +12,7 @@ import { WorkAreaModel } from './classes/WorkAreadModel';
 })
 export class WorkareaComponent implements OnInit {
 
-  constructor(private workAreasService: WorkareaService) { }
+  constructor(private workAreasService: WorkareaService, private grid: GridService) { }
   workAreas: Array<WorkAreaModel>;
   loading: boolean = true;
   ngOnInit() {
@@ -22,7 +23,9 @@ export class WorkareaComponent implements OnInit {
   }
 
   workAreaSelected(workArea: WorkAreaModel) {
-    this.workAreasService.getWorkAreaItems(workArea).subscribe();
+    this.workAreasService.setCurrentWorkArea(workArea);
+    this.grid.dataService = this.workAreasService;
+    this.grid.reloadGrid();
   }
 
 }

@@ -33,6 +33,7 @@ export class AuthService {
     let user = localStorage.getItem("userModel");
     if (user)
       this.user = JSON.parse(user) as userModel;
+    this.connectSignalR();
   }
 
   login(user: User, forceLogin: boolean): Observable<Object> {
@@ -85,6 +86,10 @@ export class AuthService {
         localStorage.setItem("refresh_token", this.refreshToken);
         return data["access_token"];
     }));
+  }
+
+  public connectSignalR() {
+
   }
 
 }

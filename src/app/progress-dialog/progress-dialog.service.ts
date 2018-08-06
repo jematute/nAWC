@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { MatDialog } from '../../../node_modules/@angular/material';
+import { MatDialog } from '@angular/material';
 import { ProgressDialogComponent } from './progress-dialog.component';
+import { MessageData } from '../classes/messageData';
 
 @Injectable({
   providedIn: 'root'
@@ -9,18 +10,30 @@ export class ProgressDialogService {
 
   constructor(public dialog: MatDialog) { }
 
+  data: MessageData;
   progress = 0;
-  title = "Progress";
-  caption = "";
-  
-  open() {
-    this.progress = 30;
-    this.dialog.open(ProgressDialogComponent, { width: "300px" });
+
+  open(title: string, caption: string) {
+    this.data = new MessageData();
+    this.data.title = title;
+    this.data.message = caption;
+    this.dialog.open(ProgressDialogComponent, { width: "300px", data: this.data });
+  }
+
+  close() {
+    this.dialog.closeAll();
   }
 
   increaseProgress(value: number) {
-    this.progress = this.progress + value;
+    this.data.onDataUpdate.emit({ progress: this.progress + value });
   }
 
+  updateTitle(title: string) {
+    this.data.onDataUpdate.emit({ title: title });
+  }
+
+  updateCaption(caption: string) {
+    this.data.onDataUpdate.emit({ caption: caption });
+  }
 
 }
