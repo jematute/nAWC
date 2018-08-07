@@ -8,6 +8,7 @@ import { ResultsModule } from '../results/results.module';
 import { SidebarModule } from './sidebar/sidebar.module';
 import { HeaderModule } from './header/header.module';
 import { DatacardModule } from '../datacard/datacard.module';
+import { HomeModule } from '../home/home.module';
 
 const LAYOUT_COMPONENTS = [
     LayoutComponent
@@ -15,7 +16,9 @@ const LAYOUT_COMPONENTS = [
 
 @NgModule({
   imports: [
-    CommonModule, LayoutRoutingModule, MaterialModule, ResultsModule, SidebarModule, HeaderModule, DatacardModule
+    CommonModule, LayoutRoutingModule, 
+    MaterialModule, ResultsModule, SidebarModule, 
+    HeaderModule, DatacardModule, HomeModule
   ],
   declarations: [
     ...LAYOUT_COMPONENTS

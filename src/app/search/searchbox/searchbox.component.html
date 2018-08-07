@@ -18,7 +18,7 @@
     <div class="search-dropdown" *ngIf="showDropdown">
         <div class="input-wrapper">
             <button [hidden]="fieldFilter?.length == 0" (click)="fieldFilter = ''; filterChanged()"><i class="fa fa-times"></i></button>
-            <input id="searchfield" class="form-control" placeholder="{{searchFieldLabel}}" [(ngModel)]="fieldFilter" (ngModelChange)="filterChanged()" />
+            <input appAutofocus id="searchfield" class="form-control" placeholder="{{searchFieldLabel}}" [(ngModel)]="fieldFilter" (ngModelChange)="filterChanged()" />
         </div>  
         
         <div class="search-dropdown-content"  keyboard-selection items="vm.currentFields" show-dropdown="vm.showDropDown" on-selection-changed="vm.onFieldSelectionChanged" selection-made="vm.onFieldSelectionMade">
