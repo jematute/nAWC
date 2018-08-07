@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ToolbarComponent } from './toolbar.component';
+import { ToolbarComponent, HidePipe } from './toolbar.component';
+
+const components = [ToolbarComponent];
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: [ToolbarComponent]
+  declarations: [...components, HidePipe],
+  exports: [...components]
 })
 export class ToolbarModule { }

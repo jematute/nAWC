@@ -7,11 +7,12 @@ import { GridService } from './grid/grid.service';
 import { LoadingPanelComponent } from './grid/loading-panel/loading-panel.component';
 import { MaterialModule } from '../material/material.module';
 import { RouterModule } from '@angular/router';
+import { ToolbarModule } from '../toolbar/toolbar.module';
 
 
 @NgModule({
   imports: [
-    CommonModule,
+    CommonModule, ToolbarModule,
     MaterialModule, RouterModule,
     AgGridModule.withComponents([ ]), 
   ],

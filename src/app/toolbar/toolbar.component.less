@@ -1,0 +1,259 @@
+@import '../../globalstyles/common.less';
+
+.toolbar {
+    flex: 1 1 auto;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    min-height: 20px;
+    .toggle-button {
+        position: absolute;
+        top: -5px;
+        right: 5px;
+        font-size: 22px;
+
+        &:focus {
+            outline: none;
+        }
+
+        i {
+            cursor: pointer;
+            color: black;
+
+            &:active {
+                color: rgb(100,100,100);
+            }
+
+            &:hover {
+                //background-color: rgba(0,0,0,.1);
+            }
+        }
+    }
+
+    .tabs {
+        position: absolute;
+        top: 0;
+        left: 0;
+        flex: 1 1 auto;
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: 3px;
+        font-family: Verdana;
+        width: 100%;
+
+        .tab {
+            display: flex;
+            flex-direction: column;
+            flex: 0 0 100px;
+            border-right: 1px solid rgb(150, 150, 150);
+            border-top: 1px solid rgb(150, 150, 150);
+            border-left: 1px solid rgb(150, 150, 150);
+            margin-top: 3px;
+            margin-right: 2px;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+            text-align: center;
+            font-size: 10px;
+            cursor: pointer;
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+        .active {
+            background-color: @site-main;
+            color: white;
+        }
+    }
+
+
+
+    .tab-content {
+        flex: 1 1 auto;
+        display: flex;
+        flex-wrap: wrap;
+        min-height: 69px;
+
+        .toolbar-button-enabled {
+            .button-area {
+                &:hover {
+                    .button-image {
+                        background-color: rgba(0,0,0,.10);
+                    }
+                }
+            }
+        }
+
+        @media screen {
+            margin-top: 22px;
+
+            // @media (max-width: 712px) {
+            //     margin-top: 40px;
+            // }
+
+            // @media (max-width: 508px) {
+            //     margin-top: 76px;
+            // }
+        }
+
+        .toolbar-button {
+            /*margin-top: 1px;
+            border: 1px solid rgb(200,200,200);
+            border-radius: 4px;
+            margin-left: 5px;
+            min-width: 45px;
+            max-width: 65px;
+            text-align: center;
+            font-family: Verdana;
+            display: flex;
+            margin-bottom: 1px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 78px;*/
+            position: relative;
+            font-family: Verdana;
+            width: 60px;
+
+            .button-area {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+
+                &:focus {
+                    outline: none;
+                }
+
+                &:active {
+                    background-color: rgba(0, 0, 0, .20);
+                }
+
+                span {
+                    width: 100%;
+                    font-weight: 700;
+                    font-size: 8px;
+                }
+
+                &:hover {
+                }
+
+                .button-image {
+                    img {
+                        display: block;
+                        height: 37px;
+                    }
+                }
+
+                .button-text {
+                    text-align: center;
+                    line-height: .7;
+                    height: 20px;
+                    width: 100%;
+                }
+
+                .button-disabled {
+                    img {
+                        opacity: .5;
+                    }
+
+                    color: rgb(180,180,180);
+                }
+            }
+
+            .disable-overlay {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background-color: transparent;
+                cursor: not-allowed;
+            }
+
+
+            .dropdown-arrow {
+                line-height: .5;
+                font-size: 11px;
+                text-align: center;
+                //border-top: 1px solid rgb(200,200,200);
+                cursor: pointer;
+                min-height: 12px;
+
+                &:focus {
+                    outline: none;
+                }
+            }
+
+            .dropdown-arrow-active {
+                &:active {
+                    background-color: rgba(0,0,0,.20);
+                }
+
+                &:hover {
+                    background-color: rgba(0,0,0,.10);
+                }
+            }
+
+            .dropdown {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background: white;
+                white-space: nowrap;
+                z-index: 100;
+                box-shadow: 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12);
+                text-align: left;
+                border-radius: 2px;
+
+                ul {
+                    list-style: none;
+                    margin: 5px 0;
+                    padding: 0;
+
+                    .disabled-item {
+                        cursor: not-allowed;
+                        color: rgb(200,200,200);
+                    }
+
+                    li {
+                        padding: 10px 15px;
+                        font-size: 12px;
+                        cursor: pointer;
+
+                        &:hover {
+                            background: rgba(0,0,0, .1);
+                        }
+                    }
+                }
+            }
+
+            .dropdown.ng-enter {
+                animation: zoomIn .2s ease;
+            }
+        }
+
+        .toolbar-button.ng-enter {
+            animation: zoomIn .4s ease;
+        }
+    }
+
+    .tab-content-collapsed {
+        display: none;
+    }
+}
+
+.toolbar-collapsed {
+    min-height: 20px;
+}
+
+.custom-tooltip {
+    .md-content {
+        font-size: 12px;
+        color: white;
+        background: rgba(0,0,0,0.8);
+    }
+}
