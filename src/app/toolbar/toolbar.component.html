@@ -17,40 +17,41 @@
       </i>
   </div>
   <div [ngClass]="{ 'tab-content-collapsed': !showToolbar }" class="tab-content">
-      <div *ngFor="let item of activeTab?.items | hidepipe" (mouseleave)="item.dropdown = false" class="toolbar-button" [ngClass]="{ 'toolbar-button-enabled': item?.enabled }">
-          <!-- <div id="tb-button-{{item.text.toLowerCase().trim().replace(' ','')}}" class="button-area" ng-click="toolbarButtonClicked(item, $event)">
-              <md-tooltip md-delay="300" class="custom-tooltip" md-direction="bottom">
-                  {{item.popuptext}}
-              </md-tooltip>
-              Non ACS
-              <div ng-if="!item.requiresACS" ng-class="{ 'button-disabled': !item.enabled }" class="button-image">
-                  <img src="{{item.icon}}" alt="Icon Missing" />
-              </div>
-              <div ng-if="!item.requiresACS" ng-class="{ 'button-disabled': !item.enabled }" class="button-text">
-                  <span>{{item.text}}</span>
-              </div>
-              <div ng-if="!item.enabled && !item.requiresACS" class="disable-overlay"></div>
+      <div *ngFor="let item of activeTab?.items" (mouseleave)="item.dropdown = false" class="toolbar-button" [ngClass]="{ 'toolbar-button-enabled': item?.enabled }">
+          <div id="tb-button-{{item?.text?.toLowerCase().trim().replace(' ','')}}" class="button-area" (click)="toolbarButtonClicked(item, $event)">
               
-              ACS
-              <div ng-if="item.requiresACS" ng-class="{ 'button-disabled': !item.enabled || !clientService.connected }" class="button-image">
-                  <img src="{{item.icon}}" alt="Icon Missing" />
+            <!-- <md-tooltip md-delay="300" class="custom-tooltip" md-direction="bottom">
+                  {{item.popuptext}}
+              </md-tooltip> -->
+            <!--Non ACS-->
+              <div *ngIf="!item?.requiresACS" [ngClass]="{ 'button-disabled': !item.enabled }" class="button-image">
+                  <img src="{{item?.icon}}" alt="Icon Missing" />
               </div>
-              <div ng-if="item.requiresACS" ng-class="{ 'button-disabled': !item.enabled || !clientService.connected }" class="button-text">
+              <div *ngIf="!item?.requiresACS" ng-class="{ 'button-disabled': !item.enabled }" class="button-text">
                   <span>{{item.text}}</span>
               </div>
-              <div ng-if="item.requiresACS" ng-show="!clientService.connected || !item.enabled" class="disable-overlay"></div>
+              <div *ngIf="!item?.enabled && !item.requiresACS" class="disable-overlay"></div>
+              
+              <!--ACS-->
+              <div *ngIf="item?.requiresACS" [ngClass]="{ 'button-disabled': !item?.enabled || !clientService?.connected }" class="button-image">
+                  <img src="{{item?.icon}}" alt="Icon Missing" />
+              </div>
+              <div *ngIf="item?.requiresACS" [ngClass]="{ 'button-disabled': !item?.enabled || !clientService?.connected }" class="button-text">
+                  <span>{{item.text}}</span>
+              </div>
+              <div *ngIf="item?.requiresACS && !clientService?.connected && !item.enabled" class="disable-overlay"></div>
           </div>
-          <div ng-click="item.dropdown = !item.dropdown" class="dropdown-arrow" ng-class="{'dropdown-arrow-active': item.children.length > 0}">
-              <i ng-if="item.children.length > 0" class="fa fa-caret-down"></i>
+          <div (click)="item.dropdown = !item.dropdown" class="dropdown-arrow" [ngClass]="{'dropdown-arrow-active': item?.children?.length > 0}">
+              <i *ngIf="item?.children?.length > 0" class="fa fa-caret-down"></i>
           </div>
 
-          <div class="dropdown" ng-if="item.dropdown">
+          <div class="dropdown" *ngIf="item.dropdown">
               <ul>
-                  <li ng-class="{ 'disabled-item': !child.enabled }" id="tb-ddbutton-{{child.text.toLowerCase().trim().replace(' ','')}}" ng-click="toolbarButtonClicked(child, $event); item.dropdown = false" ng-repeat="child in item.children track by $index">
-                      {{child.text}}
+                  <li [ngClass]="{ 'disabled-item': !child.enabled }" id="tb-ddbutton-{{child.text.toLowerCase().trim().replace(' ','')}}" (click)="toolbarButtonClicked(child, $event); item.dropdown = false" *ngFor="let child of item.children">
+                      {{child?.text}}
                   </li>
               </ul>
-          </div>-->
+          </div>
       </div> 
   </div>
 </div>

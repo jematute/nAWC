@@ -7,10 +7,10 @@
 <div (clickToClose)="closeDropdown()" class="search-container">
     <button [disabled]="searchInputModel == ''" (click)="doSearch()" class="search-button"><i class="fa fa-search"></i></button>
     <button id="filterbutton" class="filter-button" (click)="toggleDropdown()"><i class="fa fa-filter"></i></button>
-    <button [hidden]="searchValue == ''" (click)="searchValue = ''" class="clear-button"><i class="fa fa-times"></i></button>
-    <input id="simplecriteria" [formControl]="searchInput"
+    <button [hidden]="searchValue == ''" (click)="clearSearchVal()" class="clear-button"><i class="fa fa-times"></i></button>
+    <input appAutofocus id="simplecriteria" [formControl]="searchInput"
     autocomplete="off" focus-search (keydown)="inputKeyDown($event)" 
-    type="text" [(ngModel)]="searchValue" (ngModelChange)="qsInputChanged($event)" 
+    type="text"
     name="q" class="form-control searchbox" placeholder="{{selectedField?.displayName}}"
     />
     <div class="input-warning" [hidden]="!showCharWarning">{{locale?.resourceStrings?.CHARACTER_NOT_ALLOWED}}</div>

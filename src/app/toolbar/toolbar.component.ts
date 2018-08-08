@@ -1,5 +1,6 @@
 import { Component, OnInit, Pipe } from '@angular/core';
 import { LocalizationService } from '../localization/localization.service';
+import { CheckInButton } from './buttons/check-in-button';
 
 @Component({
   selector: 'app-toolbar',
@@ -11,19 +12,16 @@ export class ToolbarComponent implements OnInit {
   constructor(private locale: LocalizationService) { }
 
   showToolbar: boolean = true;
-  
+  tabs: Array<Object>;
 
-  tabs = [
-    { name: this.locale.resourceStrings["HOME"], active: true, items: [] },
-    { name: this.locale.resourceStrings["SEARCH"], active: false, items: [] },
-    { name: this.locale.resourceStrings["DOCUMENT"], active: false, items: [] },
-    { name: this.locale.resourceStrings["WORKFLOW"], active: false, items: [] }
-  ];
+  activeTab: Object;
 
-  activeTab: Object = this.tabs[0];
+  checkInButton = new CheckInButton();
 
-  tabCLicked() {
-
+  tabClicked(tab) {
+    this.activeTab["active"] = false;
+    tab.active = true;
+    this.activeTab = tab;
   }
 
   toolbarToggled() {
@@ -31,6 +29,23 @@ export class ToolbarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.tabs = [
+      { name: this.locale.resourceStrings["HOME"], active: true, items: [
+        this.checkInButton,
+      ] },
+      { name: this.locale.resourceStrings["SEARCH"], active: false, items: [] },
+      { name: this.locale.resourceStrings["DOCUMENT"], active: false, items: [] },
+      { name: this.locale.resourceStrings["WORKFLOW"], active: false, items: [] }
+    ];
+    this.initButtons();
+    this.activeTab = this.tabs[0];
+  }
+
+  initButtons() {
+    //check in
+    this.checkInButton.text = this.locale.resourceStrings["TOOLBAR_CHECK_IN"];
+    this.checkInButton.popupText = this.locale.resourceStrings["CHECK_IN_SELECTED_DOCUMENT"];
+    
   }
 
 }

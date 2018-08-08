@@ -11,6 +11,7 @@ export interface ToolbarButton {
     explorer: boolean;
     reviewer: boolean;
     creator: boolean;
-    show: true;
+    show: boolean;
     popupText: string;
+    requireACS: boolean;
 }

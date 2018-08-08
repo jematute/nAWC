@@ -8,7 +8,7 @@ const components = [ToolbarComponent];
   imports: [
     CommonModule
   ],
-  declarations: [...components, HidePipe],
+  declarations: [...components, HidePipe ],
   exports: [...components]
 })
 export class ToolbarModule { }

@@ -47,6 +47,11 @@ export class SearchboxComponent implements OnInit {
     this.showDropdown = !this.showDropdown;
   }
 
+  clearSearchVal() {
+    this.searchValue = "";
+    this.searchInput.setValue("");
+  }
+
   inputKeyDown(e) {
     if (e.keyCode == 13) {
       if (this.searchValue.length > 0) {
@@ -67,10 +72,6 @@ export class SearchboxComponent implements OnInit {
     ));
   }
 
-  qsInputChanged() {
-    //console.log(this.searchValue);
-  }
-
   fieldSelected(item: FieldDefinition) {
     this.showDropdown = false;
     this.selectedField = item;
@@ -83,6 +84,7 @@ export class SearchboxComponent implements OnInit {
 
   ngOnInit() {
     this.searchInput.valueChanges.pipe(debounceTime(500)).subscribe(value => {
+      this.searchValue = value;
       if (this.selectedField.schemaID != "FTS")
         this.doSearch(true);
     });
