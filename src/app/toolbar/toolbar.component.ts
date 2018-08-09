@@ -2,7 +2,7 @@ import { Component, OnInit, Pipe } from '@angular/core';
 import { LocalizationService } from '../localization/localization.service';
 import { CheckInButton } from './buttons/check-in-button';
 import { Tab } from './classes/tab';
-import { CheckInService } from '../commands/check-in.service';
+import { CheckInService } from '../commands/check-in/check-in.service';
 import { ToolbarButton } from './classes/toolbarbutton';
 import { GridService } from '../results/grid/grid.service';
 

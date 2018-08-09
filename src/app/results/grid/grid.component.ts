@@ -24,7 +24,14 @@ export class GridComponent implements OnInit, OnInit {
   columnDefs = [];
   rowData;
   constructor(private gridService: GridService, private columnService: ColumnsService) {
- 
+    this.pageSize = 100;
+    this.length = 0;
+    
+    this.gridOptions = < GridOptions > {};
+    this.gridOptions.rowData = [];
+    this.columnDefs = [];
+    this.gridOptions.rowSelection = 'multiple';
+    this.gridOptions.rowDeselection = true;
     
     this.getColumns();
 

@@ -1,5 +1,5 @@
 import { ToolbarButton } from "../classes/toolbarbutton";
-import { CheckInService } from "../../commands/check-in.service";
+import { CheckInService } from "../../commands/check-in/check-in.service";
 
 export class CheckInButton implements ToolbarButton {
     requireACS: boolean = true;

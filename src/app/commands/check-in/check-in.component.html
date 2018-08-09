@@ -1,0 +1,91 @@
+
+<div class="nawc-popup-toolbar">
+  <h4>{{locale?.resourceStrings?.TITLE_CHECKIN}}</h4>
+</div>
+<div>
+  <div>
+
+      <!-- Begin Content -->
+      <div class="nawc-popup-content">
+
+          <!-- Library, Assign To -->
+          <!-- <div class="row">
+              <div class="col-sm-4 col-md-4">
+                  <span>{{libraryLabel}}</span>
+                  <div style="position: relative; width: 100%; height: 40px;">
+                      <div class="checkin-lp" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0">
+                          <library-picker cs-disabled="xyz.processing || !xyz.bEnableLibPicker" height="34" padding="10" max-height="230" schema-id="'checkIn'" disable-scroll="true" node-click="selectedLibraryChanged"
+                                          input-model="selectedLibraryName"
+                                          on-submit="">
+                          </library-picker>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-sm-4 col-md-4">
+                  <span>{{assignToLabel}}</span>
+                  <select ng-cloak id=CBAssignToUserIds
+                          class="form-control"
+                          ng-model="xyz.selectedUserItem"
+                          ng-change="selectedUserChanged()"
+                          ng-disabled="xyz.processing || xyz.gettingUserList"
+                          ng-focus="comboFocus($event)"
+                          ng-options="item.name for item in qualifiedUsersArray | orderBy:'name'"></select>
+              </div>
+          </div> -->
+
+          <!-- Undo Check-out, Keep Out, Create Version -->
+          <!-- <div class="row">
+              <div ng-hide="!xyz.bAllowUndoCheckOut">
+                  <div class="col-sm-4 col-md-4" style="margin-top: 25px;">
+                      <md-checkbox class="blue" ng-disabled="xyz.processing" aria-label="Disabled checkbox" ng-model="xyz.bUndoCheckOut"
+                                   ng-change="undoCheckOutCheckChanged()">
+                          {{undoCheckOutLabel}}
+                      </md-checkbox>
+                  </div>
+              </div>
+              <div class="col-sm-4 col-md-4" style="margin-top: 25px;">
+                  <md-checkbox class="blue" ng-disabled="xyz.processing" aria-label="Disabled checkbox" ng-model="xyz.bKeepOut"
+                               ng-change="keepOutCheckChanged()">
+                      {{keepOutLabel}}
+                  </md-checkbox>
+              </div>
+              <div class="col-sm-4 col-md-4" style="margin-top: 25px;">
+                  <md-checkbox class="blue" ng-disabled="xyz.processing" aria-label="Disabled checkbox" ng-model="xyz.bCreateVersion"
+                               ng-change="createVersionCheckChanged()">
+                      {{createVersionLabel}}
+                  </md-checkbox>
+              </div>
+          </div> -->
+
+          <!-- Grid -->
+          <!-- <span class="control-label grid-label">{{filesLabel}}</span>
+          <div class="grid-wrapper">
+              <div ng-show="xyz.processing" class="overlay">
+                  <div class="msg-indicator ">
+                      <span>{{processingLabel}} <i class="fa fa-spinner fa-spin" aria-hidden="true"></i></span>
+                  </div>
+              </div>
+              <div style="width: 100%" class="popup-grid-assign" ui-grid="gridOptions"
+                      ui-grid-selection
+                      ui-grid-resize-columns
+                      ng-disabled="xyz.processing">
+              </div>
+          </div> -->
+
+          <!-- Footer -->
+          <div class="nawc-popup-footer">
+              <div class="action-buttons">
+                  <button autofocus [disabled]="bReadyForOK == false || processing" class="button primary-button" (click)="onCheckInDialogOK()">
+                      {{locale?.resourceStrings?.OK}}
+                  </button>
+                  <button class="button default-button" (click)="onCheckInDialogCancel()" [disabled]="processing">
+                      {{locale?.resourceStrings?.CANCEL}}
+                  </button>
+              </div>
+          </div>
+
+      </div>
+      <!-- End Content -->
+
+  </div>
+</div>
