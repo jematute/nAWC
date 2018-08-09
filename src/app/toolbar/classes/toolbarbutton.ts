@@ -1,3 +1,5 @@
+import { CommandService } from "../../commands/classes/commandservice";
+
 export interface ToolbarButton {
     id: number;
     key: string;
@@ -14,4 +16,8 @@ export interface ToolbarButton {
     show: boolean;
     popupText: string;
     requireACS: boolean;
+    service: CommandService;
+
+    onClick();
+
 }

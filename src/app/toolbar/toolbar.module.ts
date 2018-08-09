@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ToolbarComponent, HidePipe } from './toolbar.component';
+import { CommandsModule } from '../commands/commands.module';
 
 const components = [ToolbarComponent];
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule, CommandsModule
   ],
   declarations: [...components, HidePipe ],
   exports: [...components]

@@ -1,4 +1,5 @@
-import { ToolbarButton } from "./toolbarbutton";
+import { ToolbarButton } from "../classes/toolbarbutton";
+import { CheckInService } from "../../commands/check-in.service";
 
 export class CheckInButton implements ToolbarButton {
     requireACS: boolean = true;
@@ -16,4 +17,9 @@ export class CheckInButton implements ToolbarButton {
     creator: boolean = true;
     show: boolean = true;
     popupText: string;
+    service: CheckInService;
+
+    onClick() {
+        this.service.execute();
+    }
 }

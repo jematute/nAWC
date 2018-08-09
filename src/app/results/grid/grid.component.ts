@@ -15,7 +15,6 @@ export class GridComponent implements OnInit, OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   private gridOptions: GridOptions;
-  private api: GridApi;
   private columnApi: ColumnApi;
   private length: number;
   private pageSize: number;
@@ -25,13 +24,8 @@ export class GridComponent implements OnInit, OnInit {
   columnDefs = [];
   rowData;
   constructor(private gridService: GridService, private columnService: ColumnsService) {
-    this.pageSize = 100;
-    this.length = 0;
+ 
     
-    this.gridOptions = < GridOptions > {};
-    this.gridOptions.rowData = [];
-    this.columnDefs = [];
-    this.gridOptions.rowSelection = 'multiple';
     this.getColumns();
 
     const subscription = this.gridService.change.subscribe(res => {
@@ -46,9 +40,9 @@ export class GridComponent implements OnInit, OnInit {
   }
 
   getPage(pageIndex: number) {
-    if (this.api) {
-      this.api.setRowData([]);
-      this.api.hideOverlay();
+    if (this.gridService.gridApi) {
+      this.gridService.gridApi.setRowData([]);
+      this.gridService.gridApi.hideOverlay();
     } 
     
     let params = <GetDataParams>{};
@@ -62,11 +56,11 @@ export class GridComponent implements OnInit, OnInit {
     params.SortDirection = SortDirection.Ascending;
     const subscription = this.gridService.getData(params).subscribe(data => {
       let dataTable = data as AdeptDataTable;
-      this.api.setRowData(dataTable.TableRecords);
+      this.gridService.gridApi.setRowData(dataTable.TableRecords);
       this.gridService.getCount(params).subscribe(data => {
         this.length = data;
       });
-    })
+    });
     
     this.subscription.add(subscription);
   }
@@ -86,8 +80,12 @@ export class GridComponent implements OnInit, OnInit {
     this.subscription.add(subscription);
   }
 
+  onSelectionChanged(event) {
+    this.gridService.selectionChanged(event.api.getSelectedRows());
+  }
+
   onReady(event) {
-    this.api = this.gridOptions.api;
+    this.gridService.gridApi = this.gridOptions.api;
     //this.api.sizeColumnsToFit();
     this.gridOptions.api.setRowData(this.gridService.data.TableRecords);
   }
