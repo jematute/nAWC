@@ -5,6 +5,7 @@ import { Tab } from './classes/tab';
 import { CheckInService } from '../commands/check-in/check-in.service';
 import { ToolbarButton } from './classes/toolbarbutton';
 import { GridService } from '../results/grid/grid.service';
+import { SelectionItem } from '../classes/selectionitem';
 
 @Component({
   selector: 'app-toolbar',
@@ -39,12 +40,13 @@ export class ToolbarComponent implements OnInit {
 
     this.initButtons();
     this.initTabs(); 
-    this.gridService.onSelectionChanged.subscribe(s => console.log(s));
+    this.gridService.onSelectionChanged.subscribe(items => {
+      this.updateEnables(items);
+    });
   }
 
   toolbarButtonClicked(button: ToolbarButton) {
-
-    button.onClick();
+    button.onClick(this.gridService.getSelectedRows());
   }
 
   initTabs() {
@@ -75,6 +77,11 @@ export class ToolbarComponent implements OnInit {
     this.checkInButton.popupText = this.locale.resourceStrings["CHECK_IN_SELECTED_DOCUMENT"];
     this.checkInButton.service = this.checkIn;
     this.checkInButton.enabled = true;
+  }
+
+  //update if the button should be enabled or disabled
+  updateEnables(selectionItems: Array<SelectionItem>) {
+    //do something for enables
   }
 
 }

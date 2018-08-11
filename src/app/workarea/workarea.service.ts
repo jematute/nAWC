@@ -71,7 +71,7 @@ export class WorkareaService implements IGridInterface {
     this.currentWorkArea = workArea;
   }
 
-  getData(params: WorkAreaDataParams): Observable<AdeptDataTable> {
+  getData(params: WorkAreaDataParams): Observable<SearchParams> {
     let dataRequest: WorkAreaDataRequestModel = new WorkAreaDataRequestModel();
     dataRequest.WorkAreaId = this.currentWorkArea.workAreaId;
     dataRequest.Skip = params.AdeptDataTable.Skip;
@@ -82,7 +82,7 @@ export class WorkareaService implements IGridInterface {
       return this.http.post(`${Global.API_URL}/api/workarea/data/`, dataRequest).pipe(map(res => {
         let result = res as SearchParams;
         this.data = result.AdeptDataTable;
-        return result.AdeptDataTable;
+        return result;
       }));
     }));
   }

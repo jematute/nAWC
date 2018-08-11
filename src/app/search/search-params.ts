@@ -1,18 +1,20 @@
 import { GetDataParams, SortDirection, ResultType, AdeptDataTable } from "../classes/getDataParams";
 import { Column } from "../classes/column";
+import { UIEnable } from "../classes/uirightsandenables";
 
 export class SearchParams implements GetDataParams {
     AdeptDataTable: AdeptDataTable;
     Sort: string;
     SortDirection: SortDirection;
-    ResultType?: ResultType;
+    ResultType?: ResultType = ResultType.Normal;
     Columns: Array<Column>
     searchCriteria: Array<SearchTerm>;
     CountOperation: boolean;
-
-    constructor() {
-        
-    }
+    SaveLastSearch: boolean = true;
+    ColumnSetId: string;
+    MenuEnables: Map<string, UIEnable> = new Map<string, UIEnable>();
+    MultiOperation: boolean;
+    
 }
 
 export class SearchTerm {

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '../../../../node_modules/@angular/material';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '../../../../node_modules/@angular/material';
 import { LocalizationService } from '../../localization/localization.service';
+import { SelectionItem } from '../../classes/selectionitem';
 
 @Component({
   selector: 'app-check-in',
@@ -12,9 +13,13 @@ export class CheckInComponent implements OnInit {
   bReadyForOk: boolean = false;
   processing: boolean = false;
 
-  constructor(public dialogRef: MatDialogRef<CheckInComponent>, private locale: LocalizationService) { }
+  constructor(
+    public dialogRef: MatDialogRef<CheckInComponent>, 
+    private locale: LocalizationService, 
+    @Inject(MAT_DIALOG_DATA) public selectionItems: SelectionItem[]) { }
 
   ngOnInit() {
+    console.log("selection items:", this.selectionItems)
   }
 
   onCheckInDialogOK() {

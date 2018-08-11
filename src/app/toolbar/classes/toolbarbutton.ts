@@ -18,6 +18,6 @@ export interface ToolbarButton {
     requireACS: boolean;
     service: CommandService;
 
-    onClick();
+    onClick(data: any);
 
 }

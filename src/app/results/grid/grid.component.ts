@@ -62,8 +62,7 @@ export class GridComponent implements OnInit, OnInit {
     params.Sort = "SCHEMA_S_LOGNNAME";
     params.SortDirection = SortDirection.Ascending;
     const subscription = this.gridService.getData(params).subscribe(data => {
-      let dataTable = data as AdeptDataTable;
-      this.gridService.gridApi.setRowData(dataTable.TableRecords);
+      this.gridService.gridApi.setRowData(data.AdeptDataTable.TableRecords);
       this.gridService.getCount(params).subscribe(data => {
         this.length = data;
       });

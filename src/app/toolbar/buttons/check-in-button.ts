@@ -1,5 +1,6 @@
 import { ToolbarButton } from "../classes/toolbarbutton";
 import { CheckInService } from "../../commands/check-in/check-in.service";
+import { SelectionItem } from "../../classes/selectionitem";
 
 export class CheckInButton implements ToolbarButton {
     requireACS: boolean = true;
@@ -19,7 +20,7 @@ export class CheckInButton implements ToolbarButton {
     popupText: string;
     service: CheckInService;
 
-    onClick() {
-        this.service.execute();
+    onClick(selectionItems: SelectionItem[]) {
+        this.service.open(selectionItems);
     }
 }
