@@ -33,11 +33,10 @@ export class CheckInComponent implements OnInit {
   qualifiedUsersArray = [];
   libraries = [];
 
-  ACN_SIGN_IN = 101;
   xyz = {
     bReadyForOK: false,
     bEnableLibPicker: true,
-    selectedLibraryItem: {},
+    selectedLibraryItem: { name: "", libId: "" },
     bKeepOut: false,
     bUndoCheckOut: false,
     bCreateVersion: false,
@@ -45,8 +44,6 @@ export class CheckInComponent implements OnInit {
     selectedUserItem: { name: "", id: "" },
     gettingUserList: false,
   };
-
-  cities1 = [{ name: 'New York' }, { name: 'Philadelphia' }, { name: 'Boston' }, { name: 'Baltimore' }];
 
   constructor(
     public dialogRef: MatDialogRef<CheckInComponent>,
@@ -70,7 +67,8 @@ export class CheckInComponent implements OnInit {
   }
 
   onCheckInDialogOK() {
-    console.log("OK");
+    this.processing = true;
+    
   }
 
   onCheckInDialogCancel() {
@@ -148,11 +146,13 @@ export class CheckInComponent implements OnInit {
   }
 
   onSelectionChanged($event) {
+    // Always set all items to not selected.
     this.rowData.forEach(item => {
       item.isSelected = false;
     });
     const selected = this.gridOptions.api.getSelectedRows();
 
+    // Get the selected items.
     let bSomethingIsNew = false;
     let selectionItems: SelectionItem[] = [];
     selected.forEach(item => {
@@ -169,6 +169,7 @@ export class CheckInComponent implements OnInit {
     else
       this.xyz.bEnableLibPicker = false;
 
+    // Build the SL with mode and order.
     let slx: SelectionListXfer = {
       mode: ApiTypes.SELECTION_LIST_MODE.SL_WIP,
       order: ApiTypes.SELECTION_LIST_ORDER.SL_FILENAME,
@@ -195,6 +196,61 @@ export class CheckInComponent implements OnInit {
     // Do Enables.
     this.doEnables();
   }
+
+  //
+  // On library change.
+  //
+  selectedLibraryChanged(name, id, item) {
+    this.xyz.selectedLibraryItem = item;
+    if (this.xyz.selectedLibraryItem == null)
+      return;
+
+    //// EDGE-EMPTY
+    //if (scope.xyz.selectedLibraryItem.name.length < 1) {
+    //    var browserInfo = navigator.userAgent;
+    //    var bIsEdge = browserInfo.indexOf('Edge/') != -1;
+    //    if (bIsEdge)
+    //        scope.xyz.selectedLibraryItem.name = '\u00A0';
+    //}
+
+    // checkInOptionsList
+    var checkInOptionsList = [];
+
+    // Walk the grid's selected items.
+    var len = this.gridOptions.api.getSelectedRows().length;
+    for (var i = 0; i < len; i++) {
+      // Get this selected item.
+      var gridItem = this.gridOptions.api.getSelectedRows()[i];
+      //if (gridItem.isSelected) { // FOR TESTING
+      if (gridItem.isSelected && (gridItem.opFlag == ApiTypes.OPFLAG.O_DUP || gridItem.opFlag == ApiTypes.OPFLAG.O_NEW)) {
+        checkInOptionsList.push({ fileId: gridItem.fileId, libId: this.xyz.selectedLibraryItem.libId });
+        gridItem.library = this.xyz.selectedLibraryItem.name;
+        gridItem.selectionItem.commandParams.eLibId = this.xyz.selectedLibraryItem.libId; // *****
+      }
+    }
+
+    // Get options and add to grid.
+    this.checkInService.getCheckInOptionsList(checkInOptionsList).subscribe(options => {
+
+      this.bWillCreateVersion = [];
+      this.bCanCreateVersion = [];
+      options.forEach(option => {
+        let fileId = item.fileId;
+        let will = item.bWillCreateVersion;
+        let can = item.bCanCreateVersion;
+        this.rowData.forEach(griditem => {
+          if (griditem.fileId == fileId) {
+            griditem.bWillCreateVersion = will ? 'T' : 'F';
+            griditem.bCanCreateVersion = can ? 'T' : 'F';
+          }
+        });
+      });
+
+      // Do Enables.
+      //scope.doEnables();
+      this.onSelectionChanged(null); // Rebuild Assign List too.
+    });
+  };
 
   //
   // On user change.
@@ -329,7 +385,7 @@ export class CheckInComponent implements OnInit {
   doEnables() {
     // Handle enabling OK.
     this.xyz.bReadyForOK = false;
-    var len = this.gridOptions.api.getSelectedRows().length;
+    let len = this.gridOptions.api.getSelectedRows().length;
     for (var i = 0; i < len; i++) {
       // Get this item.
       var gridItem = this.gridOptions.api.getSelectedRows()[i];

@@ -5,7 +5,7 @@
   <div class="content">
     <div class="selection-boxes">
         <span>{{locale?.resourceStrings?.DESTINATION_LIBRARY}}</span>
-        <p-dropdown [options]="libraries" [(ngModel)]="xyz.selectedLibraryItem" optionLabel="name" [filter]="true"></p-dropdown>
+        <p-dropdown [options]="libraries" [(ngModel)]="xyz.selectedLibraryItem" (onChange)="selectedLibraryChanged($event)" optionLabel="name" [filter]="true"></p-dropdown>
         <span>{{locale?.resourceStrings?.ASSIGN_TO}}</span>
         <p-dropdown [disabled]="xyz.processing || xyz.gettingUserList" [options]="qualifiedUsersArray" (onChange)="selectedUserChanged($event)" [(ngModel)]="xyz.selectedUserItem" optionLabel="name"></p-dropdown>
     </div>

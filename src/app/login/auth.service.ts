@@ -69,6 +69,18 @@ export class AuthService {
     return this.accessToken;
   }
 
+  setLongTermKey(): Observable<any> {
+    return this.http.get(`${Global.API_URL}/api/account/longtermkey`).pipe(switchMap(resp => {
+      const secret = resp["Secret"];
+      let credentials = `username=${this.user.LoginName}&password=&client_secret=${secret}&client_id=LongTermKey&grant_type=password`;
+      return this.http.post(`${Global.API_URL}/login`, credentials).pipe(map(data => {
+        this.accessToken = data["access_token"];
+        this.refreshToken = data["refresh_token"];
+        localStorage.setItem("refresh_token", this.refreshToken);
+      }));
+    }));
+  }
+
   checkLogin(): Observable<Object> {
     return this.http.get(`${Global.API_URL}/api/account/isloggedin`);
   }
