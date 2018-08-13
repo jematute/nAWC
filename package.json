@@ -24,7 +24,7 @@
     "@angular/platform-browser-dynamic": "6.0.7",
     "@angular/router": "6.0.7",
     "ag-grid": "^17.1.1",
-    "ag-grid-angular": "^17.0.0",
+    "ag-grid-angular": "^17.1.0",
     "bootstrap": "^3.3.5",
     "core-js": "^2.4.1",
     "dexie": "^2.0.2",
