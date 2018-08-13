@@ -1,4 +1,5 @@
 import { CommandService } from "../../commands/classes/commandservice";
+import { MatDialog } from "../../../../node_modules/@angular/material";
 
 export interface ToolbarButton {
     id: number;
@@ -16,7 +17,7 @@ export interface ToolbarButton {
     show: boolean;
     popupText: string;
     requireACS: boolean;
-    service: CommandService;
+    dialog: MatDialog;
 
     onClick(data: any);
 

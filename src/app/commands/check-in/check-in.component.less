@@ -1,6 +1,6 @@
 @import '../../../globalstyles/common.less';
 
-.nawc-popup-toolbar {
+.header {
     width: 100%;
     height: 40px;
     background-color: @site-main;
@@ -10,16 +10,42 @@
     }
 }
 
+.content {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    .selection-boxes {
+        padding: 8px 0px;
+        p-dropdown {
+            margin-right: 10px;
+        }
+        span {
+            margin-right: 10px;
+        }
+    }
+    .check-boxes {
+        padding: 8px 0px;
+        p-checkbox {
+            margin-right: 30px;
+        }
+    }
+    .grid {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        ag-grid-angular {
+            height: 300px;
+        }
+    }
+}
+
 .error {
     background-color: rgb(181, 49, 49)
 }
 
 .footer {
-    margin-top: 15px;
-    position: relative;
-    height: 40px;
-    .action-buttons {
-        position: absolute;
-        right: 0;
-    }
+    flex: 0 0 auto;
+    text-align: right;
+    padding: 8px;
 }

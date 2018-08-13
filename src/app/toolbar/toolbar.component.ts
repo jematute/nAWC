@@ -6,6 +6,7 @@ import { CheckInService } from '../commands/check-in/check-in.service';
 import { ToolbarButton } from './classes/toolbarbutton';
 import { GridService } from '../results/grid/grid.service';
 import { SelectionItem } from '../classes/selectionitem';
+import { MatDialog } from '../../../node_modules/@angular/material';
 
 @Component({
   selector: 'app-toolbar',
@@ -16,8 +17,8 @@ export class ToolbarComponent implements OnInit {
 
   constructor(
     private locale: LocalizationService,
-    private checkIn: CheckInService,
     private gridService: GridService,
+    private dialog: MatDialog
   ) { }
 
   showToolbar: boolean = true;
@@ -75,7 +76,7 @@ export class ToolbarComponent implements OnInit {
     //check in
     this.checkInButton.text = this.locale.resourceStrings["TOOLBAR_CHECK_IN"];
     this.checkInButton.popupText = this.locale.resourceStrings["CHECK_IN_SELECTED_DOCUMENT"];
-    this.checkInButton.service = this.checkIn;
+    this.checkInButton.dialog = this.dialog;
     this.checkInButton.enabled = true;
   }
 

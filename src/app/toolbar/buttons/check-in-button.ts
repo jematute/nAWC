@@ -1,6 +1,8 @@
 import { ToolbarButton } from "../classes/toolbarbutton";
 import { CheckInService } from "../../commands/check-in/check-in.service";
 import { SelectionItem } from "../../classes/selectionitem";
+import { MatDialog } from "../../../../node_modules/@angular/material";
+import { CheckInComponent } from "../../commands/check-in/check-in.component";
 
 export class CheckInButton implements ToolbarButton {
     requireACS: boolean = true;
@@ -18,9 +20,9 @@ export class CheckInButton implements ToolbarButton {
     creator: boolean = true;
     show: boolean = true;
     popupText: string;
-    service: CheckInService;
+    dialog: MatDialog;
 
     onClick(selectionItems: SelectionItem[]) {
-        this.service.open(selectionItems);
+        this.dialog.open(CheckInComponent, { data: selectionItems, panelClass: "command-dialog" });
     }
 }

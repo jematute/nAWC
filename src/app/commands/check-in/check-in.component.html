@@ -1,19 +1,35 @@
 <div class="command-dialog">
-  <div class="toolbar">
-    <span>{{locale?.resourceStrings?.TITLE_CHECKIN}}</span>
+  <div class="header">
+    <h4>{{locale?.resourceStrings?.TITLE_CHECKIN}}</h4>
   </div>
   <div class="content">
+    <div class="selection-boxes">
+        <span>{{locale?.resourceStrings?.DESTINATION_LIBRARY}}</span>
+        <p-dropdown [options]="cities1" [(ngModel)]="selectedCity1" optionLabel="name" [filter]="true"></p-dropdown>
+        <span>{{locale?.resourceStrings?.ASSIGN_TO}}</span>
+        <p-dropdown [options]="cities1" [(ngModel)]="selectedCity1" optionLabel="name"></p-dropdown>
+    </div>
+    <div class="check-boxes">
+        
+        <p-checkbox label="{{locale?.resourceStrings?.CREATE_VERSION}}" name="groupname" value="val1" [(ngModel)]="selectedValues"></p-checkbox>
 
+        <p-checkbox label="{{locale?.resourceStrings?.KEEP_OUT_LABEL}}" name="groupname2" value="val1" [(ngModel)]="selectedValues"></p-checkbox>
+
+    </div>
+    <div class="grid">
+      <span>{{locale?.resourceStrings?.FILES_TO_CHECKIN}}</span>
+      <ag-grid-angular (selectionChanged)="onSelectionChanged($event)" style="width: 100%" class="ag-theme-balham" [rowData]="rowData" [columnDefs]="columnDefs"
+        (gridReady)="onGridReady($event)" [gridOptions]="gridOptions">
+      </ag-grid-angular>
+    </div>
   </div>
   <!-- Footer -->
   <div class="footer">
-    <div class="action-buttons">
-      <button autofocus [disabled]="bReadyForOK == false || processing" class="button primary-button" (click)="onCheckInDialogOK()">
-        {{locale?.resourceStrings?.OK}}
-      </button>
-      <button class="button default-button" (click)="onCheckInDialogCancel()" [disabled]="processing">
-        {{locale?.resourceStrings?.CANCEL}}
-      </button>
-    </div>
+    <button autofocus [disabled]="bReadyForOK == false || processing" class="button primary-button" (click)="onCheckInDialogOK()">
+      {{locale?.resourceStrings?.OK}}
+    </button>
+    <button class="button default-button" (click)="onCheckInDialogCancel()" [disabled]="processing">
+      {{locale?.resourceStrings?.CANCEL}}
+    </button>
   </div>
 </div>
