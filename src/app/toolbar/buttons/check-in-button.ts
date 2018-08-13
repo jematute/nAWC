@@ -1,7 +1,7 @@
 import { ToolbarButton } from "../classes/toolbarbutton";
 import { CheckInService } from "../../commands/check-in/check-in.service";
 import { SelectionItem } from "../../classes/selectionitem";
-import { MatDialog } from "../../../../node_modules/@angular/material";
+import { MatDialog } from "@angular/material";
 import { CheckInComponent } from "../../commands/check-in/check-in.component";
 
 export class CheckInButton implements ToolbarButton {

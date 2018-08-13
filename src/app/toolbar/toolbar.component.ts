@@ -6,7 +6,7 @@ import { CheckInService } from '../commands/check-in/check-in.service';
 import { ToolbarButton } from './classes/toolbarbutton';
 import { GridService } from '../results/grid/grid.service';
 import { SelectionItem } from '../classes/selectionitem';
-import { MatDialog } from '../../../node_modules/@angular/material';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-toolbar',
