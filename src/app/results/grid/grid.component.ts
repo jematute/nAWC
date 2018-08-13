@@ -32,7 +32,7 @@ export class GridComponent implements OnInit, OnInit {
     this.columnDefs = [];
     this.gridOptions.rowSelection = 'multiple';
     this.gridOptions.rowDeselection = true;
-    
+    this.gridOptions.enableColResize = true;
     this.getColumns();
 
     const subscription = this.gridService.change.subscribe(res => {
@@ -65,6 +65,11 @@ export class GridComponent implements OnInit, OnInit {
       this.gridService.gridApi.setRowData(data.AdeptDataTable.TableRecords);
       this.gridService.getCount(params).subscribe(data => {
         this.length = data;
+        let columnIds = [];
+        this.gridOptions.columnApi.getAllColumns().forEach(c => {
+          columnIds.push(c.getId());
+        })
+        this.gridOptions.columnApi.autoSizeColumns(columnIds);
       });
     });
     
