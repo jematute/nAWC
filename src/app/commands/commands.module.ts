@@ -8,13 +8,14 @@ import {CheckboxModule} from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
 import {DropdownModule} from 'primeng/dropdown';
 import { AgGridModule } from 'ag-grid-angular';
+import { ExtractionService } from './extraction/extraction.service';
 
 @NgModule({
   imports: [
     CommonModule, CheckboxModule, FormsModule, DropdownModule, AgGridModule.withComponents([ ])
   ],
   declarations: [CheckInComponent],
-  providers: [ CheckInService, MaterialModule, { provide: MAT_DIALOG_DATA, useValue: {} }],
+  providers: [ CheckInService, MaterialModule, { provide: MAT_DIALOG_DATA, useValue: {} }, ExtractionService ],
   entryComponents: [ CheckInComponent ]
 })
 export class CommandsModule { }

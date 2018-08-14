@@ -45,6 +45,7 @@ export class CommandParams {
     public eExtractText: boolean;
     public eMajRev: number;
     public eMinRev: number;
+    public ebUndoCheckOut: boolean;
 }
 export class DetailedInfo {
     public filename: string;

@@ -11,6 +11,13 @@ import { FileInfoModel } from '../../classes/fileinfos';
 import { ApiTypes } from '../../classes/ApiTypes';
 import { SelectionListXfer } from '../../classes/selectionlist';
 import { Observable } from 'rxjs';
+import { GridItem } from './classes/grid-item';
+import { AccessPathResult } from '../../classes/accesspathresult';
+import { ErrorCode } from '../../classes/error-codes';
+import { PreCheckInItemObject, CheckInItemObject } from '../../classes/checkinitem';
+import { FileOperationPacket } from '../../classes/file-operation-model';
+import { FileOperationModel } from '../../classes/fileoperation';
+import { SelectionCommandResults } from '../../classes/selectioncommandresult';
 
 @Injectable({
   providedIn: 'root'
@@ -52,7 +59,54 @@ export class CheckInService {
     return this.http.put(`${Global.API_URL}/api/selectioncommand/UserListForAssign/${commandNumber}`, list)
     .pipe(map(resp => {
       return resp as Map<string, string>;
-    }))
+    }));
   }
+
+  getAccessPath(selectionItem: SelectionItem): Observable<AccessPathResult> {
+    return this.http.get(`${Global.API_URL}/api/Document/AccessPath/${selectionItem.tableNumber}/${selectionItem.fileId}/${selectionItem.majRev}/${selectionItem.minRev}`)
+    .pipe(map(resp => resp as AccessPathResult));
+  }
+
+  testAccess(accessPath: AccessPathResult) {
+    return this.http.put(`${Global.ACS_URL}/api/testaccess`, accessPath.accessPNE)
+  }
+
+  errorCode(selectionItem: SelectionItem, ec: ErrorCode): Observable<SelectionItem> {
+    return this.http.put(`${Global.API_URL}/api/SelectionCommand/ErrorCode/${ec}`, selectionItem)
+    .pipe(map(resp => selectionItem));
+  }
+
+  preCheckInItem(preCheckInItemObject: PreCheckInItemObject): Observable<PreCheckInItemObject> {
+    return this.http.put(`${Global.API_URL}/api/selectioncommand/precheckinitem`, preCheckInItemObject)
+    .pipe(map(resp => resp as PreCheckInItemObject));
+  }
+
+  processFileOperation(fileOperation: FileOperationPacket): Observable<FileOperationPacket> {
+    return this.http.put(`${Global.ACS_URL}/api/processFileOperationPacket`, fileOperation)
+    .pipe(map(resp => resp as FileOperationPacket));
+  }
+
+  // Call the command with a Selection List.
+  CheckInItem(gridItem: GridItem, stagingFileOperationModel: FileOperationModel): Observable<SelectionCommandResults> {
+    let checkInItemObject: CheckInItemObject = {
+      fileId: gridItem.fileId,
+      libId: gridItem.selectionItem.detailedInfo.libId,
+      assignToId: gridItem.assignToUserId,
+      undoCheckOut: gridItem.bUndoCheckOut == "T" ? true: false,
+      keepOut: gridItem.bKeepOut == "T" ? true: false,
+      createVersion: gridItem.bCreateVersion == "T" ? true: false,
+      stagingFileOperationModel: stagingFileOperationModel,
+    }
+
+    return this.http.put(`${Global.API_URL}/api/selectioncommand/checkinitem`, checkInItemObject)
+    .pipe(map(resp => resp as SelectionCommandResults));
+}
+  
+
+
+
+
+
+
 
 }

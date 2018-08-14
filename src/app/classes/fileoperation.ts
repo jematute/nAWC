@@ -1,5 +1,10 @@
-import { ErrorCode } from "./error-codes";
-import { VaultModel } from "./vaultmodel";
+import { ErrorCode } from './error-codes';
+import { VaultModel } from './vaultmodel';
+
+export class FileOperationPacket {
+    public fileOperations: Array<FileOperationModel> = new Array<FileOperationModel>();
+    public vaults: Array<VaultModel> = new Array<VaultModel>();
+}
 
 export class FileOperationModel {
     public fileOperationAction: FileOperationAction;
@@ -15,8 +20,6 @@ export class FileOperationModel {
     public finalDestinationPath: string;
     public ec: ErrorCode;
 }
-
-
 export enum FileOperationAction {
     eInvalid,
 
@@ -32,7 +35,6 @@ export enum FileOperationAction {
 
     eFileCheck
 }
-
 export enum FileOperationType {
     eInvalid,
 
@@ -41,9 +43,4 @@ export enum FileOperationType {
     eURL,
 
     eVault
-}
-
-export class FileOperationPacket {
-    public fileOperations: Array<FileOperationModel> = new Array<FileOperationModel>();
-    public vaults: Array<VaultModel> = new Array<VaultModel>();
 }

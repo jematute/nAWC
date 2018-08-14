@@ -7,10 +7,13 @@ import { GridOptions } from 'ag-grid';
 import { CheckInOptions } from '../../classes/checkinoptions';
 import { CheckInService } from './check-in.service';
 import { FileInfoModel } from '../../classes/fileinfos';
-import { switchMap, map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { switchMap, map, concatMap, takeLast, finalize } from 'rxjs/operators';
+import { Observable, from } from 'rxjs';
 import { SelectionListXfer } from '../../classes/selectionlist';
 import { ApiTypes } from '../../classes/ApiTypes';
+import { AuthService } from '../../login/auth.service';
+import { GridItem } from './classes/grid-item';
+import { PreCheckInItemObject } from '../../classes/checkinitem';
 
 @Component({
   selector: 'app-check-in',
@@ -21,7 +24,7 @@ export class CheckInComponent implements OnInit {
   private gridOptions: GridOptions;
   bReadyForOk: boolean = false;
   processing: boolean = false;
-  rowData = [];
+  rowData: GridItem[] = [];
   columnDefs = [];
   checkInOptions: Array<CheckInOptions> = [];
   fileInfoList: Array<FileInfoModel> = [];
@@ -33,10 +36,11 @@ export class CheckInComponent implements OnInit {
   qualifiedUsersArray = [];
   libraries = [];
 
+  ACN_SIGN_IN = 101;
   xyz = {
     bReadyForOK: false,
     bEnableLibPicker: true,
-    selectedLibraryItem: { name: "", libId: "" },
+    selectedLibraryItem: {},
     bKeepOut: false,
     bUndoCheckOut: false,
     bCreateVersion: false,
@@ -45,9 +49,12 @@ export class CheckInComponent implements OnInit {
     gettingUserList: false,
   };
 
+  cities1 = [{ name: 'New York' }, { name: 'Philadelphia' }, { name: 'Boston' }, { name: 'Baltimore' }];
+
   constructor(
     public dialogRef: MatDialogRef<CheckInComponent>,
     private locale: LocalizationService,
+    private auth: AuthService,
     @Inject(MAT_DIALOG_DATA) public selectionItems: SelectionItem[], private checkInService: CheckInService) {
 
     this.gridOptions = <GridOptions>{};
@@ -68,7 +75,29 @@ export class CheckInComponent implements OnInit {
 
   onCheckInDialogOK() {
     this.processing = true;
-    
+    this.auth.setLongTermKey().subscribe(resp => {
+      from(this.rowData).pipe(concatMap(item => {
+
+        const opFlagArr = [ApiTypes.OPFLAG.O_OUT, ApiTypes.OPFLAG.O_NEW, ApiTypes.OPFLAG.O_DUP];
+        const preCheckInItem: PreCheckInItemObject = { fileId: item.fileId, libId: item.selectionItem.detailedInfo.libId, stagingFileOperationPacket: null };
+        if (opFlagArr.includes(item.selectionItem.detailedInfo.opFlag)) {
+          return this.checkInService.getAccessPath(item.selectionItem).pipe(switchMap(res => {
+            return this.checkInService.testAccess(res).pipe(switchMap(result => {
+              return this.checkInService.preCheckInItem(preCheckInItem);
+            }))
+          }));
+        }
+        else {
+          return this.checkInService.preCheckInItem(preCheckInItem);
+        }
+        
+      }), finalize(() => {
+        console.log("finalizing");
+
+      })).subscribe();
+
+    });
+    console.log("OK");
   }
 
   onCheckInDialogCancel() {
@@ -124,7 +153,10 @@ export class CheckInComponent implements OnInit {
             selectionItem: item,
             isSelected: true,
             fileId: item.fileId,
-            name: item.filename, library: item.detailedInfo.libName, status: item.detailedInfo.status, opFlag: item.detailedInfo.opFlag,
+            name: item.filename, 
+            library: item.detailedInfo.libName, 
+            status: item.detailedInfo.status, 
+            opFlag: item.detailedInfo.opFlag,
             previousUTC: previousUTC,
             currentUTC: currentUTC,
             bKeepOut: 'F',
@@ -132,7 +164,10 @@ export class CheckInComponent implements OnInit {
             bDataCardHasChanged: this.bDataCardHasChanged[item.fileId] ? 'T' : 'F',
             bUndoCheckOut: 'F',
             bWillCreateVersion: this.bWillCreateVersion[item.fileId] ? 'T' : 'F',
-            bCanCreateVersion: this.bCanCreateVersion[item.fileId] ? 'T' : 'F', bCreateVersion: 'F'
+            bCanCreateVersion: this.bCanCreateVersion[item.fileId] ? 'T' : 'F', 
+            bCreateVersion: 'F',
+            assignTo: "",
+            assignToUserId: "",
           });
 
           index++;
@@ -146,13 +181,11 @@ export class CheckInComponent implements OnInit {
   }
 
   onSelectionChanged($event) {
-    // Always set all items to not selected.
     this.rowData.forEach(item => {
       item.isSelected = false;
     });
     const selected = this.gridOptions.api.getSelectedRows();
 
-    // Get the selected items.
     let bSomethingIsNew = false;
     let selectionItems: SelectionItem[] = [];
     selected.forEach(item => {
@@ -169,7 +202,6 @@ export class CheckInComponent implements OnInit {
     else
       this.xyz.bEnableLibPicker = false;
 
-    // Build the SL with mode and order.
     let slx: SelectionListXfer = {
       mode: ApiTypes.SELECTION_LIST_MODE.SL_WIP,
       order: ApiTypes.SELECTION_LIST_ORDER.SL_FILENAME,
@@ -196,61 +228,6 @@ export class CheckInComponent implements OnInit {
     // Do Enables.
     this.doEnables();
   }
-
-  //
-  // On library change.
-  //
-  selectedLibraryChanged(name, id, item) {
-    this.xyz.selectedLibraryItem = item;
-    if (this.xyz.selectedLibraryItem == null)
-      return;
-
-    //// EDGE-EMPTY
-    //if (scope.xyz.selectedLibraryItem.name.length < 1) {
-    //    var browserInfo = navigator.userAgent;
-    //    var bIsEdge = browserInfo.indexOf('Edge/') != -1;
-    //    if (bIsEdge)
-    //        scope.xyz.selectedLibraryItem.name = '\u00A0';
-    //}
-
-    // checkInOptionsList
-    var checkInOptionsList = [];
-
-    // Walk the grid's selected items.
-    var len = this.gridOptions.api.getSelectedRows().length;
-    for (var i = 0; i < len; i++) {
-      // Get this selected item.
-      var gridItem = this.gridOptions.api.getSelectedRows()[i];
-      //if (gridItem.isSelected) { // FOR TESTING
-      if (gridItem.isSelected && (gridItem.opFlag == ApiTypes.OPFLAG.O_DUP || gridItem.opFlag == ApiTypes.OPFLAG.O_NEW)) {
-        checkInOptionsList.push({ fileId: gridItem.fileId, libId: this.xyz.selectedLibraryItem.libId });
-        gridItem.library = this.xyz.selectedLibraryItem.name;
-        gridItem.selectionItem.commandParams.eLibId = this.xyz.selectedLibraryItem.libId; // *****
-      }
-    }
-
-    // Get options and add to grid.
-    this.checkInService.getCheckInOptionsList(checkInOptionsList).subscribe(options => {
-
-      this.bWillCreateVersion = [];
-      this.bCanCreateVersion = [];
-      options.forEach(option => {
-        let fileId = item.fileId;
-        let will = item.bWillCreateVersion;
-        let can = item.bCanCreateVersion;
-        this.rowData.forEach(griditem => {
-          if (griditem.fileId == fileId) {
-            griditem.bWillCreateVersion = will ? 'T' : 'F';
-            griditem.bCanCreateVersion = can ? 'T' : 'F';
-          }
-        });
-      });
-
-      // Do Enables.
-      //scope.doEnables();
-      this.onSelectionChanged(null); // Rebuild Assign List too.
-    });
-  };
 
   //
   // On user change.
@@ -385,7 +362,7 @@ export class CheckInComponent implements OnInit {
   doEnables() {
     // Handle enabling OK.
     this.xyz.bReadyForOK = false;
-    let len = this.gridOptions.api.getSelectedRows().length;
+    var len = this.gridOptions.api.getSelectedRows().length;
     for (var i = 0; i < len; i++) {
       // Get this item.
       var gridItem = this.gridOptions.api.getSelectedRows()[i];
