@@ -22,7 +22,7 @@ export class GridService {
   public pageIndex: number;
   public columns: Array<Column>;
   public dataService: IGridInterface;
-  @Output() change: EventEmitter<any> = new EventEmitter();
+  change: EventEmitter<any> = new EventEmitter();
   public loading: EventEmitter<boolean> = new EventEmitter();
   public onSelectionChanged: EventEmitter<Array<SelectionItem>> = new EventEmitter();
   public menuEnables: Map<string, UIEnable>;
@@ -32,13 +32,13 @@ export class GridService {
   }
 
   getData(params: GetDataParams): Observable<SearchParams> {
-    this.loading.emit(true);
+    //this.loading.emit(true);
     return this.dataService.getData(params)
       .pipe(tap(result => {
         this.data = result.AdeptDataTable
         this.menuEnables = result.MenuEnables;
       }), finalize(() => {
-        this.loading.emit(false);
+        //this.loading.emit(false);
       }));
   }
 

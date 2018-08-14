@@ -49,7 +49,8 @@ export class GridComponent implements OnInit, OnInit {
   getPage(pageIndex: number) {
     if (this.gridService.gridApi) {
       this.gridService.gridApi.setRowData([]);
-      this.gridService.gridApi.hideOverlay();
+      this.gridOptions.api.showLoadingOverlay();
+
     } 
     
     let params = <GetDataParams>{};
@@ -63,8 +64,12 @@ export class GridComponent implements OnInit, OnInit {
     params.SortDirection = SortDirection.Ascending;
     const subscription = this.gridService.getData(params).subscribe(data => {
       this.gridService.gridApi.setRowData(data.AdeptDataTable.TableRecords);
+      this.gridService.gridApi.hideOverlay();
       this.gridService.getCount(params).subscribe(data => {
         this.length = data;
+        if (data == 0) {
+          this.gridService.gridApi.showNoRowsOverlay();
+        }
         let columnIds = [];
         this.gridOptions.columnApi.getAllColumns().forEach(c => {
           columnIds.push(c.getId());

@@ -8,17 +8,21 @@ import { CheckInOptions } from '../../classes/checkinoptions';
 import { CheckInService } from './check-in.service';
 import { FileInfoModel } from '../../classes/fileinfos';
 import { switchMap, map, concatMap, takeLast, finalize } from 'rxjs/operators';
-import { Observable, from } from 'rxjs';
+import { Observable, from, of } from 'rxjs';
 import { SelectionListXfer } from '../../classes/selectionlist';
 import { ApiTypes } from '../../classes/ApiTypes';
 import { AuthService } from '../../login/auth.service';
 import { GridItem } from './classes/grid-item';
 import { PreCheckInItemObject } from '../../classes/checkinitem';
+import { ConfirmDialogService } from '../confirm-dialog/confirm-dialog.service';
+import { ErrorDialogService } from '../../error-dialog/error-dialog.service';
+import { ErrorCode } from '../../classes/error-codes';
+import { ExtractionService } from '../extraction/extraction.service';
 
 @Component({
   selector: 'app-check-in',
   templateUrl: './check-in.component.html',
-  styleUrls: ['./check-in.component.less']
+  styleUrls: ['./check-in.component.less'],
 })
 export class CheckInComponent implements OnInit {
   private gridOptions: GridOptions;
@@ -35,6 +39,10 @@ export class CheckInComponent implements OnInit {
   currentUTCs = {};
   qualifiedUsersArray = [];
   libraries = [];
+  answers = {
+    loseDataCardChanges: "",
+  }
+  resultSLX: SelectionListXfer = new SelectionListXfer();
 
   ACN_SIGN_IN = 101;
   xyz = {
@@ -49,13 +57,14 @@ export class CheckInComponent implements OnInit {
     gettingUserList: false,
   };
 
-  cities1 = [{ name: 'New York' }, { name: 'Philadelphia' }, { name: 'Boston' }, { name: 'Baltimore' }];
-
   constructor(
     public dialogRef: MatDialogRef<CheckInComponent>,
     private locale: LocalizationService,
     private auth: AuthService,
-    @Inject(MAT_DIALOG_DATA) public selectionItems: SelectionItem[], private checkInService: CheckInService) {
+    private confirmDialogService: ConfirmDialogService,
+    @Inject(MAT_DIALOG_DATA) public selectionItems: SelectionItem[],
+    private extractionService: ExtractionService,
+    private checkInService: CheckInService, private errorDialogService: ErrorDialogService) {
 
     this.gridOptions = <GridOptions>{};
     this.gridOptions.rowSelection = 'multiple';
@@ -73,24 +82,58 @@ export class CheckInComponent implements OnInit {
     });
   }
 
+  currentFile: string = "Filename.xls";
   onCheckInDialogOK() {
     this.processing = true;
     this.auth.setLongTermKey().subscribe(resp => {
       from(this.rowData).pipe(concatMap(item => {
+        return this.checkForUndoCheckOut(item).pipe(switchMap(res => {
+          if (res) {
+            //initialize pre check-in object
+            const preCheckInItem: PreCheckInItemObject = { fileId: item.fileId, libId: item.selectionItem.detailedInfo.libId, stagingFileOperationPacket: null };
 
-        const opFlagArr = [ApiTypes.OPFLAG.O_OUT, ApiTypes.OPFLAG.O_NEW, ApiTypes.OPFLAG.O_DUP];
-        const preCheckInItem: PreCheckInItemObject = { fileId: item.fileId, libId: item.selectionItem.detailedInfo.libId, stagingFileOperationPacket: null };
-        if (opFlagArr.includes(item.selectionItem.detailedInfo.opFlag)) {
-          return this.checkInService.getAccessPath(item.selectionItem).pipe(switchMap(res => {
-            return this.checkInService.testAccess(res).pipe(switchMap(result => {
-              return this.checkInService.preCheckInItem(preCheckInItem);
-            }))
-          }));
-        }
-        else {
-          return this.checkInService.preCheckInItem(preCheckInItem);
-        }
-        
+            //Get access path
+            return this.checkInService.getAccessPath(item.selectionItem).pipe(switchMap(res => {
+              //test the access path
+              return this.checkInService.testAccess(res).pipe(switchMap(result => {
+                //if error
+                if (!result) {
+                  let ec = ErrorCode.ECFILEBUSY;
+                  return this.checkInService.errorCode(item.selectionItem, ec).pipe(map(res => {
+                    this.resultSLX.list.push(res);
+                  }));
+                }
+                else {
+                  //proceed with pre-checkin
+                  return this.checkInService.preCheckInItem(preCheckInItem).pipe(switchMap(res => {
+                    //staging
+                    return this.checkInService.processFileOperation(preCheckInItem.stagingFileOperationPacket).pipe(switchMap(res => {
+                      if (item.selectionItem.detailedInfo.linkType == ApiTypes.ADLINKTYPE.LT_LINKED) {
+                        //check detailedInfo for libid, if NOT ADEPT_NULL_ID then use it, otherwise use the commandParams eLibId
+                        let libId = "";
+                        if (item.selectionItem.detailedInfo.libId != "ADEPT_NULL_LIBID" && item.selectionItem.detailedInfo.libId != "") {
+                          libId = item.selectionItem.detailedInfo.libId;
+                        }
+                        else {
+                          libId = item.selectionItem.commandParams.eLibId;
+                        }
+
+                        return this.extractionService.extractionRequired(item, libId).pipe(switchMap(res => {
+                          if (res.RequireExtraction || res.RequireFTSExtraction) {
+                            return of(2);
+                            //return this.extractionService.extractItem()
+                          }
+                        }));
+                      }
+                    }));
+                  }));
+                }
+
+
+              }))
+            }));
+          }
+        }))
       }), finalize(() => {
         console.log("finalizing");
 
@@ -99,6 +142,38 @@ export class CheckInComponent implements OnInit {
     });
     console.log("OK");
   }
+
+
+  checkForUndoCheckOut(gridItem: GridItem): Observable<boolean> {
+    if (gridItem.bUndoCheckOut == "T") {
+      if (gridItem.bFileHasChanged == "T") {
+        // This should not happen.
+        this.errorDialogService.showError("Internal Error", "UndoCheckOut cannot be used with HasFileChanged");
+        // This item is done.
+        return of(false);
+      }
+      else if (gridItem.bDataCardHasChanged == "T") {
+        // If YtoAll, then fall through to checkInItem.
+        if (this.answers.loseDataCardChanges != 'YtoAll') {
+          if (this.answers.loseDataCardChanges == 'NtoAll') {
+            of(false);
+          }
+          // Ask 'Are you sure?' with Y/N/YtoAll/NtoAll
+          let messages = [this.locale.resourceStrings["LOSE_DATA_CARD_CHANGES"]];
+          messages.push(this.locale.resourceStrings["DATA_CARD_CHANGES_WILL_BE_LOST"]);
+          return this.confirmDialogService.Open("Confirm", messages).pipe(switchMap(res => {
+            this.answers.loseDataCardChanges = res;
+            if (res = 'Y' || res == "YtoAll") {
+              return of(true);
+            }
+            return of(false);
+          }));
+        }
+      }
+    }
+    return of(true);
+  }
+
 
   onCheckInDialogCancel() {
     this.dialogRef.close();
@@ -153,9 +228,9 @@ export class CheckInComponent implements OnInit {
             selectionItem: item,
             isSelected: true,
             fileId: item.fileId,
-            name: item.filename, 
-            library: item.detailedInfo.libName, 
-            status: item.detailedInfo.status, 
+            name: item.filename,
+            library: item.detailedInfo.libName,
+            status: item.detailedInfo.status,
             opFlag: item.detailedInfo.opFlag,
             previousUTC: previousUTC,
             currentUTC: currentUTC,
@@ -164,7 +239,7 @@ export class CheckInComponent implements OnInit {
             bDataCardHasChanged: this.bDataCardHasChanged[item.fileId] ? 'T' : 'F',
             bUndoCheckOut: 'F',
             bWillCreateVersion: this.bWillCreateVersion[item.fileId] ? 'T' : 'F',
-            bCanCreateVersion: this.bCanCreateVersion[item.fileId] ? 'T' : 'F', 
+            bCanCreateVersion: this.bCanCreateVersion[item.fileId] ? 'T' : 'F',
             bCreateVersion: 'F',
             assignTo: "",
             assignToUserId: "",
@@ -422,6 +497,10 @@ export class CheckInComponent implements OnInit {
         width: 90
       }
     ]
+  }
+
+  openConfirm() {
+
   }
 
 }

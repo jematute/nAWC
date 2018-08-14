@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { of, Observable } from '../../../../node_modules/rxjs';
-import { map, switchMap } from '../../../../node_modules/rxjs/operators';
-import { HttpClient } from '../../../../node_modules/@angular/common/http';
+import { of, Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 import { Global } from '../../classes/global';
 import { GridItem } from '../check-in/classes/grid-item';
 import { WorkareaService } from '../../workarea/workarea.service';
+import { RequireExtractionModel } from '../../classes/requireextractionmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -42,16 +43,16 @@ export class ExtractionService {
   }
 
   //make the call to determine if extraction is required
-  extractionRequired(gridItem: GridItem): Observable<boolean> {
+  extractionRequired(gridItem: GridItem, libId): Observable<RequireExtractionModel> {
     let params = `
     ${gridItem.selectionItem.tableNumber}/
     ${gridItem.selectionItem.fileId}/
     ${gridItem.selectionItem.majRev}/
-    ${gridItem.selectionItem.detailedInfo.libId}/
+    ${libId}/
     ${gridItem.currentUTC}
     `
     return this.http.get(`${Global.API_URL}/api/Document/requiresextraction/${params}`)
-      .pipe(map(resp => resp as boolean));
+      .pipe(map(resp => resp as RequireExtractionModel));
   };
 
   //using the incoming library id, determine if the library is fts enabled

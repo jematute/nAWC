@@ -1,23 +1,29 @@
 <div class="command-dialog">
+
   <div class="header">
     <h4>{{locale?.resourceStrings?.TITLE_CHECKIN}}</h4>
   </div>
   <div class="content">
     <div class="selection-boxes">
-        <span>{{locale?.resourceStrings?.DESTINATION_LIBRARY}}</span>
-        <p-dropdown [options]="libraries" [(ngModel)]="xyz.selectedLibraryItem" (onChange)="selectedLibraryChanged($event)" optionLabel="name" [filter]="true"></p-dropdown>
-        <span>{{locale?.resourceStrings?.ASSIGN_TO}}</span>
-        <p-dropdown [disabled]="xyz.processing || xyz.gettingUserList" [options]="qualifiedUsersArray" (onChange)="selectedUserChanged($event)" [(ngModel)]="xyz.selectedUserItem" optionLabel="name"></p-dropdown>
+      <span>{{locale?.resourceStrings?.DESTINATION_LIBRARY}}</span>
+      <p-dropdown [options]="libraries" [(ngModel)]="xyz.selectedLibraryItem" (onChange)="selectedLibraryChanged($event)" optionLabel="name"
+        [filter]="true"></p-dropdown>
+      <span>{{locale?.resourceStrings?.ASSIGN_TO}}</span>
+      <p-dropdown [disabled]="xyz.processing || xyz.gettingUserList" [options]="qualifiedUsersArray" (onChange)="selectedUserChanged($event)"
+        [(ngModel)]="xyz.selectedUserItem" optionLabel="name"></p-dropdown>
     </div>
     <div class="check-boxes">
-        <p-checkbox [disabled]="xyz.processing" *ngIf="xyz.bAllowUndoCheckOut" label="{{locale?.resourceStrings?.UNDO_CHECKOUT_LABEL}}" name="groupname" [(ngModel)]="xyz.bUndoCheckOut" (onChange)="undoCheckOutCheckChanged($event)"></p-checkbox>
-        <p-checkbox [disabled]="xyz.processing" label="{{locale?.resourceStrings?.KEEP_OUT_LABEL}}" name="groupname2" [(ngModel)]="xyz.bKeepOut" (onChange)="keepOutCheckChanged($event)"></p-checkbox>      
-        <p-checkbox [disabled]="xyz.processing" label="{{locale?.resourceStrings?.CREATE_VERSION}}" name="groupname" [(ngModel)]="xyz.bCreateVersion" (onChange)="createVersionCheckChanged($event)"></p-checkbox>
+      <p-checkbox [disabled]="xyz.processing" *ngIf="xyz.bAllowUndoCheckOut" label="{{locale?.resourceStrings?.UNDO_CHECKOUT_LABEL}}"
+        name="groupname" [(ngModel)]="xyz.bUndoCheckOut" (onChange)="undoCheckOutCheckChanged($event)"></p-checkbox>
+      <p-checkbox [disabled]="xyz.processing" label="{{locale?.resourceStrings?.KEEP_OUT_LABEL}}" name="groupname2" [(ngModel)]="xyz.bKeepOut"
+        (onChange)="keepOutCheckChanged($event)"></p-checkbox>
+      <p-checkbox [disabled]="xyz.processing" label="{{locale?.resourceStrings?.CREATE_VERSION}}" name="groupname" [(ngModel)]="xyz.bCreateVersion"
+        (onChange)="createVersionCheckChanged($event)"></p-checkbox>
     </div>
     <div class="grid">
       <span>{{locale?.resourceStrings?.FILES_TO_CHECKIN}}</span>
-      <ag-grid-angular [getRowNodeId]="getRowNodeId" (selectionChanged)="onSelectionChanged($event)" style="width: 100%" class="ag-theme-balham" [rowData]="rowData" [columnDefs]="columnDefs"
-        (gridReady)="onGridReady($event)" [gridOptions]="gridOptions">
+      <ag-grid-angular [getRowNodeId]="getRowNodeId" (selectionChanged)="onSelectionChanged($event)" style="width: 100%" class="ag-theme-balham"
+        [rowData]="rowData" [columnDefs]="columnDefs" (gridReady)="onGridReady($event)" [gridOptions]="gridOptions">
       </ag-grid-angular>
     </div>
   </div>
@@ -30,5 +36,10 @@
     <button class="button default-button" (click)="onCheckInDialogCancel()" [disabled]="processing">
       {{locale?.resourceStrings?.CANCEL}}
     </button>
+    <button (click)="openConfirm()">Open</button>
   </div>
+
+  
+  <app-confirm-dialog></app-confirm-dialog>
+
 </div>
