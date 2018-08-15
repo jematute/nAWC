@@ -84,7 +84,6 @@ export class CheckInComponent implements OnInit {
     });
   }
 
-  currentFile: string = "Filename.xls";
   onCheckInDialogOK() {
     console.time('checkin');
     this.processing = true;
@@ -94,6 +93,7 @@ export class CheckInComponent implements OnInit {
           if (proceed) {
             //check for path
             return this.checkForPath(item).pipe(switchMap(pathOk => {
+              //if path is ok, proceed with precheck-in
               if (pathOk) {
                 //initialize pre check-in object
                 const preCheckInItem: PreCheckInItemObject = { fileId: item.fileId, libId: item.selectionItem.detailedInfo.libId, stagingFileOperationPacket: null };
@@ -134,7 +134,9 @@ export class CheckInComponent implements OnInit {
       }), finalize(() => {
         console.timeEnd("checkin");
         this.dialogRef.close();
-      })).subscribe();
+      })).subscribe(() => {
+        console.log("hey there");
+      });
 
     });
     console.log("OK");
