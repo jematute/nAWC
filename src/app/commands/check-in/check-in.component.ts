@@ -86,6 +86,7 @@ export class CheckInComponent implements OnInit {
 
   currentFile: string = "Filename.xls";
   onCheckInDialogOK() {
+    console.time('checkin');
     this.processing = true;
     this.auth.setLongTermKey().subscribe(resp => {
       from(this.rowData).pipe(concatMap(item => {
@@ -97,13 +98,13 @@ export class CheckInComponent implements OnInit {
                 //initialize pre check-in object
                 const preCheckInItem: PreCheckInItemObject = { fileId: item.fileId, libId: item.selectionItem.detailedInfo.libId, stagingFileOperationPacket: null };
                 //proceed with pre-checkin
-                return this.checkInService.preCheckInItem(preCheckInItem).pipe(switchMap(res => {
+                return this.checkInService.preCheckInItem(preCheckInItem).pipe(switchMap(preCheckInResponse => {
                   //staging
-                  return this.checkInService.processFileOperation(preCheckInItem.stagingFileOperationPacket).pipe(switchMap(fileOperationModel => {
+                  return this.checkInService.processFileOperation(preCheckInResponse.stagingFileOperationPacket).pipe(switchMap(fileOperationPacket => {
                     //process extraction
                     return this.extractionService.processExtraction(item).pipe(switchMap(res => {
                       //check in item
-                      return this.checkInService.checkInItem(item, fileOperationModel)
+                      return this.checkInService.checkInItem(item, fileOperationPacket.fileOperations[0])
                         .pipe(switchMap(selectionResult => {
                           //update results objects
                           selectionResult.slx.list.forEach(i => {
@@ -131,7 +132,8 @@ export class CheckInComponent implements OnInit {
           return of(true);
         }))
       }), finalize(() => {
-        console.log("finalizing");
+        console.timeEnd("checkin");
+        this.dialogRef.close();
       })).subscribe();
 
     });

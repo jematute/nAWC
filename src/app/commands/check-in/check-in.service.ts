@@ -88,9 +88,9 @@ export class CheckInService {
       .pipe(map(resp => resp as PreCheckInItemObject));
   }
 
-  processFileOperation(fileOperation: FileOperationPacket): Observable<FileOperationModel> {
+  processFileOperation(fileOperation: FileOperationPacket): Observable<FileOperationPacket> {
     return this.http.put(`${Global.ACS_URL}/api/processFileOperationPacket`, fileOperation)
-      .pipe(map(resp => resp as FileOperationModel));
+      .pipe(map(resp => resp as FileOperationPacket));
   }
 
   // Call the command with a Selection List.
