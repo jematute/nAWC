@@ -7,8 +7,8 @@ import { GridOptions } from 'ag-grid';
 import { CheckInOptions } from '../../classes/checkinoptions';
 import { CheckInService } from './check-in.service';
 import { FileInfoModel } from '../../classes/fileinfos';
-import { switchMap, map, concatMap, takeLast, finalize } from 'rxjs/operators';
-import { Observable, from, of } from 'rxjs';
+import { switchMap, map, concatMap, takeLast, finalize, zip } from 'rxjs/operators';
+import { Observable, from, of, throwError } from 'rxjs';
 import { SelectionListXfer } from '../../classes/selectionlist';
 import { ApiTypes } from '../../classes/ApiTypes';
 import { AuthService } from '../../login/auth.service';
@@ -18,6 +18,7 @@ import { ConfirmDialogService } from '../confirm-dialog/confirm-dialog.service';
 import { ErrorDialogService } from '../../error-dialog/error-dialog.service';
 import { ErrorCode } from '../../classes/error-codes';
 import { ExtractionService } from '../extraction/extraction.service';
+import { NtfItemXfer } from '../../classes/ntfitemxfertype';
 
 @Component({
   selector: 'app-check-in',
@@ -43,6 +44,7 @@ export class CheckInComponent implements OnInit {
     loseDataCardChanges: "",
   }
   resultSLX: SelectionListXfer = new SelectionListXfer();
+  resultNtfItemXfers: NtfItemXfer[] = [];
 
   ACN_SIGN_IN = 101;
   xyz = {
@@ -89,60 +91,80 @@ export class CheckInComponent implements OnInit {
       from(this.rowData).pipe(concatMap(item => {
         return this.checkForUndoCheckOut(item).pipe(switchMap(res => {
           if (res) {
-            //initialize pre check-in object
-            const preCheckInItem: PreCheckInItemObject = { fileId: item.fileId, libId: item.selectionItem.detailedInfo.libId, stagingFileOperationPacket: null };
-
-            //Get access path
-            return this.checkInService.getAccessPath(item.selectionItem).pipe(switchMap(res => {
-              //test the access path
-              return this.checkInService.testAccess(res).pipe(switchMap(result => {
-                //if error
-                if (!result) {
-                  let ec = ErrorCode.ECFILEBUSY;
-                  return this.checkInService.errorCode(item.selectionItem, ec).pipe(map(res => {
-                    this.resultSLX.list.push(res);
-                  }));
-                }
-                else {
-                  //proceed with pre-checkin
-                  return this.checkInService.preCheckInItem(preCheckInItem).pipe(switchMap(res => {
-                    //staging
-                    return this.checkInService.processFileOperation(preCheckInItem.stagingFileOperationPacket).pipe(switchMap(res => {
-                      if (item.selectionItem.detailedInfo.linkType == ApiTypes.ADLINKTYPE.LT_LINKED) {
-                        //check detailedInfo for libid, if NOT ADEPT_NULL_ID then use it, otherwise use the commandParams eLibId
-                        let libId = "";
-                        if (item.selectionItem.detailedInfo.libId != "ADEPT_NULL_LIBID" && item.selectionItem.detailedInfo.libId != "") {
-                          libId = item.selectionItem.detailedInfo.libId;
-                        }
-                        else {
-                          libId = item.selectionItem.commandParams.eLibId;
-                        }
-
-                        return this.extractionService.extractionRequired(item, libId).pipe(switchMap(res => {
-                          if (res.RequireExtraction || res.RequireFTSExtraction) {
-                            return of(2);
-                            //return this.extractionService.extractItem()
-                          }
+            //check for path
+            return this.checkForPath(item).pipe(switchMap(res => {
+              if (res) {
+                //initialize pre check-in object
+                const preCheckInItem: PreCheckInItemObject = { fileId: item.fileId, libId: item.selectionItem.detailedInfo.libId, stagingFileOperationPacket: null };
+                //proceed with pre-checkin
+                return this.checkInService.preCheckInItem(preCheckInItem).pipe(switchMap(res => {
+                  //staging
+                  return this.checkInService.processFileOperation(preCheckInItem.stagingFileOperationPacket).pipe(switchMap(fileOperationModel => {
+                    //process extraction
+                    return this.extractionService.processExtraction(item).pipe(switchMap(res => {
+                      //check in item
+                      return this.checkInService.checkInItem(item, fileOperationModel)
+                        .pipe(switchMap(selectionResult => {
+                          //update results objects
+                          selectionResult.slx.list.forEach(i => {
+                            this.resultSLX.list.push(i);
+                          });
+                          selectionResult.ntfItemXfers.forEach(i => {
+                            this.resultNtfItemXfers.push(i);
+                          });
+                          // Final file ops.
+                          // Could be a delete item here.
+                          // Call ACS to do the file operation.
+                          return this.checkInService.processFileOperation(selectionResult.fileOperationPacket)
+                            .pipe(map(res => {
+                              return res;
+                            }));
                         }));
-                      }
                     }));
                   }));
-                }
-
-
-              }))
+                }));
+              }
+              //path check failed, move on to the next item
+              return of(true);
             }));
           }
+          return of(true);
         }))
       }), finalize(() => {
         console.log("finalizing");
-
       })).subscribe();
 
     });
     console.log("OK");
   }
 
+  checkForPath(gridItem: GridItem) {
+    //Get access path
+    return this.checkInService.getAccessPath(gridItem.selectionItem).pipe(switchMap(res => {
+      //test the access path
+      if (res) {
+        return this.checkInService.testAccess(res).pipe(switchMap(result => {
+          //if error, process error
+          if (!result) {
+            let ec = ErrorCode.ECFILEBUSY;
+            this.checkInService.errorCode(gridItem.selectionItem, ec).pipe(map(res => {
+              this.resultSLX.list.push(res);
+              //return false, stop processing
+              return of(false);
+            }));
+          }
+          //otherwise 
+          else {
+            return of(result);
+          }
+        }));
+      }
+      else {
+        //no access path
+        return of(true);
+      }
+    }));
+  }
 
   checkForUndoCheckOut(gridItem: GridItem): Observable<boolean> {
     if (gridItem.bUndoCheckOut == "T") {

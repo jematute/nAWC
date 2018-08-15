@@ -62,14 +62,14 @@ export class CheckInService {
       }));
   }
 
-  getAccessPath(selectionItem: SelectionItem): Observable<any> {
+  getAccessPath(selectionItem: SelectionItem): Observable<AccessPathResult> {
     const opFlagArr = [ApiTypes.OPFLAG.O_OUT, ApiTypes.OPFLAG.O_NEW, ApiTypes.OPFLAG.O_DUP];
     if (opFlagArr.includes(selectionItem.detailedInfo.opFlag)) {
       return this.http.get(`${Global.API_URL}/api/Document/AccessPath/${selectionItem.tableNumber}/${selectionItem.fileId}/${selectionItem.majRev}/${selectionItem.minRev}`)
       .pipe(map(resp => resp as AccessPathResult));
     }
     else {
-      return of(false);
+      return of(null);
     }    
   }
 
@@ -88,9 +88,9 @@ export class CheckInService {
       .pipe(map(resp => resp as PreCheckInItemObject));
   }
 
-  processFileOperation(fileOperation: FileOperationPacket): Observable<FileOperationPacket> {
+  processFileOperation(fileOperation: FileOperationPacket): Observable<FileOperationModel> {
     return this.http.put(`${Global.ACS_URL}/api/processFileOperationPacket`, fileOperation)
-      .pipe(map(resp => resp as FileOperationPacket));
+      .pipe(map(resp => resp as FileOperationModel));
   }
 
   // Call the command with a Selection List.

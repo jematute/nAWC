@@ -6,6 +6,7 @@ import { Global } from '../../classes/global';
 import { GridItem } from '../check-in/classes/grid-item';
 import { WorkareaService } from '../../workarea/workarea.service';
 import { RequireExtractionModel } from '../../classes/requireextractionmodel';
+import { ApiTypes } from '../../classes/ApiTypes';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,26 @@ import { RequireExtractionModel } from '../../classes/requireextractionmodel';
 export class ExtractionService {
 
   constructor(private http: HttpClient, private workAreaService: WorkareaService) { }
+
+  processExtraction(gridItem: GridItem): Observable<any> {
+    if (gridItem.selectionItem.detailedInfo.linkType == ApiTypes.ADLINKTYPE.LT_LINKED) {
+      //check detailedInfo for libid, if NOT ADEPT_NULL_ID then use it, otherwise use the commandParams eLibId
+      let libId = "";
+      if (gridItem.selectionItem.detailedInfo.libId != "ADEPT_NULL_LIBID" && gridItem.selectionItem.detailedInfo.libId != "") {
+        libId = gridItem.selectionItem.detailedInfo.libId;
+      }
+      else {
+        libId = gridItem.selectionItem.commandParams.eLibId;
+      }
+
+      return this.extractionRequired(gridItem, libId).pipe(switchMap(res => {
+        if (res.RequireExtraction || res.RequireFTSExtraction) {
+          return this.extractItem(gridItem, res.RequireFTSExtraction)
+        }
+        return of(true);
+      }));
+    }
+  }
 
   extractingText(libId) {
 
@@ -44,13 +65,8 @@ export class ExtractionService {
 
   //make the call to determine if extraction is required
   extractionRequired(gridItem: GridItem, libId): Observable<RequireExtractionModel> {
-    let params = `
-    ${gridItem.selectionItem.tableNumber}/
-    ${gridItem.selectionItem.fileId}/
-    ${gridItem.selectionItem.majRev}/
-    ${libId}/
-    ${gridItem.currentUTC}
-    `
+    let params = `${gridItem.selectionItem.tableNumber}/${gridItem.selectionItem.fileId}/${gridItem.selectionItem.majRev}/${gridItem.selectionItem.minRev}/${libId}/${gridItem.currentUTC}`
+    params = params.trim();
     return this.http.get(`${Global.API_URL}/api/Document/requiresextraction/${params}`)
       .pipe(map(resp => resp as RequireExtractionModel));
   };
