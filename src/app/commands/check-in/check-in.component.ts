@@ -90,11 +90,11 @@ export class CheckInComponent implements OnInit {
     this.processing = true;
     this.auth.setLongTermKey().subscribe(resp => {
       from(this.rowData).pipe(concatMap(item => {
-        return this.checkForUndoCheckOut(item).pipe(switchMap(res => {
-          if (res) {
+        return this.checkForUndoCheckOut(item).pipe(switchMap(proceed => {
+          if (proceed) {
             //check for path
-            return this.checkForPath(item).pipe(switchMap(res => {
-              if (res) {
+            return this.checkForPath(item).pipe(switchMap(pathOk => {
+              if (pathOk) {
                 //initialize pre check-in object
                 const preCheckInItem: PreCheckInItemObject = { fileId: item.fileId, libId: item.selectionItem.detailedInfo.libId, stagingFileOperationPacket: null };
                 //proceed with pre-checkin
