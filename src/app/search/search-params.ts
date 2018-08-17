@@ -1,4 +1,4 @@
-import { GetDataParams, SortDirection, ResultType, AdeptDataTable } from "../classes/getDataParams";
+import { GetDataParams, SortDirection, ResultType, AdeptDataTable } from "../classes/getdataparams";
 import { Column } from "../classes/column";
 import { UIEnable } from "../classes/uirightsandenables";
 

@@ -12,6 +12,6 @@ import { ProgressDialogModule } from '../progress-dialog/progress-dialog.module'
   ],
   declarations: [WorkareaComponent],
   exports: [ WorkareaComponent ],
-  providers: [ WorkareaService ]
+  providers: [ WorkareaService, { provide: "WorkareaService", useClass: WorkareaService } ]
 })
 export class WorkareaModule { }

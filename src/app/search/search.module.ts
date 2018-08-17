@@ -14,6 +14,6 @@ import { CustomDirectivesModule } from '../custom-directives/custom-directives.m
   ],
   declarations: [ SearchboxComponent ],
   exports: [ SearchboxComponent ],
-  providers: [ SearchService ]
+  providers: [ { provide: "SearchService", useClass: SearchService }, SearchService ]
 })
 export class SearchModule { }

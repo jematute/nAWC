@@ -1,4 +1,4 @@
-import { userModel } from './userModel';
+import { userModel } from './usermodel';
 
 export class EmailItem {
     public toUserModels: Array<userModel>;

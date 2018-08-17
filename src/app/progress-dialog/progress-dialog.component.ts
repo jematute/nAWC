@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { LocalizationService } from '../localization/localization.service';
-import { MessageData } from '../classes/messageData';
+import { MessageData } from '../classes/messagedata';
 import { ProgressDialogService } from './progress-dialog.service';
 
 @Component({

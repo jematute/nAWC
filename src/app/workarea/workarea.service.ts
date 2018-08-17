@@ -6,11 +6,11 @@ import { Global } from '../classes/global';
 import { map, switchMap, tap, mergeMap, catchError, delay, concatMap, takeLast } from 'rxjs/operators';
 import { LocalizationService } from '../localization/localization.service';
 import { ErrorDialogService } from '../error-dialog/error-dialog.service';
-import { PlugInDefinition } from '../classes/PlugInDefinition';
-import { ExtractionDataModel } from '../classes/ExtractionDataModel';
+import { PlugInDefinition } from '../classes/plugIndefinition';
+import { ExtractionDataModel } from '../classes/extractiondatamodel';
 import { ProgressDialogService } from '../progress-dialog/progress-dialog.service';
 import { IGridInterface } from '../results/grid/grid-interface';
-import { GetDataParams, AdeptDataTable } from '../classes/getDataParams';
+import { GetDataParams, AdeptDataTable } from '../classes/getdataparams';
 import { WorkAreaDataParams, WorkAreaDataRequestModel } from './classes/WorkAreaDataParams';
 import { SearchParams } from '../search/search-params';
 
@@ -72,11 +72,16 @@ export class WorkareaService implements IGridInterface {
   }
 
   getData(params: WorkAreaDataParams): Observable<SearchParams> {
+    if (this.currentWorkArea)
+      localStorage.setItem("CurrentWorkArea", JSON.stringify(this.currentWorkArea));
+    else
+      this.currentWorkArea = JSON.parse(localStorage.getItem("CurrentWorkArea")) as WorkAreaModel;
+
     let dataRequest: WorkAreaDataRequestModel = new WorkAreaDataRequestModel();
     dataRequest.WorkAreaId = this.currentWorkArea.workAreaId;
     dataRequest.Skip = params.AdeptDataTable.Skip;
     dataRequest.Take = params.AdeptDataTable.Take;
-
+    
     //process the workarea items
     return this.getWorkAreaItems(this.currentWorkArea).pipe(switchMap(resp => {
       return this.http.post(`${Global.API_URL}/api/workarea/data/`, dataRequest).pipe(map(res => {
@@ -297,6 +302,10 @@ export class WorkareaService implements IGridInterface {
         workAreaModel.icon = wa_local_invalid_32;
       }
     }
+  }
+
+  getName(): string {
+    return "WorkareaService";
   }
 
 }

@@ -21,6 +21,12 @@
         (onChange)="createVersionCheckChanged($event)"></p-checkbox>
     </div>
     <div class="grid">
+      <div class="grid-overlay" *ngIf="processing">
+        <div class="progress-box">
+            <span>{{locale?.resourceStrings?.PROCESSING}}: {{currentFile}}</span>
+            <p-progressBar [value]="progressValue"></p-progressBar>
+        </div>
+      </div>
       <span>{{locale?.resourceStrings?.FILES_TO_CHECKIN}}</span>
       <ag-grid-angular [getRowNodeId]="getRowNodeId" (selectionChanged)="onSelectionChanged($event)" style="width: 100%" class="ag-theme-balham"
         [rowData]="rowData" [columnDefs]="columnDefs" (gridReady)="onGridReady($event)" [gridOptions]="gridOptions">
@@ -30,13 +36,17 @@
   <!-- Footer -->
 
   <div class="footer">
-    <button [disabled]="xyz.bReadyForOK == false || processing" class="button primary-button" (click)="onCheckInDialogOK()">
-      {{locale?.resourceStrings?.OK}}
-    </button>
-    <button class="button default-button" (click)="onCheckInDialogCancel()" [disabled]="processing">
-      {{locale?.resourceStrings?.CANCEL}}
-    </button>
-    <button (click)="openConfirm()">Open</button>
+    <div class="checkin-progress" *ngIf="processing">
+        
+    </div>
+    <div class="buttons">
+        <button [disabled]="xyz.bReadyForOK == false || processing" class="button primary-button" (click)="onCheckInDialogOK()">
+            {{locale?.resourceStrings?.OK}}
+          </button>
+          <button class="button default-button" (click)="onCheckInDialogCancel()" [disabled]="processing">
+            {{locale?.resourceStrings?.CANCEL}}
+          </button>
+    </div>
   </div>
 
   

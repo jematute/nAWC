@@ -42,3 +42,14 @@ export class FileRecord {
     SCHEMA_S_WFNAME: string;
     SCHEMA_S_STEPNAME: string;
 }
+
+export class FileKeys {
+    constructor(fileId, majRev, minRev) {
+        this.fileId = fileId;
+        this.majRev = majRev;
+        this.minRev = minRev;
+    }
+    fileId: string;
+    majRev: number;
+    minRev: number;
+}

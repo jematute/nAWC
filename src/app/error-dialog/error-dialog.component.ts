@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {MatBottomSheet, MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA} from '@angular/material';
-import { MessageData } from '../classes/messageData';
+import { MessageData } from '../classes/messagedata';
 
 @Component({
   selector: 'app-error-dialog',

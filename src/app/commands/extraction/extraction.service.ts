@@ -33,6 +33,8 @@ export class ExtractionService {
         return of(true);
       }));
     }
+    //not linked
+    return of(true);
   }
 
   extractingText(libId) {

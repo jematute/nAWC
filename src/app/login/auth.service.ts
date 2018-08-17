@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpRequest, HttpHandler } from '@angular/common/http';
 
-import { Observable, throwError as observableThrowError } from 'rxjs';
+import { Observable, throwError as observableThrowError, of } from 'rxjs';
 import { catchError, mergeMap, switchMap, map, tap } from 'rxjs/operators';
 import { User } from './user';
-import { userModel } from '../classes/userModel';
+import { userModel } from '../classes/usermodel';
 import { Global } from '../classes/global';
 import { Router } from '@angular/router';
 import { LocalizationService } from '../localization/localization.service';
@@ -31,8 +31,8 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router, private locale: LocalizationService) {
     this.refreshToken = localStorage.getItem("refresh_token");
     let user = localStorage.getItem("userModel");
-    if (user)
-      this.user = JSON.parse(user) as userModel;
+    //if (user)
+      //this.user = JSON.parse(user) as userModel;
     this.connectSignalR();
   }
 
@@ -60,7 +60,7 @@ export class AuthService {
   getUserInfo(): Observable<userModel> {
     return this.http.get(`${Global.API_URL}/api/account/userinfo`).pipe(map(data => {
       this.user = data as userModel;
-      localStorage.setItem("userModel", JSON.stringify(this.user));
+      //localStorage.setItem("userModel", JSON.stringify(this.user));
       return data as userModel;
     }));
   }
@@ -75,10 +75,12 @@ export class AuthService {
       let credentials = `username=${this.user.LoginName}&password=&client_secret=${secret}&client_id=LongTermKey&grant_type=password`;
       return this.http.post(`${Global.API_URL}/login`, credentials).pipe(map(data => {
         this.accessToken = data["access_token"];
-        this.refreshToken = data["refresh_token"];
-        localStorage.setItem("refresh_token", this.refreshToken);
       }));
     }));
+  }
+
+  removeLongTermKey() {
+    this.accessToken = '';
   }
 
   checkLogin(): Observable<Object> {
@@ -92,11 +94,13 @@ export class AuthService {
   public getNewToken(): Observable<any> {
     let refreshToken = atob(this.refreshToken);
     let credentials = `grant_type=refresh_token&refresh_token=${refreshToken}&client_id=Adept&client_secret=zd2345rtl`;
-    return this.http.post(`${Global.API_URL}/login`, credentials, httpOptions).pipe(map(data => {
+    return this.http.post(`${Global.API_URL}/login`, credentials, httpOptions).pipe(switchMap(data => {
         this.accessToken = data["access_token"];
         this.refreshToken = data["refresh_token"];
         localStorage.setItem("refresh_token", this.refreshToken);
-        return data["access_token"];
+        if (!this.user)
+          return this.getUserInfo();
+        return of(data["access_token"]);
     }));
   }
 

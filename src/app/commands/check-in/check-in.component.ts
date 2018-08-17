@@ -19,6 +19,9 @@ import { ErrorDialogService } from '../../error-dialog/error-dialog.service';
 import { ErrorCode } from '../../classes/error-codes';
 import { ExtractionService } from '../extraction/extraction.service';
 import { NtfItemXfer } from '../../classes/ntfitemxfertype';
+import { FileOperationModel } from '../../classes/file-operation-model';
+import { FileKeys } from '../../classes/file-record';
+import { GridService } from '../../results/grid/grid.service';
 
 @Component({
   selector: 'app-check-in',
@@ -58,6 +61,8 @@ export class CheckInComponent implements OnInit {
     selectedUserItem: { name: "", id: "" },
     gettingUserList: false,
   };
+  progressValue: number = 0;
+  currentFile: string = "";
 
   constructor(
     public dialogRef: MatDialogRef<CheckInComponent>,
@@ -66,7 +71,9 @@ export class CheckInComponent implements OnInit {
     private confirmDialogService: ConfirmDialogService,
     @Inject(MAT_DIALOG_DATA) public selectionItems: SelectionItem[],
     private extractionService: ExtractionService,
-    private checkInService: CheckInService, private errorDialogService: ErrorDialogService) {
+    private checkInService: CheckInService, private errorDialogService: ErrorDialogService,
+    private gridService: GridService,
+  ) {
 
     this.gridOptions = <GridOptions>{};
     this.gridOptions.rowSelection = 'multiple';
@@ -85,10 +92,13 @@ export class CheckInComponent implements OnInit {
   }
 
   onCheckInDialogOK() {
-    console.time('checkin');
+    console.time('checkin-total');
     this.processing = true;
     this.auth.setLongTermKey().subscribe(resp => {
+      const itemValue = Math.ceil(100 / this.rowData.length);
       from(this.rowData).pipe(concatMap(item => {
+        this.currentFile = item.name;
+        console.time('checkin-item')
         return this.checkForUndoCheckOut(item).pipe(switchMap(proceed => {
           if (proceed) {
             //check for path
@@ -103,16 +113,22 @@ export class CheckInComponent implements OnInit {
                   return this.checkInService.processFileOperation(preCheckInResponse.stagingFileOperationPacket).pipe(switchMap(fileOperationPacket => {
                     //process extraction
                     return this.extractionService.processExtraction(item).pipe(switchMap(res => {
+
+                      let fileOperation: FileOperationModel = null;
+                      if (fileOperationPacket && fileOperationPacket.fileOperations.length > 0)
+                        fileOperation = fileOperationPacket.fileOperations[0];
                       //check in item
-                      return this.checkInService.checkInItem(item, fileOperationPacket.fileOperations[0])
+                      return this.checkInService.checkInItem(item, fileOperation)
                         .pipe(switchMap(selectionResult => {
                           //update results objects
-                          selectionResult.slx.list.forEach(i => {
-                            this.resultSLX.list.push(i);
-                          });
-                          selectionResult.ntfItemXfers.forEach(i => {
-                            this.resultNtfItemXfers.push(i);
-                          });
+                          if (selectionResult.slx.list)
+                            selectionResult.slx.list.forEach(i => {
+                              this.resultSLX.list.push(i);
+                            });
+                          if (selectionResult.ntfItemXfers)
+                            selectionResult.ntfItemXfers.forEach(i => {
+                              this.resultNtfItemXfers.push(i);
+                            });
                           // Final file ops.
                           // Could be a delete item here.
                           // Call ACS to do the file operation.
@@ -129,15 +145,28 @@ export class CheckInComponent implements OnInit {
               return of(true);
             }));
           }
+          //finished with this item
+
           return of(true);
         }))
       }), finalize(() => {
-        console.timeEnd("checkin");
+        //when everything is done
+        console.timeEnd("checkin-total");
+        this.auth.removeLongTermKey();
+
+        //remove the records from the grid.
+        const recordsToRemove = this.rowData.map(item => {
+          return new FileKeys(item.selectionItem.fileId, item.selectionItem.majRev, item.selectionItem.minRev);
+        });
+        this.gridService.removeRecords(recordsToRemove);
+        
+        //close the dialog
         this.dialogRef.close();
       })).subscribe(() => {
-        console.log("hey there");
+        //update progress
+        this.progressValue = this.progressValue + itemValue;
+        console.timeEnd("checkin-item");
       });
-
     });
     console.log("OK");
   }
@@ -526,7 +555,12 @@ export class CheckInComponent implements OnInit {
   }
 
   openConfirm() {
-
+    let messages = [this.locale.resourceStrings["LOSE_DATA_CARD_CHANGES"]];
+    messages.push(this.locale.resourceStrings["DATA_CARD_CHANGES_WILL_BE_LOST"]);
+    let subs = this.confirmDialogService.Open("Confirm", messages).subscribe(r => {
+      console.log("result:", r);
+      subs.unsubscribe();
+    });
   }
 
 }

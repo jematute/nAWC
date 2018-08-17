@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ProgressDialogComponent } from './progress-dialog.component';
-import { MessageData } from '../classes/messageData';
+import { MessageData } from '../classes/messagedata';
 
 @Injectable({
   providedIn: 'root'

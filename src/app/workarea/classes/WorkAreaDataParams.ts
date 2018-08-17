@@ -1,4 +1,4 @@
-import { GetDataParams, SortDirection, ResultType } from "../../classes/getDataParams";
+import { GetDataParams, SortDirection, ResultType } from "../../classes/getdataparams";
 import { Column } from "../../classes/column";
 
 export class WorkAreaDataParams implements GetDataParams {

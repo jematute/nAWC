@@ -1,5 +1,5 @@
 import { ApiTypes } from "../../classes/ApiTypes";
-import { PlugInDefinition } from "../../classes/PlugInDefinition";
+import { PlugInDefinition } from "../../classes/plugIndefinition";
 
 export class WorkAreaModel {
     public parentId: string;

@@ -12,6 +12,7 @@ export class ColumnsService {
 
   columns: Array<FieldDefinition> = [];
   columnSets: Array<ColumnSet> = [];
+  columnSetId: string;
 
   constructor(private http: HttpClient) {  }
 
@@ -31,19 +32,34 @@ export class ColumnsService {
     return obs;
   }
 
-  getGridColumns(): Observable<Array<FieldDefinition>> {
-    let columnSetColumns: Array<FieldDefinition>; 
+  setColumnSetColumns(columns: Column[]): Observable<any> {
+    return this.http.put(`${Global.API_URL}/api/column/${this.columnSetId}`, columns);
+  }
+
+  getGridColumns(): Observable<Column[]> {
+    let columnSetColumns: Column[]; 
     return this.getColumnSets().pipe(
-      mergeMap(data => this.getColumnSetColumns(data.filter(d => d.name === "SearchResultColumns")[0].id).pipe(map(
-        cols => this.lookUpFieldDefs(cols))
-      ))
+      mergeMap(data => {
+        this.columnSetId = data.filter(d => d.name === "SearchResultColumns")[0].id;
+        return this.getColumnSetColumns(this.columnSetId).pipe(map(
+        cols => cols as Column[])
+      )})
     )
+  }
+
+  resizeColumn(column: Column) {
+    return this.http.put(`${Global.API_URL}/api/column/resize/${this.columnSetId}`, [column]);
   }
 
   lookUpFieldDefs(columns: Array<Column>): Array<FieldDefinition> {
     let fieldDefs: Array<FieldDefinition> = [];
     columns.forEach(col => fieldDefs.push(this.columns.find(f => f.schemaID == col.schemaId)));
     return fieldDefs;
+  }
+
+  lookUpFieldDef(column: Column): FieldDefinition {
+    let fieldDefs: Array<FieldDefinition> = [];
+    return this.columns.find(f => f.schemaID == column.schemaId);
   }
 
 

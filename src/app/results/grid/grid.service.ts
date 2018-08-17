@@ -1,14 +1,14 @@
-import { Injectable, Output, EventEmitter } from '@angular/core';
+import { Injectable, Output, EventEmitter, Injector } from '@angular/core';
 import { IGridInterface } from './grid-interface';
-import { GetDataParams, AdeptDataTable } from '../../classes/getDataParams';
+import { GetDataParams, AdeptDataTable } from '../../classes/getdataparams';
 import { Column } from '../../classes/column';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
 import { GridApi } from 'ag-grid';
 import { Router } from '@angular/router';
 import { SearchParams } from '../../search/search-params';
 import { UIEnable } from '../../classes/uirightsandenables';
-import { FileRecord } from '../../classes/file-record';
+import { FileRecord, FileKeys } from '../../classes/file-record';
 import { SelectionItem, DetailedInfo, CommandParams } from '../../classes/selectionitem';
 import { ApiTypes } from '../../classes/ApiTypes';
 
@@ -22,16 +22,33 @@ export class GridService {
   public pageIndex: number;
   public columns: Array<Column>;
   public dataService: IGridInterface;
-  change: EventEmitter<any> = new EventEmitter();
+  public change: EventEmitter<any> = new EventEmitter();
   public loading: EventEmitter<boolean> = new EventEmitter();
   public onSelectionChanged: EventEmitter<Array<SelectionItem>> = new EventEmitter();
   public menuEnables: Map<string, UIEnable>;
+  public onRemoveRecords: EventEmitter<FileKeys[]> = new EventEmitter<FileKeys[]>();
+  public onUpdateRecords: EventEmitter<FileKeys[]> = new EventEmitter<FileKeys[]>();
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private injector: Injector) {
     this.data = new AdeptDataTable();
   }
 
   getData(params: GetDataParams): Observable<SearchParams> {
+    if (!this.dataService) {
+      const serviceName = localStorage.getItem("DataService");
+      if (serviceName) {
+        this.dataService = this.injector.get(serviceName);
+        params = JSON.parse(localStorage.getItem("DataServiceParams")) as GetDataParams;
+      }
+      else {
+        return of(new SearchParams());
+      }
+    }
+    else {
+      localStorage.setItem("DataService", this.dataService.getName());
+      localStorage.setItem("DataServiceParams", JSON.stringify(params));
+    }
+
     //this.loading.emit(true);
     return this.dataService.getData(params)
       .pipe(tap(result => {
@@ -42,11 +59,20 @@ export class GridService {
       }));
   }
 
-  getCount(params: GetDataParams) {
-    return this.dataService.getCount(params)
-      .pipe(tap(count => {
-        this.length = count;
-      }));
+  getCount(params: GetDataParams): Observable<number> {
+    if (params) {
+      localStorage.setItem("DataServiceCountParams", JSON.stringify(params));
+    }
+    else {
+      params = JSON.parse(localStorage.getItem("DataServiceCountParams")) as GetDataParams;
+    }
+
+    if (this.dataService)
+      return this.dataService.getCount(params)
+        .pipe(tap(count => {
+          this.length = count;
+        }));
+    return of(0);
   }
 
   getSelectedRows() {
@@ -64,6 +90,10 @@ export class GridService {
     this.router.navigate(["layout/results"]).then(() => {
       this.change.emit("reload_data");
     });
+  }
+
+  removeRecords(fileKeys: FileKeys[]) {
+    this.onRemoveRecords.emit(fileKeys);
   }
 
   buildSLX(gridItems: Array<FileRecord>): Array<SelectionItem> {

@@ -15,10 +15,11 @@ import { MessagesModule } from 'primeng/messages';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { ConfirmDialogService } from './confirm-dialog/confirm-dialog.service';
 import { ErrorDialogService } from '../error-dialog/error-dialog.service';
+import {ProgressBarModule} from 'primeng/progressbar';
 
 @NgModule({
   imports: [
-    CommonModule, CheckboxModule, FormsModule, DropdownModule, AgGridModule.withComponents([ ]), ConfirmDialogModule, ButtonModule, MessagesModule
+    CommonModule, CheckboxModule, FormsModule, DropdownModule, AgGridModule.withComponents([ ]), ConfirmDialogModule, ButtonModule, MessagesModule, ProgressBarModule
   ],
   declarations: [CheckInComponent, ConfirmDialogComponent],
   providers: [ CheckInService, MaterialModule, { provide: MAT_DIALOG_DATA, useValue: {} }, ExtractionService, ConfirmDialogService, ErrorDialogService ],
