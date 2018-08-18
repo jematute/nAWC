@@ -1,6 +1,6 @@
-import { ExtendedRecordDataModel } from "./ExtendedRecordDataModel";
+import { ExtendedRecordDataModel } from "./extendedrecorddatamodel";
 import { ExtractionComponent } from "./ExtractionComponent";
-import { ExternalItemData } from "./ExternalItemData";
+import { ExternalItemData } from "./externalitemdata";
 
 export class ExtractionDataModel {
     public AdeptFileId: string;

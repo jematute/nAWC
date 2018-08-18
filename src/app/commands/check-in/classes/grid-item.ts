@@ -1,5 +1,5 @@
 import { SelectionItem } from "../../../classes/selectionitem";
-import { ApiTypes } from "../../../classes/ApiTypes";
+import { ApiTypes } from "../../../classes/apitypes";
 
 export class GridItem {
     index: number;

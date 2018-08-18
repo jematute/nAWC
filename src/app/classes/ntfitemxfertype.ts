@@ -1,4 +1,4 @@
-import { ApiTypes } from "./ApiTypes";
+import { ApiTypes } from "./apitypes";
 
 export class NtfItemXfer {
     public ntfItemXferType: NtfItemXferType = NtfItemXferType.Invalid;

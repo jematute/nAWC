@@ -8,7 +8,7 @@ import { Global } from '../../classes/global';
 import { map } from 'rxjs/operators';
 import { CheckInOptions } from '../../classes/checkinoptions';
 import { FileInfoModel } from '../../classes/fileinfos';
-import { ApiTypes } from '../../classes/ApiTypes';
+import { ApiTypes } from '../../classes/apitypes';
 import { SelectionListXfer } from '../../classes/selectionlist';
 import { Observable, of } from 'rxjs';
 import { GridItem } from './classes/grid-item';

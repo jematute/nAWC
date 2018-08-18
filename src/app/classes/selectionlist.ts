@@ -1,4 +1,4 @@
-import { ApiTypes } from "./ApiTypes";
+import { ApiTypes } from "./apitypes";
 import { SelectionItem } from "./selectionitem";
 
 export class SelectionListXfer {

@@ -10,7 +10,7 @@ import { SearchParams } from '../../search/search-params';
 import { UIEnable } from '../../classes/uirightsandenables';
 import { FileRecord, FileKeys } from '../../classes/file-record';
 import { SelectionItem, DetailedInfo, CommandParams } from '../../classes/selectionitem';
-import { ApiTypes } from '../../classes/ApiTypes';
+import { ApiTypes } from '../../classes/apitypes';
 
 @Injectable()
 export class GridService {

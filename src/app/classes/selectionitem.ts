@@ -1,4 +1,4 @@
-import { ApiTypes } from "./ApiTypes";
+import { ApiTypes } from "./apitypes";
 import { FileOperationModel } from "./file-operation-model";
 import { ErrorCode } from "./error-codes";
 import { UIEnable } from "./uirightsandenables";

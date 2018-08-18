@@ -6,7 +6,7 @@ import { Global } from '../../classes/global';
 import { GridItem } from '../check-in/classes/grid-item';
 import { WorkareaService } from '../../workarea/workarea.service';
 import { RequireExtractionModel } from '../../classes/requireextractionmodel';
-import { ApiTypes } from '../../classes/ApiTypes';
+import { ApiTypes } from '../../classes/apitypes';
 
 @Injectable({
   providedIn: 'root'

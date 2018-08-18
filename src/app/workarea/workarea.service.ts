@@ -6,12 +6,12 @@ import { Global } from '../classes/global';
 import { map, switchMap, tap, mergeMap, catchError, delay, concatMap, takeLast } from 'rxjs/operators';
 import { LocalizationService } from '../localization/localization.service';
 import { ErrorDialogService } from '../error-dialog/error-dialog.service';
-import { PlugInDefinition } from '../classes/plugIndefinition';
+import { PlugInDefinition } from '../classes/plugindefinition';
 import { ExtractionDataModel } from '../classes/extractiondatamodel';
 import { ProgressDialogService } from '../progress-dialog/progress-dialog.service';
 import { IGridInterface } from '../results/grid/grid-interface';
 import { GetDataParams, AdeptDataTable } from '../classes/getdataparams';
-import { WorkAreaDataParams, WorkAreaDataRequestModel } from './classes/WorkAreaDataParams';
+import { WorkAreaDataParams, WorkAreaDataRequestModel } from './classes/workareadataparams';
 import { SearchParams } from '../search/search-params';
 
 @Injectable({

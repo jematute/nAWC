@@ -10,7 +10,7 @@ import { FileInfoModel } from '../../classes/fileinfos';
 import { switchMap, map, concatMap, takeLast, finalize, zip } from 'rxjs/operators';
 import { Observable, from, of, throwError } from 'rxjs';
 import { SelectionListXfer } from '../../classes/selectionlist';
-import { ApiTypes } from '../../classes/ApiTypes';
+import { ApiTypes } from '../../classes/apitypes';
 import { AuthService } from '../../login/auth.service';
 import { GridItem } from './classes/grid-item';
 import { PreCheckInItemObject } from '../../classes/checkinitem';

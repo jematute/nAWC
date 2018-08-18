@@ -1,4 +1,4 @@
-import { ApiTypes } from "./ApiTypes";
+import { ApiTypes } from './apitypes'
 
 export class ExternalItemData {
     public itemType: ItemType;

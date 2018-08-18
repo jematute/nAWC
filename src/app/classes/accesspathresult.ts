@@ -1,4 +1,4 @@
-import { ApiTypes } from "./ApiTypes";
+import { ApiTypes } from "./apitypes";
 import { ErrorCode } from "./error-codes";
 
 export class AccessPathResult {
