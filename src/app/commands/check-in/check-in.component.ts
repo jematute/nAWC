@@ -20,7 +20,7 @@ import { ErrorCode } from '../../classes/error-codes';
 import { ExtractionService } from '../extraction/extraction.service';
 import { NtfItemXfer } from '../../classes/ntfitemxfertype';
 import { FileOperationModel } from '../../classes/file-operation-model';
-import { FileKeys } from '../../classes/file-record';
+import { FileKeys, FileRecord } from '../../classes/file-record';
 import { GridService } from '../../results/grid/grid.service';
 
 @Component({
@@ -156,7 +156,11 @@ export class CheckInComponent implements OnInit {
 
         //remove the records from the grid.
         const recordsToRemove = this.rowData.map(item => {
-          return new FileKeys(item.selectionItem.fileId, item.selectionItem.majRev, item.selectionItem.minRev);
+          let file: FileRecord = new FileRecord();
+          file.SCHEMA_S_FILEID = item.selectionItem.fileId;
+          file.SCHEMA_S_MAJREV = item.selectionItem.majRev;
+          file.SCHEMA_S_MINREV = item.selectionItem.minRev;
+          return new FileKeys(file);
         });
         this.gridService.removeRecords(recordsToRemove);
         

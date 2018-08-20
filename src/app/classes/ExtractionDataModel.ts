@@ -1,5 +1,5 @@
 import { ExtendedRecordDataModel } from "./extendedrecorddatamodel";
-import { ExtractionComponent } from "./ExtractionComponent";
+import { ExtractionComponent } from "./extractioncomponent";
 import { ExternalItemData } from "./externalitemdata";
 
 export class ExtractionDataModel {

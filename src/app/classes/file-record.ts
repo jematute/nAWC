@@ -44,10 +44,10 @@ export class FileRecord {
 }
 
 export class FileKeys {
-    constructor(fileId, majRev, minRev) {
-        this.fileId = fileId;
-        this.majRev = majRev;
-        this.minRev = minRev;
+    constructor(record: FileRecord) {
+        this.fileId = record.SCHEMA_S_FILEID;
+        this.majRev = record.SCHEMA_S_MAJREV;
+        this.minRev = record.SCHEMA_S_MINREV;
     }
     fileId: string;
     majRev: number;

@@ -2,7 +2,7 @@ import { Component, OnInit, Output } from '@angular/core';
 import { EventEmitter } from 'events';
 import { ClientServicesService } from '../client-services/client-services.service';
 import { WorkareaService } from './workarea.service';
-import { WorkAreaModel } from './classes/WorkAreaModel';
+import { WorkAreaModel } from './classes/workareamodel';
 import { GridService } from '../results/grid/grid.service';
 
 @Component({

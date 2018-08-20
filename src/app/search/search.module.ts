@@ -7,6 +7,7 @@ import { ColumnsModule } from '../columns/columns.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ResultsModule } from '../results/results.module';
 import { CustomDirectivesModule } from '../custom-directives/custom-directives.module';
+import { FTSSearchService } from './ftssearch.service';
 
 @NgModule({
   imports: [
@@ -14,6 +15,6 @@ import { CustomDirectivesModule } from '../custom-directives/custom-directives.m
   ],
   declarations: [ SearchboxComponent ],
   exports: [ SearchboxComponent ],
-  providers: [ { provide: "SearchService", useClass: SearchService }, SearchService ]
+  providers: [ { provide: "SearchService", useClass: SearchService }, SearchService, { provide: "FTSSearchService", useClass: FTSSearchService }, FTSSearchService ]
 })
 export class SearchModule { }

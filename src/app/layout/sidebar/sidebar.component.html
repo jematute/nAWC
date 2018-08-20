@@ -2,18 +2,18 @@
 <div class="sidebar" [hidden]="!showSidebar">
     <app-searchbox></app-searchbox>
     <div class="sidebar-content">
-        <div class="menu" *ngIf="activeMenu.length === 0">
+        <div [@slideInOut] class="menu" *ngIf="activeMenu.length === 0" >
             <button id="home" mat-button *ngFor="let button of buttons" (click)="menuSelected(button)">
                 <img [src]="button?.icon" alt="">
                 <span>{{locale?.resourceStrings[button?.label]}}</span>
             </button>
         </div>
-        <div *ngIf="activeMenu.length !== 0" class="feature-content">
+        <div [@slideInOut] *ngIf="activeMenu.length !== 0" class="feature-content">
             <div class="title">
                 <button (click)="backToMenu()"><i class="fa fa-arrow-left"></i></button>
                 <span>{{locale?.resourceStrings[activeMenu]}}</span>
             </div>
-            <workarea *ngIf="activeMenu === 'WORK_AREAS'"></workarea>
+            <workarea  *ngIf="activeMenu === 'WORK_AREAS'"></workarea>
         </div>
     </div>
 </div>

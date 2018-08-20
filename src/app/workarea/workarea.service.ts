@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { WorkAreaModel, WorkAreaItemsList, WorkAreaExtractionItems, IncomingWillExtract, WorkAreaDBRecordModel } from './classes/WorkAreaModel';
+import { WorkAreaModel, WorkAreaItemsList, WorkAreaExtractionItems, IncomingWillExtract, WorkAreaDBRecordModel } from './classes/workareamodel';
 import { Observable, of, throwError, forkJoin, from } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Global } from '../classes/global';

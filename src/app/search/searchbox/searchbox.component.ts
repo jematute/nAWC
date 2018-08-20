@@ -14,7 +14,7 @@ import { debounceTime } from 'rxjs/operators';
   styleUrls: ['./searchbox.component.less']
 })
 export class SearchboxComponent implements OnInit {
-  
+
   userColumns: Array<FieldDefinition>;
   searchValue: string = "";
   selectedField: FieldDefinition;
@@ -34,11 +34,11 @@ export class SearchboxComponent implements OnInit {
       fts.displayName = locale.resourceStrings["FULL_TEXT_SEARCH"];
       fts.schemaID = "FTS";
       res.unshift(fts);
-      
+
       this.userColumns = res.filter(column => column.displayName !== '');
       this.currentFields = this.userColumns;
       this.selectedField = res.filter(column => column.schemaID === "SCHEMA_S_LONGNAME")[0];
-    }); 
+    });
   }
 
   toggleDropdown() {
@@ -53,23 +53,23 @@ export class SearchboxComponent implements OnInit {
   }
 
   inputKeyDown(e) {
-    if (e.keyCode == 13) {
-      if (this.searchValue.length > 0) {
-          if (this.selectedField.schemaID == "FTS") {
-              this.doFTSSearch();
-          }
-          else {
-              this.doSearch(false);
-          }
-      }
+    // if (e.akeyCode == 13) {
+    //   if (this.searchValue.length > 0) {
+    //     if (this.selectedField.schemaID == "FTS") {
+    //       this.doFTSSearch(false);
+    //     }
+    //     else {
+    //       this.doSearch(false);
+    //     }
+    //   }
 
-  }
+    // }
   }
 
   filterChanged() {
-    this.currentFields = this.userColumns.filter(item => 
+    this.currentFields = this.userColumns.filter(item =>
       item.displayName.toLowerCase().startsWith(this.fieldFilter.toLowerCase()
-    ));
+      ));
   }
 
   fieldSelected(item: FieldDefinition) {
@@ -85,8 +85,11 @@ export class SearchboxComponent implements OnInit {
   ngOnInit() {
     this.searchInput.valueChanges.pipe(debounceTime(500)).subscribe(value => {
       this.searchValue = value;
-      if (this.selectedField.schemaID != "FTS")
-        this.doSearch(true);
+      if (this.searchValue)
+        if (this.selectedField.schemaID != "FTS")
+          this.doSearch(true);
+        else
+          this.doFTSSearch(true);    
     });
   }
 
@@ -103,11 +106,12 @@ export class SearchboxComponent implements OnInit {
     }
   }
 
-  doFTSSearch() {
+  doFTSSearch(doNotClear) {
     this.ftsSearch.setSearchCriteria(this.searchValue);
     this.grid.dataService = this.ftsSearch;
     this.grid.reloadGrid();
-    this.searchValue = "";
+    if (!doNotClear)
+      this.searchValue = "";
   }
 
 

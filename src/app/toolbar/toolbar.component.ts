@@ -7,11 +7,16 @@ import { ToolbarButton } from './classes/toolbarbutton';
 import { GridService } from '../results/grid/grid.service';
 import { SelectionItem } from '../classes/selectionitem';
 import { MatDialog } from '@angular/material';
+import { trigger, state, style, transition, animate, useAnimation } from '@angular/animations';
+import { bounce, zoomIn, zoomOut } from 'ng-animate';
 
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
-  styleUrls: ['./toolbar.component.less']
+  styleUrls: ['./toolbar.component.less'],
+  animations: [
+    trigger('zoomIn', [transition(':enter', useAnimation(zoomIn, { params: { timing: .5, delay: 0 } }))])
+  ]
 })
 export class ToolbarComponent implements OnInit {
 

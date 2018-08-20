@@ -10,12 +10,21 @@ import { LibraryBrowserButton } from './buttons/LibraryBrowserButton';
 import { FileGuideButton } from './buttons/FileGuideButton';
 import { WorkAreasButton } from './buttons/WorkAreasButton';
 import { Router } from '@angular/router';
+import { trigger, transition, animate, style } from '@angular/animations';
 
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.less']
+  styleUrls: ['./sidebar.component.less'],
+  animations: [
+    trigger('slideInOut', [
+      transition(':enter', [
+        style({transform: 'translateX(-100%)'}),
+        animate('100ms ease-in', style({transform: 'translateX(0%)'}))
+      ])
+    ])
+  ]
 })
 export class SidebarComponent implements OnInit {
 

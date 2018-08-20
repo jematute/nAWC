@@ -1,9 +1,9 @@
 import { Column } from "./column";
+import { Sort } from "./sort";
 
 export interface GetDataParams {
     AdeptDataTable: AdeptDataTable
-    Sort: string;
-    SortDirection: SortDirection;
+    Sort: Sort;
     ResultType?: ResultType;
     Columns: Array<Column>;
     CountOperation: boolean;

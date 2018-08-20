@@ -16,11 +16,12 @@ import { ApiTypes } from '../../classes/apitypes';
 export class GridService {
 
   public gridApi: GridApi;
-  public data: AdeptDataTable;
+  public data: AdeptDataTable = { TableRecords: [], Skip: 0, Take: 0, RecordCount: 0 };
   public length: number = 0;
-  public pageSize: number = 100;
-  public pageIndex: number;
+  public _pageSize: number;
+  public _pageIndex: number;
   public columns: Array<Column>;
+  private _sort: any;
   public dataService: IGridInterface;
   public change: EventEmitter<any> = new EventEmitter();
   public loading: EventEmitter<boolean> = new EventEmitter();
@@ -88,6 +89,7 @@ export class GridService {
 
   reloadGrid() {
     this.router.navigate(["layout/results"]).then(() => {
+      this.data = null;
       this.change.emit("reload_data");
     });
   }
@@ -140,5 +142,57 @@ export class GridService {
     return selectionItems;
   }
 
+  get sort(): any {
+    if (!this._sort) {
+      let sort = localStorage.getItem("gridSort");
+      if (sort && sort != "undefined")
+        this._sort = JSON.parse(sort);
+      else {
+        this._sort = { colId: "SCHEMA_S_LONGNAME", sort: "asc" };
+      }
+    }
+    return this._sort;  
+  }
 
+  set sort(newSort: any) {
+    localStorage.setItem("gridSort", JSON.stringify(newSort));
+    this._sort = newSort;
+  }
+
+  get pageIndex(): number {
+    if (!this._pageIndex) {
+      let pageIndex = parseInt(localStorage.getItem("pageIndex"));
+      if (pageIndex) {
+        this._pageIndex = pageIndex;
+      }
+      else {
+        this._pageIndex = 0;
+      }
+    }
+      
+    return this._pageIndex;
+  }
+
+  set pageIndex(pageIndex: number) {
+    localStorage.setItem("pageIndex", JSON.stringify(pageIndex));
+    this._pageIndex = pageIndex;
+  }
+
+  set pageSize(pageSize: number) {
+    localStorage.setItem("pageSize", JSON.stringify(pageSize));
+    this._pageSize = pageSize;
+  }
+
+  get pageSize(): number {
+    if (!this._pageSize) {
+      let pageSize = parseInt(localStorage.getItem("pageSize"));
+      if (pageSize) {
+        this._pageSize = pageSize;
+      }
+      else {
+        this._pageSize = 100;
+      }
+    } 
+    return this._pageSize;
+  }
 }

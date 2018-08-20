@@ -1,9 +1,10 @@
-import { GetDataParams, SortDirection, ResultType } from "../../classes/getdataparams";
+import { GetDataParams, ResultType } from "../../classes/getdataparams";
 import { Column } from "../../classes/column";
+import { Sort } from "../../classes/sort";
 
 export class WorkAreaDataParams implements GetDataParams {
-    AdeptDataTable;    Sort: string;
-    SortDirection: SortDirection;
+    Sort: Sort;
+    AdeptDataTable;
     ResultType?: ResultType;
     Columns;
     CountOperation: boolean;

@@ -5,10 +5,8 @@ import { AuthService } from '../login/auth.service';
 import { LocalizationService } from '../localization/localization.service';
 import { HttpClient } from '@angular/common/http';
 import { tap, catchError, switchMap, delay, timeout, map, retry } from 'rxjs/operators';
-import { ThrowStmt } from '@angular/compiler';
 import { BowserService } from 'ngx-bowser';
 import { ajax } from 'rxjs/ajax';
-import { WorkAreaModel, WorkAreaItemsList } from '../workarea/classes/WorkAreaModel';
 
 @Injectable({
   providedIn: 'root'

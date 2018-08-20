@@ -1,4 +1,3 @@
-import { ApiTypes } from "../../classes/apitypes";
 import { PlugInDefinition } from "../../classes/plugindefinition";
 
 export class WorkAreaModel {
