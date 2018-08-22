@@ -16,6 +16,7 @@ export class LibModel {
     public properties: LibraryPropertiesModel = null;
     public workflow: LibraryWorkflowModel = null;
     public children: Array<LibModel> = null;
+    public icon: string;
 }
 
 export class LibraryPropertiesModel {

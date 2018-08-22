@@ -1,7 +1,19 @@
 :host {
+    display: flex;
+    overflow: hidden;
     flex: 1;
     margin: 10px;
-}
+    flex-direction: column;
+    main {
+      position: relative;
+    }
+    /deep/ router-outlet ~ * {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  
 .results {
     height: 100%;
     position: relative;

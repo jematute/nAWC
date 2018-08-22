@@ -6,7 +6,7 @@ import { WorkAreaModel } from './classes/workareamodel';
 import { GridService } from '../results/grid/grid.service';
 
 @Component({
-  selector: 'workarea',
+  selector: 'app-workarea',
   templateUrl: "./workarea.component.html",
   styleUrls: ['./workarea.component.less']
 })

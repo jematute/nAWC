@@ -7,10 +7,11 @@ import { MaterialModule } from '../../material/material.module';
 import { SidebarService } from './sidebar.service';
 import { CustomDirectivesModule } from '../../custom-directives/custom-directives.module';
 import { WorkareaModule } from '../../workarea/workarea.module';
+import { LibraryBrowserModule } from '../../library-browser/library-browser.module';
 
 @NgModule({
   imports: [
-    CommonModule, SearchModule, ColumnsModule, MaterialModule, CustomDirectivesModule, WorkareaModule
+    CommonModule, SearchModule, ColumnsModule, MaterialModule, CustomDirectivesModule, WorkareaModule, LibraryBrowserModule
   ],
   declarations: [ SidebarComponent ],
   exports: [ SidebarComponent ],

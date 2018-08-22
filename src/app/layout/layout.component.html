@@ -2,8 +2,8 @@
     <div class="top">
         <app-header></app-header>
     </div>
-    <div class="bottom">
+    <div class="bottom" [@fadeAnimation]="getRouterOutletState(o)">
         <app-sidebar></app-sidebar>
-        <router-outlet class="content"></router-outlet>
+        <router-outlet class="content" #o="outlet"></router-outlet>
     </div>
 </div>

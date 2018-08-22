@@ -24,7 +24,7 @@ export class GridComponent implements OnInit, OnInit {
   private pageIndex: number;
   private subscription: Subscription = new Subscription();
   private getDataSubscription: Subscription = new Subscription();
-  
+
   sortingOrder = ["desc", "asc"];
 
   columnDefs = [];
@@ -45,15 +45,15 @@ export class GridComponent implements OnInit, OnInit {
     const subscription = this.gridService.change.subscribe(res => {
       this.length = this.gridService.length;
       this.pageIndex = 0;
-      this.gridService.pageIndex = 0;     
+      this.gridService.pageIndex = 0;
       this.paginator.firstPage();
-      
+
       this.getPage(0);
     });
     this.subscription.add(subscription);
   }
 
-  ngOnInit() {   
+  ngOnInit() {
     let removeRecordsSubscription = this.gridService.onRemoveRecords.subscribe(keys => {
       this.removeRecords(keys);
     });
@@ -65,9 +65,7 @@ export class GridComponent implements OnInit, OnInit {
 
     this.subscription.add(updateRecordsSubscription);
 
-    if (!this.gridService.dataService) {
-      this.getPage(this.pageIndex);
-    }      
+    
   }
 
   getPage(pageIndex: number) {
@@ -90,22 +88,23 @@ export class GridComponent implements OnInit, OnInit {
     params.Sort.SortOrder = this.gridService.sort.sort == "asc" ? SortDirection.Ascending : SortDirection.Descending;
 
     this.getDataSubscription = this.gridService.getData(params).subscribe(data => {
-      
+
+      if (this.gridService.gridApi) {
+        this.gridService.gridApi.hideOverlay();
+        this.gridService.getCount(params).subscribe(data => {
+          this.gridOptions.api.setSortModel([this.gridService.sort]);
+          this.length = data;
+          if (data == 0) {
+            this.gridService.gridApi.showNoRowsOverlay();
+          }
+          let columnIds = [];
+          // this.gridOptions.columnApi.getAllColumns().forEach(c => {
+          //   columnIds.push(c.getId());
+          // });
+          //this.gridOptions.columnApi.autoSizeColumns(columnIds);
+        });
+      }
       this.gridService.gridApi.setRowData(data.AdeptDataTable.TableRecords);
-      
-      this.gridService.gridApi.hideOverlay();
-      this.gridService.getCount(params).subscribe(data => {
-        this.gridOptions.api.setSortModel([ this.gridService.sort ]);
-        this.length = data;
-        if (data == 0) {
-          this.gridService.gridApi.showNoRowsOverlay();
-        }
-        let columnIds = [];
-        // this.gridOptions.columnApi.getAllColumns().forEach(c => {
-        //   columnIds.push(c.getId());
-        // });
-        //this.gridOptions.columnApi.autoSizeColumns(columnIds);
-      });
     });
 
     this.subscription.add(this.getDataSubscription);
@@ -133,7 +132,7 @@ export class GridComponent implements OnInit, OnInit {
   }
 
   setOrder() {
-    this.gridOptions.api.setSortModel([ this.gridService.sort ]);
+    this.gridOptions.api.setSortModel([this.gridService.sort]);
   }
 
 
@@ -142,9 +141,13 @@ export class GridComponent implements OnInit, OnInit {
     //this.api.sizeColumnsToFit();
     if (this.gridService.data) {
       this.gridOptions.api.setRowData(this.gridService.data.TableRecords);
-      
+
     }
     this.paginator.pageSizeOptions = [20, 50, 75, 100, 150, 200, 250, 500, 1000, 2000, 5000, 10000];
+
+    if (!this.gridService.dataService) {
+      this.getPage(this.pageIndex);
+    }
   }
 
   onPageEvent(event) {
@@ -162,12 +165,12 @@ export class GridComponent implements OnInit, OnInit {
     if (event.finished) {
       const column: Column = { schemaId: this.columnBeingResized.getColId(), width: this.columnBeingResized.getActualWidth() };
       this.columnService.resizeColumn(column).subscribe();
-    }      
+    }
   }
 
   columnMoving: boolean = false;
   onColumnMoved(event: ColumnMovedEvent) {
-    this.columnMoving = true;  
+    this.columnMoving = true;
   }
 
   onDragStopped() {
@@ -185,12 +188,12 @@ export class GridComponent implements OnInit, OnInit {
     if (JSON.stringify(this.gridService.sort) != JSON.stringify(sort)) {
       this.gridService.sort = event.api.getSortModel()[0];
       this.getPage(this.gridService.pageIndex);
-    }     
+    }
   }
 
-  updateRecords(data: Map<FileKeys, Map<string,string>>) {
+  updateRecords(data: Map<FileKeys, Map<string, string>>) {
     Array.from(data).forEach(entry => {
-      let rowNode = this.gridOptions.api.getRowNode(entry["0"].fileId+entry["0"].majRev+entry["0"].minRev);
+      let rowNode = this.gridOptions.api.getRowNode(entry["0"].fileId + entry["0"].majRev + entry["0"].minRev);
       let dataToUpdate = rowNode.data as FileRecord;
       Array.from(entry["1"]).forEach(field => {
         dataToUpdate[field["0"]] = field["1"];
@@ -224,7 +227,7 @@ export class GridComponent implements OnInit, OnInit {
   }
 
   getRowNodeId(data) {
-    return data.SCHEMA_S_FILEID+data.SCHEMA_S_MAJREV+data.SCHEMA_S_MINREV;
+    return data.SCHEMA_S_FILEID + data.SCHEMA_S_MAJREV + data.SCHEMA_S_MINREV;
   }
 
   ngOnDestroy() {

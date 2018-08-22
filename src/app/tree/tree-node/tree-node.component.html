@@ -1,0 +1,24 @@
+<div class="tree-node">
+  <div class="node-contents">
+      <div class="node-control" (click)="toggle(item)">
+          <i class="material-icons" *ngIf="item.children?.length > 0 && !item.expanded">
+            add_circle_outline
+          </i>
+          <i class="material-icons" *ngIf="item.children?.length > 0 && item.expanded">
+            remove_circle_outline
+          </i>
+        </div>
+        <div (click)="itemSelected(item)" class="node"  [ngClass]="{ 'node-selected': item.selected }">
+          <img src="{{item.icon}}" alt="">
+          <span>{{item.name}}</span>
+        </div>
+  </div>
+  
+  <div *ngIf="item.expanded">
+    <tree-node (onSelected)="itemSelected($event)" *ngFor="let child of item.children" [item]="child">
+
+    </tree-node>
+  </div>
+
+
+</div>

@@ -1,0 +1,39 @@
+
+
+.tree-node {
+    margin-left: 0px;
+    margin-left: 10px;
+    position: relative;
+    .node-contents {
+        padding: 5px;
+    }
+    .node-control {
+        display: inline;
+        position: relative;
+        i {
+            position: absolute;
+            font-size: 18px;
+            cursor: pointer;
+            color: rgb(130,130,130);
+        }
+    }
+    .node {
+        padding: 5px;
+        display: inline;
+        margin-left: 24px;
+        border-radius: 4px;
+        img {
+            margin-right: 6px;
+        }
+        cursor: pointer;
+        &:hover {
+            background: rgba(150,150,150, .5);
+        }
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .node-selected {
+        background: rgba(150,150,150, .3);
+    }
+}

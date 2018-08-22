@@ -22,6 +22,7 @@ export class SearchService implements IGridInterface {
     term.schemaID = schemaId;
     term.valueStr = searchValue;
     this.searchCriteria = [ term ];
+    
   }
 
   getData(params: SearchParams): Observable<SearchParams> {

@@ -52,6 +52,7 @@ export class VaultModel {
     public afsServer: string;
     public afsPort: number;
     public children: Array<LibModel>;
+    public icon: string;
     constructor() {
         this.vaultType = VaultModel.defaultVaultType;
         this.ftpPort = VaultModel.defaultFtpPort;
