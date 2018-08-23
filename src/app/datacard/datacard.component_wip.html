@@ -1,0 +1,227 @@
+<div class="data-card">
+    <div class="controls">
+        <div class="buttons">
+            <button tabindex="1001" id="back-btn" class="btn btn-default back-button"
+                    (click)="backToGrid()"
+                    [disabled]="processing">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADUAAAA1CAYAAADh5qNwAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAEmzAABJswEXCwzhAAAAB3RJTUUH4AcTFwo06C48iQAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAHe0lEQVRo3s2aa2wU1xWAv3N39uEHNeDyKIQF41IUURRaEiiK4lLSQG1QRfiVNKUtUkqjJAUsQlP4QUqbNI8GgnmGUhoESdOqakkFIVISJa4pVKn6oKBENS8bLB5BBJuH7V3v7Jz+mLWx8S6efWEfaTVzZ+/M3O/ec88958wV8ihDFr1pBt/9UFFcGebEGWIMbT6bloIAn0VGEjc+1Ch67EHRXL5XcvWgUVu12B9jOg4VCvOBMqAw8RZBMd2qdwANCP8Vpc4x1MkI6s0V4o2LJd6vUBPXtwYjUrgQh0dUuBuwAF/iJ2k+/xOE3Q78OTSMU/HGVrthVXFmUKqKSHpso2s6Cg3+5SiLBL4A+BMgudCdKMrrImxRiyNnnhA77Uds3HeQH8+711Plb7yqnIzwkMLLIpSiBHOpwj30R4kgbHaUdYFo2/lTTxd5nnfGqLe64Q065ESE/SivCYxGCeUFCMBtUghluYED8WBhZdlWtTxDqQfVC9foFBz+LjAHIcTtlfEKe5wOfjb8N+rp3cY/MtgX0EyUd4GJ0MOC3U4JqLIyeJ3tY9fp4Iyt36iXLmIFh81F2QUMZYCIwH6niEeafigtaUFNfUG5FGKawrtACQNLHAxvRR0WfrpM2pKqX7KLFwsYq7BnAAK5bVa+HRReSV3h5jVobTwkyh+AUQxUUSyUh8PrdX6fUOEaFZ9lVgLTc6InCqp5QxsEbBxb09twdEGVP+8gShnKyqw7UqHAgu/fBc98HWaXg+3kBaxUHX6S0lCMrrlmfFr8HjArW6ChhfDreTAtocDtMdj2L3jhEAR9OQdrUGFW01Jp7DFS4bWKzym+MxdAJSHYXHkDCKDAD9+ZDH7T6SzkVMpQ/thL/ZQOQXg5W6BBQdhcBfeO6f2/z4DJj1OFCHeGa/T+LqjyLYrxBYYC38oGqCjgjlBFuPf/MQf2HoOOeJ6cRSWEw5IuKDsGCPOyMgp+2FQJM8clt4AfNsCav0LAlzdL6EO4b+ImLQQwTutnosqqTJ3pAgs2VsL9ZSmAGuGxt93zPEtBu80C10svKi0EvpQJkN8HG6vggbLkI1h3Gn60D+L5BwLwq1DpxlMwIRMgn4Ga2S5QsujlYBMs3ufOp9skPlFmAFiiTNU0gYzA+tlQNSE50Edn4dG9EI1nOu8zTqSMXqgqlgpTvS4endXWPQDzJiQ30f84C4v+Aq2xRGOkZ6NuvtZXWTVhNT2S1dUw2AIme/blHNdTmF3uqt/NwMcvw+6jMGOM2whx1xBM4pjq3HQrd50n7r8ahcMXoOmqJ2NjxMcoCa/Xc7gZoVtK3IF9D8OXh4NlUjuwttMTqPsxU2mJwHf3wNGLffe7KHMNMMRLeLxoCkwZmRqIRC8HfK47ZBnwdevxbGRwCJZO8+RiiQoFBiHuZS5Nv6N/Q6jPhTx1jiAEDcqnXh763qn+A2qPwTsnPI+43wJOAuP7qrn/OMwph6ovZuf0Op1HvVF2NPXvSgTePg6vHfbo3CqNFvAh8M2+loOoDU+/D/WXoPpryetcicL39sD/Lrkq273hmjjvus6Ncmd03FVO6HznuWUgaHkYKQGFkxJer/cAh3CT+32G5wUWLJ4KT81IXudiKyx8ywXrj+yFL+QaimO4nelhEYCI7UaxLx5MXmd4EfxuAUwa1i8Jmfro2caYEeW6V6hEQEbUhu3/huf/liJxUABvLIDJw/OVbE+pfnVW6TjHqGvS30kz0qTDge3/gWfrkq8fQ0Iu2F0jvLs42eseb6oFpsN1S7YAdnqd4noPOw7DL+qSuzAlQXh9AXx1ZP5C+W7SZgwfNT0pmAtLBKAWiKY/2m6s9NvDsKYO7CRggwKwa77rjeQZ7E9OeyzSlXg5vVRs4CUySPZIwiruPAw/r3XV8mYpDsCGOe4xX8lNx/BcvNCvPTO0wiYk/dHqBFNg5xFYU5s8jhpTAiOK8zO/FA4o0ePnHpeeGdo24TLwbOaGx5VdR+CZWmi/aYbaDlxpz8NIuSHL44Go3+mR9wO4tERA+RXQlA2YEXjjKKz6AFq6jfvq2kQ59yO1M97e/HHDCl/qSDn8is5EeJ8sv7YLUFoIE0uhoQUuXM9LRqlZhPLTS6W5V4a2R2OC1KI8lwM951IbHGqCc9fyAqQYHoy1NDTjJacxtkZR2ItmnuS8Dd7DT229+uK5ZSV4ggIIb9AQDnXAPQOOR9ihtr34zHJ/UvcuZXAe+woRcUOSfw4gHlVlt608lgrollDn7xMsuKpQAewfAEBxhLUW/ODssltv7bnlvoiTywTH0I4wV+CX/TR3ANqBRyGyoqFaHG+39CHjXlXUBsdmlsDvgdsVLdkIJ4D5scuf1J9fMyktR8CTjNqm+NsJAqsUVnf5R/lRtShKtfGzo/GJ9PYApr2+j9+mODbEbT4vygrgKXK3vcdORAurDWxvXCbXsnHZ0pY7tijBKNiGoCpVwJOk9824M6/iQFegulWVD5qq09/jlxOorvlWo0gJaDM4QgDDJJQKlArcz0QjcXfO+HG3mTYDF4CPEQ4qHBCo911ri8WLCjlTnb1z+H+lfsWmP1TSAQAAAABJRU5ErkJggg==" />
+                <span class="pop-over">{{locale?.resourceStrings?.BACK_TO_RESULTS}}</span>
+            </button>
+            <button tabindex="1002" id="previous-btn" class="btn btn-default previous-button"
+                    (click)="changeRecord('previous')"
+                    [diabled]="recordIndex === 0 || processing || vm.gridRecords.length == 0">
+                <img src="data:image/png;base64,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" />
+                <span class="pop-over">{{locale?.resourceStrings?.PREVIOUS}} {{vm.gridRecords[vm.recordIndex - 1].SCHEMA_S_LONGNAME}}</span>
+            </button>
+            <button tabindex="1003" id="next-btn" class="btn btn-default next-button"
+                    (click)="vm.changeRecord('next')"
+                    [diabled]="vm.recordIndex > vm.gridRecords.length-2 || processing || vm.gridRecords.length == 0">
+                <img src="data:image/png;base64,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" alt="Alternate Text" />
+                <span class="pop-over">{{locale?.resourceStrings?.NEXT}} {{vm.gridRecords[vm.recordIndex + 1].SCHEMA_S_LONGNAME}}</span>
+            </button>
+            <button tabindex="1004" id="save-btn" class="btn btn-default save-button"
+                    [diabled]="!vm.dataCardDirty || dataCardService.loading"
+                    (click)="vm.saveChanges()">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADoAAAA5CAYAAABnLziGAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAEmzAABJswEXCwzhAAAAB3RJTUUH4AcTFx44zzan9wAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAENElEQVRo3u2aTWhcVRTHf+e9N5l8jTW1JSFtpjRtN4KC2IWC4Ed3bgpuFFyJQhHBpkVKcRlx0QgmNVCsO93oVtCdUCULRYMgXfpRmKTWQk0b8jWTvHf/LvJmzHcmkzfNZHhnGObz3nf/9/zvef9z7jXWWH5UJwnJAx7702YzC9z8832bW/mlld8cH9XxKOIz4EXAZ3/bvxiDhfP2ySqgR0bU68M3wFM0j80DVwoDNkiZnoHxIfAkzWXtwFv5YZ0GCF7/4tbbP92PzizhV0PXyGBaEAGXyPEVJdrqPeLu4J53NzzklGXBm+E1wRBwuIqmPRjngPEgMF3zTKDqLipD8WOu8KYVgWK9gRbi1/DrF7wTMzdmAVdl0wzwdM+Q2r2ppTZKLmgIrvWO6nDfiM70jerQRr8HZ793NXSby2R43CtGtYH0iCxJkPlh9QYhnxt8ZxHXu0eVTajrLMZjnlNt43X4StSdRg7jdPzpSEtIf0I9e0C2kUSBAWV6CcMl2bn310LXtw0EtBz55ZEw0EjeUgN61EUeUaJAG4a4wtAKj7pkPRo00Aq1FRPvIi9h6tYw8/W0SjDyw2al7vIaLd/rnM/eA7U6Aq3wZsntNXUfjkUuINxToFYnj8qYkjEGYMbNvwdsqik9OnHeJhXwMuKU38+lekW5hrDJd2wW+KMefe/Uo6Z9WjSrxaM+cADjYn5Er/BwC2mR4BhwoN5Ay3o0CzwTP5vSowa0VlJSKAlC204vCQHJJA+GgK6djj3Y5fpus2qnZ49tv1bjU6Ap0BRoCjQFmgJNgaZAU6B1F/UCfpUxaI65WL06jHmMxbKaNQPEnBylFQrXfGM+ylBcq3l7fGZ+Pmc114by15VjgSeAG0BLIkAFk6HPD3fO2/RuZrb7I3VkO5YH9U9ELn9NZd3vW0TOhetSAGF0YLTGGVMOR8YgowW6gFPVMLNaoJ7B2UzIg/xIJSNbAmbW5CYCOrebXRY3poy2ynS0OhtSnai7kWWAg2kw2ucVBodxH1FepyEwu4ZYCJwZs6zfVjCJadvddoOrENjIIZ4FHk0KaFHw0sSA/dhonspf1WXEB9thqRaob+K5/FVlcZu3MfBkdMTrd128MCMQ5DYptrQjsmvayaBV0Bb/R4hHAN+MTkEn4vlqcARVBx5jCLFl/We7SKgathy10ZSw86ibSsAUaAq08YFGTY7RIRa9WK82sxXNuOsBv8fqpllt3nncCiTGzHgDOCkoeeK2POYEWVNV91kzo0VSC9jKAxZ+LBETP7BjRoijWO5byzlxKb7NFmUcRRyLrz8++a49CCYu2Fh+WL9gnDDIyuhHO9sX0pb5VfKmzYWLZNxGHI0/30F8Wom6keM9YLwpiPr/MbsZwZXCBRtf5Yb8xzqIx2XgVaBv1y5a3secRSxQ7/NmqxXjbxj3EF8WBqxycvU/TWVa+dO4yV0AAAAASUVORK5CYII=" alt="Alternate Text" />
+                <span class="pop-over">{{locale?.resourceStrings?.SAVE_CHANGES}}</span>
+            </button>
+
+        </div>
+        <div class="select-group">
+            <label for="CBAvailableDataCards">{{locale?.resourceStrings?.AVAILABLE_DATA_CARDS}}</label>
+            <select tabindex="1005" id="CBAvailableDataCards"
+                    class="form-control"
+                    [(ngModel)]="currentDataCardId" ,
+                    (change)="dataCardChanged()"
+                    [diabled]="processing || dataCardService.singleCard">
+                <option *ngFor="let card of dataCardService.availableDataCards" value="{{id}}">{{name}}</option>
+            </select>
+        </div>
+        <div *ngIf="!dataCardService.tagged">
+            <p class="tag-title"
+               style="display: inline-block">
+                <b>{{locale?.resourceStrings?.ALREADY_TAGGED_BY}} </b>{{dataCardService.currentRecordData.alreadyTaggedByName}}
+            </p>
+        </div>
+
+    </div>
+    <div class="doc-title">
+        <b style="display: inline-block">{{locale?.resourceStrings?.CURRENT_DOCUMENT}}</b>
+        <p style="display: inline-block">{{selectedRecord.SCHEMA_S_LONGNAME}}    </p>
+    </div>
+    <div class="tab-set">
+        <div class="tabs">
+            <div [ngClass]="{ 'active': dataCardService.activeTab == $index }" class="tab" (click)="tabChanged($index, tab)" *ngFor="let tab of dataCardService.tabs; index as $index" id="{{tab.id}}" tabindex="{{$index+2}}">{{tab.name}}</div>
+        </div>
+        <div class="tab-content tab-controls" *ngFor="tab in dataCardService.tabs track by tab.id" ng-if="dataCardService.activeTab == $index">
+            <div *ngIf="processing" class="overlay" style="background-color: rgba(255,255,255, 0.3)">
+                <div class="msg-indicator ">
+                    <span>Loading Data <i class="fa fa-spinner fa-spin" aria-hidden="true"></i></span>
+                </div>
+            </div>
+            <div *ngIf="tab.id == 11111 && tab.active" class="memo-tab">
+                <div class="froala-container">
+                     <div class="memo-editor" ng-cloak froala
+                         changed="vm.memoChanged"
+                         editor="vm.froalaEditor" ,
+                         ng-model="vm.dataCardService.memoInfo.data">
+
+                </div>
+
+            </div>
+            <div *ngIf="tab.id == 12222 && tab.active" class="container">
+                <img class="img-thumbnail" style="width: 500px; height: 500px; margin-top: 30px;" src="{{vm.dataCardService.imageData}}" />
+            </div>
+
+            <!-- Labels -->
+            <label *ngFor="let prompt of tab.prompts"
+                   control-position
+                   left="prompt.dataCardControlDefinition.x"
+                   top="prompt.dataCardControlDefinition.y"
+                   width="prompt.dataCardControlDefinition.width"
+                   height="vm.dataCardService.textBoxHeight"
+                   id="{{prompt.dataCardControlDefinition.id}}">
+                {{prompt.dataCardControlDefinition.value}}
+            </label>
+            <!-- End Labels -->
+            <!-- Texboxes -->
+            <div *ngFor="textbox of tab.textBoxes"
+                 class="datacard-control"
+                 control-position
+                 left="textbox.dataCardControlDefinition.x"
+                 top="textbox.dataCardControlDefinition.y"
+                 width="textbox.dataCardControlDefinition.width"
+                 height="vm.dataCardControlDefinition.textBoxHeight">
+                <input tabindex="{{textbox.uniqueId}}" xto-Clear ng-keyup="$event.keyCode == 13 && vm.search()" class="form-control"
+                       maxlength="{{textbox.schemaModel.baseFieldDefinition.width}}"
+                       id="{{textbox.schemaModel.schemaDefinition.id}}"
+                       ng-class="{'input-dirty': vm.dirtyInputs[textbox.schemaModel.schemaDefinition.id] }"
+                       ng-model="vm.inputModel[textbox.schemaModel.schemaDefinition.id]"
+                       ng-change="vm.inputChanged(vm.inputModel[textbox.schemaModel.schemaDefinition.id], textbox.schemaModel.schemaDefinition.id, textbox)"
+                       [diabled]="!vm.dataCardService.currentRecordData.schemaEditable[textbox.schemaModel.schemaDefinition.id] || !vm.dataCardService.editMode || textbox.schemaModel.fieldDefinition.relatedFieldDefinition.Type == 1"
+                       ng-style="{ 'height': vm.dataCardService.textBoxHeight }" />
+            </div>
+            <!-- End Textboxes -->
+            <!-- Date Input -->
+            <div ng-repeat="textbox in tab.dates track by textbox.uniqueId"
+                 class="datacard-control"
+                 id="{{textbox.schemaModel.schemaDefinition.id}}"
+                 control-position
+                 left="textbox.dataCardControlDefinition.x"
+                 top="textbox.dataCardControlDefinition.y"
+                 width="textbox.dataCardControlDefinition.width-30"
+                 height="vm.dataCardService.textBoxHeight">
+                <!--default input box to disabled and changed ng-model from schemaModels-->
+                <input xto-Clear ng-keyup="$event.keyCode == 13 && vm.search()"
+                       class="form-control"
+                       id="{{textbox.schemaModel.schemaDefinition.id}}"
+                       ng-class="{
+                                           'input-dirty': vm.dirtyInputs[textbox.schemaModel.schemaDefinition.id],
+                                           'user-date': vm.dataCardService.currentRecordData.schemaEditable[textbox.schemaModel.schemaDefinition.id] && !vm.dirtyInputs[textbox.schemaModel.schemaDefinition.id] }"
+                       [diabled]="true"
+                       ng-style="{'height': vm.dataCardService.textBoxHeight }"
+                       ng-model="vm.inputModel[textbox.schemaModel.schemaDefinition.id]"
+                       ng-change="vm.inputChanged(vm.inputModel[textbox.schemaModel.schemaDefinition.id], textbox.schemaModel.schemaDefinition.id, textbox)" />
+            </div>
+            <!-- End Date Input -->
+            <!-- Date Picker -->
+            <div ng-repeat="textbox in tab.dates track by textbox.uniqueId"
+                 control-position
+                 left="textbox.dataCardControlDefinition.x + textbox.dataCardControlDefinition.width-(30)"
+                 top="textbox.dataCardControlDefinition.y"
+                 height="vm.dataCardService.textBoxHeight">
+                <awc-date-picker mode="edit"
+                                 current-date="vm.inputModel[textbox.schemaModel.schemaDefinition.id]"
+                                 textbox-id="textbox.dataCardControlDefinition.id"
+                                 date-format="vm.dataCardService.uiDateFormatter"
+                                 [diabled]="!vm.dataCardService.currentRecordData.schemaEditable[textbox.schemaModel.schemaDefinition.id] || !vm.dataCardService.editMode"
+                                 date-picked="vm.datePicked" tab-index="textbox.uniqueId">
+                </awc-date-picker>
+            </div>
+            <!-- End Date Picker-->
+            <!-- Restriced Fields -->
+            <div ng-repeat="restricted in tab.textBoxesRestricted track by restricted.uniqueId"
+                 control-position
+                 left="restricted.dataCardControlDefinition.x"
+                 top="restricted.dataCardControlDefinition.y"
+                 width="restricted.dataCardControlDefinition.width"
+                 height="vm.dataCardService.textBoxHeight">
+                <div custom-select tab-index="restricted.uniqueId" selected-value="vm.inputModel[restricted.schemaModel.schemaDefinition.id]"
+                     get-data="vm.getRestricted(restricted.schemaModel.schemaDefinition.id)"
+                     max-length="restricted.schemaModel.baseFieldDefinition.width"
+                     allow-text="false"
+                     always-reload="true"
+                     dirty="vm.dirtyInputs[restricted.schemaModel.schemaDefinition.id]"
+                     on-submit="vm.search"
+                     has-been-saved="vm.hasBeenSaved"
+                     cs-disabled="!vm.dataCardService.currentRecordData.schemaEditable[restricted.schemaModel.schemaDefinition.id]  || !vm.dataCardService.editMode"
+                     model-changed="vm.inputChanged"
+                     select-id="restricted.schemaModel.schemaDefinition.id" control-object="restricted">
+                </div>
+            </div>
+            <!-- End Restricted Fields -->
+            <!-- Dropdown Fields -->
+            <div ng-repeat="restricted in tab.dropdownLists track by restricted.uniqueId"
+                 control-position
+                 left="restricted.dataCardControlDefinition.x"
+                 top="restricted.dataCardControlDefinition.y"
+                 width="restricted.dataCardControlDefinition.width"
+                 height="vm.dataCardService.textBoxHeight">
+                <div custom-select tab-index="restricted.uniqueId" selected-value="vm.inputModel[restricted.schemaModel.schemaDefinition.id]"
+                     max-length="restricted.schemaModel.baseFieldDefinition.width"
+                     get-data="vm.getDropdownListValues(restricted.schemaModel.schemaDefinition.id)"
+                     allow-text="true"
+                     always-reload="true"
+                     has-been-saved="vm.hasBeenSaved"
+                     dirty="vm.dirtyInputs[restricted.schemaModel.schemaDefinition.id]"
+                     on-submit="vm.search"
+                     cs-disabled="!vm.dataCardService.currentRecordData.schemaEditable[restricted.schemaModel.schemaDefinition.id]  || !vm.dataCardService.editMode"
+                     model-changed="vm.inputChanged"
+                     select-id="restricted.schemaModel.schemaDefinition.id" control-object="restricted">
+                </div>
+            </div>
+            <!-- End Restricted Fields -->
+            <!-- Library Fields -->
+            <div ng-repeat="restricted in tab.libraryFields track by restricted.uniqueId"
+                 control-position
+                 left="restricted.dataCardControlDefinition.x"
+                 top="restricted.dataCardControlDefinition.y"
+                 width="restricted.dataCardControlDefinition.width"
+                 height="vm.dataCardService.textBoxHeight">
+                <div custom-select tab-index="restricted.uniqueId" selected-value="vm.inputModel[restricted.schemaModel.schemaDefinition.id]"
+                     max-length="restricted.schemaModel.baseFieldDefinition.width"
+                     get-data="vm.getRestricted(restricted.schemaModel.schemaDefinition.id)"
+                     allow-text="true"
+                     on-submit="vm.search"
+                     has-been-saved="vm.hasBeenSaved"
+                     cs-disabled="true"
+                     model-changed="vm.inputChanged"
+                     select-id="restricted.schemaModel.schemaDefinition.id" control-object="restricted">
+                </div>
+            </div>
+            <!-- End Library Fields -->
+            <!-- Logical Fields -->
+            <div ng-repeat="restricted in tab.logical track by restricted.uniqueId"
+                 control-position
+                 left="restricted.dataCardControlDefinition.x"
+                 top="restricted.dataCardControlDefinition.y"
+                 width="restricted.dataCardControlDefinition.width"
+                 height="vm.dataCardService.textBoxHeight">
+                <div custom-select
+                     max-length="restricted.schemaModel.baseFieldDefinition.width"
+                     tab-index="restricted.uniqueId"
+                     selected-value="vm.inputModel[restricted.schemaModel.schemaDefinition.id]"
+                     allow-text="false"
+                     has-been-saved="vm.hasBeenSaved"
+                     logical="true"
+                     dirty="vm.dirtyInputs[restricted.schemaModel.schemaDefinition.id]"
+                     cs-disabled="!vm.dataCardService.currentRecordData.schemaEditable[restricted.schemaModel.schemaDefinition.id] || !vm.dataCardService.editMode"
+                     on-submit="vm.search"
+                     model-changed="vm.inputChanged"
+                     select-id="restricted.schemaModel.schemaDefinition.id">
+                </div>
+            </div>
+            <!-- End Logical Fields -->
+        </div>
+    </div>
+</div>
