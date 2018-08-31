@@ -10,8 +10,8 @@ const routes: Routes = [
     component: LoginComponent,
     resolve: { message: LoginResolver }
   },
-  { path: '', redirectTo: 'layout', pathMatch: 'full' },
-  { path: '**', redirectTo: 'layout' },
+  { path: '', redirectTo: '/layout', pathMatch: 'full' },
+  { path: '**', redirectTo: '/layout' },
 ];
 
 @NgModule({

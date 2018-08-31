@@ -11,16 +11,16 @@
     </div>
     <div class="confirm-footer">
       <button autofocus class="button primary-button" (click)="answer('Y')">
-        {{locale?.resourceStrings?.YES}}
+        {{$any(locale).resourceStrings.YES}}
       </button>
       <button class="button default-button" (click)="answer('YtoAll')">
-        {{locale?.resourceStrings?.YES_TO_ALL}}
+        {{$any(locale).resourceStrings.YES_TO_ALL}}
       </button>
       <button autofocus class="button primary-button" (click)="answer('N')">
-        {{locale?.resourceStrings?.NO}}
+        {{$any(locale).resourceStrings.NO}}
       </button>
       <button class="button default-button" (click)="answer('NtoAll')">
-        {{locale?.resourceStrings?.NO_TO_ALL}}
+        {{$any(locale).resourceStrings.NO_TO_ALL}}
       </button>
     </div>
   </div>

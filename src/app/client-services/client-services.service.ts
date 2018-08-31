@@ -13,7 +13,7 @@ import { ajax } from 'rxjs/ajax';
 })
 export class ClientServicesService {
 
-  constructor(private auth: AuthService, private locale: LocalizationService, private http: HttpClient, private bowser: BowserService) { }
+  constructor(private auth: AuthService, public locale: LocalizationService, private http: HttpClient, private bowser: BowserService) { }
 
   accessToken: string;
 
@@ -26,7 +26,7 @@ export class ClientServicesService {
       culture: this.locale.language,
     }
 
-    let data = `grant_type=password&webapiurl=${Global.API_URL}/&webapitoken=${this.auth.accessToken}&username=${this.auth.user.LoginName}&culture=&${this.locale.language}`;
+    let data = `grant_type=password&webapiurl=${window.location.origin}/Synergis.WebApi/&webapitoken=${this.auth.accessToken}&username=${this.auth.user.LoginName}&culture=&${this.locale.language}`;
 
     return this.http.post(`${Global.ACS_URL}/token`, data).pipe(map(resp => {
       this.accessToken = resp["access_token"];

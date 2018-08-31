@@ -18,7 +18,7 @@ export class ProgressDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: MessageData,
     public dialogRef: MatDialogRef<ProgressDialogComponent>,
-    private locale: LocalizationService) { }
+    public locale: LocalizationService) { }
 
   ngOnInit() {
     this.title = this.data.title;

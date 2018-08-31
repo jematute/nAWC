@@ -21,7 +21,7 @@ import { bounce, zoomIn, zoomOut } from 'ng-animate';
 export class ToolbarComponent implements OnInit {
 
   constructor(
-    private locale: LocalizationService,
+    public locale: LocalizationService,
     private gridService: GridService,
     private dialog: MatDialog
   ) { }

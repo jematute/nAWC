@@ -44,7 +44,7 @@ import { SignalRModule, ConnectionTransports } from 'ng2-signalr';
   ],
   exports: [ ],
   bootstrap: [ AppComponent ],
-  providers: [ { provide: APP_BASE_HREF, useValue: '/' }, HttpClient, LocalizationService, {
+  providers: [ HttpClient, LocalizationService, {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true

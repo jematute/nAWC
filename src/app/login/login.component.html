@@ -6,21 +6,21 @@
       </div>
       <div class="control-area">
           <div class="login-header">
-              <span class="title-1">{{locale?.resourceStrings?.ADEPT}} </span><span class="title-2">2019</span>
-              <span *ngIf="locale?.resourceStrings?.ADEPT != 'Adept'"><br />{{locale?.resourceStrings?.POWERED_BY_ADEPT}}</span>
+              <span class="title-1">{{$any(locale).resourceStrings.ADEPT}} </span><span class="title-2">2019</span>
+              <span *ngIf="$any(locale).resourceStrings.ADEPT != 'Adept'"><br />{{$any(locale).resourceStrings.POWERED_BY_ADEPT}}</span>
           </div>
           <form (ngSubmit)="login()">
               <fieldset [disabled]="inProcess">
                   <div class="form-group has-feedback">
-                      <input [ngModelOptions]="{standalone: true}" autofocus xto-clear id="login-name" name="username" [(ngModel)]="user.loginName" type="text" class="form-control" placeholder="{{locale?.resourceStrings?.LOGIN_PLACEHOLDER}}">
+                      <input [ngModelOptions]="{standalone: true}" autofocus xto-clear id="login-name" name="username" [(ngModel)]="user.loginName" type="text" class="form-control" placeholder="{{$any(locale).resourceStrings.LOGIN_PLACEHOLDER}}">
                       <span class="glyphicon glyphicon-user form-control-feedback"></span>
                   </div>
                   <div class="form-group has-feedback">
-                      <input [ngModelOptions]="{standalone: true}" xto-clear id="login-password" [(ngModel)]="user.password" type="password" class="form-control" placeholder="{{locale?.resourceStrings?.PASSWORD_PLACEHOLDER}}">
+                      <input [ngModelOptions]="{standalone: true}" xto-clear id="login-password" [(ngModel)]="user.password" type="password" class="form-control" placeholder="{{$any(locale).resourceStrings.PASSWORD_PLACEHOLDER}}">
                       <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                   </div>
                   <div class="form-group has-feedback">
-                      <span>{{locale?.resourceStrings?.LANGUAGE}}</span>
+                      <span>{{$any(locale).resourceStrings.LANGUAGE}}</span>
                       <select name="langselect" id="CBAvailableLanguages"
                               class="form-control"
                               [(ngModel)]="selectedLanguage"
@@ -35,20 +35,20 @@
                               <label style="padding-left: 0">
                                   <input ng-model="vm.localStorage.userInfo.autoLogin" type="checkbox" value="">
                                   <!-- <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span> -->
-                                  <span>{{locale?.resourceStrings?.ENABLE_AUTO_LOGIN}}</span>
+                                  <span>{{$any(locale).resourceStrings.ENABLE_AUTO_LOGIN}}</span>
 
                               </label>
                           </div>
 
                       </div><!-- /.col -->
                       <div class="login-button">
-                          <button id="signin-button" [disabled]="inProcess" class="button primary-button pull-right">{{locale?.resourceStrings?.OK}}</button>
+                          <button id="signin-button" [disabled]="inProcess" class="button primary-button pull-right">{{$any(locale).resourceStrings.OK}}</button>
                       </div><!-- /.col -->
                   </div>
               </fieldset>
           </form>
           <div class="login-footer">
-              <p><i class="fa fa-copyright" style="margin-right:4px;" ng-click="vm.showLocalStorage()"></i><span>{{locale?.resourceStrings?.COPYRIGHT}}</span> <span> {{locale?.resourceStrings?.VERSION}}: {{appVersion}}</span></p>
+              <p><i class="fa fa-copyright" style="margin-right:4px;" ng-click="vm.showLocalStorage()"></i><span>{{$any(locale).resourceStrings.COPYRIGHT}}</span> <span> {{$any(locale).resourceStrings.VERSION}}: {{appVersion}}</span></p>
           </div>
       </div>
   </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { LibraryService } from './library.service';
 import { VaultModel } from '../classes/vaultmodel';
 import { LibModel } from '../classes/libmodel';
@@ -12,10 +12,12 @@ import { GridService } from '../results/grid/grid.service';
 })
 export class LibraryBrowserComponent implements OnInit {
 
-  constructor(private libraryService: LibraryService, private searchService: SearchService, private gridService: GridService) { }
+  constructor(private libraryService: LibraryService) { }
 
   tree: VaultModel[];
   processing = true;
+  @Output() onLibrarySelected = new EventEmitter<LibModel>();
+
   ngOnInit() {  
     this.libraryService.getLibraryTree().subscribe(vaults => {
       this.processing = false;
@@ -24,11 +26,6 @@ export class LibraryBrowserComponent implements OnInit {
   }
 
   librarySelected(library) {
-    if (library.libId) {
-      const selectedLibrary = library as LibModel;
-      this.searchService.setSearchCriteria("SCHEMA_S_LIBID", selectedLibrary.libId);
-      this.gridService.dataService = this.searchService;
-      this.gridService.reloadGrid();
-    }
+    this.onLibrarySelected.emit(library);
   }
 }

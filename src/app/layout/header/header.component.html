@@ -1,23 +1,23 @@
 <div class="header main-header">
   <div class="logo-section">
     <span class="logo-mini">
-      <img src="../../../images/adept-navbar-logo.png" />
+      <img src="./images/adept-navbar-logo.png" />
     </span>
 
     <div class="title">
       <span [hidden]="router?.url != '/login'">
-        <b>{{locale?.resourceStrings?.SYNERGIS}} </b>
-        <span>{{locale?.resourceStrings?.ADEPT}}</span>
+        <b>{{$any(locale).resourceStrings.SYNERGIS}} </b>
+        <span>{{$any(locale).resourceStrings.ADEPT}}</span>
       </span>
 
       <span [hidden]="auth?.user?.Reviewer || auth?.user?.Creator || router?.url == '/login'">
-        <b>{{locale?.resourceStrings?.ADEPT}} </b>Explorer
+        <b>{{$any(locale).resourceStrings.ADEPT}} </b>Explorer
       </span>
       <span [hidden]="!auth?.user?.Reviewer || router?.url == '/login'">
-        <b>{{locale?.resourceStrings?.ADEPT}} </b>Reviewer
+        <b>{{$any(locale).resourceStrings.ADEPT}} </b>Reviewer
       </span>
       <span [hidden]="!auth?.user?.Creator || router?.url == '/login'">
-        <b>{{locale?.resourceStrings?.ADEPT}} </b>Creator
+        <b>{{$any(locale).resourceStrings.ADEPT}} </b>Creator
       </span>
 
       <!-- Sidebar toggle button-->

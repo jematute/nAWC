@@ -17,11 +17,11 @@ import { Sort } from '../../classes/sort';
 export class GridComponent implements OnInit, OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  private gridOptions: GridOptions;
+  public gridOptions: GridOptions;
   private columnApi: ColumnApi;
-  private length: number;
-  private pageSize: number;
-  private pageIndex: number;
+  public length: number;
+  public pageSize: number;
+  public pageIndex: number;
   private subscription: Subscription = new Subscription();
   private getDataSubscription: Subscription = new Subscription();
 

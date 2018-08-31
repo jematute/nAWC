@@ -12,7 +12,7 @@ export class ConfirmDialogComponent implements OnInit {
   shown: boolean = false;
   title: string = "";
   messages: string[] = [];
-  constructor(private service: ConfirmDialogService, private locale: LocalizationService) { }
+  constructor(private service: ConfirmDialogService, public locale: LocalizationService) { }
 
   ngOnInit() {
     this.service.onOpen.subscribe(res => { 

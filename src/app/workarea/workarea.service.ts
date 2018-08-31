@@ -19,7 +19,7 @@ import { SearchParams } from '../search/search-params';
 })
 export class WorkareaService implements IGridInterface {
 
-  constructor(private http: HttpClient, private locale: LocalizationService, private errorDialog: ErrorDialogService, private progressDialog: ProgressDialogService) { }
+  constructor(private http: HttpClient, public locale: LocalizationService, private errorDialog: ErrorDialogService, private progressDialog: ProgressDialogService) { }
   workAreas: Array<WorkAreaModel> = [];
   currentWorkArea: WorkAreaModel;
   pluginDefinitions: Array<PlugInDefinition> = [];

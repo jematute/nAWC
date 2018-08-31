@@ -7,12 +7,12 @@
   <div id="toolbar-toggle" (click)="showToolbar = !showToolbar; toolbarToggled()" class="toggle-button">
       <i *ngIf="showToolbar" class="fa fa-angle-up">
           <!-- <md-tooltip md-delay="300" class="custom-tooltip" md-direction="bottom">
-              {{locale?.resourceStrings?.COLLAPSE_TOOLBAR}}
+              {{$any(locale).resourceStrings.COLLAPSE_TOOLBAR}}
           </md-tooltip> -->
       </i>
       <i *ngIf="!showToolbar" class="fa fa-angle-down">
           <!-- <md-tooltip md-delay="300" class="custom-tooltip" md-direction="bottom">
-              {{locale?.resourceStrings?.EXPAND_TOOLBAR}}
+              {{$any(locale).resourceStrings.EXPAND_TOOLBAR}}
           </md-tooltip> -->
       </i>
   </div>

@@ -10,7 +10,7 @@ import { SidebarService } from '../sidebar/sidebar.service';
   styleUrls: ['./header.component.less']
 })
 export class HeaderComponent implements OnInit {
-  constructor(private auth: AuthService, private locale: LocalizationService, private router: Router, private sidebar: SidebarService) { }
+  constructor(public auth: AuthService, public locale: LocalizationService, public router: Router, private sidebar: SidebarService) { }
 
   toggleSidebar() {
     this.sidebar.toggleSidebar();

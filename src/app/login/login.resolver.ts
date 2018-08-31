@@ -9,7 +9,7 @@ import { LocalizationService } from '../localization/localization.service';
 
 @Injectable()
 export class LoginResolver implements Resolve<Observable<Object>> {
-  constructor(private locale: LocalizationService) { }
+  constructor(public locale: LocalizationService) { }
 
   resolve() {
     return this.locale.getLanguages().pipe(switchMap(resp => {

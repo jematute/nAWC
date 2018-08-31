@@ -9,6 +9,8 @@ export class UpdateIconComponent implements OnInit {
 
   constructor() { }
 
+  iconFlash: boolean = false;
+
   ngOnInit() {
   }
 

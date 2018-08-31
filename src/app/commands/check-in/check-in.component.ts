@@ -29,7 +29,7 @@ import { GridService } from '../../results/grid/grid.service';
   styleUrls: ['./check-in.component.less'],
 })
 export class CheckInComponent implements OnInit {
-  private gridOptions: GridOptions;
+  public gridOptions: GridOptions;
   bReadyForOk: boolean = false;
   processing: boolean = false;
   rowData: GridItem[] = [];
@@ -66,7 +66,7 @@ export class CheckInComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<CheckInComponent>,
-    private locale: LocalizationService,
+    public locale: LocalizationService,
     private auth: AuthService,
     private confirmDialogService: ConfirmDialogService,
     @Inject(MAT_DIALOG_DATA) public selectionItems: SelectionItem[],
@@ -400,6 +400,10 @@ export class CheckInComponent implements OnInit {
     // Do Enables.
     this.doEnables();
   };
+
+  selectedLibraryChanged() {
+    
+  }
 
   //
   // On check/uncheck of the Keep Out checkbox.

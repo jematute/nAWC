@@ -9,7 +9,7 @@ export class TreeNodeComponent implements OnInit {
 
   constructor() { }
 
-  private _item = {};
+  private _item = { children: [], expanded: false, selected: false, icon: "", name: "" };
 
   @Output() onSelected = new EventEmitter<any>();
   @Input() set item(item) {

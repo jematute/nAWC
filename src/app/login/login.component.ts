@@ -16,7 +16,7 @@ import { LoginPromptComponent } from './login-prompt/login-prompt.component';
 export class LoginComponent implements OnInit {
 
   constructor(
-    private locale: LocalizationService, 
+    public locale: LocalizationService, 
     private router: Router, 
     private authService: AuthService, 
     private errorDialog: ErrorDialogService,
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   ) 
   { }
 
-  private user: User = { loginName: "creator6", password: ""};
+  public user: User = { loginName: "creator6", password: ""};
   selectedLanguage: any;
   inProcess: boolean;
   autoLogin: boolean;

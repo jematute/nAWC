@@ -50,21 +50,8 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
-
-        if (req.url.toLowerCase().indexOf('synergis.webapi') != -1)
-            return next.handle(this.addToken(req, this.auth.getToken()))
-                .pipe(catchError(err => {
-                    console.log("error thrown status:", (<HttpErrorResponse>err).status)
-                    switch ((<HttpErrorResponse>err).status) {
-                        case 400:
-                            return this.handle400Error(err);
-                        case 401:
-                            return this.handle401Error(req, next);
-                        default:
-                            return this.handleOtherErrors(err);
-                    }
-                }));
-        else if (req.url.indexOf(Global.ACS_URL) != -1) {
+       
+        if (req.url.indexOf(Global.ACS_URL) != -1) {
             return next.handle(this.addACSToken(req)).pipe(catchError(err => {
                 if (err.name.indexOf("Timeout") != -1)
                     return observableThrowError(err);
@@ -79,6 +66,20 @@ export class AuthInterceptor implements HttpInterceptor {
                         return this.handleOtherErrors(err);
                 }
             }));
+        }
+        else {
+            return next.handle(this.addToken(req, this.auth.getToken()))
+                .pipe(catchError(err => {
+                    console.log("error thrown status:", (<HttpErrorResponse>err).status)
+                    switch ((<HttpErrorResponse>err).status) {
+                        case 400:
+                            return this.handle400Error(err);
+                        case 401:
+                            return this.handle401Error(req, next);
+                        default:
+                            return this.handleOtherErrors(err);
+                    }
+                }));
         }
     }
 

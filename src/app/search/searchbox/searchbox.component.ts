@@ -26,7 +26,7 @@ export class SearchboxComponent implements OnInit {
   searchFieldLabel: string;
   searchInput: FormControl = new FormControl();
 
-  constructor(private search: SearchService, private columns: ColumnsService, private grid: GridService, private locale: LocalizationService, private ftsSearch: FTSSearchService) {
+  constructor(private search: SearchService, private columns: ColumnsService, private grid: GridService, public locale: LocalizationService, private ftsSearch: FTSSearchService) {
     this.selectedField = new FieldDefinition();
     this.columns.getColumns().subscribe(res => {
       //fts search

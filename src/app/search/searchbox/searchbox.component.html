@@ -5,7 +5,7 @@
 </div> -->
 
 <div (clickToClose)="closeDropdown()" class="search-container">
-    <button [disabled]="searchInputModel == ''" (click)="doSearch()" class="search-button"><i class="fa fa-search"></i></button>
+    <button [disabled]="searchValue == ''" (click)="doSearch(false)" class="search-button"><i class="fa fa-search"></i></button>
     <button id="filterbutton" class="filter-button" (click)="toggleDropdown()"><i class="fa fa-filter"></i></button>
     <button [hidden]="searchValue == ''" (click)="clearSearchVal()" class="clear-button"><i class="fa fa-times"></i></button>
     <input appAutofocus id="simplecriteria" [formControl]="searchInput"
@@ -13,7 +13,7 @@
     type="text"
     name="q" class="form-control searchbox" placeholder="{{selectedField?.displayName}}"
     />
-    <div class="input-warning" [hidden]="!showCharWarning">{{locale?.resourceStrings?.CHARACTER_NOT_ALLOWED}}</div>
+    <div class="input-warning" [hidden]="!showCharWarning">{{$any(locale).resourceStrings.CHARACTER_NOT_ALLOWED}}</div>
 
     <div class="search-dropdown" *ngIf="showDropdown">
         <div class="input-wrapper">
@@ -26,7 +26,7 @@
                 <!-- 
                 <div class="special-searches">
                     <div id="fts-search" class="select-item" ng-class="{ 'active': vm.ftsSearchSelected }" ng-show="vm.sidebarservice.ftsEnabled" ng-click="vm.fieldSelected('FTS')">
-                        <a>{{locale?.resourceStrings?.FULL_TEXT_SEARCH}}{{dropdownList[0]?.active}}</a>
+                        <a>{{$any(locale).resourceStrings.FULL_TEXT_SEARCH}}{{dropdownList[0]?.active}}</a>
                     </div>
                 </div>
             -->

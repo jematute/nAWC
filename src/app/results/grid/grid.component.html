@@ -1,6 +1,6 @@
 <div class="grid-container">
   <div class="grid">
-    <ag-grid-angular [sortingOrder]="sortingOrder" (sortChanged)="onSortChanged($event)" [getRowNodeId]="getRowNodeId" (selectionChanged)="onSelectionChanged($event)" (columnResized)="onColumnResized($event)" (dragStopped)="onDragStopped($event)" (columnMoved)="onColumnMoved($event)" style="width: 100%; height: 100%" class="ag-theme-balham" [rowData]="rowData" [columnDefs]="columnDefs"
+    <ag-grid-angular [sortingOrder]="sortingOrder" (sortChanged)="onSortChanged($event)" [getRowNodeId]="getRowNodeId" (selectionChanged)="onSelectionChanged($event)" (columnResized)="onColumnResized($event)" (dragStopped)="onDragStopped()" (columnMoved)="onColumnMoved($event)" style="width: 100%; height: 100%" class="ag-theme-balham" [rowData]="rowData" [columnDefs]="columnDefs"
       (gridReady)="onReady($event)" [gridOptions]="gridOptions">
     </ag-grid-angular>
   </div>

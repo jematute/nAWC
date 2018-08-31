@@ -1,17 +1,17 @@
 <div class="login-prompt">
   <div class="title">
-    <h2>{{locale?.resourceStrings?.ADEPT_MESSAGE}}</h2>
+    <h2>{{$any(locale).resourceStrings.ADEPT_MESSAGE}}</h2>
   </div>
   <div class="message">
-    <p>{{locale?.resourceStrings?.ALREADY_LOGGED_IN_FULL_ONE}}</p>
-    <p>{{locale?.resourceStrings?.ALREADY_LOGGED_IN_FULL_TWO}}</p>
+    <p>{{$any(locale).resourceStrings.ALREADY_LOGGED_IN_FULL_ONE}}</p>
+    <p>{{$any(locale).resourceStrings.ALREADY_LOGGED_IN_FULL_TWO}}</p>
   </div>
   <div class="footer">
       <button id="cancellogin" class="button default-button" (click)="cancel()">
-          {{locale?.resourceStrings?.CANCEL}}
+          {{$any(locale).resourceStrings.CANCEL}}
       </button>
       <button autofocus id="continuelogin" style="margin-left: 10px" class="button primary-button" (click)="continue()">
-          {{locale?.resourceStrings?.CONTINUE}}
+          {{$any(locale).resourceStrings.CONTINUE}}
       </button>
   </div> 
 </div>

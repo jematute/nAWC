@@ -4,8 +4,8 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build --prod",
+    "start": "ng serve --proxy-config proxy.conf.json",
+    "build": "ng build --prod --base-href /Synergis.WebClient/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -26,6 +26,7 @@
     "ag-grid": "^17.1.1",
     "ag-grid-angular": "^17.1.0",
     "bootstrap": "^3.3.5",
+    "classlist.js": "^1.1.20150312",
     "core-js": "^2.4.1",
     "dexie": "^2.0.2",
     "font-awesome": "^4.7.0",
@@ -38,6 +39,7 @@
     "primeng": "^6.1.0",
     "rxjs": "^6.2.1",
     "signalr": "^2.3.0",
+    "web-animations-js": "^2.3.1",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

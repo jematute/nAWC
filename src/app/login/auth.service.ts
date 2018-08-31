@@ -28,7 +28,7 @@ export class AuthService {
   autoLogin: boolean;
   user: userModel;
 
-  constructor(private http: HttpClient, private router: Router, private locale: LocalizationService) {
+  constructor(private http: HttpClient, private router: Router, public locale: LocalizationService) {
     this.refreshToken = localStorage.getItem("refresh_token");
     let user = localStorage.getItem("userModel");
     //if (user)

@@ -9,7 +9,7 @@ import { LocalizationService } from '../../../localization/localization.service'
 })
 export class UserMenuComponent implements OnInit {
 
-  constructor(private auth: AuthService, private locale: LocalizationService) { }
+  constructor(public auth: AuthService, public locale: LocalizationService) { }
 
   showUserMenu: boolean = false;
 

@@ -1,5 +1,6 @@
 export class Global {
-    public static API_URL: string = "http://wkst0835:8686/synergis.webapi";
+    public static API_URL: string = "../Synergis.WebApi";
 
-    public static ACS_URL: string = "http://wkst0835:4040"
+    public static ACS_URL: string = "https://localhost:4343";
+
 }

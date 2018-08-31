@@ -1,0 +1,14 @@
+{
+    "/api": {
+      "target": "http://wkst0835.synergis.com:8686/synergis.webapi",
+      "secure": false
+    },
+    "/login": {
+      "target": "http://wkst0835.synergis.com:8686/synergis.webapi",
+      "secure": false
+    },
+    "/Synergis.WebApi": {
+      "target": "http://wkst0835.synergis.com:8686",
+      "secure": false
+    }
+  }

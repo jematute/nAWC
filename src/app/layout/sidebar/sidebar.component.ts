@@ -11,6 +11,9 @@ import { FileGuideButton } from './buttons/FileGuideButton';
 import { WorkAreasButton } from './buttons/WorkAreasButton';
 import { Router } from '@angular/router';
 import { trigger, transition, animate, style } from '@angular/animations';
+import { LibModel } from '../../classes/libmodel';
+import { GridService } from '../../results/grid/grid.service';
+import { SearchService } from '../../search/search.service';
 
 
 @Component({
@@ -43,7 +46,7 @@ export class SidebarComponent implements OnInit {
     new WorkAreasButton() 
   ];
 
-  constructor(private sidebarService: SidebarService, private locale: LocalizationService, private router: Router) { }
+  constructor(private sidebarService: SidebarService, public locale: LocalizationService, private router: Router, private gridService: GridService, private searchService: SearchService) { }
 
   ngOnInit() {
     this.sidebarService.onToggleLeftSidebar.subscribe(result => {
@@ -61,6 +64,15 @@ export class SidebarComponent implements OnInit {
       return;
     }
     this.activeMenu = button.label;
+  }
+
+  librarySelected(library: LibModel) {
+    if (library.libId) {
+      const selectedLibrary = library as LibModel;
+      this.searchService.setSearchCriteria("SCHEMA_S_LIBID", selectedLibrary.libId);
+      this.gridService.dataService = this.searchService;
+      this.gridService.reloadGrid();
+    }
   }
 
 }
