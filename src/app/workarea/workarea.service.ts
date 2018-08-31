@@ -124,7 +124,7 @@ export class WorkareaService implements IGridInterface {
                 return (workAreaItemList);
               }));
 
-            return of(WorkAreaItemsList);
+            return of(workAreaItemList);
 
           }));
         }))

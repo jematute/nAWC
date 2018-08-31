@@ -142,12 +142,12 @@ export class CheckInComponent implements OnInit {
                 }));
               }
               //path check failed, move on to the next item
-              return of(true);
+              return null;
             }));
           }
           //finished with this item
 
-          return of(true);
+          return null;
         }))
       }), finalize(() => {
         //when everything is done
