@@ -60,7 +60,7 @@ export class SidebarComponent implements OnInit {
 
   menuSelected(button: ISidebarButton) {
     if (button instanceof HomeButton) {
-      this.router.navigate(['/home']);
+      this.router.navigate(['layout/home']);
       return;
     }
     this.activeMenu = button.label;
