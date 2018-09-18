@@ -27,7 +27,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
     private auth: AuthService;
     private acs: ClientServicesService;
-    isRefreshingToken: boolean = false;
+    isRefreshingToken = false;
     tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
     errorSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
@@ -37,24 +37,26 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
-        //console.log("adding token to:", req.url);
+        // console.log("adding token to:", req.url);
         return req.clone({ setHeaders: { Authorization: 'Bearer ' + this.auth.getToken(), 'Content-Type': 'application/json' } });
     }
     addACSToken(req: HttpRequest<any>): HttpRequest<any> {
-        //console.log("adding token to:", req.url);
-        if (req.url.indexOf("token") !== -1)
+        // console.log("adding token to:", req.url);
+        if (req.url.indexOf('token') !== -1) {
             return req.clone({ setHeaders: { 'Content-Type': 'application/x-www-form-urlencoded' } });
-        else
+        } else {
             return req.clone({ setHeaders: { Authorization: 'Bearer ' + this.acs.accessToken, 'Content-Type': 'application/json' } });
+        }
 
     }
 
+    // tslint:disable-next-line:max-line-length
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
-       
-        if (req.url.indexOf(Global.ACS_URL) != -1) {
+        if (req.url.indexOf(Global.ACS_URL) !== -1) {
             return next.handle(this.addACSToken(req)).pipe(catchError(err => {
-                if (err.name.indexOf("Timeout") != -1)
+                if (err.name.indexOf('Timeout') !== -1) {
                     return observableThrowError(err);
+                }
                 switch ((<HttpErrorResponse>err).status) {
                     case 400:
                         return this.handleACS400Error(req, next, err);
@@ -66,11 +68,10 @@ export class AuthInterceptor implements HttpInterceptor {
                         return this.handleOtherErrors(err);
                 }
             }));
-        }
-        else {
+        } else {
             return next.handle(this.addToken(req, this.auth.getToken()))
                 .pipe(catchError(err => {
-                    console.log("error thrown status:", (<HttpErrorResponse>err).status)
+                    console.log('error thrown status:', (<HttpErrorResponse>err).status);
                     switch ((<HttpErrorResponse>err).status) {
                         case 400:
                             return this.handle400Error(err);
@@ -84,7 +85,7 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     handle401Error(req: HttpRequest<any>, next: HttpHandler) {
-        console.log("Handling 401");
+        console.log('Handling 401');
         if (!this.isRefreshingToken) {
             this.isRefreshingToken = true;
 
@@ -98,18 +99,18 @@ export class AuthInterceptor implements HttpInterceptor {
                     return next.handle(this.addToken(req, newToken));
                 }
                 // If we don't get a new token, we are in trouble so logout.
-                return this.logoutUser("no token");
+                return this.logoutUser('no token');
             }), catchError(error => {
                 // If there is an exception calling 'refreshToken', bad news so logout.
-                if (error.status == 400)
+                if (error.status === 400) {
                     return this.logoutUser(error);
+                }
                 return this.handleOtherErrors(error);
             }), finalize(() => {
-                console.log("no longer refreshing token");
+                console.log('no longer refreshing token');
                 this.isRefreshingToken = false;
             }));
-        }
-        else {
+        } else {
             return this.tokenSubject.pipe(filter(token => token != null), take(1), switchMap(token => {
                 return next.handle(this.addToken(req, token));
             }));
@@ -117,7 +118,7 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     handleACS401Error(req: HttpRequest<any>, next: HttpHandler) {
-        console.log("Handling 401 ACS");
+        console.log('Handling 401 ACS');
         if (!this.isRefreshingToken) {
             this.isRefreshingToken = true;
 
@@ -131,16 +132,15 @@ export class AuthInterceptor implements HttpInterceptor {
                     return next.handle(this.addACSToken(req));
                 }
                 // If we don't get a new token, we are in trouble so logout.
-                return this.logoutUser("no token");
+                return this.logoutUser('no token');
             }), catchError(error => {
                 // If there is an exception calling 'refreshToken', bad news so logout.
                 return this.handleOtherErrors(error);
             }), finalize(() => {
-                console.log("no longer refreshing token");
+                console.log('no longer refreshing token');
                 this.isRefreshingToken = false;
             }));
-        }
-        else {
+        } else {
             return this.tokenSubject.pipe(filter(token => token != null), take(1), switchMap(token => {
                 return next.handle(this.addACSToken(req));
             }));
@@ -151,7 +151,7 @@ export class AuthInterceptor implements HttpInterceptor {
         if (error && error.status === 400 && error.error && error.error.error === 'invalid_grant') {
             // If we get a 400 and the error message is 'invalid_grant', the token is no longer valid so logout.
             return this.auth.getNewToken().pipe(switchMap((newToken: string) => {
-                console.log("body", req.body);
+                console.log('body', req.body);
                 return this.acs.loginToACS();
             }));
         }
@@ -160,7 +160,7 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     handle400Error(error) {
-        console.log("handling 400");
+        console.log('handling 400');
         if (error && error.status === 400 && error.error && error.error.error === 'invalid_grant') {
             // If we get a 400 and the error message is 'invalid_grant', the token is no longer valid so logout.
             return this.logoutUser(error);
@@ -170,41 +170,44 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     handleOtherErrors(resp) {
-        //console.log("handling other errors");
-        //console.log(resp);
-        let error = "";
-        if (resp.error.Message)
+        // console.log("handling other errors");
+        // console.log(resp);
+        let error = '';
+        if (resp.error.Message) {
             error = resp.error.Message;
-        if (resp.error.ExceptionMessage)
-            error = resp.error.ExceptionMessage
-        this.errorDialog.showError("Server Error", error);
+        }
+        if (resp.error.ExceptionMessage) {
+            error = resp.error.ExceptionMessage;
+        }
+        this.errorDialog.showError('Server Error', error);
         return observableThrowError(resp);
     }
 
     handleACSNotRunning(req: HttpRequest<any>, next: HttpHandler, error) {
         return this.acs.launchACS().pipe(switchMap(resp => {
-            return this.auth.getNewToken().pipe(switchMap(resp => {
-                return this.acs.loginToACS().pipe(switchMap(resp => {
+            return this.auth.getNewToken().pipe(switchMap(() => {
+                return this.acs.loginToACS().pipe(switchMap(() => {
                     return next.handle(this.addACSToken(req));
                 }));
-            }));           
+            }));
         }), catchError(err => {
             console.log(err);
             return observableThrowError(err);
-        }))
+        }));
     }
 
     logoutUser(err) {
-        console.log("log out user");
+        console.log('log out user');
         // Route to the login page
         this.router.navigate(['login']);
-        localStorage.setItem("userModel", "");
-        if (err)
+        localStorage.setItem('userModel', '');
+        if (err) {
             if (err.error) {
                 if (err.error.error_description) {
                     err = err.error.error_description;
                 }
             }
+        }
 
         return observableThrowError(err);
     }

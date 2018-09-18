@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+   <title>Refresh Extracted Info</title>
+   <meta name="generator" content="Help &amp; Manual" />
+   <meta name="keywords" content="Attributes,Extract Data,Properties,Re-extract,Relationships" />
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   
+   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+   <meta name="description" content="In some situations, Adept may not have completely extracted all document information or for some reason, you may have cleared the information that was extracted. In these..." />
+   <meta name="picture" content="" />
+   <link type="text/css" href="default.css" rel="stylesheet" />
+   <style type="text/css">
+     body { margin: 0px; background: #FFFFFF; }
+   </style>
+   <script type="text/javascript" src="jquery.js"></script>
+   <script type="text/javascript" src="helpman_settings.js"></script>
+   <script type="text/javascript" src="helpman_topicinit.js"></script>
+
+   <script type="text/javascript">
+     HMSyncTOC("index.html", "awc_refresh_extract.htm");
+   </script>
+   <script type="text/javascript" src="highlight.js"></script>
+   <script type="text/javascript">
+     $(document).ready(function(){highlight();});
+   </script>
+</head>
+<body>
+
+
+<table style="width:100%; border:none; border-spacing:0px; padding:5px; background:#9AD9F1">
+  <tr style="vertical-align:middle">
+    <td style="text-align:left">
+      <p class="p_bannerbase"><span class="f_bannerbase">Refresh Extracted Info</span></p>
+
+    </td>
+    <td style="text-align:right">
+     <a href="awc_adept_help.htm">Top</a>&nbsp;
+     <a href="awc_extract_data.htm">Previous</a>&nbsp;
+     <a href="awc_extraction_status.htm">Next</a>
+    </td>
+  </tr>
+</table>
+
+
+<!-- Placeholder for topic body. -->
+<table style="width:100%;border:none;border-spacing:0px"><tr style="vertical-align:top"><td style="text-align:left;padding:5px">
+<p class="p_bodytext"><span class="f_bodytext">In some situations, Adept may not have completely extracted all document information or for some reason, you may have cleared the information that was extracted. In these cases, you can manually cause the re-extract by issuing a Refresh Extracted Info command.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">When you might need to force a “re-extract”:</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p style="text-align: left; text-indent: 0px; padding: 0px 0px 0px 13px; margin: 0px 0px 0px 0px;"><span style="font-size:10pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:13px;margin-left:-13px">&#8226;</span><span class="f_bodytext">If Adept started to extract data from a document and then was interrupted before extraction was complete -- this might be a general computer crash or failure or a “corrupt” or “bad” document.</span></p><p style="text-align: left; text-indent: 0px; padding: 0px 0px 0px 13px; margin: 0px 0px 0px 0px;"><span style="font-size:10pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:13px;margin-left:-13px">&#8226;</span><span class="f_bodytext">If when you first synchronized your library or when you checked in a document, you had extraction options turned off.</span></p><p style="text-align: left; text-indent: 0px; padding: 0px 0px 0px 13px; margin: 0px 0px 0px 0px;"><span style="font-size:10pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:13px;margin-left:-13px">&#8226;</span><span class="f_bodytext">Unresolved part or Xref: If, during the Synchronizing process, Adept is unable to locate an externally referenced Part or Xref, the document will have an unresolved part or Xref.</span></p><p style="text-align: left; text-indent: 0px; padding: 0px 0px 0px 13px; margin: 0px 0px 0px 0px;"><span style="font-size:10pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:13px;margin-left:-13px">&#8226;</span><span class="f_bodytext">Editing documents directly at the Document System: If network rights allow users to edit or replace documents “under the hood” some attributes and system fields might be different between the document and the Adept database. (This should never be allowed, but if it is, re-extracting the document will correct the mismatch.)</span></p><p style="text-align: left; text-indent: 0px; padding: 0px 0px 0px 13px; margin: 0px 0px 0px 0px;"><span style="font-size:10pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:13px;margin-left:-13px">&#8226;</span><span class="f_bodytext">Mismatched System Fields: Under some circumstances, such as when documents have been editing directly at the operating system, the system field information in Adept no longer matches the system data in the document's record in Windows. If you check out the document and check it back in, this mismatch will be corrected automatically. Under some circumstances, when the document is copied out to the Virtual Library without being edited, an error condition will be generated.</span></p><p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-style: italic;">Note: When Adept first starts to extract, the Extraction State is noted in the database and when extraction is completed, this state is changed. To determine any documents that have failed during the extraction process you can search for the values in this field.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-style: italic;">Note: This command is only available for documents with an Adept Status of Out (to user), New, or Duplicate. To perform this command on Documents with any bother Adept Status, log into the Adept Desktop Client where this command is available.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p style="text-align: left; text-indent: 0px; padding: 0px 0px 0px 13px; margin: 0px 0px 0px 0px;"><span style="font-size:10pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:13px;margin-left:-13px">&#8226;</span><span class="f_bodytext">Blank field: Document has not been extracted or is not extractable</span></p><p style="text-align: left; text-indent: 0px; padding: 0px 0px 0px 13px; margin: 0px 0px 0px 0px;"><span style="font-size:10pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:13px;margin-left:-13px">&#8226;</span><span class="f_bodytext">In Process: Extraction was attempted but failed for some reason</span></p><p style="text-align: left; text-indent: 0px; padding: 0px 0px 0px 13px; margin: 0px 0px 0px 0px;"><span style="font-size:10pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:13px;margin-left:-13px">&#8226;</span><span class="f_bodytext">Extracted: Document was successfully extracted</span></p><p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">To manually force Adept to extract data, first select the document(s) and then select the Refresh Extracted Info command on the Document tab of the ribbon. This command performs the same task that is automatically performed every time you check in or synchronize a document.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">To determine which documents failed extraction</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Adept sets the Extraction State whenever it extracts data from a document. Because of the flags set by Adept during the extraction process, it is possible to evaluate which documents have been successfully extracted. You can simply add the column Extraction State and review the values for each document.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+
+</td></tr></table>
+
+</body>
+</html>

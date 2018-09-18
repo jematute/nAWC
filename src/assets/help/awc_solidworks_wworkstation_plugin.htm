@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+   <title>SOLIDWORKS: Workstation PlugIn</title>
+   <meta name="generator" content="Help &amp; Manual" />
+   <meta name="keywords" content="Extract on Save,Set Default Directory to Current Work Area,SOLIDWORKS Configuration,SOLIDWORKS Workstation PlugIn" />
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   
+   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+   <meta name="description" content="Set the Workstation PlugIn options for your SOLIDWORKS integration by selecting the Options command on the ribbon, then select the SOLIDWORKS tab." />
+   <meta name="picture" content="" />
+   <link type="text/css" href="default.css" rel="stylesheet" />
+   <style type="text/css">
+     body { margin: 0px; background: #FFFFFF; }
+   </style>
+   <script type="text/javascript" src="jquery.js"></script>
+   <script type="text/javascript" src="helpman_settings.js"></script>
+   <script type="text/javascript" src="helpman_topicinit.js"></script>
+
+   <script type="text/javascript">
+     HMSyncTOC("index.html", "awc_solidworks_wworkstation_plugin.htm");
+   </script>
+   <script type="text/javascript" src="highlight.js"></script>
+   <script type="text/javascript">
+     $(document).ready(function(){highlight();});
+   </script>
+</head>
+<body>
+
+
+<table style="width:100%; border:none; border-spacing:0px; padding:5px; background:#9AD9F1">
+  <tr style="vertical-align:middle">
+    <td style="text-align:left">
+      <p class="p_bannerbase"><span class="f_bannerbase">SOLIDWORKS: Workstation PlugIn</span></p>
+
+    </td>
+    <td style="text-align:right">
+     <a href="awc_adept_help.htm">Top</a>&nbsp;
+     <a href="outlook_plugin.htm">Previous</a>&nbsp;
+     
+    </td>
+  </tr>
+</table>
+
+
+<!-- Placeholder for topic body. -->
+<table style="width:100%;border:none;border-spacing:0px"><tr style="vertical-align:top"><td style="text-align:left;padding:5px">
+<p class="p_bodytext"><span class="f_bodytext">Set the Workstation PlugIn options for your SOLIDWORKS integration by selecting the Options command on the ribbon, then select the SOLIDWORKS tab.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">Set Default Directory to Current Work Area</span></p>
+<p class="p_bodytext"><span class="f_bodytext">This option determines whether Parts/Assemblies/Drawings &nbsp;will be saved directly to the current Work Area. For instance, if WorkAreaXYZ is the current Work Area in Adept then, when the Save command is initialized the Save dialog box will open with the correct directory (WorkAreaXYZ) mapped. This will save time in having to search for your preferred directory to save your documents.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">Enable Inquiry Status</span></p>
+<p class="p_bodytext"><span class="f_bodytext">When Enable Inquiry Status is enabled, when you open an assembly, Adept will gather status information about the assembly's children. This will let you use the Inquire Status command in the Inventor Model Browser. The Inquire Status command provides &nbsp;information about the change in status of documents you are currently using. Keep this option enabled to help you collaborate with other users, who might be editing parts that you are currently referencing. </span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">When Enable Inquiry Status is disabled, this information will not be gathered, and you will not be able to use the Inquire Status command. Disable this option to speed up large assemblies over a low-bandwidth network. &nbsp; </span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">Enable Batch Open and Save On Rename</span></p>
+<p class="p_bodytext"><span class="f_bodytext">When you rename a SOLIDWORKS document in Adept, Adept will automatically handle updating the parents of the document to ensure that the external references continue to point to the correct document. However, Adept does not actually repair the reference in the parent document until the parent is either checked out or until a user issues a Batch Open and Save. In order to achieve this result automatically, you should enable this Workstation PlugIn option “Enable Batch Open and Save On Rename.”</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">When this option is enabled, when you rename a document, Adept will automatically cause a Batch Open and Save of all parents of the renamed document. To work, the rename must take place on a workstation which contains either SOLIDWORKS, or SOLIDWORKS Explorer. If none of these is installed, the SOLIDWORKS PlugIn cannot be loaded on this machine and no Batch Open and Save will take place. When renaming the document, Adept will check to be sure all parents are not OUT. If one or more parents of the renamed document are OUT, the rename will be terminated, and the user will be notified that no rename took place. </span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">Enable Batch Open and Save On Check Out</span></p>
+<p class="p_bodytext"><span class="f_bodytext">When this option is enabled, Adept performs a silent Batch Open and Save automatically. This automatic Batch Open and Save on Check Out ensures that all paths are up to date in the SOLIDWORKS document before any editing is performed.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">When you enable this option, if SOLIDWORKS indicates a document has changed, the cause of the change is not due to reference path changes but due to other changes in the document.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">Enable Extract on Save</span></p>
+<p class="p_bodytext"><span class="f_bodytext">When this option is enabled, Adept will re-extract data from a SOLIDWORKS document every time the user saves it. This applies to documents that are opened from an Adept Work Area. The reason you will want this option enabled in most cases is because it will force Adept to extract current information as soon as it becomes available. However, extracting the data takes time. In some situations, for example if the document is being edited from a remote location, the need to extract the document after each Save might create an unacceptable delay. In those cases, you can speed up your response time by disabling this option. With the option disabled, Adept no longer automatically performs an extraction of the saved document. During these periods, Adept's information about the document will become stale. When the work area is refreshed or the document is checked into Adept, an extract is then forced automatically.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">Enable Auto-Refresh of the Adept Relationship Tree</span></p>
+<p class="p_bodytext"><span class="f_bodytext">With this option enabled, when you check out an Assembly, Adept will automatically build the relationship tree in the FeatureManager Design Tree.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-style: italic;">Note: This option builds the tree based on the information available when you first check out the Assembly. This tree does not reflect changes in the status of these documents until you manually click the Refresh button.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Because large assemblies could require considerable network traffic in order to check the status of all documents, especially when it must communicate across a slow connection, you should only enable the automatic refresh option when this delay is acceptable.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">If you don’t enable the Automatic Refresh option, the tree is not built until you open the FeatureManager Design Tree and click the Refresh button. </span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">Use Watcher</span></p>
+<p class="p_bodytext"><span class="f_bodytext">The &quot;watcher&quot; program should only be turned on if requested to do so by Synergis technical support staff. The Synergis Watcher is a debug program used to help identify issues related to the proper integration between Adept and a CAD application. Be sure to turn off the &quot;watcher&quot; program when done, as it will affect performance if left running.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+
+</td></tr></table>
+
+</body>
+</html>

@@ -19,27 +19,29 @@ export class ClientServicesService {
 
   loginToACS(): Observable<any> {
     const credentials = {
-      grant_type: "password",
+      grant_type: 'password',
       webapiurl: Global.API_URL,
       webapitoken: this.auth.accessToken,
       username: this.auth.user.LoginName,
       culture: this.locale.language,
-    }
+    };
 
-    let data = `grant_type=password&webapiurl=${window.location.origin}/Synergis.WebApi/&webapitoken=${this.auth.accessToken}&username=${this.auth.user.LoginName}&culture=&${this.locale.language}`;
+    // tslint:disable-next-line:max-line-length
+    const data = `grant_type=password&webapiurl=${window.location.origin}/Synergis.WebApi/&webapitoken=${this.auth.accessToken}&username=${this.auth.user.LoginName}&culture=&${this.locale.language}`;
 
     return this.http.post(`${Global.ACS_URL}/token`, data).pipe(map(resp => {
-      this.accessToken = resp["access_token"];
+      this.accessToken = resp['access_token'];
       return this.accessToken;
     }), catchError(err => {
-      if (err.name.indexOf("Timeout") != -1)
-        console.log("timeout occurred")
+      if (err.name.indexOf('Timeout') !== -1) {
+        console.log('timeout occurred');
+      }
       return observableThrowError(err);
     }));
-  }   
+  }
 
   launchACS(): Observable<any> {
-    window.location.href = "adeptclientservices:start";
+    window.location.href = 'adeptclientservices:start';
     return this.checkStatus();
   }
 

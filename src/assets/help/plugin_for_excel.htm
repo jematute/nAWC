@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+   <title>PlugIn for Microsoft Excel</title>
+   <meta name="generator" content="Help &amp; Manual" />
+   <meta name="keywords" content="Excel,Export,Export database,Microsoft Office,PlugIn for Excel,PlugIn for Microsoft Excel,Report" />
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   
+   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+   <meta name="description" content="Excel documents contain some built in properties, such as Author and Subject. Use the PlugIn for Microsoft Excel to read or write properties. You can also create your own..." />
+   <meta name="picture" content="" />
+   <link type="text/css" href="default.css" rel="stylesheet" />
+   <style type="text/css">
+     body { margin: 0px; background: #FFFFFF; }
+   </style>
+   <script type="text/javascript" src="jquery.js"></script>
+   <script type="text/javascript" src="helpman_settings.js"></script>
+   <script type="text/javascript" src="helpman_topicinit.js"></script>
+
+   <script type="text/javascript">
+     HMSyncTOC("index.html", "plugin_for_excel.htm");
+   </script>
+   <script type="text/javascript" src="highlight.js"></script>
+   <script type="text/javascript">
+     $(document).ready(function(){highlight();});
+   </script>
+</head>
+<body>
+
+
+<table style="width:100%; border:none; border-spacing:0px; padding:5px; background:#9AD9F1">
+  <tr style="vertical-align:middle">
+    <td style="text-align:left">
+      <p class="p_bannerbase"><span class="f_bannerbase">PlugIn for Microsoft Excel</span></p>
+
+    </td>
+    <td style="text-align:right">
+     <a href="awc_adept_help.htm">Top</a>&nbsp;
+     <a href="microsoft_office_properties.htm">Previous</a>&nbsp;
+     <a href="outlook_plugin.htm">Next</a>
+    </td>
+  </tr>
+</table>
+
+
+<!-- Placeholder for topic body. -->
+<table style="width:100%;border:none;border-spacing:0px"><tr style="vertical-align:top"><td style="text-align:left;padding:5px">
+<p class="p_bodytext"><span class="f_bodytext">Excel documents contain some built in properties, such as Author and Subject. Use the PlugIn for Microsoft Excel to read or write properties. You can also create your own Custom Properties such as Client or Project. Excel properties can be linked to Locations or Named Locations inside Excel.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-style: italic;">Note: The PlugIn for Microsoft Excel requires that you install a copy of Microsoft Office on your workstation. If you are using Microsoft Office 2010 or higher, you may need to unblock older versions of Microsoft Excel. To check or change File Blocking settings in Microsoft Office, click the File Menu, then click Options. On the left side, click Trust Center, and in that dialog click File Block Settings. Unblock the versions of Excel that you need to synchronize.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">When you Synchronize or <a href="awc_check_in.htm" class="topiclink">Check In</a> documents created by Microsoft Excel, 2003 or greater, Adept checks to see if any properties match Extraction fields in your database. If there is a match between your Extraction fields and the Properties or Locations or Named Locations in the document, Adept copies the value out of the document into the database.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">An effective way to use these properties is for your administrator to create template documents that contain predefined custom properties. When you create a new document with the <a href="awc_create_new_documents.htm" class="topiclink">New</a> command, Adept creates a copy of the template. You can then add values to the properties in the document. When you check in the document, Adept will then automatically copy the values into the database.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">Export to Excel</span></p>
+<p class="p_bodytext"><span class="f_bodytext">In addition to importing from Excel, after you have installed the Excel PlugIn, you can export metadata from Adept into an Excel spreadsheet. First select the documents from any Adept window. Then select the Export to Excel command on the Collaborate tab of the ribbon. Using the dialog box in this PlugIn, you can specify which headers and fields are placed in the output document.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-style: italic;">Note: This PlugIn always exports the date in the format that is set in the Windows options of the Workstation where the program is running, and does not use the date format specified for Adept.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">Header</span></p>
+<p class="p_bodytext"><span class="f_bodytext">You can choose the headings first by right-clicking and selecting Show Main or Show All. This controls how many fields you can choose from. Then from the list, select the Headers you want included in the document. These will be saved into the Excel document.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">For typical exports, you will usually only add the Display Name. This will provide a single row of headers that contains the display name at the top of each column. This is the format expected by users when exporting to Excel. Then if you choose to import this Excel document back into Adept, using the Data Import feature, Adept will interpret the headers.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">The other header options will have value for programmers, data analysts, or for interpretation by computer programming in custom programs. Aliases refer to the fact that some values in the Adept Tables are references to fields in other tables. The Alias Table is the name of the table. You can select &quot;Yes&quot; or &quot;No&quot; for &quot;Using Alias.&quot; &nbsp;&quot;Yes&quot; if you want to export the value contained in the alias, and &quot;No&quot; if you want to export the number that is used for the link. You could include of each, one aliased and one not, to see both aspects of the data.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">Select Fields</span></p>
+<p class="p_bodytext"><span class="f_bodytext">To decide which fields are exported, you may drag and drop fields from the left side into the right side. You can control the list that is displayed in this panel by right-clicking, and selecting Show All, Show Only System Fields, or Show Only User Fields.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">To add fields from this list into the Export list on the right, select Add from this right-click menu. When you Add fields, they are displayed in the Report list on the right side of the dialog.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">To remove fields from this list, you can right-click and select Remove. Fields in the right side can be dragged up and down to reorder the output You can also use the right-click menu to control Aliases.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">Save Settings</span></p>
+<p class="p_bodytext"><span class="f_bodytext">You can optionally save an output setting document by selecting Save As from the File menu. By default this document is saved to your AdeptSupport folder. This document can be reused by using the Open command in the File menu.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">Click Export to Execute</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Once you have selected the fields, and click Export, this command works on the selected records in any Adept window. All selected records will be output into an Excel worksheet and immediately opened in Excel. From Excel the user may save the document or close without saving.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">This feature will be used for generating extensive reports on documents and related information in Adept. It differs from the &quot;Save List as Text&quot; export option because &quot;Export to Excel&quot; only outputs the selected records, provides optional headings, and is not limited by the number of fields that can be displayed in an Adept window (currently limited to 24). &quot;Export to Excel&quot; also exports directly into an Excel document rather than to a tab-delimited text document.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">Setup</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Open the Administrator PlugIn dialog by selecting the Administer PlugIns command on the System tab of the ribbon. Select Adept PlugIn for Excel from the list of PlugIns then click Edit to open the PlugIn Editor. Check Load on Startup then click OK to close the dialog and enable the PlugIn. Click OK to close the Administer PlugIns dialog and install the PlugIn. </span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Select the Configure PlugIns command to open the Administration dialog for this PlugIn. Check the Extensions and Options as appropriate. When you have this PlugIn installed, you can set up your Extraction fields in Adept to link to Properties or Named Locations or Locations in Excel. Then, as with other Extraction fields, you can write values from Adept to the Excel document, or read values from the Excel document to Adept.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">As with other PlugIns, you will need to set up Extraction Fields and map them to the properties. See your Adept administrator for configuration details.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+
+</td></tr></table>
+
+</body>
+</html>

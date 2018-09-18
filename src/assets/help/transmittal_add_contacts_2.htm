@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+   <title>Transmittal: Import/Export</title>
+   <meta name="generator" content="Help &amp; Manual" />
+   <meta name="keywords" content="" />
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   
+   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+   <meta name="description" content="For easier management of companies and contact, the Add/Edit Company dialog offers options to import and export the Transmittal Company and Contact database contents to an Excel" />
+   <meta name="picture" content="" />
+   <link type="text/css" href="default.css" rel="stylesheet" />
+   <style type="text/css">
+     body { margin: 0px; background: #FFFFFF; }
+   </style>
+   <script type="text/javascript" src="jquery.js"></script>
+   <script type="text/javascript" src="helpman_settings.js"></script>
+   <script type="text/javascript" src="helpman_topicinit.js"></script>
+
+   <script type="text/javascript">
+     HMSyncTOC("index.html", "transmittal_add_contacts_2.htm");
+   </script>
+   <script type="text/javascript" src="highlight.js"></script>
+   <script type="text/javascript">
+     $(document).ready(function(){highlight();});
+   </script>
+</head>
+<body>
+
+
+<table style="width:100%; border:none; border-spacing:0px; padding:5px; background:#9AD9F1">
+  <tr style="vertical-align:middle">
+    <td style="text-align:left">
+      <p class="p_bannerbase"><span class="f_bannerbase">Transmittal: Import/Export</span></p>
+
+    </td>
+    <td style="text-align:right">
+     <a href="awc_adept_help.htm">Top</a>&nbsp;
+     
+     
+    </td>
+  </tr>
+</table>
+
+
+<!-- Placeholder for topic body. -->
+<table style="width:100%;border:none;border-spacing:0px"><tr style="vertical-align:top"><td style="text-align:left;padding:5px">
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-family: 'Times New Roman',Times,Georgia,serif;">For easier management of companies and contact, the Add/Edit Company dialog offers options to import and export the Transmittal Company and Contact database contents to an Excel spreadsheet (.xlsx).</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-family: 'Times New Roman',Times,Georgia,serif; font-weight: bold;">Import</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-family: 'Times New Roman',Times,Georgia,serif;">This button will display the Import dialog. Select the Excel spreadsheet to be used for importing. Once a spreadsheet is selected, you must select the worksheet name and the number of header rows in the Excel file. Regardless of the number of header rows, the last row (highest number) will be used for mapping in subsequent dialogs.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-family: 'Times New Roman',Times,Georgia,serif;">Once the Scan button is enabled, select the button to scan the spreadsheet and populate the grid. The column Excel Column contains the information specified by the last row of the header rows. The Transmittal Field column is used to map an Excel Column to a Transmittal Field column. The Import Action column is used to specify how the if and how the data will be imported.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-family: 'Times New Roman',Times,Georgia,serif; font-style: italic;">Note: The Company Name field (S_COMPNAME) is required as no data can exist in the Transmittal database without an association to a company. If the Excel Column has the field value of &quot;S_COMPNAME&quot; it will be automatically mapped to the company name field in the Transmittal database.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-family: 'Times New Roman',Times,Georgia,serif;">For most fields, the Import Action is one of the following:</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p><span style="font-size: 11pt; font-family: 'Times New Roman',Times,Georgia,serif; font-weight: bold;">Fill (Overwrite)</span><span style="font-size: 11pt; font-family: 'Times New Roman',Times,Georgia,serif;"> = database field contents will be overwritten with spreadsheet contents. If database field contents are empty, spreadsheet contents are imported to the field.</span></p>
+<p><span style="color: #000000;">&nbsp;</span></p>
+<p><span style="font-size: 11pt; font-family: 'Times New Roman',Times,Georgia,serif; font-weight: bold;">Fill (If empty)</span><span style="font-size: 11pt; font-family: 'Times New Roman',Times,Georgia,serif;"> = database field contents will be filled only if empty. Existing database field contents will not be changed.</span></p>
+<p><span style="color: #000000;">&nbsp;</span></p>
+<p><span style="font-size: 11pt; font-family: 'Times New Roman',Times,Georgia,serif; text-decoration: underline;">Limited to S_COMPNAME field (company name)</span></p>
+<p><span style="font-size: 11pt; font-family: 'Times New Roman',Times,Georgia,serif; font-weight: bold;">Search Key and Fill (If empty)</span><span style="font-size: 11pt; font-family: 'Times New Roman',Times,Georgia,serif;"> = Database field is used as a control for the importing of this and all other fields from the spreadsheet. Unless this field is set, no spreadsheet importation of any fields will occur. This field, when matched with an existing field in the database, makes no changes to this field but allows other changes to be made to the other related &nbsp;fields as set for the other fields. If no match is found, the spreadsheet contents is imported, creating a new company in the database and importing related field contents as set in the other fields.</span></p>
+<p><span style="color: #000000;">&nbsp;</span></p>
+<p><span style="font-size: 11pt; font-family: 'Times New Roman',Times,Georgia,serif; text-decoration: underline;">Limited to S_CONTNAME field (contact name)</span></p>
+<p><span style="font-size: 11pt; font-family: 'Times New Roman',Times,Georgia,serif; font-weight: bold;">Search Key and Fill (If empty) = </span><span style="font-size: 11pt; font-family: 'Times New Roman',Times,Georgia,serif;">Database field is used as a control for the importing of this and other fields from the spreadsheet when coupled with company name field. This field, when matched with an existing field in the database along with a match for company name, makes no changes to this field but allows other changes to be made to the other related fields as set in the other fields. If no match is found for this field, all spreadsheet contents are imported, creating a new contact in the database for the matched company and importing related field contents as set in the other fields.</span></p>
+<p><span style="color: #000000;">&nbsp;</span></p>
+
+</td></tr></table>
+
+</body>
+</html>

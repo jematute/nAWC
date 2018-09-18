@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from './user'
-import { Router } from '@angular/router';
+import { User } from './user';
 import { AuthService } from './auth.service';
 import { LocalizationService } from '../localization/localization.service';
 import { ErrorDialogService } from '../error-dialog/error-dialog.service';
 import { MatDialog } from '@angular/material';
 import { LoginPromptComponent } from './login-prompt/login-prompt.component';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,15 +15,14 @@ import { LoginPromptComponent } from './login-prompt/login-prompt.component';
 export class LoginComponent implements OnInit {
 
   constructor(
-    public locale: LocalizationService, 
-    private router: Router, 
-    private authService: AuthService, 
+    public locale: LocalizationService,
+    private router: Router,
+    private authService: AuthService,
     private errorDialog: ErrorDialogService,
     private loginPrompt: MatDialog
-  ) 
-  { }
+  ) { }
 
-  public user: User = { loginName: "creator6", password: ""};
+  public user: User = { loginName: 'creator6', password: ''};
   selectedLanguage: any;
   inProcess: boolean;
   autoLogin: boolean;
@@ -33,23 +31,25 @@ export class LoginComponent implements OnInit {
   public languages = [];
 
   login(force: boolean = false): void {
+    const inProcess = false;
     this.inProcess = true;
     this.authService.login(this.user, force).subscribe(() => {
       this.router.navigate(['layout']);
     }, error => {
       this.inProcess = false;
       if (error.error) {
-        if (error.error.error === "user_loggedin") {
+        if (error.error.error === 'user_loggedin') {
           const dialogRef = this.loginPrompt.open(LoginPromptComponent);
           dialogRef.afterClosed().subscribe(result => {
-            if (result)
+            if (result) {
               this.login(true);
+            }
           });
           return;
         }
       }
-      console.log(error);     
-      this.errorDialog.showError("Incorrect Login", error);
+      console.log(error);
+      this.errorDialog.showError('Incorrect Login', error);
       return;
     });
   }
@@ -60,10 +60,10 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    //get languages to populate dropdown
+    // get languages to populate dropdown
     this.locale.languages.subscribe(
       langs => {
-        for (let lang of langs) {
+        for (const lang of langs) {
           if (lang.active) {
             this.selectedLanguage = lang;
           }

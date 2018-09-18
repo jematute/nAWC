@@ -15,6 +15,7 @@ import { GlobalsService } from './globals.service';
 import { ClientServicesModule } from './client-services/client-services.module';
 import { BowserModule, BowserService } from 'ngx-bowser';
 import { SignalRModule, ConnectionTransports } from 'ng2-signalr';
+import { AdeptApiModule } from 'adept-api';
 // import { SignalRConfiguration, ConnectionTransport } from 'ng2-signalr';
 // import { Global } from './classes/global';
 
@@ -25,7 +26,6 @@ import { SignalRModule, ConnectionTransports } from 'ng2-signalr';
 //   c.qs = { user: 'donald' };
 //   c.url = Global.API_URL;
 //   c.logging = true;
-  
 //   // >= v5.0.0
 //   c.executeEventsInZone = true; // optional, default is true
 //   c.executeErrorsInZone = false; // optional, default is false
@@ -39,7 +39,7 @@ import { SignalRModule, ConnectionTransports } from 'ng2-signalr';
   ],
   entryComponents: [ ],
   imports: [
-    BrowserModule, BrowserAnimationsModule,
+    BrowserModule, BrowserAnimationsModule, AdeptApiModule,
     AppRoutingModule, HttpClientModule, LoginModule, ClientServicesModule, BowserModule
   ],
   exports: [ ],

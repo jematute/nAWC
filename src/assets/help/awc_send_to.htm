@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+   <title>Send To</title>
+   <meta name="generator" content="Help &amp; Manual" />
+   <meta name="keywords" content="AdeptList,ALS,Attach,Compress,Email,List Files,Send To,Workflow,Zip" />
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   
+   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+   <meta name="description" content="You can send documents or links to documents by selecting the documents in Adept and then selecting the Send To command. This command creates a list of the documents you..." />
+   <meta name="picture" content="" />
+   <link type="text/css" href="default.css" rel="stylesheet" />
+   <style type="text/css">
+     body { margin: 0px; background: #FFFFFF; }
+   </style>
+   <script type="text/javascript" src="jquery.js"></script>
+   <script type="text/javascript" src="helpman_settings.js"></script>
+   <script type="text/javascript" src="helpman_topicinit.js"></script>
+
+   <script type="text/javascript">
+     HMSyncTOC("index.html", "awc_send_to.htm");
+   </script>
+   <script type="text/javascript" src="highlight.js"></script>
+   <script type="text/javascript">
+     $(document).ready(function(){highlight();});
+   </script>
+</head>
+<body>
+
+
+<table style="width:100%; border:none; border-spacing:0px; padding:5px; background:#9AD9F1">
+  <tr style="vertical-align:middle">
+    <td style="text-align:left">
+      <p class="p_bannerbase"><span class="f_bannerbase">Send To</span></p>
+
+    </td>
+    <td style="text-align:right">
+     <a href="awc_adept_help.htm">Top</a>&nbsp;
+     <a href="awc_email_notification.htm">Previous</a>&nbsp;
+     
+    </td>
+  </tr>
+</table>
+
+
+<!-- Placeholder for topic body. -->
+<table style="width:100%;border:none;border-spacing:0px"><tr style="vertical-align:top"><td style="text-align:left;padding:5px">
+<p class="p_bodytext"><span class="f_bodytext">You can send documents or links to documents by selecting the documents in Adept and then selecting the Send To command. This command creates a list of the documents you selected and attaches that list to an Email, saves the list to a file, or sends the documents themselves by attaching them to the Email or by saving the documents to a ZIP file.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">When you select documents in any Adept window and then select Send To, a wizard is presented allowing you to select the options related to this command. Your first selection is whether to send a link or to send the documents. Based on this initial selection, subsequent dialog will be different.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">Sending a Link</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Selecting to send a link then prompts for the link name with the option to exclude documents that reside in Adept Libraries where the filtering option is enabled. Once this information is provided, the next dialog prompts for recipients (Email addresses), the subject line for the Email, and any additional textual information you want in the Email body. Once one or more Email addresses are entered, the Send button becomes available. Selecting the Send button completes the command, sending the Email.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">Sending a Document</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Selecting to send a document then prompts for selection of options to include the children of the selected document, exclude documents that reside in Adept Libraries where the filtering option is enabled, and whether to place the document into a ZIP file before attaching it to the Email or to save the ZIP file to a folder. Once this information is provided, the next dialog prompts for recipients (Email addresses), the subject line for the Email, and any additional textual information you want in the Email body. Once one or more Email addresses are entered, the Send button becomes available. Selecting the Send button completes the command, sending the Email.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-style: italic;">Note: .als lists are stored in the Adept database for a period of time determined by a setting made by the Adept administrator in the Email Notification tab of Options. If these lists are not saved indefinitely, the .als file will eventually become invalid and will no longer work.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-style: italic;">Note: The ZIP file cannot contains duplicate filenames. When compressing documents into a ZIP file, should the selected documents contain one or more duplicate documents, you will be informed by a dialog box message and the ZIP file will not be created..</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">Send To for Out, New or Duplicate Documents is not Accessible</span></p>
+<p class="p_bodytext"><span class="f_bodytext">The Send To command is not available for documents in a Work Area. When performing a multiple selection of documents with various Adept status, the Send To command will remove documents with status of Out, New, or Duplicate and will provide notification that these documents will not be included in the Send To.  </span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">Documents: Include Children</span></p>
+<p class="p_bodytext"><span class="f_bodytext">When you check the option Include Children, Adept will recursively include all levels of children of the selected documents. However, included children are influenced by the Stop At settings in the Options dialog. </span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-style: italic;">Note: AutoCAD internal files such as shape and font files are not automatically included.</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">Documents: Exclude documents in filtered libraries</span></p>
+<p class="p_bodytext"><span class="f_bodytext">If this option is selected, the Include Children command will not return any children that are located in libraries which have the library profile option enabled to Allow Filtering of Children.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+
+</td></tr></table>
+
+</body>
+</html>

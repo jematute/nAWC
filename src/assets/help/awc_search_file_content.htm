@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+   <title>Search Document Content - Full Text Search</title>
+   <meta name="generator" content="Help &amp; Manual" />
+   <meta name="keywords" content="Content Search,FTS,Full Text Search,Search Content,Troubleshooting Full Text Search" />
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   
+   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+   <meta name="description" content="Using the Full Text Search (FTS) capability, you can search through the textual contents of documents. To access this feature, click the Search button, and select Full Text..." />
+   <meta name="picture" content="" />
+   <link type="text/css" href="default.css" rel="stylesheet" />
+   <style type="text/css">
+     body { margin: 0px; background: #FFFFFF; }
+   </style>
+   <script type="text/javascript" src="jquery.js"></script>
+   <script type="text/javascript" src="helpman_settings.js"></script>
+   <script type="text/javascript" src="helpman_topicinit.js"></script>
+
+   <script type="text/javascript">
+     HMSyncTOC("index.html", "awc_search_file_content.htm");
+   </script>
+   <script type="text/javascript" src="highlight.js"></script>
+   <script type="text/javascript">
+     $(document).ready(function(){highlight();});
+   </script>
+</head>
+<body>
+
+
+<table style="width:100%; border:none; border-spacing:0px; padding:5px; background:#9AD9F1">
+  <tr style="vertical-align:middle">
+    <td style="text-align:left">
+      <p class="p_bannerbase"><span class="f_bannerbase">Search Document Content - Full Text Search</span></p>
+
+    </td>
+    <td style="text-align:right">
+     <a href="awc_adept_help.htm">Top</a>&nbsp;
+     <a href="awc_search_dialog_box.htm">Previous</a>&nbsp;
+     <a href="awc_append_search.htm">Next</a>
+    </td>
+  </tr>
+</table>
+
+
+<!-- Placeholder for topic body. -->
+<table style="width:100%;border:none;border-spacing:0px"><tr style="vertical-align:top"><td style="text-align:left;padding:5px">
+<p class="p_bodytext"><span class="f_bodytext">Using the Full Text Search (FTS) capability, you can search through the textual contents of documents. To access this feature, click the Search button, and select Full Text Search from the drop-down list at the top. A second drop-down list labeled &quot;Target&quot; lets you specify whether to search the Current Database or the Version Database which contains previous versions.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">What data is included in Full Text Search</span></p>
+<p class="p_bodytext"><span class="f_bodytext">The Libraries which have the Full Text Search option is enabled are the only libraries searched. (Library Administrators see the Library Profile for more information.) The extensions of documents that are included or excluded from this search are set Options by the Admin. You must have library access rights to be able to search for text within documents in a given library.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">To be included in this search, the data must be stored in the document as text. Not all text in a document is searchable. Consider these three situations in which you can see text in the document, but cannot use FTS to search for it:</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p style="text-align: left; text-indent: 0px; padding: 0px 0px 0px 20px; margin: 0px 0px 0px 0px;"><span style="font-size:10pt; font-family: 'Verdana';color:#000000;display:inline-block;width:20px;margin-left:-20px">1.</span><span class="f_bodytext">Text that is shown in a raster image such as a scanned document or fax cannot be extracted and therefore, it is not searchable. </span></p><p style="text-align: left; text-indent: 0px; padding: 0px 0px 0px 20px; margin: 0px 0px 0px 0px;"><span style="font-size:10pt; font-family: 'Verdana';color:#000000;display:inline-block;width:20px;margin-left:-20px">2.</span><span class="f_bodytext">If the document has been password protected, the extraction tool will not be able to access the text data and as a result, such documents will not be accessible with Full Text Search.</span></p><p style="text-align: left; text-indent: 0px; padding: 0px 0px 0px 20px; margin: 0px 0px 0px 0px;"><span style="font-size:10pt; font-family: 'Verdana';color:#000000;display:inline-block;width:20px;margin-left:-20px">3.</span><span class="f_bodytext">Text &nbsp;in a DWG document that was generated with a shape font and then converted to PDF cannot be extracted. If you have DWG documents that you are going to convert to PDFs, you can use the Publish to Adept product. To read the documentation for that product, see the Adept PublishWave Installation and Configuration Guide.</span></p><p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">FTS Basic Searches</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Adept FTS supports basic searching with single and multiple words. Words and phrases in double quotes assumes an AND operation.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Searching using &quot;blue&quot; returns all documents with the word &quot;blue&quot;.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Searching using &quot;blue sky&quot; returns all documents with the phrase &quot;blue sky&quot;.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">FTS Wildcard Searches</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Adept FTS supports single and multiple character wildcard searches within single terms (not within phrase queries).</span></p>
+<p style="text-align: left; text-indent: 0px; padding: 0px 0px 0px 13px; margin: 0px 0px 0px 0px;"><span style="font-size:10pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:13px;margin-left:-13px">&#8226;</span><span class="f_bodytext">To perform a single character wildcard search use the &quot;?&quot; symbol.</span></p><p style="text-align: left; text-indent: 0px; padding: 0px 0px 0px 13px; margin: 0px 0px 0px 0px;"><span style="font-size:10pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:13px;margin-left:-13px">&#8226;</span><span class="f_bodytext">To perform a multiple character wildcard search use the &quot;*&quot; symbol.</span></p><p class="p_bodytext"><span class="f_bodytext">The single character wildcard search looks for terms that match that with the single character replaced. For example, to search for &quot;text&quot; or &quot;test&quot; you can use the search: te?t.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Multiple character wildcard searches look for 0 or more characters. For example, to search for test, tests or tester, you can use the search: test*.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">You can also use the wildcard searches in the middle of a term: te*t to search for &quot;text&quot; and &quot;terret&quot;.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-style: italic;">Note: You cannot use a * or ? symbol as the first character of a search in the Search FTS field.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">FTS Fuzzy Searches</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Adept FTS supports fuzzy searches based on the edit distance algorithm. To do a fuzzy search use the tilde, &quot;~&quot;, symbol at the end of a single word search term. </span></p>
+<p class="p_bodytext"><span class="f_bodytext">For example, to search for a term similar in spelling to &quot;roam&quot; use the fuzzy search: roam~</span></p>
+<p class="p_bodytext"><span class="f_bodytext">This search will find terms like foam and roams.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">FTS Proximity Searches</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Adept FTS supports finding words are a within a specific distance from each other in a document (distance as measured by number of words between). To perform a proximity search, use the tilde, &quot;~&quot;, symbol at the end of a phrase. For example, to search for a &quot;cad&quot; and &quot;drawing&quot; within ten words of each other in a document use the search: &quot;cad drawing&quot;~10</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">Boosting a Term</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Adept FTS provides the relevance level of matching documents based on the terms found. To boost a term use the caret, &quot;^&quot;, symbol with a boost factor (a number) at the end of the term you are searching. The higher the boost factor, the more relevant the term will be.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Boosting allows you to control the relevance of a document by boosting its term. For example, if you are searching for: cad drawing</span></p>
+<p class="p_bodytext"><span class="f_bodytext">and you want the term &quot;cad&quot; to be more relevant, boost it using the ^ symbol along with the boost factor next to the term. </span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">You would type: &nbsp; &nbsp; &nbsp; &nbsp;cad^4 drawing This results in documents with the term “cad” appear more relevant. </span></p>
+<p class="p_bodytext"><span class="f_bodytext">You can also boost Phrase Terms as in the example: &quot;cad drawing&quot;^4 &quot;cad document&quot;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">The default boost factor is 1. Although the boost factor must be positive, it can be less than 1 (e.g. 0.2)</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">Boolean Operators</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Boolean operators allow you to combine terms using operators. Adept FTS supports AND, &quot;+&quot;, OR, NOT and &quot;-&quot; as Boolean operators. If there is no Boolean operator between two terms, the OR operator is always used by default. OR links two terms and finds a matching document if either of the terms exist in a document. You can use the symbol | in place of the word OR.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">To search for documents that contain either &quot;cad drawing&quot; or just &quot;cad&quot; use the query: &quot;cad drawing&quot; cad or &quot;cad drawing&quot; OR cad</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-style: italic;">Note: Boolean operators must be ALL CAPS.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p style="text-align: left; text-indent: 0px; padding: 0px 0px 0px 13px; margin: 0px 0px 0px 0px;"><span style="font-size:10pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:13px;margin-left:-13px">&#8226;</span><span class="f_bodytext">AND - The AND operator matches documents where both terms exist anywhere in the text of a single document.</span></p><p class="p_bodytext"><span class="f_bodytext">To search for documents that contain &quot;cad drawing&quot; and &quot;cad document&quot; use the query: &quot;cad drawing&quot; and &quot;AND document&quot; </span></p>
+<p style="text-align: left; text-indent: 0px; padding: 0px 0px 0px 13px; margin: 0px 0px 0px 0px;"><span style="font-size:10pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:13px;margin-left:-13px">&#8226;</span><span class="f_bodytext">NOT - The NOT operator excludes documents that contain the term after NOT.</span></p><p class="p_bodytext"><span class="f_bodytext">To search for documents that contain &quot;cad drawing&quot; but not &quot;cad document&quot; use the query: &quot;cad drawing&quot; NOT &quot;cad document&quot; </span></p>
+<p style="text-align: left; text-indent: 0px; padding: 0px 0px 0px 13px; margin: 0px 0px 0px 0px;"><span style="font-size:10pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:13px;margin-left:-13px">&#8226;</span><span class="f_bodytext">OR - The OR operator matches documents where either terms exist after OR.</span></p><p class="p_bodytext"><span class="f_bodytext">To search for documents that contain &quot;cad drawing&quot; or &quot;cad document&quot; use the query: &quot;cad drawing&quot; OR &quot;cad document&quot; </span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-style: italic;">Note: You cannot use the NOT operator with just one term. For example, the following search will return no results: NOT &quot;cad drawing&quot;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">FTS Grouping</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Adept FTS supports using parentheses to group clauses to form sub queries. You will find this useful if you want to control the Boolean logic for a query. To search for either &quot;cad&quot; or &quot;document&quot; and &quot;design&quot; use the query: (cad OR document) AND design. Using parenthesis in this way eliminates any confusion and ensures that design must exist, and either term cad or document may exist.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">How the Full Text Search results are returned</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Results will be returned in the Search Results window. The Full Text Search results are returned in the order of the most relevant match first. Those at the top of the list will most closely match what is being searched for. The order is based on a comparison between the number of instances of the matched word, versus the size of the document. In FTS results in the Search Results Tree, there is an additional rank column with a green dot to specify the relevance. Sorting is not allowed by the rank column. If you sort by any other column, this order is rearranged and the most relevant documents might not be at the top of the list anymore.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">Library Access Rights</span></p>
+<p class="p_bodytext"><span class="f_bodytext">The results will obey the usual rules for controlling access to documents: </span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p style="text-align: left; text-indent: 0px; padding: 0px 0px 0px 13px; margin: 0px 0px 0px 0px;"><span style="font-size:10pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:13px;margin-left:-13px">&#8226;</span><span class="f_bodytext">You must have sufficient Library Access Rights to authorize you to view the document</span></p><p style="text-align: left; text-indent: 0px; padding: 0px 0px 0px 13px; margin: 0px 0px 0px 0px;"><span style="font-size:10pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:13px;margin-left:-13px">&#8226;</span><span class="f_bodytext">It must be in your current Library Set.</span></p><p style="text-align: left; text-indent: 0px; padding: 0px 0px 0px 13px; margin: 0px 0px 0px 0px;"><span style="font-size:10pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:13px;margin-left:-13px">&#8226;</span><span class="f_bodytext">The document obeys Information Source rules for choosing between Work In Progress (WIP), and documents in the library.</span></p><p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+
+</td></tr></table>
+
+</body>
+</html>

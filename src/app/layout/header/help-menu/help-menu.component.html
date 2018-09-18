@@ -2,11 +2,13 @@
   <div class="help-button" (click)="toggleHelp()">
       <i class="fa fa-question-circle" style="font-size: 15px; color: white" aria-hidden="true"></i>
   </div>
+
+  <!-- Bill 09-17-2018 Implimented gotoHelp -->
   <div [hidden]="!showHelpOptions"  style="z-index: 999" class="help-dropdown">
     <ul>
-      <li ng-click="gotoHelp('html')">
+      <li (click)="gotoHelp('html')">
         <i class="fa fa-code"></i>HTML</li>
-      <li ng-click="gotoHelp('pdf')">
+      <li (click)="gotoHelp('pdf')">
         <i class="fa fa-file-pdf-o"></i>PDF</li>
     </ul>
   </div>

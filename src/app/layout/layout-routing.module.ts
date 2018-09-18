@@ -16,7 +16,7 @@ const routes: Routes = [{
   }, {
     path: 'datacard',
     component: DatacardComponent
-  },{
+  }, {
     path: 'results',
     component: ResultsComponent,
   }, {

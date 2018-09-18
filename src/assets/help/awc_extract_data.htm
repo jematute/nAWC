@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+   <title>Extract Data - Overview</title>
+   <meta name="generator" content="Help &amp; Manual" />
+   <meta name="keywords" content="AutoCAD,Autodesk,Check In,Extract,Extract Data,Fields,Microsoft Office,MicroStation,Properties,Xrefs" />
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   
+   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+   <meta name="description" content="What data does Adept extract from documents? &nbsp;Attributes and Properties Currently Adept Web Client extracts information from Autodesk documents (DWG and DST), SOLIDWORKS, MicroS" />
+   <meta name="picture" content="" />
+   <link type="text/css" href="default.css" rel="stylesheet" />
+   <style type="text/css">
+     body { margin: 0px; background: #FFFFFF; }
+   </style>
+   <script type="text/javascript" src="jquery.js"></script>
+   <script type="text/javascript" src="helpman_settings.js"></script>
+   <script type="text/javascript" src="helpman_topicinit.js"></script>
+
+   <script type="text/javascript">
+     HMSyncTOC("index.html", "awc_extract_data.htm");
+   </script>
+   <script type="text/javascript" src="highlight.js"></script>
+   <script type="text/javascript">
+     $(document).ready(function(){highlight();});
+   </script>
+</head>
+<body>
+
+
+<table style="width:100%; border:none; border-spacing:0px; padding:5px; background:#9AD9F1">
+  <tr style="vertical-align:middle">
+    <td style="text-align:left">
+      <p class="p_bannerbase"><span class="f_bannerbase">Extract Data - Overview</span></p>
+
+    </td>
+    <td style="text-align:right">
+     <a href="awc_adept_help.htm">Top</a>&nbsp;
+     <a href="awc_file_status_review.htm">Previous</a>&nbsp;
+     <a href="awc_refresh_extract.htm">Next</a>
+    </td>
+  </tr>
+</table>
+
+
+<!-- Placeholder for topic body. -->
+<table style="width:100%;border:none;border-spacing:0px"><tr style="vertical-align:top"><td style="text-align:left;padding:5px">
+<p class="p_bodytext"><span class="f_bodytext">What data does Adept extract from documents?</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">Attributes and Properties</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Currently Adept Web Client extracts information from Autodesk documents (DWG and DST), SOLIDWORKS, MicroStation (DGN), PDF, and Microsoft Office Word and Excel. Thumbnails can be extracted from some image documents. Adept cannot extract or update password protected AutoCAD documents.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-style: italic;">Note: DWG documents created by Inventor are different from DWG documents created by other Autodesk applications. Adept's AutoCAD extraction cannot extract DWG attributes, Xref information, or &nbsp;Overlays from DWG’s created by Inventor, even if you later edit the document in AutoCAD. The Adept extraction for DWG documents created by Inventor is limited to only extracting and updating information added by Inventor and extracted by the Adept Inventor extraction. </span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-style: italic;">Note: When extracting properties from Microsoft Office Word or Excel, the workstation that performs the extraction must have the appropriate application installed, as well as the PlugIn for Microsoft Word or Excel.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">Relationships</span></p>
+<p class="p_bodytext"><span class="f_bodytext">For Autodesk DWG, MicroStation, and SOLIDWORKS documents, Adept extracts the inter-document relationships among external references, parts, and assemblies, as well as Autodesk external image documents.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-style: italic;">Note: In addition to relationships that Adept extracts from CAD documents, you can also create manual relationships among documents of any type.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">Thumbnails</span></p>
+<p class="p_bodytext"><span class="f_bodytext">If a supported document contains a thumbnail preview, Adept can extract it and make it available so users can view it in Adept without needing to open the application. Adept tries to extract a thumbnail from any document for which you have turned on either the option to extract thumbnails.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">To extract properties, attributes, and tags, you must create appropriate fields in Adept. These fields, called Extraction Fields, will contain the data that is extracted from the supported document. After you create each extraction field, you must map it to a particular document type and attribute or property name. So for example, an Adept extraction field named “ProjLead” is mapped to an SOLIDWORKS Property named “Project Leader” and the value in this Adept field will be pulled into Adept when the information is extracted from that document.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">To make this process easy Adept can scan the document or documents that contain samples of these attributes or properties and presents this scanned list to you. When you want to map the item from the document, you can simply point at the scanned list and click.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-style: italic;">Note: When you use the Clear Extracted Data command, all data from extraction fields is deleted, regardless of whether it was entered by typing or by extracting from the document.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">Extract System Data (Date/Time/Size)</span></p>
+<p class="p_bodytext"><span class="f_bodytext">When Adept extracts data from a document, for example when you check it in, the system information of Date, Time and Size are extracted and stored in the database. Adept relies on an exact correspondence between the Date/Time/Size stored in Adept's metadata, and the Date/Time/Size stored in the document's record in Windows. </span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">However, if a user opens and saves the document directly from the operating system, the data on the operating system changes, but the data in the Adept database does not. As a result, data in Adept no longer matches the data in Windows. When you copy out or check out such documents, this mismatched condition is flagged as an error condition. To repair these mismatch errors, search for documents with a mismatch, and then perform an extract.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">Extracting Text for Full Text Search</span></p>
+<p class="p_bodytext"><span class="f_bodytext">When the system is set up for Full Text Search and the library from which you are extracting is enabled for Full Text Search, text data from the file is extracted, when possible.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">When does Adept automatically extract data from a document?</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Here is a summary of conditions when Adept automatically extracts information from supported documents.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-style: italic;">Note: All Adept extraction obeys the options you have set in the appropriate options dialogs.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">In a work area, data is extracted from documents, when:</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p style="text-align: left; text-indent: 0px; padding: 0px 0px 0px 13px; margin: 0px 0px 0px 0px;"><span style="font-size:10pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:13px;margin-left:-13px">&#8226;</span><span class="f_bodytext">Selecting a work area and a document in it is seen for the first time</span></p><p style="text-align: left; text-indent: 0px; padding: 0px 0px 0px 13px; margin: 0px 0px 0px 0px;"><span style="font-size:10pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:13px;margin-left:-13px">&#8226;</span><span class="f_bodytext">The work area is selected and a document in it is not new, but is still in a &quot;raw&quot; state (For example, it would be “raw” if it was synchronized with extraction options turned off)</span></p><p style="text-align: left; text-indent: 0px; padding: 0px 0px 0px 13px; margin: 0px 0px 0px 0px;"><span style="font-size:10pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:13px;margin-left:-13px">&#8226;</span><span class="f_bodytext">A document's last save time has changed (ex. Save changes to a document in a work area)</span></p><p style="text-align: left; text-indent: 0px; padding: 0px 0px 0px 13px; margin: 0px 0px 0px 0px;"><span style="font-size:10pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:13px;margin-left:-13px">&#8226;</span><span class="f_bodytext">You create a new work area in a directory that contains documents</span></p><p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">In other areas of Adept, data is extracted from documents when:</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p style="text-align: left; text-indent: 0px; padding: 0px 0px 0px 13px; margin: 0px 0px 0px 0px;"><span style="font-size:10pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:13px;margin-left:-13px">&#8226;</span><span class="f_bodytext">Documents are dragged into Adept from Windows Explorer</span></p><p style="text-align: left; text-indent: 0px; padding: 0px 0px 0px 13px; margin: 0px 0px 0px 0px;"><span style="font-size:10pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:13px;margin-left:-13px">&#8226;</span><span class="f_bodytext">A document is selected and then the Refresh All command is selected</span></p><p style="text-align: left; text-indent: 0px; padding: 0px 0px 0px 13px; margin: 0px 0px 0px 0px;"><span style="font-size:10pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:13px;margin-left:-13px">&#8226;</span><span class="f_bodytext">A document is checked in</span></p><p style="text-align: left; text-indent: 0px; padding: 0px 0px 0px 13px; margin: 0px 0px 0px 0px;"><span style="font-size:10pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:13px;margin-left:-13px">&#8226;</span><span class="f_bodytext">A library is synchronized</span></p><p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">Troubleshooting Extraction</span></p>
+<p class="p_bodytext"><span class="f_bodytext">If Adept does not seem to be extracting data from a document, review the details in <a href="awc_refresh_extract.htm" class="topiclink">Re-extract</a> to troubleshoot and resolve your issues.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+
+</td></tr></table>
+
+</body>
+</html>

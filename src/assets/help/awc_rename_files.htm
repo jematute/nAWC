@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+   <title>Rename Documents</title>
+   <meta name="generator" content="Help &amp; Manual" />
+   <meta name="keywords" content="Document Name,Invalid Characters,Rename Documents" />
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   
+   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+   <meta name="description" content="Documents that have a status of NEW or DUPLICATE may be renamed by anyone with any level of access rights. Other documents may be renamed by users with the appropriate rights." />
+   <meta name="picture" content="" />
+   <link type="text/css" href="default.css" rel="stylesheet" />
+   <style type="text/css">
+     body { margin: 0px; background: #FFFFFF; }
+   </style>
+   <script type="text/javascript" src="jquery.js"></script>
+   <script type="text/javascript" src="helpman_settings.js"></script>
+   <script type="text/javascript" src="helpman_topicinit.js"></script>
+
+   <script type="text/javascript">
+     HMSyncTOC("index.html", "awc_rename_files.htm");
+   </script>
+   <script type="text/javascript" src="highlight.js"></script>
+   <script type="text/javascript">
+     $(document).ready(function(){highlight();});
+   </script>
+</head>
+<body>
+
+
+<table style="width:100%; border:none; border-spacing:0px; padding:5px; background:#9AD9F1">
+  <tr style="vertical-align:middle">
+    <td style="text-align:left">
+      <p class="p_bannerbase"><span class="f_bannerbase">Rename Documents</span></p>
+
+    </td>
+    <td style="text-align:right">
+     <a href="awc_adept_help.htm">Top</a>&nbsp;
+     <a href="awc_undo_checkout_unchanged_children.htm">Previous</a>&nbsp;
+     <a href="awc_delete_files.htm">Next</a>
+    </td>
+  </tr>
+</table>
+
+
+<!-- Placeholder for topic body. -->
+<table style="width:100%;border:none;border-spacing:0px"><tr style="vertical-align:top"><td style="text-align:left;padding:5px">
+<p class="p_bodytext"><span class="f_bodytext">Documents that have a status of NEW or DUPLICATE may be renamed by anyone with any level of access rights. Other documents may be renamed by users with the appropriate rights.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">If you rename a DUPLICATE document to have a name that is not used by any other document, the status changes to NEW. If you rename a NEW document to have a name that is already used in the Adept database, the status changes to DUPLICATE.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Adept does not allow you to enter names longer than the size of the Filename system field set up in your database by the Administrator. Document names must follow the Windows document naming conventions and cannot include any of the following nine characters:</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">\ / : * ? &quot; &lt; &gt; |</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-style: italic;">Note: Although other special characters may be supported, it is highly recommended not to use them.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">When you rename a document, Adept automatically changes the name in the document's associated database record and all versions.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">Rename Documents: Updating links in Parent Documents</span></p>
+<p class="p_bodytext"><span class="f_bodytext">When you rename a child document, Adept must change the external reference between the parent document and its child. These changes will not actually be made in the parent document until a user checks out and opens the document. You may choose to force these pending changes by manually issuing the Batch Open and Save command or you can cause these changes to take place automatically for Inventor or SOLIDWORKS documents by setting the appropriate option in the Inventor or SOLIDWORKS Workstation PlugIn. </span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">Rename Documents: Notes for SOLIDWORKS Users</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Due to limitations in the SOLIDWORKS integration, be aware of the following requirement. If you rename a SOLIDWORKS child in Adept and the parent of that child has a status of OUT, NEW or DUPLICATE, you must run the Adept SOLIDWORKS integration command Refresh References from Adept or Refresh All References from Adept.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">Rename Documents: Notes for MicroStation Users</span></p>
+<p class="p_bodytext"><span class="f_bodytext">When renaming MicroStation documents in Adept, Adept will record the new name but the MicroStation parent will still reference the old name, in which case the parent will no longer be able to reference the child. You must manually fix the reference within the MicroStation document by opening the parent document in MicroStation and correctly pointing to the renamed child.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+
+</td></tr></table>
+
+</body>
+</html>

@@ -1,0 +1,239 @@
+/* Text Styles */
+hr { color: #000000}
+body, table, tr, th /* Normal */
+{
+ font-size: 10pt;
+ font-family: Arial,Helvetica,sans-serif;
+ font-style: normal;
+ font-weight: normal;
+ color: #000000;
+ text-decoration: none;
+}
+span.f_bannerbase /* bannerbase */
+{
+ font-size: 18pt;
+}
+span.f_BodyTextBold /* Body Text Bold */
+{
+ font-family: Verdana,Geneva,Arial,sans-serif;
+ font-weight: bold;
+}
+span.f_BodyTextIndented /* Body Text Indented */
+{
+ font-family: Verdana,Geneva,Arial,sans-serif;
+}
+span.f_BodyTextIndentedBullets /* Body Text Indented Bullets */
+{
+ font-family: Verdana,Geneva,Arial,sans-serif;
+}
+span.f_bodylist /* bodylist */
+{
+ font-family: Verdana,Geneva,Arial,sans-serif;
+}
+span.f_bodytext /* bodytext */
+{
+ font-family: Verdana,Geneva,Arial,sans-serif;
+}
+span.f_CodeExample /* Code Example */
+{
+ font-size: 8pt;
+ font-family: 'Courier New';
+}
+span.f_Comment /* Comment */
+{
+}
+span.f_CourierFixed /* Courier Fixed */
+{
+ font-size: 9pt;
+ font-family: 'Courier New';
+}
+span.f_heading1 /* heading 1 */
+{
+ font-size: 16pt;
+ font-family: 'Calibri Light';
+ color: #2e74b5;
+}
+span.f_heading2 /* heading 2 */
+{
+ font-size: 13pt;
+ font-family: 'Calibri Light';
+ color: #2e74b5;
+}
+span.f_Heading1 /* Heading1 */
+{
+ font-size: 14pt;
+ font-weight: bold;
+ color: #ffffff;
+}
+span.f_ImageCaption /* Image Caption */
+{
+ font-size: 8pt;
+ font-weight: bold;
+}
+span.f_ListParagraph /* List Paragraph */
+{
+}
+span.f_MediumHeader /* Medium Header */
+{
+ font-size: 12pt;
+ font-family: Verdana,Geneva,Arial,sans-serif;
+ font-weight: bold;
+ text-decoration: underline;
+}
+span.f_NewStyle /* New Style */
+{
+ font-size: 11pt;
+ font-family: Verdana,Geneva,Arial,sans-serif;
+ text-decoration: underline;
+}
+span.f_note /* note */
+{
+ font-size: 11pt;
+ font-family: 'Times New Roman',Times,Georgia,serif;
+ font-style: italic;
+}
+span.f_Notes /* Notes */
+{
+}
+/* Paragraph styles */
+p, p.p_Normal, div.p_Normal /* Normal */
+{
+ text-align: left;
+ text-indent: 0px;
+ padding: 0px 0px 0px 0px;
+ margin: 0px 0px 0px 0px;
+}
+.p_bannerbase /* bannerbase */
+{
+ font-size: 18pt;
+}
+.p_BodyTextBold /* Body Text Bold */
+{
+ font-size: 10pt;
+}
+.p_BodyTextIndented /* Body Text Indented */
+{
+ font-size: 10pt;
+ margin: 0px 0px 0px 13px;
+}
+.p_BodyTextIndentedBullets /* Body Text Indented Bullets */
+{
+ font-size: 10pt;
+ margin: 0px 0px 0px 13px;
+}
+.p_bodylist /* bodylist */
+{
+ font-size: 10pt;
+ margin: 0px 48px 0px 48px;
+}
+.p_bodytext /* bodytext */
+{
+ font-size: 10pt;
+}
+.p_CodeExample /* Code Example */
+{
+ font-size: 8pt;
+ line-height: 1.0;
+ white-space: nowrap;
+ page-break-inside: avoid;
+}
+.p_Comment /* Comment */
+{
+ font-size: 10pt;
+}
+.p_heading1 /* heading 1 */
+{
+ font-size: 16pt;
+ page-break-inside: avoid;
+ page-break-after: avoid;
+ margin: 16px 0px 0px 0px;
+}
+.p_heading2 /* heading 2 */
+{
+ font-size: 13pt;
+ page-break-inside: avoid;
+ page-break-after: avoid;
+ margin: 3px 0px 0px 0px;
+}
+.p_Heading1 /* Heading1 */
+{
+ font-size: 100%;
+ font-weight: normal;
+ text-align: left;
+ text-indent: 0px;
+ padding: 0px 0px 0px 0px;
+ margin: 0px 0px 0px 0px;
+}
+.p_ImageCaption /* Image Caption */
+{
+ font-size: 8pt;
+}
+.p_ListParagraph /* List Paragraph */
+{
+ font-size: 10pt;
+ margin: 0px 0px 0px 48px;
+}
+.p_MediumHeader /* Medium Header */
+{
+ font-size: 12pt;
+}
+.p_NewStyle /* New Style */
+{
+ font-size: 11pt;
+}
+.p_note /* note */
+{
+ font-size: 11pt;
+ text-indent: -40px;
+ line-height: 1.43;
+ margin: 1px 72px 0px 74px;
+}
+.p_Notes /* Notes */
+{
+ font-size: 10pt;
+}
+
+
+#hmpopupdiv /* used for javascript text popups */
+{
+  display: none;
+  position: absolute;
+  z-index: 1000;
+  background-color: #FFFFFF;
+  padding: 6px;
+  border:1px solid #000000;
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px #888;
+}
+
+#hmlightbox /* image lightbox */
+{
+  border: none;
+  padding: 8px;
+  background: #FFF;
+  font-size: 110%;
+  font-weight: bold;
+  color: #777;
+  box-shadow: 5px 5px 5px #888;
+}
+
+a.dropdown-toggle /* dropdown toggle caption */
+{
+  cursor: pointer;
+}
+a.inline-toggle /* inline toggle caption */
+{
+  cursor: pointer;
+}
+img.dropdown-toggle-icon /* toggle icon */
+{
+  cursor: pointer;
+}
+/* CSS for responsive image maps */
+
+.hmImageMap a.hmHotspotRect { display:block; position:absolute; border: 1px solid transparent; background:#000; opacity:0.01; filter:alpha(opacity=1)  }
+.hmImageMap a.hmHotspotEllipse { display:block; position:absolute; border-radius:50%; border: 1px solid transparent; background:#000; opacity:0.01; filter:alpha(opacity=1) }
+.hmImageMap:hover a.hmHotspotRect {opacity:0.3; filter:alpha(opacity=30); }
+.hmImageMap:hover a.hmHotspotEllipse { opacity:0.3; filter:alpha(opacity=30); }
+a.hmHotspotRect:hover { border:1px solid #000; background:#FFF; opacity:0.3; filter:alpha(opacity=30) }
+a.hmHotspotEllipse:hover { border:1px solid #000; background:#FFF; opacity:0.3; filter:alpha(opacity=30) }

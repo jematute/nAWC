@@ -2,6 +2,7 @@
 # If needed, prefix 'packages' with additional folder names if it's 
 # not in the same folder as .tfignore.
 node_modules
+dist
 
 # include package target files which may be required for msbuild,
 # again prefixing the folder name as needed.

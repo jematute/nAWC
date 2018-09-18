@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+   <title>Undo Signout of Unchanged Children</title>
+   <meta name="generator" content="Help &amp; Manual" />
+   <meta name="keywords" content="Release,Unchanged Children,Undo Check Out" />
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   
+   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+   <meta name="description" content="If you check out assemblies with large numbers of children, after you complete your work you might have a substantial number of unchanged children. To 1) release check out of..." />
+   <meta name="picture" content="" />
+   <link type="text/css" href="default.css" rel="stylesheet" />
+   <style type="text/css">
+     body { margin: 0px; background: #FFFFFF; }
+   </style>
+   <script type="text/javascript" src="jquery.js"></script>
+   <script type="text/javascript" src="helpman_settings.js"></script>
+   <script type="text/javascript" src="helpman_topicinit.js"></script>
+
+   <script type="text/javascript">
+     HMSyncTOC("index.html", "awc_undo_checkout_unchanged_children.htm");
+   </script>
+   <script type="text/javascript" src="highlight.js"></script>
+   <script type="text/javascript">
+     $(document).ready(function(){highlight();});
+   </script>
+</head>
+<body>
+
+
+<table style="width:100%; border:none; border-spacing:0px; padding:5px; background:#9AD9F1">
+  <tr style="vertical-align:middle">
+    <td style="text-align:left">
+      <p class="p_bannerbase"><span class="f_bannerbase">Undo Check Out of Unchanged Children</span></p>
+
+    </td>
+    <td style="text-align:right">
+     <a href="awc_adept_help.htm">Top</a>&nbsp;
+     <a href="awc_release_checkout.htm">Previous</a>&nbsp;
+     <a href="awc_rename_files.htm">Next</a>
+    </td>
+  </tr>
+</table>
+
+
+<!-- Placeholder for topic body. -->
+<table style="width:100%;border:none;border-spacing:0px"><tr style="vertical-align:top"><td style="text-align:left;padding:5px">
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">If you check out assemblies with large numbers of children, after you complete your work you might have a substantial number of unchanged children. To 1) release check out of those unchanged children, 2) delete the duplicates, and 3) restore the assembly's external references to point to the version before the child was checked out, use the command Undo Check Out of Unchanged Children.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Access this command from the work area. Select one or more parent documents with at least one child that is Out, and select the Undo Check Out of Unchanged Children command on the Document tab of the ribbon, or from the work area's right-click menu.  </span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-style: italic;">Note: If your admin has enabled Undo Check Out in Adept Options, you can Undo Check Out of individual documents by selecting the Undo Check Out option in the Check In dialog.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">When applied to an assembly, “Undo Check Out of Unchanged Children” will perform the following sequence of operations:</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p style="text-align: left; text-indent: 0px; padding: 0px 0px 0px 20px; margin: 0px 0px 0px 0px;"><span style="font-size:10pt; font-family: 'Verdana';color:#000000;display:inline-block;width:20px;margin-left:-20px">1.</span><span class="f_bodytext">Determine which children of the assembly have not been changed</span></p><p style="text-align: left; text-indent: 0px; padding: 0px 0px 0px 20px; margin: 0px 0px 0px 0px;"><span style="font-size:10pt; font-family: 'Verdana';color:#000000;display:inline-block;width:20px;margin-left:-20px">2.</span><span class="f_bodytext">Change their status from Out to In, or Out to Hold depending on the status before they were checked out.</span></p><p style="text-align: left; text-indent: 0px; padding: 0px 0px 0px 20px; margin: 0px 0px 0px 0px;"><span style="font-size:10pt; font-family: 'Verdana';color:#000000;display:inline-block;width:20px;margin-left:-20px">3.</span><span class="f_bodytext">Delete the copy of the Out document from the work area</span></p><p style="text-align: left; text-indent: 0px; padding: 0px 0px 0px 40px; margin: 0px 0px 0px 0px;"><span style="font-size:10pt; font-family: 'Verdana';color:#000000;display:inline-block;width:20px;margin-left:-20px">a.</span><span class="f_bodytext">If Adept detects that the data card metadata has changed, you will be notified before the Out document is discarded, giving you the opportunity to save the document's metadata.</span></p><p style="text-align: left; text-indent: 0px; padding: 0px 0px 0px 20px; margin: 0px 0px 0px 0px;"><span style="font-size:10pt; font-family: 'Verdana';color:#000000;display:inline-block;width:20px;margin-left:-20px">4.</span><span class="f_bodytext">Fix the external reference of the assembly to point to the version of the document pointed to before the document was checked out. (This would fix references to point to the IN version of a document checked out from the library, or the Hold version of a document checked out from Hold.)</span></p><p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">. </span></p>
+
+</td></tr></table>
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+   <title>Document Relationships</title>
+   <meta name="generator" content="Help &amp; Manual" />
+   <meta name="keywords" content="ARX,Assemblies,AutoCAD,CAD,Child,Create Relationships,Document Relationships,Edit Relationships,External Reference,Extract Data,Glyphs,Index Database for Parents and Children,Index Relationships,Inventor,Manual Relationships,Mechanical Desktop,Parent,Parts,Relationships,Symbol,Xrefs" />
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   
+   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+   <meta name="description" content="Documents are often related to each other. Adept supports two types of relationships among documents. The first type of relationship, called an “extracted” relationship, helps..." />
+   <meta name="picture" content="" />
+   <link type="text/css" href="default.css" rel="stylesheet" />
+   <style type="text/css">
+     body { margin: 0px; background: #FFFFFF; }
+   </style>
+   <script type="text/javascript" src="jquery.js"></script>
+   <script type="text/javascript" src="helpman_settings.js"></script>
+   <script type="text/javascript" src="helpman_topicinit.js"></script>
+
+   <script type="text/javascript">
+     HMSyncTOC("index.html", "awc_document_relationships.htm");
+   </script>
+   <script type="text/javascript" src="highlight.js"></script>
+   <script type="text/javascript">
+     $(document).ready(function(){highlight();});
+   </script>
+</head>
+<body>
+
+
+<table style="width:100%; border:none; border-spacing:0px; padding:5px; background:#9AD9F1">
+  <tr style="vertical-align:middle">
+    <td style="text-align:left">
+      <p class="p_bannerbase"><span class="f_bannerbase">Document Relationships</span></p>
+
+    </td>
+    <td style="text-align:right">
+     <a href="awc_adept_help.htm">Top</a>&nbsp;
+     <a href="awc_document_dashboard_tabs.htm">Previous</a>&nbsp;
+     <a href="awc_create_relationships.htm">Next</a>
+    </td>
+  </tr>
+</table>
+
+
+<!-- Placeholder for topic body. -->
+<table style="width:100%;border:none;border-spacing:0px"><tr style="vertical-align:top"><td style="text-align:left;padding:5px">
+<p class="p_bodytext"><span class="f_bodytext">Documents are often related to each other. Adept supports two types of relationships among documents. The first type of relationship, called an “extracted” relationship, helps Adept manage AutoCAD, Inventor, and SOLIDWORKS documents. In this type of relationship, Adept automatically finds all of the documents that the CAD application has associated with each document, first by extracting the relationship information from the document itself, and on an ongoing basis, by managing the location of all the documents related in the parent document.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">The second type of relationship is a “manual” relationship which is created when the user uses the create relationship command in Adept. Manual relationships can be among documents of any type, such as CAD documents, Microsoft Office, raster images, and so on.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Adept uses generalized terminology to describe the relationship among these documents. Adept's name for a document containing a reference is the &quot;Parent&quot; and the document that is referred to by the reference is called the &quot;Child.&quot; In Mechanical CAD, such as Inventor or SOLIDWORKS, the parent is typically an assembly and the child is typically a part. In AutoCAD, the parent is simply the document and the child is called an Xref or external reference.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Adept tracks and controls these documents and their relationship to each other. Information about the relationships, including Where Used, is displayed in the Document Dashboard. The Document Dashboard also provides controls to manipulate the specific version of a child or to replace a child with a different document.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Adept gives immediate feedback if a document has parents and/or children by displaying an icon to the left of the document name in the results windows. The square to the left of the name indicates the document is a parent. The &quot;hook&quot; indicates that a document is a child. And a combined square with a hook indicates the document is both a parent and a child.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Note that in a document that is checked out, the relationships in the work-in-progress document may be different from the relationships in the version that is in the library. You can select which of these sets of relationships you want displayed by choosing the desired Information Source.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">&quot;Stop at...&quot; Options</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Two Xref types supported by AutoCAD are Overlay and Attachment. Adept correctly tracks both of these types of Xrefs when displaying the document in the viewer or when opening the document in AutoCAD. However, depending on an option you can choose in the Options dialog, you may control the way Adept lists the parent/child relationships.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">By default Adept will list as many generations of parent/child relationships as you choose. These Xrefs will be listed hierarchically in the relationship tree of the Document Dashboard, regardless of whether the Xrefs are Overlays or Attachments.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">When you enable the option in the Options dialog to “Stop at AutoCAD Overlay,” Adept displays the parent/child hierarchy only until it reaches the Overlay. In documents that reference Overlays, this option affects Adept’s listing of Xrefs in these areas::</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Document Dashboard </span></p>
+<p class="p_bodytext"><span class="f_bodytext">Send To, with &quot;Include Children&quot; option</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Search for Children</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Children selected for Check In</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Children selected with the extension &quot;Children Check Out&quot;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">In these areas, Adept’s listing of Xrefs will exactly reflect the same hierarchical depth that is represented for them in AutoCAD.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">There are similar options for SOLIDWORKS, Inventor, and MicroStation that affect the level of children display. These settings also affect the same areas as affected by the AutoCAD option noted above.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+
+</td></tr></table>
+
+</body>
+</html>

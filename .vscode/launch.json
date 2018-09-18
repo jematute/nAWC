@@ -19,7 +19,7 @@
             "name": "Launch Chrome (test)",
             "type": "chrome",
             "request": "launch",
-            "url": "http://localhost:4200/",
+            "url": "http://localhost:4500/",
             "webRoot": "${workspaceFolder}"
           }
     ]

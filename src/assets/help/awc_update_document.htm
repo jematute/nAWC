@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+   <title>Update Document</title>
+   <meta name="generator" content="Help &amp; Manual" />
+   <meta name="keywords" content="Attributes,Extraction Field,Insert,Properties,Protected Document,Update Documents" />
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   
+   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+   <meta name="description" content="Adept offers the ability to push data from an Adept extraction field out to the associated property or attribute in a document. This feature can write attributes to Autodesk..." />
+   <meta name="picture" content="" />
+   <link type="text/css" href="default.css" rel="stylesheet" />
+   <style type="text/css">
+     body { margin: 0px; background: #FFFFFF; }
+   </style>
+   <script type="text/javascript" src="jquery.js"></script>
+   <script type="text/javascript" src="helpman_settings.js"></script>
+   <script type="text/javascript" src="helpman_topicinit.js"></script>
+
+   <script type="text/javascript">
+     HMSyncTOC("index.html", "awc_update_document.htm");
+   </script>
+   <script type="text/javascript" src="highlight.js"></script>
+   <script type="text/javascript">
+     $(document).ready(function(){highlight();});
+   </script>
+</head>
+<body>
+
+
+<table style="width:100%; border:none; border-spacing:0px; padding:5px; background:#9AD9F1">
+  <tr style="vertical-align:middle">
+    <td style="text-align:left">
+      <p class="p_bannerbase"><span class="f_bannerbase">Update Documents</span></p>
+
+    </td>
+    <td style="text-align:right">
+     <a href="awc_adept_help.htm">Top</a>&nbsp;
+     <a href="awc_clear_extracted_info.htm">Previous</a>&nbsp;
+     <a href="awc_linked_record.htm">Next</a>
+    </td>
+  </tr>
+</table>
+
+
+<!-- Placeholder for topic body. -->
+<table style="width:100%;border:none;border-spacing:0px"><tr style="vertical-align:top"><td style="text-align:left;padding:5px">
+<p class="p_bodytext"><span class="f_bodytext">Adept offers the ability to push data from an Adept extraction field out to the associated property or attribute in a document. This feature can write attributes to Autodesk drawing (DWG) documents, or properties in Inventor, SOLIDWORKS, MS Word or Excel documents. Update Documents will create properties if they do not exist in the associated Inventor and SOLIDWORKS document.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-style: italic;">Note: Autodesk's password protected documents are locked, and so Adept cannot update attributes in these documents.</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-style: italic;">Note: Adept cannot Update an AutoCAD Constant Attribute.</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-style: italic;">Note: Adept cannot Update a Microsoft Word document that has been Protected.</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-style: italic;">Note: AutoCAD stores attributes as characters. To update an AutoCAD attribute from Adept, you must link the attribute to an Adept Character field. An Adept field defined as a Date cannot be used to update an AutoCAD attribute. </span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-style: italic;">Note: To Update properties in an Inventor document, the workstation requires installation of either Inventor or Inventor View. To update properties in a SOLIDWORKS document, the workstation requires installation of either SOLIDWORKS, or SOLIDWORKS Explorer.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">When you click the Update Documents checkbox on the data card, you may enter information into some extraction fields. Then when you save the data card, the values you entered will be written to the document.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-style: italic;">Note: When you delete a value from a data card field and do a Save, it does not clear the value from the document. To delete the value from the document, you must insert a ` character (back quote) in the field and then with Update Document selected, click Save.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">Saving previous version</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Use this function cautiously, since there is no undo to this operation. Your only backup is the version that you create when you check the document out and back in again.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-style: italic;">Note: Update Document for a document that is IN does not create a new version. If you want to create a new Version, do not use the Update Document on IN documents. To restrict the right to use this command on documents that are IN, remove or don't grant the Document Management Right to Update Documents. Instead of using Update Documents on documents that are IN, check them out, then use the Update function, and then check the document back in. If “Always Create Versions” is on, you will automatically create a version on Check In. If not, you may be able to create a version manually, depending on the version control options in your Library.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">Appearance of Updated Value Delayed in Viewer for Properties (but not for Attributes)</span></p>
+<p class="p_bodytext"><span class="f_bodytext">When you update a value in an extraction Field, note that AutoCAD behaves differently than SOLIDWORKS or Inventor.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">When you update a block attribute in AutoCAD, and then view the document in the Adept viewer, the new value is visible immediately, with no further intervention required.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">When you update properties in Inventor or SOLIDWORKS documents, however, and then view the document, the Viewer will continue to show the old value. The new value of the property will only be visible after you open and save it in its native application. You can also make the change viewable by using the Adept command Batch Open and Save to open and save a number of documents in one operation.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-weight: bold;">Rights</span></p>
+<p class="p_bodytext"><span class="f_bodytext">To Update documents whose status is IN, ASSIGNED or HOLD, you must either be an Administrator or have the Library Access Right to Update Documents. Anyone can use the Update Documents feature on documents they own that are OUT or NEW.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+
+</td></tr></table>
+
+</body>
+</html>

@@ -1,0 +1,367 @@
+﻿<!DOCTYPE html>
+<html><head>
+   <title>Synergis Adept Web Client</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+   <!-- This line includes the general project style sheet (not required) -->
+   <link type="text/css" href="default.css" rel="stylesheet" />
+
+   <!-- This block defines the styles of the TOC headings, change them as needed -->
+   <style type="text/css">
+       body { background:#FFF; }
+       .navbar   { font-size: 120%; }
+
+       .heading1 { font-family: Arial,Helvetica; font-weight: normal; font-size: 10pt; color: #000000; text-decoration: none; }
+       .heading2 { font-family: Arial,Helvetica; font-weight: normal; font-size: 10pt; color: #000000; text-decoration: none; }
+       .heading3 { font-family: Arial,Helvetica; font-weight: normal; font-size: 10pt; color: #000000; text-decoration: none; }
+       .heading4 { font-family: Arial,Helvetica; font-weight: normal; font-size: 10pt; color: #000000; text-decoration: none; }
+       .heading5 { font-family: Arial,Helvetica; font-weight: normal; font-size: 10pt; color: #000000; text-decoration: none; }
+       .heading6 { font-family: Arial,Helvetica; font-weight: normal; font-size: 10pt; color: #000000; text-decoration: none; }
+
+       .hilight1 { font-family: Arial,Helvetica; font-weight: normal; font-size: 10pt; color: #FFFFFF; background: #002682; text-decoration: none; }
+       .hilight2 { font-family: Arial,Helvetica; font-weight: normal; font-size: 10pt; color: #FFFFFF; background: #002682; text-decoration: none; }
+       .hilight3 { font-family: Arial,Helvetica; font-weight: normal; font-size: 10pt; color: #FFFFFF; background: #002682; text-decoration: none; }
+       .hilight4 { font-family: Arial,Helvetica; font-weight: normal; font-size: 10pt; color: #FFFFFF; background: #002682; text-decoration: none; }
+       .hilight5 { font-family: Arial,Helvetica; font-weight: normal; font-size: 10pt; color: #FFFFFF; background: #002682; text-decoration: none; }
+       .hilight6 { font-family: Arial,Helvetica; font-weight: normal; font-size: 10pt; color: #FFFFFF; background: #002682; text-decoration: none; }
+
+       /* TOC LIST CSS */
+       #toc    { padding: 0; margin: 0; }
+       #toc li { margin-top: 2px; }
+       #toc ul { padding-left:0; padding-right:0 }
+       /* TOC LIST CSS */
+   </style>
+   <script type="text/javascript" src="jquery.js"></script>
+   <script type="text/javascript" src="helpman_settings.js"></script>
+   <script type="text/javascript">
+     var parentScope = (parent.hmNavigationFrame);
+     if (!parentScope) {
+		      var s = document.createElement("script");
+		      s.setAttribute("type","text/javascript");
+		      s.setAttribute("src", "helpman_navigation.js");
+		      document.getElementsByTagName("head")[0].appendChild(s);
+	    }
+     else {
+       if (initialtocstate != "expandall") parent.hmAddCss(document, "#toc li ul { display: none }");
+     }
+     function loadicons() { var icons = new Array(); for (i=0; i<arguments.length; i++) { icons[i] = new Image(); icons[i].src = arguments[i]; } }
+     function loadtoc() { if (parentScope) parent.loadstate(document.getElementById("toc")); else loadstate(document.getElementById("toc")); }
+     function savetoc() { if (parentScope) parent.savestate(document.getElementById("toc")); else savestate(document.getElementById("toc")); }
+     function clicked(node, event) { deselect(); if (parentScope) parent.hmNodeClicked(node, event); else hmNodeClicked(node, event); }
+     function dblclicked(node) { if (parentScope) parent.hmNodeDblclicked(node); else hmNodeDblclicked(node); }
+     function deselect() { if (window.getSelection) window.getSelection().removeAllRanges(); else if (document.selection) document.selection.empty(); }
+     $(document).ready(function(){
+       loadtoc();
+       $(window).onunload = savetoc;
+     });
+   </script>
+</head>
+<body>
+<p class="navbar"><b>Contents</b>
+ | <a href="hmkwindex.htm">Index</a>
+ | <a href="hmftsearch.htm">Search</a>
+</p>
+<hr/>
+
+
+  <!-- Place holder for the TOC - this variable is REQUIRED! -->
+  <ul id="toc" style="list-style-type:none;display:block;padding-left:0">
+<li class="heading1" id="i1" data-bg="cicon1.png;cicon2.png" style="background:url(cicon2.png) no-repeat;cursor:pointer;padding-left:20px" onclick="return clicked(this,event)"><a class="heading1" id="a1" href=javascript:void(0);><span class="heading1" id="s1" ondblclick="return dblclicked(this)">Getting Started</span></a>
+<ul id="ul1" style="list-style-type:none">
+<li class="heading2" id="i1.1" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a1.1" href="awc_adept_help.htm" target="hmcontent"><span class="heading2" id="s1.1">Using Adept Help</span></a>
+</li>
+<li class="heading2" id="i1.2" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a1.2" href="awc_adept_web_clients.htm" target="hmcontent"><span class="heading2" id="s1.2">Adept Web Browser Clients</span></a>
+</li>
+<li class="heading2" id="i1.3" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a1.3" href="awc_first_time_user.htm" target="hmcontent"><span class="heading2" id="s1.3">First Time User</span></a>
+</li>
+<li class="heading2" id="i1.4" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a1.4" href="awc_getting_started__working_wi.htm" target="hmcontent"><span class="heading2" id="s1.4">Working with Documents</span></a>
+</li>
+<li class="heading2" id="i1.5" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a1.5" href="awc_which_source__library_or_in.htm" target="hmcontent"><span class="heading2" id="s1.5">Source: Library or Work In Progress</span></a>
+</li>
+<li class="heading2" id="i1.6" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a1.6" href="awc_symbols_graphics_icons_glyphs.htm" target="hmcontent"><span class="heading2" id="s1.6">Symbols, Graphics, Icons, Glyphs</span></a>
+</li>
+<li class="heading2" id="i1.7" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a1.7" href="awc_color_coding.htm" target="hmcontent"><span class="heading2" id="s1.7">Color-coded Fonts</span></a>
+</li>
+<li class="heading2" id="i1.8" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a1.8" href="awc_user_settings.htm" target="hmcontent"><span class="heading2" id="s1.8">User settings</span></a>
+</li>
+<li class="heading2" id="i1.9" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a1.9" href="awc_admin_settings.htm" target="hmcontent"><span class="heading2" id="s1.9">Admin settings</span></a>
+</li>
+<li class="heading2" id="i1.10" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a1.10" href="awc_selecting_definition.htm" target="hmcontent"><span class="heading2" id="s1.10">Selecting</span></a>
+</li>
+<li class="heading2" id="i1.11" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a1.11" href="awc_refresh_current_window.htm" target="hmcontent"><span class="heading2" id="s1.11">Refresh Current Window</span></a>
+</li>
+</ul>
+</li>
+<li class="heading1" id="i2" data-bg="cicon1.png;cicon2.png" style="background:url(cicon2.png) no-repeat;cursor:pointer;padding-left:20px" onclick="return clicked(this,event)"><a class="heading1" id="a2" href="awc_ribbon.htm" target="hmcontent"><span class="heading1" id="s2" ondblclick="return dblclicked(this)">Adept Web Client Ribbon</span></a>
+<ul id="ul2" style="list-style-type:none">
+<li class="heading2" id="i2.1" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a2.1" href="awc_ribbon_tab_home.htm" target="hmcontent"><span class="heading2" id="s2.1">Ribbon Tab: Home</span></a>
+</li>
+<li class="heading2" id="i2.2" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a2.2" href="awc_ribbon_tab_document.htm" target="hmcontent"><span class="heading2" id="s2.2">Ribbon Tab: Document</span></a>
+</li>
+<li class="heading2" id="i2.3" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a2.3" href="awc_ribbon_tab_view.htm" target="hmcontent"><span class="heading2" id="s2.3">Ribbon Tab: Search</span></a>
+</li>
+<li class="heading2" id="i2.4" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a2.4" href="awc_ribbon_tab_workflow.htm" target="hmcontent"><span class="heading2" id="s2.4">Ribbon Tab: Workflow</span></a>
+</li>
+</ul>
+</li>
+<li class="heading1" id="i3" data-bg="cicon1.png;cicon2.png" style="background:url(cicon2.png) no-repeat;cursor:pointer;padding-left:20px" onclick="return clicked(this,event)"><a class="heading1" id="a3" href=javascript:void(0);><span class="heading1" id="s3" ondblclick="return dblclicked(this)">Adept Web Client User Interface</span></a>
+<ul id="ul3" style="list-style-type:none">
+<li class="heading2" id="i3.1" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a3.1" href="awc_introduction.htm" target="hmcontent"><span class="heading2" id="s3.1">Introduction</span></a>
+</li>
+<li class="heading2" id="i3.2" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a3.2" href="awc_home.htm" target="hmcontent"><span class="heading2" id="s3.2">Home</span></a>
+</li>
+<li class="heading2" id="i3.3" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a3.3" href="awc_favorites.htm" target="hmcontent"><span class="heading2" id="s3.3">Favorites</span></a>
+</li>
+<li class="heading2" id="i3.4" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a3.4" href="awc_saved_searches.htm" target="hmcontent"><span class="heading2" id="s3.4">Saved Searches</span></a>
+</li>
+<li class="heading2" id="i3.5" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a3.5" href="awc_inbox.htm" target="hmcontent"><span class="heading2" id="s3.5">Inbox</span></a>
+</li>
+<li class="heading2" id="i3.6" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a3.6" href="awc_lib-browser.htm" target="hmcontent"><span class="heading2" id="s3.6">Library Browser</span></a>
+</li>
+<li class="heading2" id="i3.7" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a3.7" href="awc_fileguide.htm" target="hmcontent"><span class="heading2" id="s3.7">FileGuide</span></a>
+</li>
+<li class="heading2" id="i3.8" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a3.8" href="awc_work_area.htm" target="hmcontent"><span class="heading2" id="s3.8">Work Area</span></a>
+</li>
+<li class="heading2" id="i3.9" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a3.9" href="awc_results_area.htm" target="hmcontent"><span class="heading2" id="s3.9">Results Area</span></a>
+</li>
+<li class="heading2" id="i3.10" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a3.10" href="awc_supported_cad_office.htm" target="hmcontent"><span class="heading2" id="s3.10">Supported CAD and Office Applications</span></a>
+</li>
+</ul>
+</li>
+<li class="heading1" id="i4" data-bg="cicon1.png;cicon2.png" style="background:url(cicon2.png) no-repeat;cursor:pointer;padding-left:20px" onclick="return clicked(this,event)"><a class="heading1" id="a4" href=javascript:void(0);><span class="heading1" id="s4" ondblclick="return dblclicked(this)">Document Dashboard&nbsp;</span></a>
+<ul id="ul4" style="list-style-type:none">
+<li class="heading2" id="i4.1" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a4.1" href="awc_document_dashboard.htm" target="hmcontent"><span class="heading2" id="s4.1">Document Dashboard Introduction</span></a>
+</li>
+<li class="heading2" id="i4.2" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a4.2" href="awc_document_dashboard_tree.htm" target="hmcontent"><span class="heading2" id="s4.2">Document Dashboard Relationship Tree</span></a>
+</li>
+<li class="heading2" id="i4.3" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a4.3" href="awc_document_dashboard_tabs.htm" target="hmcontent"><span class="heading2" id="s4.3">Document Dashboard Tabs</span></a>
+</li>
+<li class="heading2" id="i4.4" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a4.4" href="awc_document_relationships.htm" target="hmcontent"><span class="heading2" id="s4.4">Document Relationships</span></a>
+</li>
+<li class="heading2" id="i4.5" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a4.5" href="awc_create_relationships.htm" target="hmcontent"><span class="heading2" id="s4.5">Create/Edit Manual Relationships</span></a>
+</li>
+</ul>
+</li>
+<li class="heading1" id="i5" data-bg="cicon1.png;cicon2.png" style="background:url(cicon2.png) no-repeat;cursor:pointer;padding-left:20px" onclick="return clicked(this,event)"><a class="heading1" id="a5" href=javascript:void(0);><span class="heading1" id="s5" ondblclick="return dblclicked(this)">Search</span></a>
+<ul id="ul5" style="list-style-type:none">
+<li class="heading2" id="i5.1" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a5.1" href="awc_adept_search_matrix.htm" target="hmcontent"><span class="heading2" id="s5.1">Adept Search Matrix</span></a>
+</li>
+<li class="heading2" id="i5.2" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a5.2" href="awc_search_dialog_box.htm" target="hmcontent"><span class="heading2" id="s5.2">Search Card</span></a>
+</li>
+<li class="heading2" id="i5.3" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a5.3" href="search_key.htm" target="hmcontent"><span class="heading2" id="s5.3">Special Searches</span></a>
+</li>
+<li class="heading2" id="i5.4" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a5.4" href="awc_search_file_content.htm" target="hmcontent"><span class="heading2" id="s5.4">Search Document Content - Full Text Search</span></a>
+</li>
+<li class="heading2" id="i5.5" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a5.5" href="awc_append_search.htm" target="hmcontent"><span class="heading2" id="s5.5">Append to Previous Search</span></a>
+</li>
+<li class="heading2" id="i5.6" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a5.6" href="awc_refine_search.htm" target="hmcontent"><span class="heading2" id="s5.6">Search within Previous Search</span></a>
+</li>
+<li class="heading2" id="i5.7" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a5.7" href="awc_search_for_children.htm" target="hmcontent"><span class="heading2" id="s5.7">Search for Children</span></a>
+</li>
+<li class="heading2" id="i5.8" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a5.8" href="awc_utc.htm" target="hmcontent"><span class="heading2" id="s5.8">UTC Date Considerations</span></a>
+</li>
+</ul>
+</li>
+<li class="heading1" id="i6" data-bg="cicon1.png;cicon2.png" style="background:url(cicon2.png) no-repeat;cursor:pointer;padding-left:20px" onclick="return clicked(this,event)"><a class="heading1" id="a6" href=javascript:void(0);><span class="heading1" id="s6" ondblclick="return dblclicked(this)">Data Cards</span></a>
+<ul id="ul6" style="list-style-type:none">
+<li class="heading2" id="i6.1" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a6.1" href="awc_data_card_intro.htm" target="hmcontent"><span class="heading2" id="s6.1">Data Card Introduction</span></a>
+</li>
+<li class="heading2" id="i6.2" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a6.2" href="awc_view_data_card.htm" target="hmcontent"><span class="heading2" id="s6.2">View Data Card</span></a>
+</li>
+<li class="heading2" id="i6.3" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a6.3" href="awc_data_card_memo.htm" target="hmcontent"><span class="heading2" id="s6.3">Data Card: Memo</span></a>
+</li>
+<li class="heading2" id="i6.4" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a6.4" href="awc_edit_data_card.htm" target="hmcontent"><span class="heading2" id="s6.4">Edit Data Card</span></a>
+</li>
+<li class="heading2" id="i6.5" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a6.5" href="awc_cant_edit_data_card.htm" target="hmcontent"><span class="heading2" id="s6.5">Cannot Edit Data Card</span></a>
+</li>
+</ul>
+</li>
+<li class="heading1" id="i7" data-bg="cicon1.png;cicon2.png" style="background:url(cicon2.png) no-repeat;cursor:pointer;padding-left:20px" onclick="return clicked(this,event)"><a class="heading1" id="a7" href=javascript:void(0);><span class="heading1" id="s7" ondblclick="return dblclicked(this)">Work Area</span></a>
+<ul id="ul7" style="list-style-type:none">
+<li class="heading2" id="i7.1" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a7.1" href="awc_work_area_intro.htm" target="hmcontent"><span class="heading2" id="s7.1">Work Area Introduction</span></a>
+</li>
+<li class="heading2" id="i7.2" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a7.2" href="awc_current_work_area.htm" target="hmcontent"><span class="heading2" id="s7.2">Current Work Area</span></a>
+</li>
+<li class="heading2" id="i7.3" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a7.3" href="awc_add_work_area.htm" target="hmcontent"><span class="heading2" id="s7.3">Add Work Area</span></a>
+</li>
+<li class="heading2" id="i7.4" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a7.4" href="awc_edit_work_area.htm" target="hmcontent"><span class="heading2" id="s7.4">Edit Work Area</span></a>
+</li>
+<li class="heading2" id="i7.5" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a7.5" href="awc_delete_work_area.htm" target="hmcontent"><span class="heading2" id="s7.5">Remove Work Area</span></a>
+</li>
+<li class="heading2" id="i7.6" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a7.6" href="awc_work_area_no_longer_valid.htm" target="hmcontent"><span class="heading2" id="s7.6">Work Area No Longer Valid</span></a>
+</li>
+</ul>
+</li>
+<li class="heading1" id="i8" data-bg="cicon1.png;cicon2.png" style="background:url(cicon2.png) no-repeat;cursor:pointer;padding-left:20px" onclick="return clicked(this,event)"><a class="heading1" id="a8" href=javascript:void(0);><span class="heading1" id="s8" ondblclick="return dblclicked(this)">New Documents</span></a>
+<ul id="ul8" style="list-style-type:none">
+<li class="heading2" id="i8.1" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a8.1" href="awc_create_new_documents.htm" target="hmcontent"><span class="heading2" id="s8.1">Create New Documents</span></a>
+</li>
+</ul>
+</li>
+<li class="heading1" id="i9" data-bg="cicon1.png;cicon2.png" style="background:url(cicon2.png) no-repeat;cursor:pointer;padding-left:20px" onclick="return clicked(this,event)"><a class="heading1" id="a9" href=javascript:void(0);><span class="heading1" id="s9" ondblclick="return dblclicked(this)">Document Status</span></a>
+<ul id="ul9" style="list-style-type:none">
+<li class="heading2" id="i9.1" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a9.1" href="awc_status.htm" target="hmcontent"><span class="heading2" id="s9.1">Status</span></a>
+</li>
+<li class="heading2" id="i9.2" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a9.2" href="awc_file_status_arc_archived.htm" target="hmcontent"><span class="heading2" id="s9.2">Document Status: ARC (Archived)</span></a>
+</li>
+<li class="heading2" id="i9.3" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a9.3" href="awc_file_status__assign.htm" target="hmcontent"><span class="heading2" id="s9.3">Document Status: Assign</span></a>
+</li>
+<li class="heading2" id="i9.4" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a9.4" href="awc_file_status__assign_hold.htm" target="hmcontent"><span class="heading2" id="s9.4">Document Status: AssignHold</span></a>
+</li>
+<li class="heading2" id="i9.5" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a9.5" href="awc_file_status__assignreview.htm" target="hmcontent"><span class="heading2" id="s9.5">Document Status: AssignReview</span></a>
+</li>
+<li class="heading2" id="i9.6" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a9.6" href="awc_file_status_duplicate.htm" target="hmcontent"><span class="heading2" id="s9.6">Document Status: Duplicate</span></a>
+</li>
+<li class="heading2" id="i9.7" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a9.7" href="awc_file_status__hold.htm" target="hmcontent"><span class="heading2" id="s9.7">Document Status: Hold</span></a>
+</li>
+<li class="heading2" id="i9.8" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a9.8" href="awc_file_status_in.htm" target="hmcontent"><span class="heading2" id="s9.8">Document Status: In</span></a>
+</li>
+<li class="heading2" id="i9.9" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a9.9" href="awc_file_status_new.htm" target="hmcontent"><span class="heading2" id="s9.9">Document Status: New</span></a>
+</li>
+<li class="heading2" id="i9.10" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a9.10" href="awc_file_status_out.htm" target="hmcontent"><span class="heading2" id="s9.10">Document Status: Out</span></a>
+</li>
+<li class="heading2" id="i9.11" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a9.11" href="awc_file_status_review.htm" target="hmcontent"><span class="heading2" id="s9.11">Document Status: Review</span></a>
+</li>
+</ul>
+</li>
+<li class="heading1" id="i10" data-bg="cicon1.png;cicon2.png" style="background:url(cicon2.png) no-repeat;cursor:pointer;padding-left:20px" onclick="return clicked(this,event)"><a class="heading1" id="a10" href=javascript:void(0);><span class="heading1" id="s10" ondblclick="return dblclicked(this)">Extract Documents</span></a>
+<ul id="ul10" style="list-style-type:none">
+<li class="heading2" id="i10.1" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a10.1" href="awc_extract_data.htm" target="hmcontent"><span class="heading2" id="s10.1">Extract Data - Overview</span></a>
+</li>
+<li class="heading2" id="i10.2" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a10.2" href="awc_refresh_extract.htm" target="hmcontent"><span class="heading2" id="s10.2">Refresh Extracted Info</span></a>
+</li>
+<li class="heading2" id="i10.3" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a10.3" href="awc_extraction_status.htm" target="hmcontent"><span class="heading2" id="s10.3">Extraction State</span></a>
+</li>
+<li class="heading2" id="i10.4" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a10.4" href="awc_clear_extracted_info.htm" target="hmcontent"><span class="heading2" id="s10.4">Clear Extracted Info</span></a>
+</li>
+</ul>
+</li>
+<li class="heading1" id="i11" data-bg="cicon1.png;cicon2.png" style="background:url(cicon2.png) no-repeat;cursor:pointer;padding-left:20px" onclick="return clicked(this,event)"><a class="heading1" id="a11" href=javascript:void(0);><span class="heading1" id="s11" ondblclick="return dblclicked(this)">View/Print Documents</span></a>
+<ul id="ul11" style="list-style-type:none">
+<li class="heading2" id="i11.1" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a11.1" href="awc_view_files.htm" target="hmcontent"><span class="heading2" id="s11.1">View Documents</span></a>
+</li>
+<li class="heading2" id="i11.2" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a11.2" href="awc_view_file_lib_wip.htm" target="hmcontent"><span class="heading2" id="s11.2">View Document: Library or Work In Progress (WIP)</span></a>
+</li>
+<li class="heading2" id="i11.3" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a11.3" href="wc_redline_comment.htm" target="hmcontent"><span class="heading2" id="s11.3">Redline Comment</span></a>
+</li>
+<li class="heading2" id="i11.4" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a11.4" href="awc_print_files.htm" target="hmcontent"><span class="heading2" id="s11.4">Print Documents</span></a>
+</li>
+</ul>
+</li>
+<li class="heading1" id="i12" data-bg="cicon1.png;cicon2.png" style="background:url(cicon2.png) no-repeat;cursor:pointer;padding-left:20px" onclick="return clicked(this,event)"><a class="heading1" id="a12" href=javascript:void(0);><span class="heading1" id="s12" ondblclick="return dblclicked(this)">Column Data and Sets</span></a>
+<ul id="ul12" style="list-style-type:none">
+<li class="heading2" id="i12.1" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a12.1" href="awc_to_change_column_widths.htm" target="hmcontent"><span class="heading2" id="s12.1">Change Column Appearance</span></a>
+</li>
+<li class="heading2" id="i12.2" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a12.2" href="awc_change_columns.htm" target="hmcontent"><span class="heading2" id="s12.2">Add Columns, Change Columns</span></a>
+</li>
+<li class="heading2" id="i12.3" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a12.3" href="awc_column_sets.htm" target="hmcontent"><span class="heading2" id="s12.3">Column Sets</span></a>
+</li>
+<li class="heading2" id="i12.4" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a12.4" href="awc_sort_display_by_columns.htm" target="hmcontent"><span class="heading2" id="s12.4">Sort Display by Columns</span></a>
+</li>
+</ul>
+</li>
+<li class="heading1" id="i13" data-bg="cicon1.png;cicon2.png" style="background:url(cicon2.png) no-repeat;cursor:pointer;padding-left:20px" onclick="return clicked(this,event)"><a class="heading1" id="a13" href=javascript:void(0);><span class="heading1" id="s13" ondblclick="return dblclicked(this)">Check In/Out &amp; Copy Out</span></a>
+<ul id="ul13" style="list-style-type:none">
+<li class="heading2" id="i13.1" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a13.1" href="awc_check_in_overview.htm" target="hmcontent"><span class="heading2" id="s13.1">Check In - Overview</span></a>
+</li>
+<li class="heading2" id="i13.2" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a13.2" href="awc_check_in.htm" target="hmcontent"><span class="heading2" id="s13.2">Check In</span></a>
+</li>
+<li class="heading2" id="i13.3" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a13.3" href="awc_check_copy_out.htm" target="hmcontent"><span class="heading2" id="s13.3">Check Out/Copy Out</span></a>
+</li>
+<li class="heading2" id="i13.4" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a13.4" href="awc_information_source.htm" target="hmcontent"><span class="heading2" id="s13.4">Information Source</span></a>
+</li>
+<li class="heading2" id="i13.5" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a13.5" href="awc_gatekeeper_verify_name.htm" target="hmcontent"><span class="heading2" id="s13.5">Gatekeeper: Verify Name</span></a>
+</li>
+</ul>
+</li>
+<li class="heading1" id="i14" data-bg="cicon1.png;cicon2.png" style="background:url(cicon2.png) no-repeat;cursor:pointer;padding-left:20px" onclick="return clicked(this,event)"><a class="heading1" id="a14" href=javascript:void(0);><span class="heading1" id="s14" ondblclick="return dblclicked(this)">Acquire/Release Check Out</span></a>
+<ul id="ul14" style="list-style-type:none">
+<li class="heading2" id="i14.1" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a14.1" href="awc_acquire_checkout.htm" target="hmcontent"><span class="heading2" id="s14.1">Acquire Check Out</span></a>
+</li>
+<li class="heading2" id="i14.2" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a14.2" href="awc_release_checkout.htm" target="hmcontent"><span class="heading2" id="s14.2">Release Check Out</span></a>
+</li>
+<li class="heading2" id="i14.3" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a14.3" href="awc_undo_checkout_unchanged_children.htm" target="hmcontent"><span class="heading2" id="s14.3">Undo Check Out of Unchanged Children</span></a>
+</li>
+</ul>
+</li>
+<li class="heading1" id="i15" data-bg="cicon1.png;cicon2.png" style="background:url(cicon2.png) no-repeat;cursor:pointer;padding-left:20px" onclick="return clicked(this,event)"><a class="heading1" id="a15" href=javascript:void(0);><span class="heading1" id="s15" ondblclick="return dblclicked(this)">Rename &amp; Delete Documents</span></a>
+<ul id="ul15" style="list-style-type:none">
+<li class="heading2" id="i15.1" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a15.1" href="awc_rename_files.htm" target="hmcontent"><span class="heading2" id="s15.1">Rename Documents</span></a>
+</li>
+<li class="heading2" id="i15.2" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a15.2" href="awc_delete_files.htm" target="hmcontent"><span class="heading2" id="s15.2">Delete Documents</span></a>
+</li>
+</ul>
+</li>
+<li class="heading1" id="i16" data-bg="cicon1.png;cicon2.png" style="background:url(cicon2.png) no-repeat;cursor:pointer;padding-left:20px" onclick="return clicked(this,event)"><a class="heading1" id="a16" href=javascript:void(0);><span class="heading1" id="s16" ondblclick="return dblclicked(this)">Link/Unlink Records</span></a>
+<ul id="ul16" style="list-style-type:none">
+<li class="heading2" id="i16.1" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a16.1" href="awc_linked_record.htm" target="hmcontent"><span class="heading2" id="s16.1">Linked Record</span></a>
+</li>
+<li class="heading2" id="i16.2" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a16.2" href="awc_unlinked_record.htm" target="hmcontent"><span class="heading2" id="s16.2">Unlinked Record</span></a>
+</li>
+</ul>
+</li>
+<li class="heading1" id="i17" data-bg="cicon1.png;cicon2.png" style="background:url(cicon2.png) no-repeat;cursor:pointer;padding-left:20px" onclick="return clicked(this,event)"><a class="heading1" id="a17" href=javascript:void(0);><span class="heading1" id="s17" ondblclick="return dblclicked(this)">Versions</span></a>
+<ul id="ul17" style="list-style-type:none">
+<li class="heading2" id="i17.1" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a17.1" href="awc_versions.htm" target="hmcontent"><span class="heading2" id="s17.1">Versions</span></a>
+</li>
+<li class="heading2" id="i17.2" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a17.2" href="awc_create_versions.htm" target="hmcontent"><span class="heading2" id="s17.2">Create Versions</span></a>
+</li>
+</ul>
+</li>
+<li class="heading1" id="i18" data-bg="cicon1.png;cicon2.png" style="background:url(cicon2.png) no-repeat;cursor:pointer;padding-left:20px" onclick="return clicked(this,event)"><a class="heading1" id="a18" href=javascript:void(0);><span class="heading1" id="s18" ondblclick="return dblclicked(this)">Libraries</span></a>
+<ul id="ul18" style="list-style-type:none">
+<li class="heading2" id="i18.1" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a18.1" href="awc_library_how_to_use.htm" target="hmcontent"><span class="heading2" id="s18.1">Library Introduction</span></a>
+</li>
+<li class="heading2" id="i18.2" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a18.2" href="awc_checked_library.htm" target="hmcontent"><span class="heading2" id="s18.2">Checked Library</span></a>
+</li>
+<li class="heading2" id="i18.3" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a18.3" href="awc_unchecked_library.htm" target="hmcontent"><span class="heading2" id="s18.3">Unchecked Library</span></a>
+</li>
+<li class="heading2" id="i18.4" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a18.4" href="awc_open_library.htm" target="hmcontent"><span class="heading2" id="s18.4">Open Library</span></a>
+</li>
+</ul>
+</li>
+<li class="heading1" id="i19" data-bg="cicon1.png;cicon2.png" style="background:url(cicon2.png) no-repeat;cursor:pointer;padding-left:20px" onclick="return clicked(this,event)"><a class="heading1" id="a19" href=javascript:void(0);><span class="heading1" id="s19" ondblclick="return dblclicked(this)">Workflow</span></a>
+<ul id="ul19" style="list-style-type:none">
+<li class="heading2" id="i19.1" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a19.1" href="awc_workflow_overview.htm" target="hmcontent"><span class="heading2" id="s19.1">Workflow Introduction</span></a>
+</li>
+<li class="heading2" id="i19.2" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a19.2" href="awc_unassign_files.htm" target="hmcontent"><span class="heading2" id="s19.2">Unassign Documents</span></a>
+</li>
+<li class="heading2" id="i19.3" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a19.3" href="awc_assign_files.htm" target="hmcontent"><span class="heading2" id="s19.3">Assign Documents</span></a>
+</li>
+<li class="heading2" id="i19.4" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a19.4" href="awc_assign_to_list.htm" target="hmcontent"><span class="heading2" id="s19.4">Assign to: List</span></a>
+</li>
+<li class="heading2" id="i19.5" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a19.5" href="awc_approve_files.htm" target="hmcontent"><span class="heading2" id="s19.5">Approve</span></a>
+</li>
+<li class="heading2" id="i19.6" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a19.6" href="awc_expedite_approve.htm" target="hmcontent"><span class="heading2" id="s19.6">Expedite Approve</span></a>
+</li>
+<li class="heading2" id="i19.7" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a19.7" href="awc_final_approve.htm" target="hmcontent"><span class="heading2" id="s19.7">Final Approve</span></a>
+</li>
+<li class="heading2" id="i19.8" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a19.8" href="awc_reject.htm" target="hmcontent"><span class="heading2" id="s19.8">Reject</span></a>
+</li>
+<li class="heading2" id="i19.9" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a19.9" href="awc_expedite_reject.htm" target="hmcontent"><span class="heading2" id="s19.9">Expedite Reject</span></a>
+</li>
+<li class="heading2" id="i19.10" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a19.10" href="awc_reject_to.htm" target="hmcontent"><span class="heading2" id="s19.10">Reject To</span></a>
+</li>
+<li class="heading2" id="i19.11" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a19.11" href="awc_reset_to_start_of_workflow.htm" target="hmcontent"><span class="heading2" id="s19.11">Reset to Start of Workflow</span></a>
+</li>
+<li class="heading2" id="i19.12" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a19.12" href="awc_set_document_workflow.htm" target="hmcontent"><span class="heading2" id="s19.12">Set Document Workflow</span></a>
+</li>
+<li class="heading2" id="i19.13" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a19.13" href="awc_reroute_workflow.htm" target="hmcontent"><span class="heading2" id="s19.13">Reroute Workflow</span></a>
+</li>
+</ul>
+</li>
+<li class="heading1" id="i20" data-bg="cicon1.png;cicon2.png" style="background:url(cicon2.png) no-repeat;cursor:pointer;padding-left:20px" onclick="return clicked(this,event)"><a class="heading1" id="a20" href=javascript:void(0);><span class="heading1" id="s20" ondblclick="return dblclicked(this)">Email Notification &amp; Send To</span></a>
+<ul id="ul20" style="list-style-type:none">
+<li class="heading2" id="i20.1" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a20.1" href="awc_email_notification.htm" target="hmcontent"><span class="heading2" id="s20.1">Email Notification Introduction</span></a>
+</li>
+<li class="heading2" id="i20.2" style="background:url(cicon9.png) no-repeat;padding-left:20px" onclick="return clicked(this,event)"><a class="heading2" id="a20.2" href="awc_send_to.htm" target="hmcontent"><span class="heading2" id="s20.2">Send To</span></a>
+</li>
+</ul>
+</li>
+</ul>
+<script type="text/javascript">loadicons('cicon2.png','cicon1.png','cicon9.png');</script>
+
+
+</body>
+</html>

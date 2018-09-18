@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common'; 
+import { CommonModule } from '@angular/common';
 import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
 import { AuthGuard } from './auth.guard';
@@ -16,14 +16,14 @@ const LAYOUT_COMPONENTS = [
 
 @NgModule({
   imports: [
-    CommonModule, LayoutRoutingModule, 
-    MaterialModule, ResultsModule, SidebarModule, 
+    CommonModule, LayoutRoutingModule,
+    MaterialModule, ResultsModule, SidebarModule,
     HeaderModule, DatacardModule, HomeModule
   ],
   declarations: [
     ...LAYOUT_COMPONENTS
   ],
-  exports: [ ], 
+  exports: [ ],
   providers: [ AuthGuard ]
 })
 export class LayoutModule {

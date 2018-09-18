@@ -8,7 +8,6 @@ import { LocalizationService } from './localization/localization.service';
 })
 export class AppComponent implements OnInit {
   title = 'app';
-  
   constructor(public locale: LocalizationService) {
 
   }

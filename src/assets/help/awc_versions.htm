@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+   <title>Versions</title>
+   <meta name="generator" content="Help &amp; Manual" />
+   <meta name="keywords" content="Create Versions,Major Version,Minor Version,Version,Version Depth" />
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   
+   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+   <meta name="description" content="Adept can save previous copies of a library documents. These previous versions are recorded in the Adept Versions database and stored in the numbered Version sub-folders for..." />
+   <meta name="picture" content="" />
+   <link type="text/css" href="default.css" rel="stylesheet" />
+   <style type="text/css">
+     body { margin: 0px; background: #FFFFFF; }
+   </style>
+   <script type="text/javascript" src="jquery.js"></script>
+   <script type="text/javascript" src="helpman_settings.js"></script>
+   <script type="text/javascript" src="helpman_topicinit.js"></script>
+
+   <script type="text/javascript">
+     HMSyncTOC("index.html", "awc_versions.htm");
+   </script>
+   <script type="text/javascript" src="highlight.js"></script>
+   <script type="text/javascript">
+     $(document).ready(function(){highlight();});
+   </script>
+</head>
+<body>
+
+
+<table style="width:100%; border:none; border-spacing:0px; padding:5px; background:#9AD9F1">
+  <tr style="vertical-align:middle">
+    <td style="text-align:left">
+      <p class="p_bannerbase"><span class="f_bannerbase">Versions</span></p>
+
+    </td>
+    <td style="text-align:right">
+     <a href="awc_adept_help.htm">Top</a>&nbsp;
+     <a href="awc_unlinked_record.htm">Previous</a>&nbsp;
+     <a href="awc_create_versions.htm">Next</a>
+    </td>
+  </tr>
+</table>
+
+
+<!-- Placeholder for topic body. -->
+<table style="width:100%;border:none;border-spacing:0px"><tr style="vertical-align:top"><td style="text-align:left;padding:5px">
+<p class="p_bodytext"><span class="f_bodytext">Adept can save previous copies of a library documents. These previous versions are recorded in the Adept Versions database and stored in the numbered Version sub-folders for that Library. Adept never changes the name of the actual document. The mechanism Adept uses &quot;under the hood&quot; is to move versions to sub-folders. When Adept creates the Version, it increments the &quot;Adept Version number&quot; of the copy in the Library.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext" style="font-style: italic;">Note: When you check a document back to a library, the Version number is always increased, even if you are not saving a new version.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">To see previous versions of the document you currently have selected, display it in the <a href="awc_document_dashboard.htm" class="topiclink">Document Dashboard</a>, and select the Versions tab.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">In addition to the Major version level that is kept in the Version Table, Adept also tracks a Minor version. Major versions are created when you check a document out from being IN the Library. Minor versions are created when you check a document out from being on HOLD. So for example, a document that is checked out from Hold might be Adept Version level 3.2. The number 3, before the dot, is the major version number. The number &quot;2&quot; after the dot is the minor version number. When the document is approved so that it returns to the Library, the minor version &quot;collapses.&quot; The Adept Version level now has a zero minor version.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">To see all the minor versions of the document you currently have selected, display the <a href="awc_document_dashboard.htm" class="topiclink">Document Dashboard</a>, and select the WIP tab.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">Here is an example of the Adept version numbering for a document that is IN the Library. If the document is IN the Library on version 2, when you check it out, it would become version 3.1. Notice that both the major and minor version are incremented. When the document is checked in, and goes on Hold, the number stays 3.1. When it is checked out from Hold, the minor number is incremented so now the Adept Version number would be 3.2. When this is checked in to Hold, it stays at 3.2. Now suppose it is approved through several steps in the Workflow. When it is approved at the last step, and returns to the Library, the IN copy now &quot;collapses&quot; to version 3.0. Notice the minor level in the Library is 0.</span></p>
+<p class="p_bodytext"><span class="f_bodytext">&nbsp;</span></p>
+<p class="p_bodytext"><span class="f_bodytext">If there are more versions being saved than are allowed by the Major Version depth that has been set for this Library in the Library Profile, the oldest Version is deleted to make room for the most recent one. The current Data Card is also copied and kept with the Version, keeping a &quot;snapshot&quot; of the document and its Data Card information.</span></p>
+<p class="p_bodytext" style="margin: 1px 0px 1px 0px;"><span class="f_bodytext">&nbsp;</span></p>
+
+</td></tr></table>
+
+</body>
+</html>
