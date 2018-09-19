@@ -5,3 +5,5 @@
 export * from './lib/adept-api.service';
 export * from './lib/adept-api.component';
 export * from './lib/adept-api.module';
+export * from './lib/toolbar/toolbar.service';
+

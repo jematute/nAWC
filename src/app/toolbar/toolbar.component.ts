@@ -1,4 +1,4 @@
-import { Component, OnInit, Pipe, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, Pipe, ViewChild, ViewContainerRef, Compiler } from '@angular/core';
 import { LocalizationService } from '../localization/localization.service';
 import { CheckInButton } from './buttons/check-in-button';
 import { Tab } from './classes/tab';
@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material';
 import { trigger, state, style, transition, animate, useAnimation } from '@angular/animations';
 import { bounce, zoomIn, zoomOut } from 'ng-animate';
 import { PluginsService } from '../plugins/plugins.service';
-import { AdeptApiService } from 'adept-api';
+import { AdeptApiService, ToolbarService } from 'adept-api';
 
 @Component({
   selector: 'app-toolbar',
@@ -30,7 +30,9 @@ export class ToolbarComponent implements OnInit {
     private gridService: GridService,
     private dialog: MatDialog,
     private plugins: PluginsService,
-    private apiService: AdeptApiService
+    private apiService: AdeptApiService,
+    private compiler: Compiler,
+    public toolbarService: ToolbarService
   ) { }
 
   showToolbar: boolean = true;
@@ -53,11 +55,10 @@ export class ToolbarComponent implements OnInit {
     this.apiService.onMessage.subscribe(msg => {
       alert(msg);
     });
-    // this.content.clear();
-    // this.plugins.toolbarButtons.forEach(button => {
-    //   this.content.createEmbeddedView
-    //   this.content.createComponent(button);
-    // });
+    //this.content.clear();
+    this.plugins.toolbarButtons.forEach(button => {
+      this.content.createComponent(button);
+    });
     this.initButtons();
     this.initTabs(); 
     this.gridService.onSelectionChanged.subscribe(items => {
@@ -88,6 +89,7 @@ export class ToolbarComponent implements OnInit {
     workFlowTab.items = [ ];
 
     this.tabs = [ homeTab, searchTab, documentTab, workFlowTab ];
+    this.toolbarService.tabs = this.tabs;
     this.activeTab = homeTab;
   }
 
