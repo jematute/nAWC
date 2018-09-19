@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalizationService } from './localization/localization.service';
+import { PluginsService } from './plugins/plugins.service';
 
 @Component({
   selector: 'app-root',
@@ -8,11 +9,12 @@ import { LocalizationService } from './localization/localization.service';
 })
 export class AppComponent implements OnInit {
   title = 'app';
-  constructor(public locale: LocalizationService) {
+  constructor(public locale: LocalizationService, private plugins: PluginsService) {
 
   }
 
   ngOnInit() {
+    this.plugins.loadPlugins();
   }
 
 }

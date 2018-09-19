@@ -16,6 +16,7 @@
           </md-tooltip> -->
       </i>
   </div>
+  
   <div [ngClass]="{ 'tab-content-collapsed': !showToolbar }" class="tab-content">
       <div *ngFor="let item of activeTab?.items" (mouseleave)="item.dropdown = false" [@zoomIn]="zoomIn" class="toolbar-button" [ngClass]="{ 'toolbar-button-enabled': item?.enabled }">
           <div id="tb-button-{{item?.text?.toLowerCase().trim().replace(' ','')}}" class="button-area" (click)="toolbarButtonClicked(item, $event)">
@@ -52,6 +53,7 @@
                   </li>
               </ul>
           </div>
-      </div> 
+      </div>
+      <div #content class="toolbar-button"></div>
   </div>
 </div>

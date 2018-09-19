@@ -16,6 +16,7 @@ import { ClientServicesModule } from './client-services/client-services.module';
 import { BowserModule, BowserService } from 'ngx-bowser';
 import { SignalRModule, ConnectionTransports } from 'ng2-signalr';
 import { AdeptApiModule } from 'adept-api';
+import { PluginsModule } from './plugins/plugins.module';
 // import { SignalRConfiguration, ConnectionTransport } from 'ng2-signalr';
 // import { Global } from './classes/global';
 
@@ -39,7 +40,7 @@ import { AdeptApiModule } from 'adept-api';
   ],
   entryComponents: [ ],
   imports: [
-    BrowserModule, BrowserAnimationsModule, AdeptApiModule,
+    BrowserModule, BrowserAnimationsModule, AdeptApiModule, PluginsModule,
     AppRoutingModule, HttpClientModule, LoginModule, ClientServicesModule, BowserModule
   ],
   exports: [ ],

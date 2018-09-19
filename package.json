@@ -5,18 +5,21 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json --port 4500",
-    "build": "ng build --prod --base-href /Synergis.WebClient/",
+    "build": "ng build adept-api && ng build --prod --base-href /Synergis.WebClient/",
+    "buildapi": "ng build --prod adept-api",
+    "packapi": "cd dist/adept-api && npm pack",
+    "packageapi": "npm run buildapi && npm run packapi",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
-    "@angular/common": "6.1.6",
-    "@angular/core": "6.1.6",
-    "@angular/compiler": "6.1.6",
     "@angular/animations": "6.1.6",
     "@angular/cdk": "^6.3.2",
+    "@angular/common": "6.1.6",
+    "@angular/compiler": "6.1.6",
+    "@angular/core": "6.1.6",
     "@angular/forms": "6.1.6",
     "@angular/http": "6.1.6",
     "@angular/material": "6.4.7",
@@ -39,6 +42,7 @@
     "primeng": "^6.1.0",
     "rxjs": "^6.2.1",
     "signalr": "^2.3.0",
+    "systemjs": "^0.21.4",
     "typescript": "^2.7.2",
     "web-animations-js": "^2.3.1",
     "zone.js": "^0.8.26"
