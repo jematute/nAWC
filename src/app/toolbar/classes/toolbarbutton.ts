@@ -1,5 +1,5 @@
-import { CommandService } from "../../commands/classes/commandservice";
-import { MatDialog } from "@angular/material";
+import { CommandService } from '../../commands/classes/commandservice';
+import { MatDialog } from '@angular/material';
 
 export interface ToolbarButton {
     id: number;

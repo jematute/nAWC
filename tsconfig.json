@@ -18,10 +18,10 @@
     ],
     "paths": {
       "adept-api": [
-        "./dist/adept-api"
+        "projects/adept-api/src"
       ],
       "adept-api/*": [
-        "./dist/adept-api/*"
+        "projects/adept-api/scr/*"
       ]
     }
   }

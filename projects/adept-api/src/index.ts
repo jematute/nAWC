@@ -6,4 +6,6 @@ export * from './lib/adept-api.service';
 export * from './lib/adept-api.component';
 export * from './lib/adept-api.module';
 export * from './lib/toolbar/toolbar.service';
-
+export * from './lib/classes/tab';
+export * from './lib/toolbar/buttons/toolbarbutton';
+export * from './lib/toolbar/buttons/check-in.button';

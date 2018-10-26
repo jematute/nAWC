@@ -1,5 +1,5 @@
-import { ApiTypes } from "./apitypes";
-import { ErrorCode } from "./error-codes";
+import { ApiTypes } from './apitypes';
+import { ErrorCode } from './error-codes';
 
 export class AccessPathResult {
     public ec: ErrorCode;

@@ -1,7 +1,5 @@
 import { Component, OnInit, Pipe, ViewChild, ViewContainerRef, Compiler } from '@angular/core';
 import { LocalizationService } from '../localization/localization.service';
-import { CheckInButton } from './buttons/check-in-button';
-import { Tab } from './classes/tab';
 import { CheckInService } from '../commands/check-in/check-in.service';
 import { ToolbarButton } from './classes/toolbarbutton';
 import { GridService } from '../results/grid/grid.service';
@@ -10,7 +8,8 @@ import { MatDialog } from '@angular/material';
 import { trigger, state, style, transition, animate, useAnimation } from '@angular/animations';
 import { bounce, zoomIn, zoomOut } from 'ng-animate';
 import { PluginsService } from '../plugins/plugins.service';
-import { AdeptApiService, ToolbarService } from 'adept-api';
+import { AdeptApiService, ToolbarService, CheckInButton } from 'adept-api';
+import { Tab } from 'adept-api';
 
 @Component({
   selector: 'app-toolbar',
@@ -35,16 +34,16 @@ export class ToolbarComponent implements OnInit {
     public toolbarService: ToolbarService
   ) { }
 
-  showToolbar: boolean = true;
+  showToolbar = true;
   tabs: Array<Tab>;
-  checkInButton: CheckInButton = new CheckInButton();
+  checkInButton: CheckInButton = new CheckInButton(this.toolbarService);
 
   activeTab: Tab;
 
   tabClicked(tab) {
-    this.activeTab.active = false;
+    this.toolbarService.activeTab.active = false;
     tab.active = true;
-    this.activeTab = tab;
+    this.toolbarService.activeTab = tab;
   }
 
   toolbarToggled() {
@@ -52,15 +51,16 @@ export class ToolbarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.content.clear();
     this.apiService.onMessage.subscribe(msg => {
       alert(msg);
     });
-    //this.content.clear();
     this.plugins.toolbarButtons.forEach(button => {
+
       this.content.createComponent(button);
     });
     this.initButtons();
-    this.initTabs(); 
+    this.initTabs();
     this.gridService.onSelectionChanged.subscribe(items => {
       this.updateEnables(items);
     });
@@ -72,49 +72,55 @@ export class ToolbarComponent implements OnInit {
 
   initTabs() {
     const homeTab = new Tab();
-    homeTab.name = this.locale.resourceStrings["HOME"];
+    homeTab.name = this.locale.resourceStrings['HOME'];
     homeTab.active = true;
     homeTab.items = [ this.checkInButton ];
 
     const searchTab = new Tab();
-    searchTab.name = this.locale.resourceStrings["SEARCH"];
+    searchTab.name = this.locale.resourceStrings['SEARCH'];
     searchTab.items = [ ];
 
     const documentTab = new Tab();
-    documentTab.name = this.locale.resourceStrings["DOCUMENT"];
+    documentTab.name = this.locale.resourceStrings['DOCUMENT'];
     documentTab.items = [ ];
 
     const workFlowTab = new Tab();
-    workFlowTab.name = this.locale.resourceStrings["WORKFLOW"];
+    workFlowTab.name = this.locale.resourceStrings['WORKFLOW'];
     workFlowTab.items = [ ];
 
-    this.tabs = [ homeTab, searchTab, documentTab, workFlowTab ];
-    this.toolbarService.tabs = this.tabs;
-    this.activeTab = homeTab;
+    this.toolbarService.addTab(homeTab);
+    this.toolbarService.addTab(searchTab);
+    this.toolbarService.addTab(documentTab);
+    this.toolbarService.addTab(workFlowTab);
+
+    // this.tabs = [ homeTab, searchTab, documentTab, workFlowTab ];
+    // this.toolbarService.tabs = this.tabs;
+    this.toolbarService.activeTab = homeTab;
   }
 
   initButtons() {
-    //check in
-    this.checkInButton.text = this.locale.resourceStrings["TOOLBAR_CHECK_IN"];
-    this.checkInButton.popupText = this.locale.resourceStrings["CHECK_IN_SELECTED_DOCUMENT"];
-    this.checkInButton.dialog = this.dialog;
+    // check in
+    this.checkInButton.text = this.locale.resourceStrings['TOOLBAR_CHECK_IN'];
+    this.checkInButton.popupText = this.locale.resourceStrings['CHECK_IN_SELECTED_DOCUMENT'];
+    // this.checkInButton.dialog = this.dialog;
     this.checkInButton.enabled = true;
   }
 
-  //update if the button should be enabled or disabled
+  // update if the button should be enabled or disabled
   updateEnables(selectionItems: Array<SelectionItem>) {
-    //do something for enables
+    // do something for enables
   }
 
 }
 
+// tslint:disable-next-line:use-pipe-transform-interface
 @Pipe({
   name: 'hidepipe',
 })
 export class HidePipe {
 
   transform(objects: any[]): any[] {
-      if(objects) {
+      if (objects) {
           return objects.filter(object => {
               return object.hide === false;
           });

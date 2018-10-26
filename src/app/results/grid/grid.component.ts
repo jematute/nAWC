@@ -25,10 +25,11 @@ export class GridComponent implements OnInit, OnInit {
   private subscription: Subscription = new Subscription();
   private getDataSubscription: Subscription = new Subscription();
 
-  sortingOrder = ["desc", "asc"];
-
+  sortingOrder = ['desc', 'asc'];
+  columnBeingResized: agColumn;
   columnDefs = [];
   rowData;
+  columnMoving = false;
   constructor(private gridService: GridService, private columnService: ColumnsService) {
     this.pageSize = this.gridService.pageSize;
     this.length = 0;
@@ -54,30 +55,32 @@ export class GridComponent implements OnInit, OnInit {
   }
 
   ngOnInit() {
-    let removeRecordsSubscription = this.gridService.onRemoveRecords.subscribe(keys => {
+    const removeRecordsSubscription = this.gridService.onRemoveRecords.subscribe(keys => {
       this.removeRecords(keys);
     });
     this.subscription.add(removeRecordsSubscription);
 
-    let updateRecordsSubscription = this.gridService.onUpdateRecords.subscribe(keys => {
+    const updateRecordsSubscription = this.gridService.onUpdateRecords.subscribe(keys => {
       this.updateRecords(keys);
     });
 
     this.subscription.add(updateRecordsSubscription);
 
-    
+
   }
 
   getPage(pageIndex: number) {
     this.getDataSubscription.unsubscribe();
     if (this.gridService.gridApi) {
       this.gridService.gridApi.setRowData([]);
-      if (this.gridOptions.api)
+      if (this.gridOptions.api) {
         this.gridOptions.api.showLoadingOverlay();
+      }
     }
 
-    let params = <GetDataParams>{};
-    let AdeptDataTable = <AdeptDataTable>{};
+    const params = <GetDataParams>{};
+    // tslint:disable-next-line:no-shadowed-variable
+    const AdeptDataTable = <AdeptDataTable>{};
     params.AdeptDataTable = AdeptDataTable;
     params.AdeptDataTable.Skip = pageIndex * this.pageSize;
     params.AdeptDataTable.Take = this.pageSize;
@@ -85,23 +88,24 @@ export class GridComponent implements OnInit, OnInit {
     params.ResultType = ResultType.Normal;
     params.Sort = new Sort();
     params.Sort.SortField = this.gridService.sort.colId;
-    params.Sort.SortOrder = this.gridService.sort.sort == "asc" ? SortDirection.Ascending : SortDirection.Descending;
+    params.Sort.SortOrder = this.gridService.sort.sort === 'asc' ? SortDirection.Ascending : SortDirection.Descending;
 
     this.getDataSubscription = this.gridService.getData(params).subscribe(data => {
 
       if (this.gridService.gridApi) {
         this.gridService.gridApi.hideOverlay();
+        // tslint:disable-next-line:no-shadowed-variable
         this.gridService.getCount(params).subscribe(data => {
           this.gridOptions.api.setSortModel([this.gridService.sort]);
           this.length = data;
-          if (data == 0) {
+          if (data === 0) {
             this.gridService.gridApi.showNoRowsOverlay();
           }
-          let columnIds = [];
+          const columnIds = [];
           // this.gridOptions.columnApi.getAllColumns().forEach(c => {
           //   columnIds.push(c.getId());
           // });
-          //this.gridOptions.columnApi.autoSizeColumns(columnIds);
+          // this.gridOptions.columnApi.autoSizeColumns(columnIds);
         });
       }
       this.gridService.gridApi.setRowData(data.AdeptDataTable.TableRecords);
@@ -114,13 +118,14 @@ export class GridComponent implements OnInit, OnInit {
 
     const subscription = this.columnService.getGridColumns().subscribe(cols => {
       cols.forEach(col => {
-        let field = this.columnService.lookUpFieldDef(col);
+        const field = this.columnService.lookUpFieldDef(col);
         this.columnDefs.push(
           {
             headerName: field.displayName,
             field: col.schemaId,
             width: col.width,
-          })
+            cellClass: 'grid-cell',
+          });
       });
       this.gridOptions.api.setColumnDefs(this.columnDefs);
     });
@@ -138,7 +143,7 @@ export class GridComponent implements OnInit, OnInit {
 
   onReady(event) {
     this.gridService.gridApi = this.gridOptions.api;
-    //this.api.sizeColumnsToFit();
+    // this.api.sizeColumnsToFit();
     if (this.gridService.data) {
       this.gridOptions.api.setRowData(this.gridService.data.TableRecords);
 
@@ -158,17 +163,16 @@ export class GridComponent implements OnInit, OnInit {
     this.getPage(event.pageIndex);
   }
 
-  columnBeingResized: agColumn;
   onColumnResized(event: ColumnResizedEvent) {
-    if (event.column)
+    if (event.column) {
       this.columnBeingResized = event.column;
+    }
     if (event.finished) {
       const column: Column = { schemaId: this.columnBeingResized.getColId(), width: this.columnBeingResized.getActualWidth() };
       this.columnService.resizeColumn(column).subscribe();
     }
   }
 
-  columnMoving: boolean = false;
   onColumnMoved(event: ColumnMovedEvent) {
     this.columnMoving = true;
   }
@@ -176,7 +180,8 @@ export class GridComponent implements OnInit, OnInit {
   onDragStopped() {
     if (this.columnMoving) {
       this.columnMoving = false;
-      let columns: Column[] = this.gridOptions.columnApi.getAllDisplayedColumns().map(agColumn => {
+      // tslint:disable-next-line:no-shadowed-variable
+      const columns: Column[] = this.gridOptions.columnApi.getAllDisplayedColumns().map(agColumn => {
         return { schemaId: agColumn.getId(), width: agColumn.getActualWidth() };
       });
       this.columnService.setColumnSetColumns(columns).subscribe();
@@ -185,7 +190,7 @@ export class GridComponent implements OnInit, OnInit {
 
   onSortChanged(event: SortChangedEvent) {
     const sort = event.api.getSortModel()[0];
-    if (JSON.stringify(this.gridService.sort) != JSON.stringify(sort)) {
+    if (JSON.stringify(this.gridService.sort) !== JSON.stringify(sort)) {
       this.gridService.sort = event.api.getSortModel()[0];
       this.getPage(this.gridService.pageIndex);
     }
@@ -193,24 +198,24 @@ export class GridComponent implements OnInit, OnInit {
 
   updateRecords(data: Map<FileKeys, Map<string, string>>) {
     Array.from(data).forEach(entry => {
-      let rowNode = this.gridOptions.api.getRowNode(entry["0"].fileId + entry["0"].majRev + entry["0"].minRev);
-      let dataToUpdate = rowNode.data as FileRecord;
-      Array.from(entry["1"]).forEach(field => {
-        dataToUpdate[field["0"]] = field["1"];
+      const rowNode = this.gridOptions.api.getRowNode(entry['0'].fileId + entry['0'].majRev + entry['0'].minRev);
+      const dataToUpdate = rowNode.data as FileRecord;
+      Array.from(entry['1']).forEach(field => {
+        dataToUpdate[field['0']] = field['1'];
       });
       rowNode.setData(dataToUpdate);
     });
   }
 
-  //example on how to update records externally, of course we woud call the service's updateRecords method.
+  // example on how to update records externally, of course we woud call the service's updateRecords method.
   updateGridRecords() {
-    let recordToUpdate = new Map<FileKeys, Map<string, string>>();
+    const recordToUpdate = new Map<FileKeys, Map<string, string>>();
 
-    let records = this.gridService.gridApi.getSelectedRows().map(item => {
-      let record = item as FileRecord;
-      let key: FileKeys = new FileKeys(record);
-      let data = new Map<string, string>();
-      data.set("SCHEMA_S_STATUS", "OWNED");
+    const records = this.gridService.gridApi.getSelectedRows().map(item => {
+      const record = item as FileRecord;
+      const key: FileKeys = new FileKeys(record);
+      const data = new Map<string, string>();
+      data.set('SCHEMA_S_STATUS', 'OWNED');
       recordToUpdate.set(key, data);
       return recordToUpdate;
     });
@@ -220,16 +225,17 @@ export class GridComponent implements OnInit, OnInit {
 
 
   removeRecords(keys: FileKeys[]) {
-    let nodeData = keys.map(s => {
+    const nodeData = keys.map(s => {
       return this.gridService.gridApi.getRowNode(s.fileId + s.majRev + s.minRev).data;
     });
-    var res = this.gridService.gridApi.updateRowData({ remove: nodeData });
+    const res = this.gridService.gridApi.updateRowData({ remove: nodeData });
   }
 
   getRowNodeId(data) {
     return data.SCHEMA_S_FILEID + data.SCHEMA_S_MAJREV + data.SCHEMA_S_MINREV;
   }
 
+  // tslint:disable-next-line:use-life-cycle-interface
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }

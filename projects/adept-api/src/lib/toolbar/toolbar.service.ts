@@ -1,18 +1,24 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Tab } from '../classes/tab';
-import { ToolbarButton } from '../classes/toolbarbutton';
+import { ToolbarButton } from './buttons/toolbarbutton';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ToolbarService {
 
-  constructor() { }
+  onButtonClicked = new EventEmitter();
+
+  constructor() {
+    console.log('toolbar service loaded hello');
+  }
 
   tabs = new Array<Tab>();
+  activeTab: Tab;
 
   addButton(button: ToolbarButton, tabName: string) {
-    const tab = this.tabs.find(t => t.name === tabName);
+    const tab = this.tabs.find(t => t.name.toLowerCase() === tabName.toLowerCase());
     tab.items.push(button);
   }
 

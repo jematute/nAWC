@@ -3,6 +3,6 @@
   "dest": "../../dist/adept-api",
   "deleteDestPath": false,
   "lib": {
-    "entryFile": "src/public_api.ts"
+    "entryFile": "src/index.ts"
   }
 }

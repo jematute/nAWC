@@ -21,32 +21,27 @@ export class PluginsService {
   constructor(private compiler: Compiler, private http: HttpClient) { }
   toolbarButtons: Array<any> = [];
   onPluginsLoaded: EventEmitter<boolean> = new EventEmitter<boolean>();
-
+  plugins: Array<any> = [];
   loadPlugins() {
     this.loadConfig().subscribe(config => {
       config.plugins.forEach(plugin => {
         this.loadModuleSystemJS(plugin).then(mod => {
           const factory = mod.componentFactories.find(f => f.selector === plugin.component);
-          switch (plugin.type) {
-            case "toolbar":
-              this.toolbarButtons.push(factory);
-            default:
-              console.log(factory);
-          }
+          this.plugins.push(factory);
         });
       });
     }, error => {}, () => {
-      console.log("done");
-    })
+      console.log('done');
+    });
   }
 
   loadConfig(): Observable<PluginsConfig> {
-    return this.http.get("./assets/plugins.config.json")
+    return this.http.get('./assets/plugins.config.json')
     .pipe(map(resp => resp as PluginsConfig));
   }
 
   loadModuleSystemJS(plugin: Plugin): Promise<any> {
-    let url = './assets/plugins/' + plugin.file;
+    const url = './assets/plugins/' + plugin.file;
     SystemJS.set('@angular/core', SystemJS.newModule(AngularCore));
     SystemJS.set('@angular/common', SystemJS.newModule(AngularCommon));
     SystemJS.set('@angular/router', SystemJS.newModule(AngularRouter));

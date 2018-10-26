@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CommandService } from '../classes/commandservice';
 import { MatDialog } from '@angular/material';
-import { CheckInComponent } from './check-in.component';
 import { SelectionItem } from '../../classes/selectionitem';
 import { HttpClient } from '@angular/common/http';
 import { Global } from '../../classes/global';
@@ -24,16 +23,17 @@ import { SelectionCommandResults } from '../../classes/selectioncommandresult';
 })
 export class CheckInService {
 
+  dialog: MatDialog;
   constructor(private http: HttpClient) { }
 
   getCheckInOptionsList(items: Array<SelectionItem>) {
 
-    let options: Array<CheckInOptions> = new Array<CheckInOptions>();
+    const options: Array<CheckInOptions> = new Array<CheckInOptions>();
 
     items.forEach(item => {
-      let option = new CheckInOptions();
+      const option = new CheckInOptions();
       option.fileId = item.fileId;
-      option.libId = "";
+      option.libId = '';
       options.push(option);
     });
 
@@ -41,7 +41,7 @@ export class CheckInService {
       result => {
         return result as Array<CheckInOptions>;
       }
-    ))
+    ));
   }
 
   getFileInfos(filesInfos: Array<FileInfoModel>) {
@@ -65,17 +65,17 @@ export class CheckInService {
   getAccessPath(selectionItem: SelectionItem): Observable<AccessPathResult> {
     const opFlagArr = [ApiTypes.OPFLAG.O_OUT, ApiTypes.OPFLAG.O_NEW, ApiTypes.OPFLAG.O_DUP];
     if (opFlagArr.includes(selectionItem.detailedInfo.opFlag)) {
+      // tslint:disable-next-line:max-line-length
       return this.http.get(`${Global.API_URL}/api/Document/AccessPath/${selectionItem.tableNumber}/${selectionItem.fileId}/${selectionItem.majRev}/${selectionItem.minRev}`)
       .pipe(map(resp => resp as AccessPathResult));
-    }
-    else {
+    } else {
       return of(null);
-    }    
+    }
   }
 
   testAccess(accessPath: AccessPathResult): Observable<boolean> {
     return this.http.put(`${Global.ACS_URL}/api/testaccess`, accessPath.accessPNE)
-    .pipe(map(s => s as boolean));    
+    .pipe(map(s => s as boolean));
   }
 
   errorCode(selectionItem: SelectionItem, ec: ErrorCode): Observable<SelectionItem> {
@@ -95,15 +95,15 @@ export class CheckInService {
 
   // Call the command with a Selection List.
   checkInItem(gridItem: GridItem, stagingFileOperationModel: FileOperationModel): Observable<SelectionCommandResults> {
-    let checkInItemObject: CheckInItemObject = {
+    const checkInItemObject: CheckInItemObject = {
       fileId: gridItem.fileId,
       libId: gridItem.selectionItem.detailedInfo.libId,
       assignToId: gridItem.assignToUserId,
-      undoCheckOut: gridItem.bUndoCheckOut == "T" ? true : false,
-      keepOut: gridItem.bKeepOut == "T" ? true : false,
-      createVersion: gridItem.bCreateVersion == "T" ? true : false,
+      undoCheckOut: gridItem.bUndoCheckOut === 'T' ? true : false,
+      keepOut: gridItem.bKeepOut === 'T' ? true : false,
+      createVersion: gridItem.bCreateVersion === 'T' ? true : false,
       stagingFileOperationModel: stagingFileOperationModel,
-    }
+    };
 
     return this.http.put(`${Global.API_URL}/api/selectioncommand/checkinitem`, checkInItemObject)
       .pipe(map(resp => resp as SelectionCommandResults));

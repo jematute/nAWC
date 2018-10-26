@@ -1,13 +1,9 @@
 export module ApiTypes {
     export enum InvalidCode {
         eValid = 0,
-    
         eStringTooLong,
-    
         eStringContainsInvalidChar,
     }
-    
-    
     export enum DATE_FMT {
         UNKNOWN = -1,
         ADEPTSTD,
@@ -16,301 +12,180 @@ export module ApiTypes {
         ISO_LOCAL,
         DF_WINDOWS
     }
-    
     export enum ItemListTypes {
         Invalid,
-    
         DocList,
-    
         ColList,
-    
         LibList,
-    
         MRUString,
-    
         Search,
-    
         UserList,
-    
         TranSearch,
-    
         Notify
     }
-    
-    
+
     export enum workflowSystemTables {
         workflowFileTable = 0,
-    
         workflowRevTable
     }
-    
-    
+
     export enum STATEREL {
         STATEREL_FLOAT = 'T',
-    
         STATEREL_FIX = 'X',
-    
         STATEREL_WIP = 'W',
-    
         STATEREL_DOCK = 'D',
-    
         STATEREL_MISSING = 'M'
     }
-    
-    
+
     export enum ADEPTT_RTTREE_STYLE {
         RT_INVALID = -1,
-    
         RT_EDIT = 0,
-    
         RT_APPROVED,
-    
         RT_WIP,
-    
         RT_SYSTEM,
-    
         RT_WHEREUSED = 100
     }
-    
-    
+
     export enum BLANK_EXTRACT {
         BLANK_EXTRACT_UNKNOWN = -1,
-    
         BLANK_EXTRACT_NEVER,
-    
         BLANK_EXTRACT_EXIST_IN_FILE,
-    
         BLANK_EXTRACT_NOT_EXIST_IN_FILE
     }
-    
+
     export enum RECSTATE_EXTRACTION {
         RECSTATE_UNDEFINED = ' ',
-    
         RECSTATE_RUN = '0',
-    
         RECSTATE_RAW = '1',
-    
         RECSTATE_DONE = '2'
     }
-    
+
     export enum XRITEM {
         XRITEM_IN = 'I',
-    
         XRITEM_OUT = 'O',
-    
         XRITEM_OUT_OTHER = 'T',
-    
         XRITEM_HOLD = 'H',
-    
         XRITEM_NEW = 'N',
-    
         XRITEM_NEW_OTHER = 'E',
-    
         XRITEM_UNAVAILABLE = 'U',
-    
         XRITEM_REV = 'R',
-    
         XRITEM_INFINITE = 'F',
-    
         XRITEM_UNDEFINED = '?'
     }
-    
-    
+
     export enum XRSUBTYPE {
         XRSUBTYPE_OVERLAY = 'O',
-    
         XRSUBTYPE_UNDERLAY = 'U',
-    
         XRSUBTYPE_ALL = 'A',
-    
         XRSUBTYPE_DIRECT = 'D',
-    
         XRSUBTYPE_INCONTEXT = 'I',
-    
         XRSUBTYPE_SUBSTITUTE = 'S',
-    
         XRSUBTYPE_NONE = ' '
     }
-    
-    
+
     export enum XRSUBTYPEHANDLING {
         eUseSettings = 0,
-    
         eStopResolving = 1,
-    
         eContinueResolving = 2
     }
-    
-    
+
     export enum XR_CMD {
         XR_INVALID,
-    
         XR_SAVE,
-    
         XR_SIGNOUT,
-    
         XR_SIGNIN,
-    
         XR_REV,
-    
         XR_ASSUME,
-    
         XR_RELEASE,
-    
         XR_COPY,
-    
         XR_MOVE,
-    
         XR_DELETE,
-    
         XR_MANUAL,
-    
         XR_EDITREV,
-    
         XR_REPAIRGLYPHS,
-    
         XR_RESETGLYPHS,
-    
         XR_REPLACECHILD,
-    
         XR_TESTRESOLVE,
-    
         XR_APPROVE,
-    
         XR_MAX
     }
-    
-    
+
     export enum ADEPTT_RESOLVETYPE {
         RESOLVE_NONE = 0,
-    
         RESOLVE_SOFT = 1,
-    
         RESOLVE_HARD = 2,
-    
         RESOLVE_FORCEHARD = 3
     }
-    
-    
+
     export enum ADEPTT_ISPARENT {
         PARENT_MANUAL = '1',
-    
         PARENT_MISSING = 'y',
-    
         PARENT_YES = 'Y',
-    
         PARENT_NO = ' ',
-    
         CHILD_YES = 'T',
-    
         CHILD_NO = ' '
     }
-    
+
     export enum XREF_REVFIXOPTION {
         SYNCDEFAULTS_FLOATREVS = 0,
-    
         SYNCDEFAULTS_FIXREVS = 1,
-    
         SYNCDEFAULTS_DOCKREVS = 2
     }
-    
-    
+
     export enum OPFLAG {
         O_ARC = 'A',
-    
         O_ASN_H = 'C',
-    
         O_ASN_L = 'E',
-    
         O_DUP = 'F',
-    
         O_FINAL = 'G',
-    
         O_HOLD = 'I',
-    
         O_IN = 'K',
-    
         O_LAU = 'M',
-    
         O_LIB = 'O',
-    
         O_NEW = 'Q',
-    
         O_OUT = 'S',
-    
         O_RES = 'U',
-    
         O_UND = 'W'
     }
-    
-    
+
     export enum ADEPTT_FLD_DEF_TYPE {
         FDT_UNKNOWN = -1,
-    
         FDT_CHARACTER,
-    
         FDT_STRING,
-    
         FDT_LOGICAL,
-    
         FDT_INTEGER,
-    
         FDT_DOUBLE,
-    
         FDT_DATE,
-    
         FDT_MEMO,
-    
         FDT_DT_DATETIME,
-    
         FDT_INT64
     }
-    
-    
+
     export enum ADEPT_FIELD_TYPE {
         F_EXTRACTION = 'E',
-    
         F_CHAR = 'C',
-    
         F_DATE = 'D',
-    
         F_LOG = 'L',
-    
         F_NUM = 'N',
-    
         F_BIG_INT = 'H',
-    
         F_MEMO = 'M',
-    
         F_MEMO_BINARY = 'B',
-    
         F_MEMO_TEXT = 'T',
-    
         F_DEC = 'R',
-    
         F_PROMPT = 'P',
-    
         F_RESTR = 'R',
-    
         F_SYSTEM = 'S',
-    
         F_DT_DATETIME = 'Z'
     }
     
-    
     export enum ADEPT_DATESEARCHTYPE {
         NO_DATE = -1,
-    
         ON_DATE,
-    
         AFTER_DATE,
-    
         BEFORE_DATE,
-    
         RANGE_DATE
     }
-    
-    
+
     export enum ADEPT_INFORMATIONSOURCE {
         NO_SOURCE = -1,
     
