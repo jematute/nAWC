@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from './user';
-import { AuthService } from './auth.service';
-import { LocalizationService } from '../localization/localization.service';
-import { ErrorDialogService } from '../error-dialog/error-dialog.service';
 import { MatDialog } from '@angular/material';
 import { LoginPromptComponent } from './login-prompt/login-prompt.component';
 import { Router } from '@angular/router';
+import { LocalizationService, AuthService, ErrorDialogService, User } from 'projects/ui-api/src';
 
 @Component({
   selector: 'app-login',

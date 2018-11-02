@@ -11,13 +11,15 @@ export class TreeComponent implements OnInit {
 
   _items = [];
   @Input() expandFirstParents = false;
+  // tslint:disable-next-line:no-output-on-prefix
   @Output() onSelected = new EventEmitter<any>();
 
   @Input() set items(items) {
-    if (items)
+    if (items) {
       Array.from(items).forEach(item => {
-        item["expanded"] = this.expandFirstParents;
+        item['expanded'] = this.expandFirstParents;
       });
+    }
     this._items = items;
   }
 
@@ -30,17 +32,18 @@ export class TreeComponent implements OnInit {
     if (this._items) {
       this._items.forEach(node => this.deselectItem(node));
       item.selected = true;
-    }    
+    }
   }
 
   deselectItem(item) {
     item.selected = false;
-    if (item.children)
+    if (item.children) {
       Array.from(item.children).forEach(child => this.deselectItem(child));
+    }
   }
 
   ngOnInit() {
-    
+
   }
 
 }

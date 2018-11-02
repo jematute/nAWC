@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError as observableThrowError, interval, of } from 'rxjs';
-import { Global } from '../classes/global';
-import { AuthService } from '../login/auth.service';
-import { LocalizationService } from '../localization/localization.service';
+import { Global } from 'projects/ui-api/src';
+import { AuthService } from 'projects/ui-api/src';
+import { LocalizationService } from 'projects/ui-api/src';
 import { HttpClient } from '@angular/common/http';
 import { tap, catchError, switchMap, delay, timeout, map, retry } from 'rxjs/operators';
 import { BowserService } from 'ngx-bowser';

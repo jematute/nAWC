@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GridService } from '../grid.service';
+import { GridService } from 'projects/ui-api/src';
 
 @Component({
   selector: 'app-loading-panel',
@@ -10,10 +10,10 @@ export class LoadingPanelComponent implements OnInit {
 
   public loading: boolean;
 
-  constructor(private grid: GridService) { 
+  constructor(private grid: GridService) {
     grid.loading.subscribe(loading => {
       this.loading = loading;
-    })   
+    });
   }
 
   ngOnInit() {

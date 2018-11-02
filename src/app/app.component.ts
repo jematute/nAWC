@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { LocalizationService } from './localization/localization.service';
 import { PluginsService } from './plugins/plugins.service';
+import { LocalizationService } from 'projects/ui-api/src';
 
 @Component({
   selector: 'app-root',

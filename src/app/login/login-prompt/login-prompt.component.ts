@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
-import { LocalizationService } from '../../localization/localization.service';
+import { LocalizationService } from 'projects/ui-api/src';
+
 @Component({
   selector: 'app-login-prompt',
   templateUrl: './login-prompt.component.html',

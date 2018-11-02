@@ -7,11 +7,10 @@ import * as AngularCore from '@angular/core';
 import * as AngularCommon from '@angular/common';
 import * as AngularRouter from '@angular/router';
 import * as BrowserAnimations from '@angular/platform-browser/animations';
-import * as AdeptAPI from 'adept-api';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { Plugin, PluginsConfig } from '../classes/plugins-config';
+import { PluginsConfig, Plugin, UiApiModule } from 'projects/ui-api/src';
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +45,7 @@ export class PluginsService {
     SystemJS.set('@angular/common', SystemJS.newModule(AngularCommon));
     SystemJS.set('@angular/router', SystemJS.newModule(AngularRouter));
     SystemJS.set('@angular/platform-browser/animations', SystemJS.newModule(BrowserAnimations));
-    SystemJS.set('adept-api', SystemJS.newModule(AdeptAPI));
+    SystemJS.set('adept-api', SystemJS.newModule(UiApiModule));
 
     // now, import the new module
     return SystemJS.import(`${url}`).then((module) => {

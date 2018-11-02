@@ -14,7 +14,7 @@
                 <span>{{locale?.resourceStrings[activeMenu]}}</span>
             </div>
             <app-workarea  *ngIf="activeMenu === 'WORK_AREAS'"></app-workarea>
-            <library-browser *ngIf="activeMenu === 'LIBRARY_BROWSER'" (onLibrarySelected)="librarySelected($event)"></library-browser>
+            <app-library-browser *ngIf="activeMenu === 'LIBRARY_BROWSER'" (librarySelected)="onLibrarySelected($event)"></app-library-browser>
         </div>
     </div>
 </div>

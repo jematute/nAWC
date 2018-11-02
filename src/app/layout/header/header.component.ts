@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../login/auth.service';
-import { LocalizationService } from '../../localization/localization.service';
 import { Router } from '@angular/router';
 import { SidebarService } from '../sidebar/sidebar.service';
+import { AuthService, LocalizationService } from 'projects/ui-api/src';
 
 @Component({
   selector: 'app-header',

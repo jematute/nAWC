@@ -1,7 +1,5 @@
-import { GetDataParams, SortDirection, ResultType, AdeptDataTable } from '../classes/getdataparams';
-import { Column } from '../classes/column';
-import { UIEnable } from '../classes/uirightsandenables';
-import { Sort } from '../classes/sort';
+import { GetDataParams, AdeptDataTable, Sort, ResultType, Column, UIEnable } from 'projects/ui-api/src';
+
 
 export class SearchParams implements GetDataParams {
     AdeptDataTable: AdeptDataTable;

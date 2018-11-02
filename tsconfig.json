@@ -17,11 +17,11 @@
       "dom"
     ],
     "paths": {
-      "adept-api": [
-        "projects/adept-api/src"
+      "ui-api": [
+        "projects/ui-api/src"
       ],
-      "adept-api/*": [
-        "projects/adept-api/scr/*"
+      "ui-api/*": [
+        "projects/dist/ui-api/*"
       ]
     }
   }

@@ -6,7 +6,7 @@ import { LoginResolver } from './login/login.resolver';
 const routes: Routes = [
   { path: 'layout', loadChildren: './layout/layout.module#LayoutModule', resolve: { message: LoginResolver } },
   {
-    path: 'login',
+    path: 'login_page',
     component: LoginComponent,
     resolve: { message: LoginResolver }
   },

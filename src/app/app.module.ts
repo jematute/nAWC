@@ -6,17 +6,16 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { APP_BASE_HREF } from '@angular/common';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthService } from './login/auth.service';
 import { AuthInterceptor } from './login/auth.interceptor';
 import { LoginModule } from './login/login.module';
-import { LocalizationService } from './localization/localization.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { GlobalsService } from './globals.service';
 import { ClientServicesModule } from './client-services/client-services.module';
 import { BowserModule, BowserService } from 'ngx-bowser';
 import { SignalRModule, ConnectionTransports } from 'ng2-signalr';
-import { AdeptApiModule } from 'adept-api';
+import { UiApiModule } from 'projects/ui-api/src';
 import { PluginsModule } from './plugins/plugins.module';
+import { LocalizationService } from 'projects/ui-api/src';
 // import { SignalRConfiguration, ConnectionTransport } from 'ng2-signalr';
 // import { Global } from './classes/global';
 
@@ -40,7 +39,7 @@ import { PluginsModule } from './plugins/plugins.module';
   ],
   entryComponents: [ ],
   imports: [
-    BrowserModule, BrowserAnimationsModule, AdeptApiModule, PluginsModule,
+    BrowserModule, BrowserAnimationsModule, UiApiModule, PluginsModule,
     AppRoutingModule, HttpClientModule, LoginModule, ClientServicesModule, BowserModule
   ],
   exports: [ ],

@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SearchService } from './search.service';
 import { SearchboxComponent } from './searchbox/searchbox.component';
-import { MaterialModule } from '../material/material.module';
 import { ColumnsModule } from '../columns/columns.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ResultsModule } from '../results/results.module';
 import { CustomDirectivesModule } from '../custom-directives/custom-directives.module';
 import { FTSSearchService } from './ftssearch.service';
+import { MaterialModule } from 'projects/ui-api/src';
 
 @NgModule({
   imports: [

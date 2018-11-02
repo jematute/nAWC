@@ -1,0 +1,94 @@
+@import '../../../../../../src/globalstyles/common.less';
+.header {
+    width: 100%;
+    height: 40px;
+    background-color: @site-main;
+    h4 {
+        padding: 0 0 0 10px;
+        color: rgb(255,255,255);
+    }
+}
+
+.content {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    .selection-boxes {
+        padding: 8px 0px;
+        p-dropdown {
+            margin-right: 10px;
+        }
+        span {
+            margin-right: 10px;
+        }
+    }
+    .check-boxes {
+        padding: 8px 0px;
+        p-checkbox {
+            margin-right: 30px;
+        }
+    }
+    .grid {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        ag-grid-angular {
+            height: 300px;
+        }
+        .grid-overlay {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,.4);
+            z-index: 1004;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .progress-box {
+                background: white;
+                border-radius: 5px;
+                border: 1px solid rgb(180,180,180);
+                height: 70px;
+                width: 350px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 8px;
+                text-overflow: ellipsis;
+                flex-direction: column;
+                span {
+                    margin-bottom: 10px;
+                }
+                p-progressBar {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+.error {
+    background-color: rgb(181, 49, 49)
+}
+
+.footer {
+    display: flex;
+    flex: 0 0 auto;
+    padding: 8px;
+    .checkin-progress {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        flex: 0 0 250px;
+    }
+    .buttons {
+        flex: 1 1 auto;           
+        text-align: right;
+    }
+
+    
+}

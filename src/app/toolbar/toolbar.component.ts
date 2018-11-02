@@ -1,15 +1,10 @@
 import { Component, OnInit, Pipe, ViewChild, ViewContainerRef, Compiler } from '@angular/core';
-import { LocalizationService } from '../localization/localization.service';
-import { CheckInService } from '../commands/check-in/check-in.service';
-import { ToolbarButton } from './classes/toolbarbutton';
-import { GridService } from '../results/grid/grid.service';
-import { SelectionItem } from '../classes/selectionitem';
 import { MatDialog } from '@angular/material';
 import { trigger, state, style, transition, animate, useAnimation } from '@angular/animations';
 import { bounce, zoomIn, zoomOut } from 'ng-animate';
 import { PluginsService } from '../plugins/plugins.service';
-import { AdeptApiService, ToolbarService, CheckInButton } from 'adept-api';
-import { Tab } from 'adept-api';
+import { LocalizationService, GridService, SelectionItem, ToolbarButton, Tab, CheckInButton } from 'projects/ui-api/src';
+import { ToolbarService } from 'projects/ui-api/src';
 
 @Component({
   selector: 'app-toolbar',
@@ -29,7 +24,6 @@ export class ToolbarComponent implements OnInit {
     private gridService: GridService,
     private dialog: MatDialog,
     private plugins: PluginsService,
-    private apiService: AdeptApiService,
     private compiler: Compiler,
     public toolbarService: ToolbarService
   ) { }
@@ -52,9 +46,7 @@ export class ToolbarComponent implements OnInit {
 
   ngOnInit() {
     this.content.clear();
-    this.apiService.onMessage.subscribe(msg => {
-      alert(msg);
-    });
+
     this.plugins.toolbarButtons.forEach(button => {
 
       this.content.createComponent(button);

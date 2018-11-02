@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../../login/auth.service';
-import { LocalizationService } from '../../../localization/localization.service';
+import { AuthService, LocalizationService } from 'projects/ui-api/src';
 
 @Component({
   selector: 'app-user-menu',
@@ -11,7 +10,7 @@ export class UserMenuComponent implements OnInit {
 
   constructor(public auth: AuthService, public locale: LocalizationService) { }
 
-  showUserMenu: boolean = false;
+  showUserMenu = false;
 
   ngOnInit() {
   }
@@ -26,7 +25,7 @@ export class UserMenuComponent implements OnInit {
 
   logOut() {
     this.auth.logOut().subscribe(() => {
-    });   
+    });
   }
 
 }

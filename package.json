@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.json --port 4500",
+    "start": "ng serve --proxy-config proxy.conf.json --port 4200",
     "build": "ng build adept-api && ng build --prod --base-href /Synergis.WebClient/",
     "buildapi": "ng build --prod adept-api",
     "packapi": "cd dist/adept-api && npm pack",
@@ -47,8 +47,10 @@
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
+    "@angular-devkit/build-ng-packagr": "~0.10.0",
     "@angular/compiler-cli": "7.0.0",
     "@angular-devkit/build-angular": "~0.10.0",
+    "ng-packagr": "^4.2.0",
     "tsickle": "0.33.1",
     "tslib": "^1.7.1",
     "typescript": "3.1.3",

@@ -1,9 +1,6 @@
-
 import { throwError as observableThrowError, Observable, BehaviorSubject, of } from 'rxjs';
 import { switchMap, map, catchError, finalize, tap, filter, take, timeout } from 'rxjs/operators';
-
 import { Injectable, Injector } from '@angular/core';
-
 import {
     HttpRequest,
     HttpHandler,
@@ -16,11 +13,11 @@ import {
     HttpProgressEvent,
     HttpUserEvent
 } from '@angular/common/http';
-import { AuthService } from './auth.service';
+
 import { Router } from '@angular/router';
-import { ErrorDialogService } from '../error-dialog/error-dialog.service';
 import { ClientServicesService } from '../client-services/client-services.service';
-import { Global } from '../classes/global';
+import { AuthService, ErrorDialogService, Global } from 'projects/ui-api/src';
+
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -199,7 +196,7 @@ export class AuthInterceptor implements HttpInterceptor {
     logoutUser(err) {
         console.log('log out user');
         // Route to the login page
-        this.router.navigate(['login']);
+        this.router.navigate(['login_page']);
         localStorage.setItem('userModel', '');
         if (err) {
             if (err.error) {

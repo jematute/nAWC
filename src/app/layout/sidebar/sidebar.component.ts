@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { SidebarService } from './sidebar.service';
-import { LocalizationService } from '../../localization/localization.service';
 import { ISidebarButton } from './buttons/ISidebarButton';
 import { HomeButton } from './buttons/HomeButton';
 import { InboxButton } from './buttons/InboxButton';
@@ -11,9 +10,8 @@ import { FileGuideButton } from './buttons/FileGuideButton';
 import { WorkAreasButton } from './buttons/WorkAreasButton';
 import { Router } from '@angular/router';
 import { trigger, transition, animate, style } from '@angular/animations';
-import { LibModel } from '../../classes/libmodel';
-import { GridService } from '../../results/grid/grid.service';
 import { SearchService } from '../../search/search.service';
+import { LocalizationService, LibModel, GridService } from 'projects/ui-api/src';
 
 
 @Component({
@@ -33,19 +31,20 @@ export class SidebarComponent implements OnInit {
 
   shouldRun: boolean;
   events = [];
-  showSidebar: boolean = true;
-  activeMenu: string = "";
+  showSidebar = true;
+  activeMenu = '';
 
-  buttons: Array<ISidebarButton> = [ 
-    new HomeButton(), 
-    new FavoritesButton(), 
-    new SavedSearchesButton(), 
-    new InboxButton(), 
-    new LibraryBrowserButton(), 
-    new FileGuideButton(), 
-    new WorkAreasButton() 
+  buttons: Array<ISidebarButton> = [
+    new HomeButton(),
+    new FavoritesButton(),
+    new SavedSearchesButton(),
+    new InboxButton(),
+    new LibraryBrowserButton(),
+    new FileGuideButton(),
+    new WorkAreasButton()
   ];
 
+  // tslint:disable-next-line:max-line-length
   constructor(private sidebarService: SidebarService, public locale: LocalizationService, private router: Router, private gridService: GridService, private searchService: SearchService) { }
 
   ngOnInit() {
@@ -55,7 +54,7 @@ export class SidebarComponent implements OnInit {
   }
 
   backToMenu() {
-    this.activeMenu = "";
+    this.activeMenu = '';
   }
 
   menuSelected(button: ISidebarButton) {
@@ -66,10 +65,10 @@ export class SidebarComponent implements OnInit {
     this.activeMenu = button.label;
   }
 
-  librarySelected(library: LibModel) {
+  onLibrarySelected(library: LibModel) {
     if (library.libId) {
       const selectedLibrary = library as LibModel;
-      this.searchService.setSearchCriteria("SCHEMA_S_LIBID", selectedLibrary.libId);
+      this.searchService.setSearchCriteria('SCHEMA_S_LIBID', selectedLibrary.libId);
       this.gridService.dataService = this.searchService;
       this.gridService.reloadGrid();
     }

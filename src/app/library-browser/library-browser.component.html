@@ -1,6 +1,6 @@
 <div *ngIf="processing" class="lb-overlay">
     <div>Loading...</div>
 </div>
-<app-tree [expandFirstParents]="true" [items]="tree" (onSelected)="librarySelected($event)">
+<app-tree [expandFirstParents]="true" [items]="tree" (onSelected)="onLibrarySelected($event)">
 
 </app-tree>

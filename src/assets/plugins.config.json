@@ -8,12 +8,6 @@
             "moduleName": "CustomButtonModule",
             "component": "lib-custom-button",
             "file": "custom-button.umd.min.js"
-        },
-        { 
-            "type": "toolbar",
-            "moduleName": "MypluginModule",
-            "component": "lib-myplugin",
-            "file": "myplugin.umd.min.js"
         }
     ]
 }

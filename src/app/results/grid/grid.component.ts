@@ -1,13 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { GridOptions, GridApi, ColumnApi, ColumnResizedEvent, Column as agColumn, ColumnMovedEvent, SortChangedEvent } from 'ag-grid';
-import { GridService } from './grid.service';
-import { GetDataParams, SortDirection, ResultType, AdeptDataTable } from '../../classes/getdataparams';
 import { ColumnsService } from '../../columns/columns.service';
 import { MatPaginator } from '@angular/material';
 import { SubscriptionLike as ISubscription, Subscription } from 'rxjs';
-import { Column } from '../../classes/column';
-import { FileRecord, FileKeys } from '../../classes/file-record';
-import { Sort } from '../../classes/sort';
+import { GridService, GetDataParams, AdeptDataTable, ResultType, Sort, SortDirection, Column, FileKeys, FileRecord } from 'projects/ui-api/src';
 
 @Component({
   selector: 'app-grid',

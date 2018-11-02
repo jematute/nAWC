@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WorkareaComponent } from './workarea.component';
-import { WorkareaService } from './workarea.service';
-import { MaterialModule } from '../material/material.module';
 import { ClientServicesModule } from '../client-services/client-services.module';
-import { ProgressDialogModule } from '../progress-dialog/progress-dialog.module';
+import { MaterialModule, ProgressDialogModule, WorkareaService } from 'projects/ui-api/src';
 
 @NgModule({
   imports: [
@@ -12,6 +10,6 @@ import { ProgressDialogModule } from '../progress-dialog/progress-dialog.module'
   ],
   declarations: [WorkareaComponent],
   exports: [ WorkareaComponent ],
-  providers: [ WorkareaService, { provide: "WorkareaService", useClass: WorkareaService } ]
+  providers: [ WorkareaService, { provide: 'WorkareaService', useClass: WorkareaService } ]
 })
 export class WorkareaModule { }

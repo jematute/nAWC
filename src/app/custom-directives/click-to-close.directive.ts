@@ -2,6 +2,7 @@ import { Directive, Output, EventEmitter, ElementRef, HostListener } from '@angu
 
 
 @Directive({
+  // tslint:disable-next-line:directive-selector
   selector: '[clickToClose]'
 })
 export class ClickToCloseDirective {

@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { TreeComponent } from "./tree.component";
+import { TreeComponent } from './tree.component';
 
 describe('TreeComponent', () => {
   let component: TreeComponent;

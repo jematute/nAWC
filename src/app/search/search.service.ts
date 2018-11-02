@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
-import { IGridInterface } from '../results/grid/grid-interface';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { SearchParams, SearchTerm } from './search-params';
-import { Global } from '../classes/global';
-import { GetDataParams, AdeptDataTable } from '../classes/getdataparams';
 import { map, finalize, share, tap } from 'rxjs/operators';
+import { IGridInterface, Global } from 'projects/ui-api/src';
 
 
 

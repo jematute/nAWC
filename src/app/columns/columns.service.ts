@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FieldDefinition } from './fieldDefinition';
-import { Global } from '../classes/global';
 import { Observable } from 'rxjs';
-import { ColumnSet } from './columnset';
+import { ColumnSet, Global, Column } from 'projects/ui-api/src';
 import { mergeMap, map } from 'rxjs/operators';
-import { Column } from '../classes/column';
+import { FieldDefinition } from 'projects/ui-api/src';
 
 @Injectable()
 export class ColumnsService {
@@ -37,14 +35,13 @@ export class ColumnsService {
   }
 
   getGridColumns(): Observable<Column[]> {
-    let columnSetColumns: Column[]; 
     return this.getColumnSets().pipe(
       mergeMap(data => {
-        this.columnSetId = data.filter(d => d.name === "SearchResultColumns")[0].id;
+        this.columnSetId = data.filter(d => d.name === 'SearchResultColumns')[0].id;
         return this.getColumnSetColumns(this.columnSetId).pipe(map(
         cols => cols as Column[])
-      )})
-    )
+      ); })
+    );
   }
 
   resizeColumn(column: Column) {
@@ -52,14 +49,13 @@ export class ColumnsService {
   }
 
   lookUpFieldDefs(columns: Array<Column>): Array<FieldDefinition> {
-    let fieldDefs: Array<FieldDefinition> = [];
-    columns.forEach(col => fieldDefs.push(this.columns.find(f => f.schemaID == col.schemaId)));
+    const fieldDefs: Array<FieldDefinition> = [];
+    columns.forEach(col => fieldDefs.push(this.columns.find(f => f.schemaID === col.schemaId)));
     return fieldDefs;
   }
 
   lookUpFieldDef(column: Column): FieldDefinition {
-    let fieldDefs: Array<FieldDefinition> = [];
-    return this.columns.find(f => f.schemaID == column.schemaId);
+    return this.columns.find(f => f.schemaID === column.schemaId);
   }
 
 

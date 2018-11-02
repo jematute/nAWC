@@ -1,12 +1,9 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { LibraryService } from './library.service';
-import { VaultModel } from '../classes/vaultmodel';
-import { LibModel } from '../classes/libmodel';
-import { SearchService } from '../search/search.service';
-import { GridService } from '../results/grid/grid.service';
+import { VaultModel, LibModel } from 'projects/ui-api/src';
 
 @Component({
-  selector: 'library-browser',
+  selector: 'app-library-browser',
   templateUrl: './library-browser.component.html',
   styleUrls: ['./library-browser.component.less']
 })
@@ -16,16 +13,16 @@ export class LibraryBrowserComponent implements OnInit {
 
   tree: VaultModel[];
   processing = true;
-  @Output() onLibrarySelected = new EventEmitter<LibModel>();
+  @Output() librarySelected = new EventEmitter<LibModel>();
 
-  ngOnInit() {  
+  ngOnInit() {
     this.libraryService.getLibraryTree().subscribe(vaults => {
       this.processing = false;
       this.tree = vaults;
     });
   }
 
-  librarySelected(library) {
-    this.onLibrarySelected.emit(library);
+  onLibrarySelected(library) {
+    this.librarySelected.emit(library);
   }
 }

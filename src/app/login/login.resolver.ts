@@ -5,7 +5,7 @@ import { Resolve } from '@angular/router';
 import { Observable, of } from 'rxjs';
 
 import { delay, switchMap } from 'rxjs/operators';
-import { LocalizationService } from '../localization/localization.service';
+import { LocalizationService } from 'projects/ui-api/src';
 
 @Injectable()
 export class LoginResolver implements Resolve<Observable<Object>> {
