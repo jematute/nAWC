@@ -1,11 +1,10 @@
-
 import { MatDialog } from '@angular/material';
 import { Observable, of } from 'rxjs';
+import { ToolbarService } from '../toolbar/toolbar.service';
 
+export class ToolbarButton {
 
-export abstract class ToolbarButton {
-
-    constructor() {
+    constructor(private toolbarService: ToolbarService) {
     }
 
     id = 1;
@@ -24,6 +23,7 @@ export abstract class ToolbarButton {
     requireACS = true;
 
     onClick(data: any) {
-        alert('not implemented');
+        this.toolbarService.buttonClicked.emit(this);
     }
+
 }

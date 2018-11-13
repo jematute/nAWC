@@ -3,8 +3,8 @@ import { MatDialog } from '@angular/material';
 import { trigger, state, style, transition, animate, useAnimation } from '@angular/animations';
 import { bounce, zoomIn, zoomOut } from 'ng-animate';
 import { PluginsService } from '../plugins/plugins.service';
-import { LocalizationService, GridService, SelectionItem, ToolbarButton, Tab, CheckInButton } from 'projects/ui-api/src';
-import { ToolbarService } from 'projects/ui-api/src';
+import { ToolbarService, LocalizationService, GridService, SelectionItem, ToolbarButton, Tab, CheckInButton } from 'projects/ui-api/src';
+import { TestExtended } from 'projects/ui-api/src';
 
 @Component({
   selector: 'app-toolbar',
@@ -56,6 +56,11 @@ export class ToolbarComponent implements OnInit {
     this.gridService.onSelectionChanged.subscribe(items => {
       this.updateEnables(items);
     });
+
+    this.toolbarService.buttonClicked.subscribe(s => {
+      console.log(s);
+    });
+
   }
 
   toolbarButtonClicked(button: ToolbarButton) {
@@ -64,6 +69,7 @@ export class ToolbarComponent implements OnInit {
 
   initTabs() {
     const homeTab = new Tab();
+    this.toolbarService.clearTabs();
     homeTab.name = this.locale.resourceStrings['HOME'];
     homeTab.active = true;
     homeTab.items = [ this.checkInButton ];
@@ -94,8 +100,8 @@ export class ToolbarComponent implements OnInit {
     // check in
     this.checkInButton.text = this.locale.resourceStrings['TOOLBAR_CHECK_IN'];
     this.checkInButton.popupText = this.locale.resourceStrings['CHECK_IN_SELECTED_DOCUMENT'];
-    // this.checkInButton.dialog = this.dialog;
-    this.checkInButton.enabled = true;
+    this.checkInButton.dialog = this.dialog;
+    this.checkInButton.enabled = false;
   }
 
   // update if the button should be enabled or disabled

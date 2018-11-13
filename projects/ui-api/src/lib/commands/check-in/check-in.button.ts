@@ -1,7 +1,8 @@
 // import { CheckInService } from '../../commands/check-in/check-in.service';
 import { SelectionItem } from '../../classes/selectionitem';
 import { MatDialog } from '@angular/material';
-import { ToolbarButton } from '../../toolbar/buttons/toolbarbutton';
+import { ToolbarButton } from '../../classes/toolbarbutton';
+import { CheckInComponent } from './check-in.component';
 
 // import { CheckInComponent } from '../../commands/check-in/check-in.component';
 
@@ -15,7 +16,6 @@ export class CheckInButton extends ToolbarButton {
     text: string;
     enabled: boolean;
     action: Object;
-    children: ToolbarButton[];
     alwaysOn: boolean;
     showDropDown: boolean;
     // tslint:disable-next-line:max-line-length
@@ -27,8 +27,8 @@ export class CheckInButton extends ToolbarButton {
     popupText: string;
     dialog: MatDialog;
 
-    onClick() {
-        alert();
+    onClick(selectionItems) {
+        this.dialog.open(CheckInComponent, { data: selectionItems, panelClass: 'command-dialog' });
     }
 
 }

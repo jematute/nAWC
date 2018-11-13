@@ -1,0 +1,27 @@
+<!--Confirm Dialog-->
+<div *ngIf="shown" class="confirm-overlay">
+  <div class="confirm-dialog">
+    <div class="confirm-header">
+      {{title}}
+    </div>
+    <div class="confirm-content">
+      <span *ngFor="let message of messages">
+        {{message}}
+      </span>
+    </div>
+    <div class="confirm-footer">
+      <button autofocus class="button primary-button" (click)="answer('Y')">
+        {{$any(locale).resourceStrings.YES}}
+      </button>
+      <button class="button default-button" (click)="answer('YtoAll')">
+        {{$any(locale).resourceStrings.YES_TO_ALL}}
+      </button>
+      <button autofocus class="button primary-button" (click)="answer('N')">
+        {{$any(locale).resourceStrings.NO}}
+      </button>
+      <button class="button default-button" (click)="answer('NtoAll')">
+        {{$any(locale).resourceStrings.NO_TO_ALL}}
+      </button>
+    </div>
+  </div>
+</div>

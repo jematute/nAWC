@@ -1,6 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Tab } from '../classes/tab';
-import { ToolbarButton } from './buttons/toolbarbutton';
+import { ToolbarButton } from '../classes/toolbarbutton';
 
 
 @Injectable({
@@ -8,7 +8,9 @@ import { ToolbarButton } from './buttons/toolbarbutton';
 })
 export class ToolbarService {
 
-  onButtonClicked = new EventEmitter();
+  buttonClicked = new EventEmitter();
+  commandStarted = new EventEmitter();
+  commandFinished = new EventEmitter();
 
   constructor() {
     console.log('toolbar service loaded hello');
@@ -33,6 +35,10 @@ export class ToolbarService {
 
   removeTab(name: string) {
     this.tabs = this.tabs.filter(tab => tab.name === name);
+  }
+
+  clearTabs() {
+    this.tabs = [];
   }
 
 }

@@ -1,0 +1,55 @@
+<div class="command-dialog">
+
+  <div class="header">
+    <h4>{{$any(locale).resourceStrings.TITLE_CHECKIN}}</h4>
+  </div>
+  <div class="content">
+    <div class="selection-boxes">
+      <span>{{$any(locale).resourceStrings.DESTINATION_LIBRARY}}</span>
+      <p-dropdown [options]="libraries" [(ngModel)]="xyz.selectedLibraryItem" (onChange)="selectedLibraryChanged()" optionLabel="name"
+        [filter]="true"></p-dropdown>
+      <span>{{$any(locale).resourceStrings.ASSIGN_TO}}</span>
+      <p-dropdown [disabled]="processing || xyz.gettingUserList" [options]="qualifiedUsersArray" (onChange)="selectedUserChanged($event)"
+        [(ngModel)]="xyz.selectedUserItem" optionLabel="name"></p-dropdown>
+    </div>
+    <div class="check-boxes">
+      <p-checkbox [disabled]="processing" *ngIf="xyz.bAllowUndoCheckOut" label="{{$any(locale).resourceStrings.UNDO_CHECKOUT_LABEL}}"
+        name="groupname" [(ngModel)]="xyz.bUndoCheckOut" (onChange)="undoCheckOutCheckChanged()"></p-checkbox>
+      <p-checkbox [disabled]="processing" label="{{$any(locale).resourceStrings.KEEP_OUT_LABEL}}" name="groupname2" [(ngModel)]="xyz.bKeepOut"
+        (onChange)="keepOutCheckChanged()"></p-checkbox>
+      <p-checkbox [disabled]="processing" label="{{$any(locale).resourceStrings.CREATE_VERSION}}" name="groupname" [(ngModel)]="xyz.bCreateVersion"
+        (onChange)="createVersionCheckChanged()"></p-checkbox>
+    </div>
+    <div class="grid">
+      <div class="grid-overlay" *ngIf="processing">
+        <div class="progress-box">
+            <span>{{$any(locale).resourceStrings.PROCESSING}}: {{currentFile}}</span>
+            <p-progressBar [value]="progressValue"></p-progressBar>
+        </div>
+      </div>
+      <span>{{$any(locale).resourceStrings.FILES_TO_CHECKIN}}</span>
+      <ag-grid-angular [getRowNodeId]="getRowNodeId" (selectionChanged)="onSelectionChanged($event)" style="width: 100%" class="ag-theme-balham"
+        [rowData]="rowData" [columnDefs]="columnDefs" (gridReady)="onGridReady()" [gridOptions]="gridOptions">
+      </ag-grid-angular>
+    </div>
+  </div>
+  <!-- Footer -->
+
+  <div class="footer">
+    <div class="checkin-progress" *ngIf="processing">
+        
+    </div>
+    <div class="buttons">
+        <button [disabled]="xyz.bReadyForOK == false || processing" class="button primary-button" (click)="onCheckInDialogOK()">
+            {{$any(locale).resourceStrings.OK}}
+          </button>
+          <button class="button default-button" (click)="onCheckInDialogCancel()" [disabled]="processing">
+            {{$any(locale).resourceStrings.CANCEL}}
+          </button>
+    </div>
+  </div>
+
+  
+  <app-confirm-dialog></app-confirm-dialog>
+
+</div>

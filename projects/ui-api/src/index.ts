@@ -66,3 +66,4 @@ export * from './lib/error-dialog/error-dialog.component';
 export * from './lib/error-dialog/error-dialog.service';
 export * from './lib/error-dialog/error-dialog.module';
 export * from './lib/toolbar/toolbar.service';
+export * from './lib/test/testextended';
