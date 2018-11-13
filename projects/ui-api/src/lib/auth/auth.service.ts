@@ -1,12 +1,12 @@
 import { HttpHeaders, HttpRequest, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { userModel } from '../classes/usermodel';
+import { UserModel } from '../classes/usermodel';
 import { Router } from '@angular/router';
 import { LocalizationService } from '../localization/localization.service';
 import { User } from '../classes/user';
 import { Observable, of } from 'rxjs';
 import { Global } from '../classes/global';
-import { switchMap, map } from 'rxjs/operators';
+import { switchMap, map, timeout, catchError } from 'rxjs/operators';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -27,13 +27,13 @@ export class AuthService {
   refreshToken: string;
   cachedRequests: Array<HttpRequest<any>> = [];
   autoLogin: boolean;
-  user: userModel;
+  user: UserModel;
 
   constructor(private http: HttpClient, private router: Router, public locale: LocalizationService) {
     this.refreshToken = localStorage.getItem('refresh_token');
     const user = localStorage.getItem('userModel');
     // if (user)
-      // this.user = JSON.parse(user) as userModel;
+      // this.user = JSON.parse(user) as UserModel;
     this.connectSignalR();
   }
 
@@ -59,11 +59,11 @@ export class AuthService {
     }));
   }
 
-  getUserInfo(): Observable<userModel> {
+  getUserInfo(): Observable<UserModel> {
     return this.http.get(`${Global.API_URL}/api/account/userinfo`).pipe(map(data => {
-      this.user = data as userModel;
+      this.user = data as UserModel;
       // localStorage.setItem("userModel", JSON.stringify(this.user));
-      return data as userModel;
+      return data as UserModel;
     }));
   }
 
@@ -86,7 +86,10 @@ export class AuthService {
   }
 
   checkLogin(): Observable<Object> {
-    return this.http.get(`${Global.API_URL}/api/account/isloggedin`);
+    return this.http.get(`${Global.API_URL}/api/account/isloggedin`).pipe(timeout(200), catchError(e => {
+      alert("Request TimeOut");
+      return of(null);
+    }));
   }
 
   getAppVersion(): Observable<any> {

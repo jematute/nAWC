@@ -1,4 +1,4 @@
-export class userModel {
+export class UserModel {
     Application: string;
     Archiver: boolean;
     ClientType: number;

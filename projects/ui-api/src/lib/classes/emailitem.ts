@@ -1,7 +1,7 @@
-import { userModel } from './usermodel';
+import { UserModel } from './usermodel';
 
 export class EmailItem {
-    public toUserModels: Array<userModel>;
+    public toUserModels: Array<UserModel>;
     public cc: string;
     public subject: string;
     public body: string;

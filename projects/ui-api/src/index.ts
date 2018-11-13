@@ -39,7 +39,7 @@ export * from './lib/classes/tab';
 export * from './lib/classes/toolbarbutton';
 export * from './lib/classes/uirightsandenables';
 export * from './lib/classes/user';
-export * from './lib/classes/userModel';
+export * from './lib/classes/usermodel';
 export * from './lib/classes/vaultmodel';
 export * from './lib/classes/workareadataparams';
 export * from './lib/classes/workareamodel';
