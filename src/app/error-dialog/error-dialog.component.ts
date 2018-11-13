@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {MatBottomSheet, MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA} from '@angular/material';
-import { MessageData } from '../classes/messagedata';
+import { MessageData } from 'projects/ui-api/src';
 
 @Component({
   selector: 'app-error-dialog',
@@ -13,7 +13,6 @@ export class ErrorDialogComponent implements OnInit {
 
   ngOnInit() {
   }
-  
   openLink(event: MouseEvent): void {
     console.log(this.data);
     this.bottomSheetRef.dismiss();

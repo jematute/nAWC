@@ -3,6 +3,7 @@ import { GridOptions, GridApi, ColumnApi, ColumnResizedEvent, Column as agColumn
 import { ColumnsService } from '../../columns/columns.service';
 import { MatPaginator } from '@angular/material';
 import { SubscriptionLike as ISubscription, Subscription } from 'rxjs';
+// tslint:disable-next-line:max-line-length
 import { GridService, GetDataParams, AdeptDataTable, ResultType, Sort, SortDirection, Column, FileKeys, FileRecord } from 'projects/ui-api/src';
 
 @Component({

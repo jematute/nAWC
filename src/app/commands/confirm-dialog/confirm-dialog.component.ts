@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfirmDialogService } from './confirm-dialog.service';
-import { LocalizationService } from '../../localization/localization.service';
+import { LocalizationService } from 'projects/ui-api/src';
 
 @Component({
   selector: 'app-confirm-dialog',
@@ -9,16 +9,16 @@ import { LocalizationService } from '../../localization/localization.service';
 })
 export class ConfirmDialogComponent implements OnInit {
 
-  shown: boolean = false;
-  title: string = "";
+  shown = false;
+  title = '';
   messages: string[] = [];
   constructor(private service: ConfirmDialogService, public locale: LocalizationService) { }
 
   ngOnInit() {
-    this.service.onOpen.subscribe(res => { 
+    this.service.onOpen.subscribe(res => {
       this.title = res.title;
       this.messages = res.messages;
-      this.shown = true 
+      this.shown = true;
     });
     this.service.onClose.subscribe(() => this.shown = false);
   }
