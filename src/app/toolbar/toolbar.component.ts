@@ -48,7 +48,6 @@ export class ToolbarComponent implements OnInit {
     this.content.clear();
 
     this.plugins.toolbarButtons.forEach(button => {
-
       this.content.createComponent(button);
     });
     this.initButtons();
@@ -57,9 +56,9 @@ export class ToolbarComponent implements OnInit {
       this.updateEnables(items);
     });
 
-    this.toolbarService.buttonClicked.subscribe(s => {
-      console.log(s);
-    });
+    // this.toolbarService.buttonClicked.subscribe(s => {
+    //   console.log(s);
+    // });
 
   }
 

@@ -1,6 +1,7 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Tab } from '../classes/tab';
 import { ToolbarButton } from '../classes/toolbarbutton';
+import { Observable, of } from 'rxjs';
 
 
 @Injectable({
@@ -8,7 +9,6 @@ import { ToolbarButton } from '../classes/toolbarbutton';
 })
 export class ToolbarService {
 
-  buttonClicked = new EventEmitter();
   commandStarted = new EventEmitter();
   commandFinished = new EventEmitter();
 
@@ -18,6 +18,19 @@ export class ToolbarService {
 
   tabs = new Array<Tab>();
   activeTab: Tab;
+
+  callbacks = [];
+  subscribeToClick(callback) {
+    callback.push(callback);
+  }
+
+  buttonClicked(buttonName: string): Observable<any> {
+    //
+    this.callbacks.forEach(cb => {
+      //
+    });
+    return of(true);
+  }
 
   addButton(button: ToolbarButton, tabName: string) {
     const tab = this.tabs.find(t => t.name.toLowerCase() === tabName.toLowerCase());

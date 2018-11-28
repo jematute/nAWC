@@ -3,6 +3,7 @@ import { SelectionItem } from '../../classes/selectionitem';
 import { MatDialog } from '@angular/material';
 import { ToolbarButton } from '../../classes/toolbarbutton';
 import { CheckInComponent } from './check-in.component';
+import { ToolbarService } from 'projects/ui-api/src';
 
 // import { CheckInComponent } from '../../commands/check-in/check-in.component';
 
@@ -27,8 +28,9 @@ export class CheckInButton extends ToolbarButton {
     popupText: string;
     dialog: MatDialog;
 
-    onClick(selectionItems) {
+    begin(selectionItems) {
         this.dialog.open(CheckInComponent, { data: selectionItems, panelClass: 'command-dialog' });
     }
 
 }
+

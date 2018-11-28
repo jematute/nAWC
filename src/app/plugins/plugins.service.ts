@@ -26,7 +26,7 @@ export class PluginsService {
       config.plugins.forEach(plugin => {
         this.loadModuleSystemJS(plugin).then(mod => {
           const factory = mod.componentFactories.find(f => f.selector === plugin.component);
-          this.plugins.push(factory);
+          // this.plugins.push(factory);
         });
       });
     }, error => {}, () => {

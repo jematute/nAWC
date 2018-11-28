@@ -4,7 +4,7 @@ import { ToolbarService } from '../toolbar/toolbar.service';
 
 export class ToolbarButton {
 
-    constructor(private toolbarService: ToolbarService) {
+    constructor(public toolbarService: ToolbarService) {
     }
 
     id = 1;
@@ -21,9 +21,16 @@ export class ToolbarButton {
     show = true;
     popupText = '';
     requireACS = true;
-
-    onClick(data: any) {
-        this.toolbarService.buttonClicked.emit(this);
+    begin(data: any) {
     }
+    onClick(data: any) {
+        this.toolbarService.buttonClicked(this.text).subscribe(resp => {
+            if (resp === true) {
+                this.begin(data);
+            }
+        });
+    }
+
+
 
 }

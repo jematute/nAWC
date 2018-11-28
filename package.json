@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json --port 4200",
-    "build": "ng build adept-api && ng build --prod --base-href /Synergis.WebClient/",
+    "build": "ng build ui-api && ng build --prod --base-href /Synergis.WebClient/",
     "buildapi": "ng build --prod adept-api",
     "packapi": "cd dist/adept-api && npm pack",
     "packageapi": "npm run buildapi && npm run packapi",

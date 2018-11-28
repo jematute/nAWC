@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { SelectionItem } from '../../classes/selectionitem';
@@ -24,6 +24,8 @@ export class CheckInService {
 
   dialog: MatDialog;
   constructor(private http: HttpClient) { }
+
+  onCheckingStarted = new EventEmitter<any>();
 
   getCheckInOptionsList(items: Array<SelectionItem>) {
 
@@ -94,6 +96,8 @@ export class CheckInService {
 
   // Call the command with a Selection List.
   checkInItem(gridItem: GridItem, stagingFileOperationModel: FileOperationModel): Observable<SelectionCommandResults> {
+    this.onCheckingStarted.emit();
+
     const checkInItemObject: CheckInItemObject = {
       fileId: gridItem.fileId,
       libId: gridItem.selectionItem.detailedInfo.libId,
