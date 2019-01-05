@@ -19,9 +19,7 @@
   
   <div [ngClass]="{ 'tab-content-collapsed': !showToolbar }" class="tab-content">
       <div *ngFor="let item of toolbarService.activeTab?.items" (mouseleave)="item.dropdown = false" [@zoomIn]="zoomIn" class="toolbar-button" [ngClass]="{ 'toolbar-button-enabled': item?.enabled }">
-        <div *ngIf="!item?.enabled && !item.requiresACS" class="disable-overlay">
             <div id="tb-button-{{item?.text?.toLowerCase().trim().replace(' ','')}}" class="button-area" (click)="toolbarButtonClicked(item, $event)">
-              
                 <!-- <md-tooltip md-delay="300" class="custom-tooltip" md-direction="bottom">
                       {{item.popuptext}}
                   </md-tooltip> -->
@@ -54,7 +52,6 @@
                       </li>
                   </ul>
               </div>
-          </div>
         </div>  
          
   </div>

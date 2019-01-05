@@ -86,10 +86,7 @@ export class AuthService {
   }
 
   checkLogin(): Observable<Object> {
-    return this.http.get(`${Global.API_URL}/api/account/isloggedin`).pipe(timeout(200), catchError(e => {
-      alert('Request TimeOut');
-      return of(null);
-    }));
+    return this.http.get(`${Global.API_URL}/api/account/isloggedin`);
   }
 
   getAppVersion(): Observable<any> {

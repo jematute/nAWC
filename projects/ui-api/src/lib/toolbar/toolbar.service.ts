@@ -1,7 +1,8 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Tab } from '../classes/tab';
 import { ToolbarButton } from '../classes/toolbarbutton';
-import { Observable, of } from 'rxjs';
+import { Observable, of, forkJoin, Subject, concat } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 
 @Injectable({
@@ -19,17 +20,24 @@ export class ToolbarService {
   tabs = new Array<Tab>();
   activeTab: Tab;
 
-  callbacks = [];
-  subscribeToClick(callback) {
-    callback.push(callback);
+  private callbacks = new Array<Observable<any>>();
+
+  registerStartCallback() {
+    const obs = new Subject<any>();
+    this.callbacks.push(obs);
+    return obs;
   }
 
   buttonClicked(buttonName: string): Observable<any> {
-    //
-    this.callbacks.forEach(cb => {
-      //
-    });
-    return of(true);
+    //this.commandStarted.emit();
+    if (this.callbacks.length > 0) {
+      return concat(this.callbacks).pipe(tap(() => {
+        console.log('all emits have occurred');
+        this.callbacks = [];
+      }));
+    } else {
+      return of(true);
+    }
   }
 
   addButton(button: ToolbarButton, tabName: string) {

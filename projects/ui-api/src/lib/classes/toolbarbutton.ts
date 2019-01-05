@@ -24,10 +24,9 @@ export class ToolbarButton {
     begin(data: any) {
     }
     onClick(data: any) {
-        this.toolbarService.buttonClicked(this.text).subscribe(resp => {
-            if (resp === true) {
-                this.begin(data);
-            }
+        this.toolbarService.buttonClicked(this.text)
+        .subscribe(resp => {
+            this.begin(data);
         });
     }
 

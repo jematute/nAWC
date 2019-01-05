@@ -56,10 +56,26 @@ export class ToolbarComponent implements OnInit {
       this.updateEnables(items);
     });
 
-    // this.toolbarService.buttonClicked.subscribe(s => {
-    //   console.log(s);
-    // });
+    this.toolbarService.commandStarted.subscribe(() => {
+      const callback = this.toolbarService.registerStartCallback();
+      console.log('received command started');
+      setTimeout(() => {
+        console.log('about to send next');
+        callback.next(0);
+        callback.complete();
+      }, 2000);
+    });
 
+
+    this.toolbarService.commandStarted.subscribe(() => {
+      const callback = this.toolbarService.registerStartCallback();
+      console.log('received command started');
+      setTimeout(() => {
+        console.log('about to send next');
+        callback.next(0);
+        callback.complete();
+      }, 4000);
+    });
   }
 
   toolbarButtonClicked(button: ToolbarButton) {
@@ -100,7 +116,7 @@ export class ToolbarComponent implements OnInit {
     this.checkInButton.text = this.locale.resourceStrings['TOOLBAR_CHECK_IN'];
     this.checkInButton.popupText = this.locale.resourceStrings['CHECK_IN_SELECTED_DOCUMENT'];
     this.checkInButton.dialog = this.dialog;
-    this.checkInButton.enabled = false;
+    this.checkInButton.enabled = true;
   }
 
   // update if the button should be enabled or disabled

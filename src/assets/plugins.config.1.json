@@ -1,0 +1,13 @@
+{
+    "system": {
+        "baseURL": "/assets/plugins"
+    },
+    "plugins": [
+        { 
+            "type": "toolbar",
+            "moduleName": "CustomButtonModule",
+            "component": "lib-custom-button",
+            "file": "custom-button.umd.min.js"
+        }
+    ]
+}
