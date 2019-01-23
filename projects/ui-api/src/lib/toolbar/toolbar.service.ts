@@ -13,7 +13,7 @@ import { ApiTypes } from '../classes/apitypes';
 })
 export class ToolbarService {
   constructor(private commandsService: CommandsService) {
-    console.log('toolbar service loaded hello');
+    console.log('toolbars service loaded hello');
   }
 
   tabs = new Array<Tab>();
