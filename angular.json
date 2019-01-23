@@ -186,6 +186,11 @@
           "options": {
             "tsConfig": "projects/ui-api/tsconfig.lib.json",
             "project": "projects/ui-api/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "projects/ui-api/ng-package.prod.json"
+            }
           }
         },
         "test": {

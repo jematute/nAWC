@@ -25,8 +25,6 @@ export class CheckInService {
   dialog: MatDialog;
   constructor(private http: HttpClient) { }
 
-  onCheckingStarted = new EventEmitter<any>();
-
   getCheckInOptionsList(items: Array<SelectionItem>) {
 
     const options: Array<CheckInOptions> = new Array<CheckInOptions>();
@@ -96,8 +94,7 @@ export class CheckInService {
 
   // Call the command with a Selection List.
   checkInItem(gridItem: GridItem, stagingFileOperationModel: FileOperationModel): Observable<SelectionCommandResults> {
-    this.onCheckingStarted.emit();
-
+    
     const checkInItemObject: CheckInItemObject = {
       fileId: gridItem.fileId,
       libId: gridItem.selectionItem.detailedInfo.libId,

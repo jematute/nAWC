@@ -24,13 +24,12 @@ export class ToolbarComponent implements OnInit {
     private gridService: GridService,
     private dialog: MatDialog,
     private plugins: PluginsService,
-    private compiler: Compiler,
-    public toolbarService: ToolbarService
+    public toolbarService: ToolbarService,
   ) { }
 
   showToolbar = true;
   tabs: Array<Tab>;
-  checkInButton: CheckInButton = new CheckInButton(this.toolbarService);
+  checkInButton: CheckInButton = new CheckInButton();
 
   activeTab: Tab;
 
@@ -55,31 +54,11 @@ export class ToolbarComponent implements OnInit {
     this.gridService.onSelectionChanged.subscribe(items => {
       this.updateEnables(items);
     });
-
-    this.toolbarService.commandStarted.subscribe(() => {
-      const callback = this.toolbarService.registerStartCallback();
-      console.log('received command started');
-      setTimeout(() => {
-        console.log('about to send next');
-        callback.next(0);
-        callback.complete();
-      }, 2000);
-    });
-
-
-    this.toolbarService.commandStarted.subscribe(() => {
-      const callback = this.toolbarService.registerStartCallback();
-      console.log('received command started');
-      setTimeout(() => {
-        console.log('about to send next');
-        callback.next(0);
-        callback.complete();
-      }, 4000);
-    });
   }
 
   toolbarButtonClicked(button: ToolbarButton) {
-    button.onClick(this.gridService.getSelectedRows());
+    //we report to the toolbarService a button has been clicked and pass the currently selected records
+    this.toolbarService.buttonClicked(button, this.gridService.getSelectedRows());
   }
 
   initTabs() {

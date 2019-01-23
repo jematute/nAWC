@@ -2,6 +2,11 @@
     "system": {
         "baseURL": "/assets/plugins"
     },
-    "plugins": [
+    "plugins": [ {
+        "type": "toolbar",
+        "moduleName": "MyPluginModule",
+        "component": "lib-my-plugin",
+        "file": "my-plugin.umd.min.js"
+    }
     ]
 }

@@ -13,7 +13,7 @@ import { GlobalsService } from './globals.service';
 import { ClientServicesModule } from './client-services/client-services.module';
 import { BowserModule, BowserService } from 'ngx-bowser';
 import { SignalRModule, ConnectionTransports } from 'ng2-signalr';
-import { UiApiModule } from 'projects/ui-api/src';
+import { UiApiModule, PluginManagerService } from 'projects/ui-api/src';
 import { PluginsModule } from './plugins/plugins.module';
 import { LocalizationService } from 'projects/ui-api/src';
 // import { SignalRConfiguration, ConnectionTransport } from 'ng2-signalr';

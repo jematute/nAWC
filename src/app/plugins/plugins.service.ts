@@ -7,9 +7,13 @@ import * as AngularCore from '@angular/core';
 import * as AngularCommon from '@angular/common';
 import * as AngularRouter from '@angular/router';
 import * as BrowserAnimations from '@angular/platform-browser/animations';
+import * as RXJS from 'rxjs';
+import * as RXJSOperators from 'rxjs/operators';
+import * as UIApi from 'ui-api';
+
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { map, tap, switchMap, concatMap } from 'rxjs/operators';
+import { Observable, from } from 'rxjs';
 import { PluginsConfig, Plugin, UiApiModule } from 'projects/ui-api/src';
 
 @Injectable({
@@ -21,17 +25,16 @@ export class PluginsService {
   toolbarButtons: Array<any> = [];
   onPluginsLoaded: EventEmitter<boolean> = new EventEmitter<boolean>();
   plugins: Array<any> = [];
-  loadPlugins() {
-    this.loadConfig().subscribe(config => {
-      config.plugins.forEach(plugin => {
-        this.loadModuleSystemJS(plugin).then(mod => {
+  loadPlugins(): Observable<any> {
+    return this.loadConfig().pipe(switchMap(config => {
+      return from(config.plugins).pipe(concatMap(plugin => {
+        return from(this.loadModuleSystemJS(plugin)).pipe(map(mod => {
           const factory = mod.componentFactories.find(f => f.selector === plugin.component);
-          // this.plugins.push(factory);
-        });
-      });
-    }, error => {}, () => {
-      console.log('done');
-    });
+          this.plugins.push(factory);
+        }))
+      }));
+      
+    }));
   }
 
   loadConfig(): Observable<PluginsConfig> {
@@ -44,8 +47,10 @@ export class PluginsService {
     SystemJS.set('@angular/core', SystemJS.newModule(AngularCore));
     SystemJS.set('@angular/common', SystemJS.newModule(AngularCommon));
     SystemJS.set('@angular/router', SystemJS.newModule(AngularRouter));
+    SystemJS.set('rxjs', SystemJS.newModule(RXJS));
+    SystemJS.set('rxjs/operators', SystemJS.newModule(RXJSOperators));
     SystemJS.set('@angular/platform-browser/animations', SystemJS.newModule(BrowserAnimations));
-    SystemJS.set('adept-api', SystemJS.newModule(UiApiModule));
+    SystemJS.set('ui-api', SystemJS.newModule(UIApi));
 
     // now, import the new module
     return SystemJS.import(`${url}`).then((module) => {

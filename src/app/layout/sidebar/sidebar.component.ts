@@ -67,6 +67,7 @@ export class SidebarComponent implements OnInit {
 
   onLibrarySelected(library: LibModel) {
     if (library.libId) {
+      console.log(library);
       const selectedLibrary = library as LibModel;
       this.searchService.setSearchCriteria('SCHEMA_S_LIBID', selectedLibrary.libId);
       this.gridService.dataService = this.searchService;

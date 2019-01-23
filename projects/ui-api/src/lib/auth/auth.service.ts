@@ -55,7 +55,7 @@ export class AuthService {
       // clear the user and localstorage
       this.user = null;
       localStorage.setItem('userModel', '');
-      return this.router.navigate(['/login_page']);
+      return this.router.navigate(['/page_login']);
     }));
   }
 

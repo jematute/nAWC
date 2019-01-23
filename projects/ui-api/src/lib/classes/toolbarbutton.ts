@@ -1,10 +1,13 @@
 import { MatDialog } from '@angular/material';
 import { Observable, of } from 'rxjs';
 import { ToolbarService } from '../toolbar/toolbar.service';
+import { EventEmitter } from '@angular/core';
+import { CommandEvent } from './commandinterface';
+import { ApiTypes } from './apitypes';
 
 export class ToolbarButton {
 
-    constructor(public toolbarService: ToolbarService) {
+    constructor() {
     }
 
     id = 1;
@@ -21,15 +24,12 @@ export class ToolbarButton {
     show = true;
     popupText = '';
     requireACS = true;
-    begin(data: any) {
-    }
-    onClick(data: any) {
-        this.toolbarService.buttonClicked(this.text)
-        .subscribe(resp => {
-            this.begin(data);
-        });
-    }
+    command: ApiTypes.AdeptCommandNumber;
 
 
+    action(data: any) {
+        //some stuff happens here
+        alert("Not implemented");
+    }
 
 }

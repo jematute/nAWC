@@ -196,7 +196,7 @@ export class AuthInterceptor implements HttpInterceptor {
     logoutUser(err) {
         console.log('log out user');
         // Route to the login page
-        this.router.navigate(['login_page']);
+        this.router.navigate(['page_login']);
         localStorage.setItem('userModel', '');
         if (err) {
             if (err.error) {

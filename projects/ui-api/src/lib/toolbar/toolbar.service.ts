@@ -3,41 +3,31 @@ import { Tab } from '../classes/tab';
 import { ToolbarButton } from '../classes/toolbarbutton';
 import { Observable, of, forkJoin, Subject, concat } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { CommandsService } from '../commands/commands.service';
+import { EventAction } from '../classes/commandinterface';
+import { ApiTypes } from '../classes/apitypes';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ToolbarService {
-
-  commandStarted = new EventEmitter();
-  commandFinished = new EventEmitter();
-
-  constructor() {
+  constructor(private commandsService: CommandsService) {
     console.log('toolbar service loaded hello');
   }
 
   tabs = new Array<Tab>();
   activeTab: Tab;
 
-  private callbacks = new Array<Observable<any>>();
+  buttonClicked(button: ToolbarButton, data: any): Observable<any> {
+    //we report to the command service a button has been clicked
+    this.commandsService.beginAction({ action: EventAction.Continue, command: button.command }).subscribe(event => {
+      if (event === EventAction.Continue) {
+        button.action(data);
+      }
+    });
 
-  registerStartCallback() {
-    const obs = new Subject<any>();
-    this.callbacks.push(obs);
-    return obs;
-  }
-
-  buttonClicked(buttonName: string): Observable<any> {
-    //this.commandStarted.emit();
-    if (this.callbacks.length > 0) {
-      return concat(this.callbacks).pipe(tap(() => {
-        console.log('all emits have occurred');
-        this.callbacks = [];
-      }));
-    } else {
-      return of(true);
-    }
+    return of(true);  
   }
 
   addButton(button: ToolbarButton, tabName: string) {
