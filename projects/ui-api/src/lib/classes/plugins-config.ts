@@ -5,7 +5,7 @@ export interface PluginsConfig {
 
 export interface Plugin {
     type: string;
-    component: string;
+    components: Array<string>;
     file: string;
     moduleName: string;
 }

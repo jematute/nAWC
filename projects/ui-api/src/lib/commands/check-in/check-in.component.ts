@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, Injector } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormsModule } from '@angular/forms';
-import { GridOptions } from 'ag-grid';
+import { GridOptions } from 'ag-grid-community';
 import { GridItem } from '../../classes/grid-item';
 import { CheckInOptions } from '../../classes/checkinoptions';
 import { FileInfoModel } from '../../classes/fileinfos';
@@ -22,6 +22,8 @@ import { ExtractionService } from '../../extraction/extraction.service';
 import { ErrorDialogService } from '../../error-dialog/error-dialog.service';
 import { GridService } from '../../grid/grid.service';
 import { AuthService } from '../../auth/auth.service';
+import { CommandsService } from '../commands.service';
+import { EventAction } from '../../classes/commandinterface';
 
 
 @Component({
@@ -89,6 +91,7 @@ export class CheckInComponent implements OnInit {
     private extractionService: ExtractionService,
     private checkInService: CheckInService, private errorDialogService: ErrorDialogService,
     private gridService: GridService,
+    private commandsService: CommandsService
   ) {
 
     this.gridOptions = <GridOptions>{};
@@ -109,11 +112,69 @@ export class CheckInComponent implements OnInit {
 
   onCheckInDialogOK() {
     // console.time('checkin-total');
+    // report to the command service that the action has started
+    this.commandsService.beginAction({
+      command: ApiTypes.AdeptCommandNumber.ACN_SIGN_IN,
+      action: EventAction.Continue,
+      data: this.rowData,
+      currentItem: null
+    }).pipe(map(event => {
+      if (event.action === EventAction.Continue) {
+        this.processCheckin();
+      }
+    })).subscribe();
+  }
+
+  processCheckin() {
     this.processing = true;
+    // get a long term key to avoid token refreshes
     this.auth.setLongTermKey().subscribe(resp => {
+      // calculate progress
       const itemValue = Math.ceil(100 / this.rowData.length);
+      // create an observable out the array of items and use concatMap to iterate and run them in serial
       from(this.rowData).pipe(concatMap(item => {
-        this.currentFile = item.name;
+        // here we report to the command service for each item
+        return this.commandsService.beginItem({
+          command: ApiTypes.AdeptCommandNumber.ACN_SIGN_IN,
+          action: EventAction.Continue,
+          data: this.rowData,
+          currentItem: item
+        }).pipe(switchMap(event => {
+          // if the action is to continue we process the item
+          if (event.action === EventAction.Continue) {
+            return this.processItem(item);
+          } else {
+            // otherwise we return observable of null
+            return of(null);
+          }
+        }));
+      }), finalize(() => {
+        // when everything is done
+        // console.timeEnd('checkin-total');
+        this.auth.removeLongTermKey();
+
+        // remove the records from the grid.
+        const recordsToRemove = this.rowData.map(item => {
+          const file: FileRecord = new FileRecord();
+          file.SCHEMA_S_FILEID = item.selectionItem.fileId;
+          file.SCHEMA_S_MAJREV = item.selectionItem.majRev;
+          file.SCHEMA_S_MINREV = item.selectionItem.minRev;
+          return new FileKeys(file);
+        });
+        this.gridService.removeRecords(recordsToRemove);
+
+        // close the dialog
+        this.dialogRef.close();
+      })).subscribe(() => {
+        // update progress
+        this.progressValue = this.progressValue + itemValue;
+        // console.timeEnd('checkin-item');
+      });
+    });
+  }
+
+  processItem(item: GridItem) {
+    this.currentFile = item.name;
         // console.time('checkin-item');
         return this.checkForUndoCheckOut(item).pipe(switchMap(proceed => {
           if (proceed) {
@@ -167,33 +228,8 @@ export class CheckInComponent implements OnInit {
             }));
           }
           // finished with this item
-
           return null;
         }));
-      }), finalize(() => {
-        // when everything is done
-        // console.timeEnd('checkin-total');
-        this.auth.removeLongTermKey();
-
-        // remove the records from the grid.
-        const recordsToRemove = this.rowData.map(item => {
-          const file: FileRecord = new FileRecord();
-          file.SCHEMA_S_FILEID = item.selectionItem.fileId;
-          file.SCHEMA_S_MAJREV = item.selectionItem.majRev;
-          file.SCHEMA_S_MINREV = item.selectionItem.minRev;
-          return new FileKeys(file);
-        });
-        this.gridService.removeRecords(recordsToRemove);
-
-        // close the dialog
-        this.dialogRef.close();
-      })).subscribe(() => {
-        // update progress
-        this.progressValue = this.progressValue + itemValue;
-        // console.timeEnd('checkin-item');
-      });
-    });
-    console.log('OK');
   }
 
   checkForPath(gridItem: GridItem) {

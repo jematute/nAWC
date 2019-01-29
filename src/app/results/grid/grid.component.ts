@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { GridOptions, GridApi, ColumnApi, ColumnResizedEvent, Column as agColumn, ColumnMovedEvent, SortChangedEvent } from 'ag-grid';
+// tslint:disable-next-line:max-line-length
+import { GridOptions, GridApi, ColumnApi, ColumnResizedEvent, Column as agColumn, ColumnMovedEvent, SortChangedEvent } from 'ag-grid-community';
 import { ColumnsService } from '../../columns/columns.service';
 import { MatPaginator } from '@angular/material';
 import { SubscriptionLike as ISubscription, Subscription } from 'rxjs';

@@ -28,8 +28,8 @@ export class ToolbarButton {
 
 
     action(data: any) {
-        //some stuff happens here
-        alert("Not implemented");
+        // some stuff happens here
+        alert('Not implemented');
     }
 
 }

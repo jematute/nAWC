@@ -5,6 +5,7 @@ import { ToolbarButton } from '../../classes/toolbarbutton';
 import { CheckInComponent } from './check-in.component';
 import { ToolbarService } from 'projects/ui-api/src';
 import { of } from 'rxjs';
+import { ApiTypes } from 'dist/ui-api';
 
 // import { CheckInComponent } from '../../commands/check-in/check-in.component';
 
@@ -22,7 +23,7 @@ export class CheckInButton extends ToolbarButton {
     creator = true;
     show = true;
     dialog: MatDialog;
-
+    command: ApiTypes.AdeptCommandNumber.ACN_SIGN_IN;
     action(selectionItems) {
         this.dialog.open(CheckInComponent, { data: selectionItems, panelClass: 'command-dialog' });
     }

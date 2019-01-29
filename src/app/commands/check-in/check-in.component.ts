@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, Injector } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormsModule } from '@angular/forms';
-import { GridOptions } from 'ag-grid';
+import { GridOptions } from 'ag-grid-community';
 import { switchMap, map, concatMap, takeLast, finalize, zip } from 'rxjs/operators';
 import { Observable, from, of, throwError } from 'rxjs';
 import { ConfirmDialogService } from '../confirm-dialog/confirm-dialog.service';

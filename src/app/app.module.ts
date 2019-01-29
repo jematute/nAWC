@@ -16,6 +16,8 @@ import { SignalRModule, ConnectionTransports } from 'ng2-signalr';
 import { UiApiModule, PluginManagerService } from 'projects/ui-api/src';
 import { PluginsModule } from './plugins/plugins.module';
 import { LocalizationService } from 'projects/ui-api/src';
+import { PluginsService } from './plugins/plugins.service';
+import { DialogModule } from 'primeng/dialog';
 // import { SignalRConfiguration, ConnectionTransport } from 'ng2-signalr';
 // import { Global } from './classes/global';
 
@@ -33,6 +35,8 @@ import { LocalizationService } from 'projects/ui-api/src';
 //   return c;
 // }
 
+const componentsToLoad = PluginsService.getComponents();
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +44,7 @@ import { LocalizationService } from 'projects/ui-api/src';
   entryComponents: [ ],
   imports: [
     BrowserModule, BrowserAnimationsModule, UiApiModule, PluginsModule,
-    AppRoutingModule, HttpClientModule, LoginModule, ClientServicesModule, BowserModule
+    AppRoutingModule, HttpClientModule, LoginModule, ClientServicesModule, BowserModule, DialogModule
   ],
   exports: [ ],
   bootstrap: [ AppComponent ],

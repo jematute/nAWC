@@ -1,7 +1,7 @@
 import { Injectable, EventEmitter, Injector } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
-import { GridApi } from 'ag-grid';
+import { GridApi } from 'ag-grid-community';
 import { Router } from '@angular/router';
 import { AdeptDataTable, GetDataParams } from '../classes/getdataparams';
 import { Column } from '../classes/column';

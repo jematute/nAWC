@@ -1,4 +1,4 @@
-import { Injectable, Compiler, EventEmitter } from '@angular/core';
+import { Injectable, Compiler, EventEmitter, Injector } from '@angular/core';
 
 declare var SystemJS: any;
 
@@ -10,9 +10,11 @@ import * as BrowserAnimations from '@angular/platform-browser/animations';
 import * as RXJS from 'rxjs';
 import * as RXJSOperators from 'rxjs/operators';
 import * as UIApi from 'ui-api';
+import * as AngularMaterial from '@angular/material';
+import * as PrimeNGDialog from 'primeng/dialog';
 
 import { HttpClient } from '@angular/common/http';
-import { map, tap, switchMap, concatMap } from 'rxjs/operators';
+import { map, tap, switchMap, concatMap, takeLast } from 'rxjs/operators';
 import { Observable, from } from 'rxjs';
 import { PluginsConfig, Plugin, UiApiModule } from 'projects/ui-api/src';
 
@@ -21,20 +23,26 @@ import { PluginsConfig, Plugin, UiApiModule } from 'projects/ui-api/src';
 })
 export class PluginsService {
 
-  constructor(private compiler: Compiler, private http: HttpClient) { }
+  constructor(private compiler: Compiler, private http: HttpClient, private _injector: Injector) { }
+
+
   toolbarButtons: Array<any> = [];
   onPluginsLoaded: EventEmitter<boolean> = new EventEmitter<boolean>();
-  plugins: Array<any> = [];
+  components: Array<any> = [];
+  static getComponents() {
+    return null;
+  }
   loadPlugins(): Observable<any> {
     return this.loadConfig().pipe(switchMap(config => {
       return from(config.plugins).pipe(concatMap(plugin => {
         return from(this.loadModuleSystemJS(plugin)).pipe(map(mod => {
-          const factory = mod.componentFactories.find(f => f.selector === plugin.component);
-          this.plugins.push(factory);
-        }))
+          plugin.components.forEach((item, index) => {
+            const factory = mod.componentFactories.find(f => f.selector === item);
+            this.components.push(factory);
+          });
+        }));
       }));
-      
-    }));
+    }), takeLast(1));
   }
 
   loadConfig(): Observable<PluginsConfig> {
@@ -51,7 +59,8 @@ export class PluginsService {
     SystemJS.set('rxjs/operators', SystemJS.newModule(RXJSOperators));
     SystemJS.set('@angular/platform-browser/animations', SystemJS.newModule(BrowserAnimations));
     SystemJS.set('ui-api', SystemJS.newModule(UIApi));
-
+    SystemJS.set('@angular/material', SystemJS.newModule(AngularMaterial));
+    SystemJS.set('primeng/dialog', SystemJS.newModule(PrimeNGDialog));
     // now, import the new module
     return SystemJS.import(`${url}`).then((module) => {
         return this.compiler.compileModuleAndAllComponentsAsync(module[`${plugin.moduleName}`]).then(compiled => {

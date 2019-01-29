@@ -20,7 +20,7 @@ export class PluginManagerService {
       if (item.interfaceId === commandInterface.interfaceId) {
         this.commandInterfaces.splice(index, 1);
       }
-    })
+    });
   }
 
 

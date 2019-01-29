@@ -1,11 +1,11 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Tab } from '../classes/tab';
 import { ToolbarButton } from '../classes/toolbarbutton';
-import { Observable, of, forkJoin, Subject, concat } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { takeLast } from 'rxjs/operators';
 import { CommandsService } from '../commands/commands.service';
 import { EventAction } from '../classes/commandinterface';
-import { ApiTypes } from '../classes/apitypes';
+
 
 
 @Injectable({
@@ -20,14 +20,16 @@ export class ToolbarService {
   activeTab: Tab;
 
   buttonClicked(button: ToolbarButton, data: any): Observable<any> {
-    //we report to the command service a button has been clicked
-    this.commandsService.beginAction({ action: EventAction.Continue, command: button.command }).subscribe(event => {
-      if (event === EventAction.Continue) {
+    // we report to the command service a button has been clicked
+    this.commandsService
+    .beginCommand({ action: EventAction.Continue, command: button.command, data: data, currentItem: null })
+    .subscribe(item => {
+
+      if (item.action as EventAction === EventAction.Continue) {
         button.action(data);
       }
     });
-
-    return of(true);  
+    return of(true);
   }
 
   addButton(button: ToolbarButton, tabName: string) {

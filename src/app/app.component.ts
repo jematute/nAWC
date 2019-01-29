@@ -20,8 +20,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.plugins.loadPlugins().subscribe(result => {
-      this.plugins.plugins.forEach(element => {
-        this.content.createComponent(element);
+      this.plugins.components.forEach(component => {
+        this.content.createComponent(component);
       });
     });
   }

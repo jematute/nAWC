@@ -94,8 +94,7 @@ export class CheckInService {
 
   // Call the command with a Selection List.
   checkInItem(gridItem: GridItem, stagingFileOperationModel: FileOperationModel): Observable<SelectionCommandResults> {
-    
-    const checkInItemObject: CheckInItemObject = {
+      const checkInItemObject: CheckInItemObject = {
       fileId: gridItem.fileId,
       libId: gridItem.selectionItem.detailedInfo.libId,
       assignToId: gridItem.assignToUserId,
